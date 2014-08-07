@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:security="http://www.springframework.org/schema/security"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+<!-- 
+현재 사이트
+사용자의 인증과 권한 처리 설정
+
+-인증받지 않은 일반사용자
+-인증받은 일반사용자
+-인증받은 관리자
+
+-게시판 (customer > notice.jsp , noticeReg.jsp , noticeDetail.jsp , noticeEdit.jsp
+-게시판 목록(notice.jsp) :  일반사용자(인증 x) : 사이트 접속하는 모든 사용자
+-게시판 상세(noticeDetail.jsp) :  일반사용자(인증 0) : 로그인해서 인증을 받은 일반사용자
+-게시판 글쓰기(noticeReg.jsp) : 관리자 : 인증받은 일반사용자이면서 관리자 권한을 가지는 사용자
+ 
+ 
+-권한 정의 
+ROLE_USER : 인증받은 일반 사용자가 취득하는 롤(권한그룹 : ROEL_Name)
+auto-config="true" : 스프링이 정의하는 환경 설정을 그대로 따라 가겠다
+                     스프링은 로그폼도 별도로 제공
+실제로 DB(DAO) 방법으로 처리하는 것이 원칙 (DB연동 전에)
+in-memory 방식으로 프로그램에서 계정과 비번을 세팅해서 작업 처리 
+authentication : 인증 
+authorities : 관계(권한)
+
+auto-config="true"  인해서  Spring 제공하는 loginForm 으로 이동
+-> 내가 만든 login page 로 가고 싶어요
+
+-->
+<bean id="accessDecisionManager" class="org.springframework.security.access.vote.AffirmativeBased">
+    <property name="decisionVoters">
+        <list>
+            <bean class="org.springframework.security.web.access.expression.WebExpressionVoter"/>
+            <bean class="org.springframework.security.access.vote.RoleVoter">
+                <property name="rolePrefix" value=""/>
+            </bean>
+            <bean class="org.springframework.security.access.vote.AuthenticatedVoter"/>
+        </list>
+    </property>
+</bean>
+
+
+	<!-- RoleVoter 로 구현되는 표준 Role 기반 방식 대신 SpEL(Spring Expression Language) 을 사용 -->
+	<security:http 
+		access-decision-manager-ref="accessDecisionManager"
+		access-denied-page="/sample/management/login.jsp?denied=true"
+		use-expressions="true"
+		>
+		<!-- 로그인 페이지 -->
+		<security:form-login login-page="/sample/management/login.jsp"
+		 authentication-success-handler-ref="loginSuccessHandler"
+		 authentication-failure-handler-ref="loginFailureHandler"
+		 />
+		<!-- 로그아웃 페이지 -->
+		<security:logout logout-success-url="/sample/management/index.jsp" />
+		
+		<!-- accessDecisionManager 사용으로 접두사 생략 -->
+		<security:intercept-url pattern="/sample/management/g*" access="hasAnyRole('manager','master')" />
+		<security:intercept-url pattern="/sample/management/*sub2.jsp" access="hasRole('master')" />
+	</security:http>
+	
+	 <bean id="loginSuccessHandler" class="kr.co.Foundation.core.LoginSuccessHandler"></bean>
+	 <bean id="loginFailureHandler" class="kr.co.Foundation.core.LoginFailureHandler"></bean>
+	 
+    <security:authentication-manager>
+    	<security:authentication-provider>
+	    	<security:jdbc-user-service data-source-ref="dataSource"
+	    	 users-by-username-query="SELECT account_id AS USER_ID  ,  
+	    	                                 password AS PASSWORD ,  
+	    	                                 1 enabled 
+	    	                          FROM account WHERE id=?"
+	    	 authorities-by-username-query="SELECT account_id AS USER_ID  ,  
+	    	                                         role_name AS ROLE_NAME
+			                                FROM authority WHERE account_id=?" />
+    	</security:authentication-provider>
+    </security:authentication-manager>
+</beans>

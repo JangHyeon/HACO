@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+	<!-- ※중요※ Annotation사용시 필수 (주석을 통한 DI 설정) -->
+	<context:annotation-config/>
+	
+	<!-- 
+	사용하고자 하는 컨버터의 빈을 설정 파일에 등록하여야 하는데, 
+	대부분의 메시지 컨버터 빈들은 <mvc:annotation-driven> 전용태그를 통하여 자동등록 된다. 
+	물론 관련 라이브러리들은 클래스 패스에 존재하여야 한다. -->
+	<mvc:annotation-driven />
+	<!-- 
+	//MessageConverter 의 종류//
+	StringHttpMessageConverter
+	FormHttpMessageConverter
+	ByteArrayMessageConverter
+	MarshallingHttpMessageConverter
+	MappingJacksonHttpMessageConverter
+	SourceHttpMessageConverter
+	BufferedImagedHttpMessageConverter
+	Jaxb2RootElementHttpMessageConverter
+	RssChannelHttpMessageConverter
+	 -->
+	
+
+	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
+	<!-- 리소스 경로 예외 처리 -->
+	<mvc:resources mapping="/resources/**" location="/resources/" />
+
+
+	<!-- 컨트롤러 스캔 -->	
+	<context:component-scan base-package="kr.co.Foundation.Controller" />	
+		
+	
+	<!-- Tiles 설정 코드 START -->
+	<bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles2.TilesConfigurer">
+		<property name="definitions">
+			<list>
+				<value>/WEB-INF/views/sample/Sample-Tiles.xml</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="urlBasedViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
+		<property name="viewClass" value="org.springframework.web.servlet.view.tiles2.TilesView" />
+	</bean>
+	<!-- Tiles 설정 코드 END -->
+	
+	<!-- InternalResourceViewResolver a.jsp , b.jsp 파일view 구성하기 -->
+	<!-- Tiles 적용예외 파일 처리 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="prefix" value="/WEB-INF/views/sample/management/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+</beans>

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+<!-- 
+1단계 상속관계로 처리하기 (extends="customer.notice)
+<tiles-definitions>
+  <definition name="customer.notice" template="/WEB-INF/views/customer/inc/layout.jsp">
+    <put-attribute name="title" value="kosta notice list" />
+    <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+    <put-attribute name="aside" value="/WEB-INF/views/customer/inc/aside.jsp" />
+    <put-attribute name="visual" value="/WEB-INF/views/customer/inc/visual.jsp" />
+    <put-attribute name="content" value="/WEB-INF/views/customer/notice.jsp" />
+  </definition>
+  <definition name="customer.noticeDetail" extends="customer.notice">
+       <put-attribute name="content" value="/WEB-INF/views/customer/noticeDetail.jsp" />
+  </definition>
+</tiles-definitions> -->
+
+<!-- 2단계 패턴으로 처리하기 
+공통규칙 : 게시판 (customer.*)
+* => notice
+* => noticeReg
+* => noticeDetail
+
+namespace 기반 customer. * .  * . *
+                       {1}  {2}  {3}
+
+-->
+<!-- <tiles-definitions>
+  <definition name="customer.*" template="/WEB-INF/views/customer/inc/layout.jsp">
+    <put-attribute name="title" value="kosta notice list" />
+    <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+    <put-attribute name="aside" value="/WEB-INF/views/customer/inc/aside.jsp" />
+    <put-attribute name="visual" value="/WEB-INF/views/customer/inc/visual.jsp" />
+    <put-attribute name="content" value="/WEB-INF/views/customer/{1}.jsp" />
+  </definition>
+    <definition name="joinus.*" template="/WEB-INF/views/joinus/inc/layout.jsp">
+    <put-attribute name="title" value="kosta login list" />
+    <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+    <put-attribute name="aside" value="/WEB-INF/views/joinus/inc/aside.jsp" />
+    <put-attribute name="visual" value="/WEB-INF/views/joinus/inc/visual.jsp" />
+    <put-attribute name="content" value="/WEB-INF/views/joinus/{1}.jsp" />
+  </definition>
+</tiles-definitions> -->
+
+
+<!-- 패턴을사용해서 진화하기  *.* 
+
+return customer.notice
+         *     .   *
+         {1}      {2}
+-->
+
+<!-- <tiles-definitions>
+  <definition name="*.*" template="/WEB-INF/views/{1}/inc/layout.jsp">
+    <put-attribute name="title" value="kosta notice list" />
+    <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+    <put-attribute name="aside" value="/WEB-INF/views/{1}/inc/aside.jsp" />
+    <put-attribute name="visual" value="/WEB-INF/views/{1}/inc/visual.jsp" />
+    <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+  </definition>
+</tiles-definitions> -->
+
+
+
+<!-- 최종본 처리하기 -->
+<tiles-definitions>
+  <!-- 샘플 대시보드 경로 처리-->
+  <definition name="Theme.*" template="/WEB-INF/views/sample/management/inc/layout.jsp">
+  	    <put-attribute name="title" value="{1} - Sample Dashboard" />
+  		<put-attribute name="header" value="/WEB-INF/views/sample/management/inc/header.jsp" />
+    	<put-attribute name="aside" value="/WEB-INF/views/sample/management/inc/aside.jsp" />
+  		<put-attribute name="footer" value="/WEB-INF/views/sample/management/inc/footer.jsp" />
+  		<put-attribute name="content" value="/WEB-INF/views/sample/management/{1}.jsp" />
+  </definition>
+  <!-- 
+  <definition name="*.*" template="/WEB-INF/views/{1}/inc/layout.jsp">
+    <put-attribute name="title" value="welcome to kosta" />
+    <put-attribute name="css" value="{2}.css" />
+    <put-attribute name="header" value="/WEB-INF/views/inc/header.jsp" />
+    <put-attribute name="footer" value="/WEB-INF/views/inc/footer.jsp" />
+    <put-attribute name="aside" value="/WEB-INF/views/{1}/inc/aside.jsp" />
+    <put-attribute name="visual" value="/WEB-INF/views/{1}/inc/visual.jsp" />
+    <put-attribute name="content" value="/WEB-INF/views/{1}/{2}.jsp" />
+  </definition> -->
+</tiles-definitions>
