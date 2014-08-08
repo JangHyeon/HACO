@@ -46,7 +46,6 @@ public class SampleController {
 	}
 	
 	///
-	
 
 	@RequestMapping(value = "management/sub2.jsp", method = RequestMethod.GET)
 	public String sub2(Model model){ 
