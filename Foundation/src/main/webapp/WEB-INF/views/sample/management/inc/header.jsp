@@ -156,13 +156,33 @@
             <div class="top-menu">
             	<ul class="nav pull-right top-menu">
                     <li><a class="logout" href="${pageContext.request.contextPath}/j_spring_security_logout">Logout</a></li>
-                    
-			 <s:authentication property="name" var="LoginUser"/>
-			 <s:authorize ifAnyGranted="manager,master">
-			 	<li><a href="${pageContext.request.contextPath}/j_spring_security_logout">
-			 	(${LoginUser})로그아웃</a></li>
-			 </s:authorize>
+					<s:authorize ifAnyGranted="MANAGER,TEACHER,CENTER,MASTER">
+			 			<li><a href="${pageContext.request.contextPath}/j_spring_security_logout">
+			 			로그아웃</a></li>
+			 		</s:authorize>
             	</ul>
+            	
+            			 			 
+<%-- 
+
+<sec:authorize ifAllGranted="ROLE_USER,ROLE_ADMIN"></sec:authorize>  
+: 사용자가 ROLE_USER,ROLE_ADMIN 두개의 권한을 다 가져야 볼수 있음.
+<sec:authorize ifNotGranted="ROLE_USER,ROLE_ADMIN"></sec:authorize>
+: 사용자가 ROLE_USER,ROLE_ADMIN 중 하나라도 가지고 있으면 볼수 없음. 
+<sec:authorize ifAnyGranted="ROLE_USER,ROLE_ADMIN"></sec:authorize>
+: 사용자가 ROLE_USER,ROLE_ADMIN 중 하나라도 가지고 있으면 볼 수 있음. 
+
+ --%>			 
+
+			 <!-- : 권한의 이름  -->
+			 <s:authentication property="Authorities"/><br>
+			 
+			 <!-- : 키로 설정한 값 (principle) -->
+			 <s:authentication property="name"/>
+			 
+			 <!-- : authentication에 저장된 모든 값 -->
+			 <!-- <s:authentication property="principal"/> -->
+ 
             </div>
         </header>
       <!--header end-->

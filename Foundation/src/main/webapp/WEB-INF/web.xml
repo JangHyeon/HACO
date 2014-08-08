@@ -19,23 +19,6 @@
 		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
 	</listener>
 
-
-	<!-- 개별빈 -->
-	<!-- Sample 빈 -->
-	<servlet>
-		<servlet-name>ThemeServlet</servlet-name>
-		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
-		<init-param>
-			<param-name>contextConfigLocation</param-name>
-			<param-value>/WEB-INF/spring/appServlet/sample-context.xml</param-value>
-		</init-param>
-		<load-on-startup>1</load-on-startup>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>ThemeServlet</servlet-name>
-		<url-pattern>/sample/*</url-pattern>
-	</servlet-mapping>
-
   <!-- 한글처리 -->
   <filter>
     <filter-name>EncodingFilter</filter-name>
@@ -46,7 +29,20 @@
       <param-name>encoding</param-name>
       <param-value>UTF-8</param-value>
     </init-param>
+  	<init-param>
+  		<!-- 
+  		forceEncoding이란 입력한 인코딩으로 
+  		HttpServletReauest, httpServletResponse 객체를 강제세팅을 할지 여부이다. 
+
+  		false(기본값) - getCharacterEncoding 메소드 값이 null일때만 setCharacterEncoding으로 인코딩 세팅 
+  		true - 기존 인코딩이 잡혀있어도 강제적으로 세팅
+  				response객체도 미리 세팅한다.  				
+  		 -->
+   		<param-name>forceEncoding</param-name>
+   		<param-value>true</param-value>
+	</init-param>
   </filter>
+  
   <filter-mapping>
     <filter-name>EncodingFilter</filter-name>
     <url-pattern>/*</url-pattern>
@@ -68,12 +64,38 @@
 
   
   <!-- 에러 페이지 (◆)-->
+  	<!-- <error-page>
+		<error-code>403</error-code>
+		<location>/Error/NoAuthority.jsp</location>
+	</error-page>
   	<error-page>
 		<error-code>404</error-code>
-		<location>/Error/Error.jsp</location>
+		<location>/Error/EmptyPage.jsp</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
 		<location>/Error/Error.jsp</location>
-	</error-page>
+	</error-page> -->
+	
+	
+	
+
+	<!-- 개별빈 -->
+	<!-- Sample 빈 -->
+	<servlet>
+		<servlet-name>ThemeServlet</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>/WEB-INF/spring/appServlet/sample-context.xml</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ThemeServlet</servlet-name>
+		<url-pattern>/sample/*</url-pattern>
+	</servlet-mapping>
+	
+	
+	
 </web-app>

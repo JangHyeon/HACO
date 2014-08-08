@@ -13,7 +13,8 @@
               <ul class="sidebar-menu" id="nav-accordion">
               
               	  <p class="centered"><a href="profile.jsp"><img src="${pageContext.request.contextPath}/resources/assets/img/ui-sam.jpg" class="img-circle" width="60"></a></p>
-              	  <h5 class="centered">Marcel Newman</h5>
+              	  <h5 class="centered">Marcel Newman
+              	  ${employee.name_kor} ${employee.name_eng}</h5>
               	  	
                   <li class="mt">
                       <a href="index.jsp">
@@ -34,12 +35,15 @@
                       </ul>
                   </li>
                   
+				<s:authorize ifAnyGranted="MASTER,CENTER">
                   <li class="sub-menu">
                       <a href="sub2.jsp" >
                           <i class="fa fa-desktop"></i>
-                          <span>sub2</span>
+                          <span>MASTER, CENTER ONLY</span>
                       </a>
                   </li>
+				</s:authorize>
+
 
                   <li class="sub-menu">
                       <a href="javascript:;" >

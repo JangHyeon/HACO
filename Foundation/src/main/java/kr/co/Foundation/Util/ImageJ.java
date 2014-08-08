@@ -1,4 +1,4 @@
-package kr.co.Foundation.core;
+package kr.co.Foundation.Util;
 
 import ij.IJ;
 import ij.ImagePlus;

@@ -1,21 +1,34 @@
 package kr.co.Foundation.Controller;
 
+import java.security.Principal;
+
+import kr.co.Foundation.DAO.AccountDAO;
+import kr.co.Foundation.Service.AccountService;
+import kr.co.Foundation.Service.AccountServiceImpl;
+
+import org.apache.ibatis.session.SqlSession;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 public class SampleController {
+	
+	@Autowired
+	AccountService accountService;
 
 	@RequestMapping(value = "management/index.jsp", method = RequestMethod.GET)
-	public String index() {
-		//Tiles 적용 이전
-		//return "index.html";
+	public String index(Model model, Principal principal) {
+		model.addAttribute("employee",accountService.getEmployee(principal.getName()));
+		
+		
+		
 		return "Theme.index";
 	}
 	
 	///
-
 
 	@RequestMapping(value = "management/general.jsp", method = RequestMethod.GET)
 	public String general() {		
@@ -37,9 +50,8 @@ public class SampleController {
 	
 
 	@RequestMapping(value = "management/sub2.jsp", method = RequestMethod.GET)
-	public String sub2() {		
-		//Tiles 적용 이전
-		//return "index.html";
+	public String sub2(Model model){ 
+		model.addAttribute("roleList",accountService.getRoleList());
 		return "Theme.sub2";
 	}
 	

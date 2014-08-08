@@ -8,7 +8,11 @@
 	<!-- id명은 인터페이스가 구현하는 함수명 -->
 	<!-- resultType은 랩퍼클래스 타입 -->
 	<select id="getRoleList" resultType="kr.co.Foundation.VO.Roles">
-		select role_id, role_name, role_desc, create_date from roles
+		select role_name, role_desc, create_date from roles
+	</select>
+		
+	<select id="getEmployee" parameterType="Integer" resultType="kr.co.Foundation.VO.Employee">
+		select * from employee where account_id=#{param1}
 	</select>
 	
 	<!-- 
@@ -57,44 +61,6 @@
 	
 	
 	
-	
-	
-	
-	
-	<!-- 샘플코드 -->
-	<!-- 
-	<resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap">
-		<id column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="funkyNumber" property="funkyNumber"/>
-		<result column="roundingMode" property="roundingMode"/>
-	</resultMap>
-
-	<select id="getUser" resultMap="usermap">
-		select * from users
-	</select>
-	<insert id="insert">
-	    insert into users (id, name, funkyNumber, roundingMode) values (
-	    	#{id}, #{name}, #{funkyNumber}, #{roundingMode}
-	    )
-	</insert>
-	
-	<resultMap type="org.apache.ibatis.submitted.rounding.User" id="usermap2">
-		<id column="id" property="id"/>
-		<result column="name" property="name"/>
-		<result column="funkyNumber" property="funkyNumber"/>
-		<result column="roundingMode" property="roundingMode" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
-	</resultMap>
-	<select id="getUser2" resultMap="usermap2">
-		select * from users2
-	</select>
-	<insert id="insert2">
-	    insert into users2 (id, name, funkyNumber, roundingMode) values (
-	    	#{id}, #{name}, #{funkyNumber}, #{roundingMode, typeHandler=org.apache.ibatis.type.EnumTypeHandler}
-	    )
-	</insert>
- 	-->
- 	
  	
  	
 </mapper>

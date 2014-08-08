@@ -59,12 +59,12 @@ auto-config="true"  인해서  Spring 제공하는 loginForm 으로 이동
 		<security:logout logout-success-url="/sample/management/index.jsp" />
 		
 		<!-- accessDecisionManager 사용으로 접두사 생략 -->
-		<security:intercept-url pattern="/sample/management/g*" access="hasAnyRole('manager','master')" />
-		<security:intercept-url pattern="/sample/management/*sub2.jsp" access="hasRole('master')" />
+		<security:intercept-url pattern="/sample/management/g*" access="hasAnyRole('MANAGER','MASTER')" />
+		<security:intercept-url pattern="/sample/management/*sub2.jsp" access="hasRole('MASTER')" />
 	</security:http>
 	
-	 <bean id="loginSuccessHandler" class="kr.co.Foundation.core.LoginSuccessHandler"></bean>
-	 <bean id="loginFailureHandler" class="kr.co.Foundation.core.LoginFailureHandler"></bean>
+	 <bean id="loginSuccessHandler" class="kr.co.Foundation.Handler.LoginSuccessHandler"></bean>
+	 <bean id="loginFailureHandler" class="kr.co.Foundation.Handler.LoginFailureHandler"></bean>
 	 
     <security:authentication-manager>
     	<security:authentication-provider>

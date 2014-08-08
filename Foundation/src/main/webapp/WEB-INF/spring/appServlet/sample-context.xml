@@ -6,14 +6,27 @@
 	xmlns:p="http://www.springframework.org/schema/p"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
-	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
-		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
-		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
-		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+	xmlns:security="http://www.springframework.org/schema/security" 
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/security
+		http://www.springframework.org/schema/security/spring-security-3.2.xsd
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.2.xsd">
+
+
+	<!-- 보안 어노테이션 -->
+	<security:global-method-security pre-post-annotations="enabled" />
 
 	<!-- ※중요※ Annotation사용시 필수 (주석을 통한 DI 설정) -->
 	<context:annotation-config/>
+	
 	
 	<!-- 
 	사용하고자 하는 컨버터의 빈을 설정 파일에 등록하여야 하는데, 
@@ -34,13 +47,13 @@
 	 -->
 	
 
+	<!-- 컨트롤러 스캔 -->	
+	<context:component-scan base-package="kr.co.Foundation" />
+
 	<!-- Handles HTTP GET requests for /resources/** by efficiently serving up static resources in the ${webappRoot}/resources directory -->
 	<!-- 리소스 경로 예외 처리 -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 
-
-	<!-- 컨트롤러 스캔 -->	
-	<context:component-scan base-package="kr.co.Foundation.Controller" />	
 		
 	
 	<!-- Tiles 설정 코드 START -->

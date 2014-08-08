@@ -44,6 +44,16 @@
 		            <input name="j_username" type="text" class="form-control" placeholder="User ID" autofocus>
 		            <br>
 		            <input name="j_password" type="password" class="form-control" placeholder="Password">
+		            <c:if test="${param.error != null}">
+						<div>
+							로그인 실패<br>
+							<c:if test="${SPRING_SECURITY_LAST_EXCEPTION != null}">
+								이유 : <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}"/>
+							</c:if>
+						</div>
+					</c:if>
+		            
+		            
 		            <label class="checkbox">
 		                <span class="pull-right">
 		                    <a data-toggle="modal" href="login.html#myModal"> Forgot Password?</a>

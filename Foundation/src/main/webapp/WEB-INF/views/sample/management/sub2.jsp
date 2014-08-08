@@ -27,6 +27,9 @@
               <div class="col-lg-9 main-chart">
                	<div class="row mtbox">
 					<h1>서브페이지 샘플</h1>
+					<c:forEach var="role" items="${roleList}">
+						${role.role_name} / ${role.role_desc}
+					</c:forEach>
 				</div>
 			</div>
 			</div>          
