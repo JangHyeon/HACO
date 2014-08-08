@@ -19,7 +19,7 @@ public class SampleController {
 	@RequestMapping(value = "management/index.jsp", method = RequestMethod.GET)
 	public String index(Model model, Principal principal) {
 		if(principal!=null){
-			System.out.println("principal");
+		
 			model.addAttribute("employee",accountService.getEmployee(principal.getName()));
 		}
 		return "Theme.index";
