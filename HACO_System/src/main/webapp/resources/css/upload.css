@@ -1,0 +1,22 @@
+@CHARSET "UTF-8";
+
+#img-preview{
+	float:left;
+	margin-right:10px;
+	/* width: 177px; */
+	width: 118px;
+	/* height: 236px; */
+	height: 157px;
+	overflow: hidden;
+	position: relative;
+	/* opacity:0.2; */
+	background: url(/haco/images/User-Role-Guest-icon.png) no-repeat 0 0;
+	background-size: 100% auto;
+	background-position: 3px 20px;
+	border: 1px solid #eee;
+}
+
+
+#img-preview .photo{
+	width: 100%;
+}
