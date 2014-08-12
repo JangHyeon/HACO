@@ -38,7 +38,7 @@ public class ManagementController {
 	
 
 	//직원정보 사진 업로드
-	@RequestMapping(value = "photoUpload", method = RequestMethod.POST)
+	@RequestMapping(value="photoUpload", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, String> photoUpload(MultipartHttpServletRequest req){
 		
@@ -203,4 +203,6 @@ public class ManagementController {
 	public String todo_list() {		
 		return "management.teacher";
 	}
+	
+	
 }
