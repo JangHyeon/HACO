@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 구현하고자하는 인터페이스 풀경로 -->
+ <!-- EmployeeDAO를 구현하는 Mapper -->
+<mapper namespace="kr.co.haco.DAO.EmployeeDAO"> 	
+	<select id="getAccountId" resultType="Integer">
+		SELECT max(account_id)+1 as account_id FROM account
+	</select>
+	<insert id="addAccount" parameterType="Integer">	 	
+		INSERT INTO account (state_code,id,password) VALUES(1,#{account_id},'1006')	
+	</insert>	
+	<insert id="addEmployee">
+		INSERT INTO employee 
+		(account_id,job_code,name_kor,name_eng,gender,address_registered,address_real,
+			phone_cell,email,join_date,join_center,center_id,resident_registration_num1,resident_registration_num2)
+		VALUES(#{account_id},#{job_code},#{name_kor},#{name_eng},#{gender},#{address_registered},#{address_real},
+			#{phone_cell},#{email},#{join_date},#{join_center},#{center_id},#{resident_registration_num1},#{resident_registration_num2})
+	</insert>
+</mapper>

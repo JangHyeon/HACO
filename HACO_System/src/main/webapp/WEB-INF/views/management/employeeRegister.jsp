@@ -44,7 +44,7 @@
 					<h4 class="mb">
 						<i class="fa fa-angle-right"></i> 계정 등록
 					</h4>
-					<form class="form-horizontal style-form" method="get">
+					<form class="form-horizontal style-form" action="employeeRegister" method="post">
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">사진</label>
 							<div class="col-sm-10">
@@ -74,227 +74,134 @@
 
 
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">Default</label>
+							<label class="col-sm-2 col-sm-2 control-label">한글 이름</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control">
+								<input type="text" class="form-control" name="name_kor">
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">Help text</label>
+							<label class="col-sm-2 col-sm-2 control-label">영문 이름</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control"> <span
-									class="help-block">A block of help text that breaks onto
-									a new line and may extend beyond one line.</span>
+								<input type="text" class="form-control" name="name_eng">
 							</div>
-						</div>
+						</div>					
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">Rounder</label>
+							<label class="col-sm-2 col-sm-2 control-label">성별</label>
+							<div class="col-lg-6">
+						    <div class="input-group">	
+						    	&nbsp;&nbsp;&nbsp;							     
+								<label> <input type="radio" name="gender"
+									id="optionsRadios1" value="M"> 남자
+								</label>
+						     	&nbsp;&nbsp;&nbsp;						     	
+							 
+								<label> <input type="radio" name="gender"
+									id="optionsRadios2" value="F"> 여자
+								</label>							  
+						    </div>
+  						  </div>
+						</div>	
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">직무</label>
+							<div class="col-lg-6">
+						    <div class="input-group">
+						    	&nbsp;&nbsp;&nbsp;								     
+								<label> <input type="radio" name="job_code"
+									id="optionsRadios1" value="1"> 1강사
+								</label>
+						     	&nbsp;&nbsp;&nbsp;					 
+								<label> <input type="radio" name="job_code"
+									id="optionsRadios2" value="2"> 2관리직원
+								</label>	
+								&nbsp;&nbsp;&nbsp;		
+								<label> <input type="radio" name="job_code"
+									id="optionsRadios2" value="3"> 3센터장
+								</label>					  
+						    </div>
+  						  </div>
+						</div>
+						
+			<%-- 			<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">직무</label>
+							<div class="col-lg-6">
+						    <div class="input-group">
+						      <span class="input-group-addon">
+						        <input type="radio" name="job_code" value="1">
+						      </span>
+						      <input type="text" class="form-control" value="1강사" readonly>						     
+						      <span class="input-group-addon">
+						        <input type="radio" name="job_code" value="2">
+						      </span>
+						      <input type="text" class="form-control" value="2관리직원" readonly>
+						      <span class="input-group-addon">
+						        <input type="radio" name="job_code" value="3">
+						      </span>
+						      <input type="text" class="form-control" value="3센터장" readonly>
+						    </div><!-- /input-group -->
+  						  </div><!-- /.col-lg-6 -->
+						</div>		
+						 --%>					
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">주민등록번호</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control round-form">
+								<input type="text" class="form-control-je" 
+								name="resident_registration_num1" maxlength="6"> -
+								<input type="text" class="form-control-je" 
+								name="resident_registration_num2" maxlength="7">
 							</div>
-						</div>
+						</div>	
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">Input
-								focus</label>
+							<label class="col-sm-2 col-sm-2 control-label">주민등록지주소</label>
 							<div class="col-sm-10">
-								<input class="form-control" id="focusedInput" type="text"
-									value="This is focused...">
+								<input type="text" class="form-control" name="address_registered">
 							</div>
-						</div>
+						</div>	
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">Disabled</label>
+							<label class="col-sm-2 col-sm-2 control-label">거주지주소</label>
 							<div class="col-sm-10">
-								<input class="form-control" id="disabledInput" type="text"
-									placeholder="Disabled input here..." disabled>
+								<input type="text" class="form-control" name="address_real">
 							</div>
-						</div>
+						</div>	
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">Placeholder</label>
+							<label class="col-sm-2 col-sm-2 control-label">휴대폰번호</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control"
-									placeholder="placeholder">
+								<input type="text" class="form-control" name="phone_cell">
 							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">Password</label>
+						</div>	
+					<!-- 	<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">휴대폰번호</label>
 							<div class="col-sm-10">
-								<input type="password" class="form-control" placeholder="">
+								<input type="text" class="form-control-je" 
+								name="phone_cell1" maxlength="3"> -
+								<input type="text" class="form-control-je" 
+								name="phone_cell2" maxlength="4"> -
+								<input type="text" class="form-control-je" 
+								name="phone_cell3" maxlength="4">
 							</div>
-						</div>
+						</div>	 -->
 						<div class="form-group">
-							<label class="col-lg-2 col-sm-2 control-label">Static
-								control</label>
-							<div class="col-lg-10">
-								<p class="form-control-static">email@example.com</p>
+							<label class="col-sm-2 col-sm-2 control-label">이메일</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="email">
 							</div>
-						</div>
+						</div>	
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">채용센터</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="join_center">
+							</div>
+						</div>						
+						<input type="hidden" name="center_id" value="9">
+						<input type="hidden" name="join_date" value="2014-08-02">		
+									
+						<button type="submit" class="btn btn-theme">등록</button>						
 					</form>
 				</div>
 			</div>
 			<!-- col-lg-12-->
 		</div>
 		<!-- /row -->
-
-		<!-- INLINE FORM ELELEMNTS -->
-		<div class="row mt">
-			<div class="col-lg-12">
-				<div class="form-panel">
-					<h4 class="mb">
-						<i class="fa fa-angle-right"></i> 직원 정보 등록
-					</h4>
-					<form class="form-inline" role="form">
-						<div class="form-group">
-							<label class="sr-only" for="exampleInputEmail2">Email
-								address</label> <input type="email" class="form-control"
-								id="exampleInputEmail2" placeholder="Enter email">
-						</div>
-						<div class="form-group">
-							<label class="sr-only" for="exampleInputPassword2">Password</label>
-							<input type="password" class="form-control"
-								id="exampleInputPassword2" placeholder="Password">
-						</div>
-						<button type="submit" class="btn btn-theme">Sign in</button>
-					</form>
-				</div>
-				<!-- /form-panel -->
-			</div>
-			<!-- /col-lg-12 -->
-		</div>
-		<!-- /row -->
-
-		<!-- INPUT MESSAGES -->
-		<div class="row mt">
-			<div class="col-lg-12">
-				<div class="form-panel">
-					<h4 class="mb">
-						<i class="fa fa-angle-right"></i> Input Messages
-					</h4>
-					<form class="form-horizontal tasi-form" method="get">
-						<div class="form-group has-success">
-							<label class="col-sm-2 control-label col-lg-2" for="inputSuccess">Input
-								with success</label>
-							<div class="col-lg-10">
-								<input type="text" class="form-control" id="inputSuccess">
-							</div>
-						</div>
-						<div class="form-group has-warning">
-							<label class="col-sm-2 control-label col-lg-2" for="inputWarning">Input
-								with warning</label>
-							<div class="col-lg-10">
-								<input type="text" class="form-control" id="inputWarning">
-							</div>
-						</div>
-						<div class="form-group has-error">
-							<label class="col-sm-2 control-label col-lg-2" for="inputError">Input
-								with error</label>
-							<div class="col-lg-10">
-								<input type="text" class="form-control" id="inputError">
-							</div>
-						</div>
-					</form>
-				</div>
-				<!-- /form-panel -->
-			</div>
-			<!-- /col-lg-12 -->
-		</div>
-		<!-- /row -->
-
-		<!-- INPUT MESSAGES -->
-		<div class="row mt">
-			<div class="col-lg-12">
-				<div class="form-panel">
-					<h4 class="mb">
-						<i class="fa fa-angle-right"></i> Checkboxes, Radios & Selects
-					</h4>
-					<div class="checkbox">
-						<label> <input type="checkbox" value=""> Option
-							one is this and that&mdash;be sure to include why it's great
-						</label>
-					</div>
-
-					<div class="radio">
-						<label> <input type="radio" name="optionsRadios"
-							id="optionsRadios1" value="option1" checked> Option one
-							is this and that&mdash;be sure to include why it's great
-						</label>
-					</div>
-					<div class="radio">
-						<label> <input type="radio" name="optionsRadios"
-							id="optionsRadios2" value="option2"> Option two can be
-							something else and selecting it will deselect option one
-						</label>
-					</div>
-
-					<hr>
-					<label class="checkbox-inline"> <input type="checkbox"
-						id="inlineCheckbox1" value="option1"> 1
-					</label> <label class="checkbox-inline"> <input type="checkbox"
-						id="inlineCheckbox2" value="option2"> 2
-					</label> <label class="checkbox-inline"> <input type="checkbox"
-						id="inlineCheckbox3" value="option3"> 3
-					</label>
-
-					<hr>
-					<select class="form-control">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select> <br> <select multiple class="form-control">
-						<option>1</option>
-						<option>2</option>
-						<option>3</option>
-						<option>4</option>
-						<option>5</option>
-					</select>
-				</div>
-				<!-- /form-panel -->
-			</div>
-			<!-- /col-lg-12 -->
-
-			<!-- CUSTOM TOGGLES -->
-			<div class="col-lg-12">
-				<div class="form-panel">
-					<h4 class="mb">
-						<i class="fa fa-angle-right"></i> Custom Toggles
-					</h4>
-					<div class="row mt">
-						<div class="col-sm-6 text-center">
-							<input type="checkbox" checked="" data-toggle="switch" />
-						</div>
-						<div class="col-sm-6 text-center">
-							<input type="checkbox" data-toggle="switch" />
-						</div>
-					</div>
-					<div class="row mt">
-						<div class="col-sm-6 text-center">
-							<div class="switch switch-square"
-								data-on-label="<i class=' fa fa-check'></i>"
-								data-off-label="<i class='fa fa-times'></i>">
-								<input type="checkbox" />
-							</div>
-						</div>
-						<div class="col-sm-6 text-center">
-							<div class="switch switch-square"
-								data-on-label="<i class=' fa fa-check'></i>"
-								data-off-label="<i class='fa fa-times'></i>">
-								<input type="checkbox" checked="" />
-							</div>
-						</div>
-					</div>
-					<div class="row mt">
-						<div class="col-sm-6 text-center">
-							<input type="checkbox" disabled data-toggle="switch" />
-						</div>
-						<div class="col-sm-6 text-center">
-							<input type="checkbox" checked disabled data-toggle="switch" />
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- /row -->
+		
 	</section>
 </section>
 
@@ -311,11 +218,7 @@
 	src="${pageContext.request.contextPath}/resources/js/jquery.fileupload.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
-
-
 <script type="application/javascript">
-
-
 
 </script>
 

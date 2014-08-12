@@ -9,7 +9,9 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import kr.co.haco.Service.AccountService;
+import kr.co.haco.Service.EmployeeService;
 import kr.co.haco.Util.ImageJ;
+import kr.co.haco.VO.Employee;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,8 @@ public class ManagementController {
 	
 	@Autowired
 	AccountService accountService;
+	@Autowired
+	EmployeeService employeeService; 
 	
 	//////직원 관리//////////////////
 	//직원추가
@@ -33,6 +37,11 @@ public class ManagementController {
 	public String employeeManagement(Model model){
 		model.addAttribute("roleList",accountService.getRoleList());
 		return "management.employeeRegister";
+	}
+	@RequestMapping(value = "employeeRegister", method = RequestMethod.POST)
+	public String employeeManagementAdd(Employee employee){		
+		employeeService.addEmployee(employee);
+		return "management.index";
 	}
 	
 	

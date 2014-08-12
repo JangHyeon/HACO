@@ -12,8 +12,8 @@ public class Employee{
 	private String gender;
 	private String address_registered;
 	private String address_real;
-	private int phone_home;
-	private int phone_cell;
+	private String phone_home;
+	private String phone_cell;
 	private int phone_emergency;
 	private String email;
 	private int salary;
@@ -22,9 +22,12 @@ public class Employee{
 	private String account_owner;
 	private Date join_date;
 	private String join_center;
-	private String photo;
+	private int center_id;	
 	private int resident_registration_num1;
-	private int center_id;
+	private int resident_registration_num2;
+	private String photo;
+	
+	//getter,setter
 	public int getAccount_id() {
 		return account_id;
 	}
@@ -67,16 +70,16 @@ public class Employee{
 	public void setAddress_real(String address_real) {
 		this.address_real = address_real;
 	}
-	public int getPhone_home() {
+	public String getPhone_home() {
 		return phone_home;
 	}
-	public void setPhone_home(int phone_home) {
+	public void setPhone_home(String phone_home) {
 		this.phone_home = phone_home;
 	}
-	public int getPhone_cell() {
+	public String getPhone_cell() {
 		return phone_cell;
 	}
-	public void setPhone_cell(int phone_cell) {
+	public void setPhone_cell(String phone_cell) {
 		this.phone_cell = phone_cell;
 	}
 	public int getPhone_emergency() {
@@ -127,11 +130,11 @@ public class Employee{
 	public void setJoin_center(String join_center) {
 		this.join_center = join_center;
 	}
-	public String getPhoto() {
-		return photo;
+	public int getCenter_id() {
+		return center_id;
 	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setCenter_id(int center_id) {
+		this.center_id = center_id;
 	}
 	public int getResident_registration_num1() {
 		return resident_registration_num1;
@@ -139,10 +142,20 @@ public class Employee{
 	public void setResident_registration_num1(int resident_registration_num1) {
 		this.resident_registration_num1 = resident_registration_num1;
 	}
-	public int getCenter_id() {
-		return center_id;
+	public int getResident_registration_num2() {
+		return resident_registration_num2;
 	}
-	public void setCenter_id(int center_id) {
-		this.center_id = center_id;
+	public void setResident_registration_num2(int resident_registration_num2) {
+		this.resident_registration_num2 = resident_registration_num2;
 	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}	
+	
+	
+	
+	
 }
