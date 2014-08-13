@@ -7,60 +7,65 @@
 <mapper namespace="kr.co.haco.DAO.AccountDAO">
 	<!-- id명은 인터페이스가 구현하는 메서드명 -->
 	<!-- resultType은 랩퍼클래스 타입 -->
-	<select id="getRoleList" resultType="kr.co.haco.VO.Roles">
-		select role_name, role_desc, create_date from roles
+	<select id="getSubjectList" parameterType="Integer"
+		resultType="kr.co.haco.VO.Subject">
+		select
+		subject_id,subject_name,lecture_totalday,lecture_totaltime,lecture_time,
+		lecture_target,capacity,tuition_fee from subject
+		<where>
+			<if test="subject_id != null"> subject_id=#{param1}</if>
+		</where>
 	</select>
-		
+
+
+	<select id="getRoleList" resultType="kr.co.haco.VO.Roles">
+		select role_name, role_desc,
+		create_date from roles
+	</select>
+
 	<select id="getEmployee" parameterType="Integer" resultType="kr.co.haco.VO.Employee">
 		select * from employee where account_id=#{param1}
 	</select>
-	
-	<!-- 
-	<insert id="insert" parameterType="kr.or.kosta.vo.Notice">
-		<selectKey order="BEFORE" keyProperty="seq" resultType="String">
-			SELECT NVL(MAX(TO_NUMBER(SEQ),0)+1 FROM TNOTICES
-		</selectKey>
-		INSERT INTO TNOTICES(SEQ, TITLE, CONTENT, WRITER, REGDATE, HIT, FILESRC , FILESRC2) 
-		VALUES(#{seq}, #{title}, #{content}, #{writer}, SYSDATE, 0, #{fileSrc} , #{fileSrc2})
+
+
+<!-- 과목등록  -->
+	<insert id="insertSubject" parameterType="kr.co.haco.VO.Subject">
+		insert into
+		subject(subject_name,capacity,subject_explanation,instructional_objectives,subject_point,
+		lecture_target,lecture_totalday,lecture_totaltime,lecture_time,tuition_fee,lecture_content,center_id)
+		VALUES(#{subject_name},#{capacity},#{subject_explanation},#{instructional_objectives},#{subject_point},
+		#{lecture_target},#{lecture_totalday},#{lecture_totaltime},#{lecture_time},#{tuition_fee},#{lecture_content},#{center_id}
+		)
 	</insert>
-	 -->
-	
-    <!-- 동적쿼리 .... 조별로 테스트 
-    <select id="totalSearch" resultType="kr.co.MiOhRecipe.dto.RecipeDto">
-		SELECT RECIPENO, CATEGORYNO, FOODNO, TITLE, USERID, CONTENT, REGDATE, RECIPEIMAGE, HIT, GOOD, PRODUCTNO, VIDEONAME, RESTAURANTADDR
-		FROM RECIPEBOARD
-		<where>
-			<if test="param2 == 2">
-				categoryNo IN(2,3,4)
-			</if>
-    		  <if test="param2 == 3">
-				categoryNo IN(5,6)
-			</if>
-     		 <if test="param2 == 4">
-				categoryNo IN(7,8)
-			</if>
-			<if test="param1 != null">
-				and (title LIKE '%${param1}%' OR content LIKE '%${param1}%')
-			</if>
-		</where> 		
-		ORDER BY RECIPENO desc
+	<!--과목목록  -->
+	<select id="getSubjectList" 
+		resultType="kr.co.haco.VO.Subject">
+		select
+		subject_id,subject_name,lecture_totalday,lecture_totaltime,lecture_time,
+		lecture_target,capacity,tuition_fee from subject
+		
 	</select>
-    
-    -->
-    
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
- 	
- 	
+<!--과목상세보기  -->
+	<select id="getSubjectList2" parameterType="Integer"
+		resultType="kr.co.haco.VO.Subject">
+		select
+		subject_id,subject_name,lecture_totalday,lecture_totaltime,lecture_time,
+		lecture_target,capacity,tuition_fee from subject
+		where subject_id=#{param1}
+	</select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>

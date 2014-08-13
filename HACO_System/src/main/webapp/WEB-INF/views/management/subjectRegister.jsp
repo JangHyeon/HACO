@@ -1,192 +1,264 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<input id="current-accordion" type="hidden"
+	value="course,subjectRegister" />
+
+<!--external css-->
+<link
+	href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
+
+<!-- Custom styles for this template -->
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css"
+	rel="stylesheet">
 
 
-    <!--external css-->
-    <link href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
-        
-    <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css" rel="stylesheet">
+<input id="current-accordion" type="hidden"
+	value="course,subjectRegister" />
 
-
-	<input id="current-accordion" type="hidden" value="course,subjectRegister"/>
-
-      <!-- **********************************************************************************************************************************************************
+<!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
-      		<div class="row mt">
-      			<div class="col-lg-6 col-md-6 col-sm-12">
-      				<! -- BASIC PROGRESS BARS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Basic Progress Bars</h4>
-	      				<div class="progress">
-						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-						    <span class="sr-only">40% Complete (success)</span>
-						  </div>
-						</div>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-						    <span class="sr-only">20% Complete</span>
-						  </div>
-						</div>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-						    <span class="sr-only">60% Complete (warning)</span>
-						  </div>
-						</div>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-						    <span class="sr-only">80% Complete</span>
-						  </div>
-						</div>
-      				</div><!--/showback -->
-      				
-      				<! -- STRIPPED PROGRESS BARS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Stripped Progress Bars</h4>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-						    <span class="sr-only">40% Complete (success)</span>
-						  </div>
-						</div>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-						    <span class="sr-only">20% Complete</span>
-						  </div>
-						</div>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-						    <span class="sr-only">60% Complete (warning)</span>
-						  </div>
-						</div>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-						    <span class="sr-only">80% Complete (danger)</span>
-						  </div>
-						</div>      				
-					</div><!-- /showback -->
-					
-      				<! -- ANIMATED PROGRESS BARS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Animated Progress Bars</h4>
-	      				<div class="progress progress-striped active">
-						  <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-						    <span class="sr-only">45% Complete</span>
-						  </div>
-						</div>
-      				</div><!-- /showback -->
-      				
-      				<! -- MODALS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Modal Example</h4>
-						<!-- Button trigger modal -->
-						<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
-						  Launch Modal
-						</button>
-						
-						<!-- Modal -->
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-						      </div>
-						      <div class="modal-body">
-						        Hi there, I am a Modal Example for Dashgum Admin Panel.
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						        <button type="button" class="btn btn-primary">Save changes</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>      				
-      				</div><!-- /showback -->
-      				
-      				<! -- GRITTER NOTICES -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Gritter Examples</h4>
-							<p>Click on below buttons to check it out.</p>
-							<a id="add-regular" class="btn btn-default btn-sm" href="javascript:;">Regular</a>
-							<a id="add-sticky" class="btn btn-success  btn-sm" href="javascript:;">Sticky</a>
-							<a id="add-without-image" class="btn btn-info  btn-sm" href="javascript:;">Imageless</a>
-							<a id="add-gritter-light" class="btn btn-warning  btn-sm" href="javascript:;">Light</a>
-							<a id="remove-all" class="btn btn-danger  btn-sm" href="general.html#">Remove all</a>
-      				</div><!-- /showback -->
-      				
-      			</div><! --/col-lg-6 -->
-      			
-      			
-      			<div class="col-lg-6 col-md-6 col-sm-12">
-      				<! -- ALERTS EXAMPLES -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Alerts Examples</h4>
-							<div class="alert alert-success"><b>Well done!</b> You successfully read this important alert message.</div>
-							<div class="alert alert-info"><b>Heads up!</b> This alert needs your attention, but it's not super important.</div>
-							<div class="alert alert-warning"><b>Warning!</b> Better check yourself, you're not looking too good.</div>
-							<div class="alert alert-danger"><b>Oh snap!</b> Change a few things up and try submitting again.</div>      				
-      				</div><!-- /showback -->
-      				
-      				<! -- DISMISSABLE ALERT -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Dismissable Alert</h4>
-						<div class="alert alert-warning alert-dismissable">
-						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						  <strong>Warning!</strong> Better check yourself, you're not looking too good.
-						</div>      				
-      				</div><!-- /showback -->
-      				
-      				<! -- BADGES -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Badges</h4>
-						<span class="badge">5</span>
-						<span class="badge bg-primary">10</span>
-						<span class="badge bg-success">15</span>
-						<span class="badge bg-info">20</span>
-						<span class="badge bg-inverse">25</span>
-						<span class="badge bg-warning">30</span>
-						<span class="badge bg-important">35</span>
-      				</div><!-- /showback -->
-      				
-      				<! -- LABELS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Labels</h4>
-							<span class="label label-default">label</span>
-							<span class="label label-primary">Primary</span>
-							<span class="label label-success">Success</span>
-							<span class="label label-info">Info</span>
-							<span class="label label-warning">Warning</span>
-							<span class="label label-danger">Danger</span>
-                    </div><!-- /showback -->
-      			
-      			</div><!-- /col-lg-6 -->
-      			
-      		</div><!--/ row -->
-          </section><!-- /wrapper -->
-      </section><!-- /MAIN CONTENT -->
+<!--main content start-->
 
-      <!--main content end-->
+<section id="main-content">
+	<section class="wrapper">
+		<h3>
+			<i class="fa fa-angle-right"></i> 서브페이지 샘플
+		</h3>
+		<h5>
+			<a href="http://fontawesome.io/icons/" target="_blank">- aside
+				아이콘 정보</a>
+		</h5>
+		<div class="row">
+
+			<div class="col-md-12">
+				<div class="content-panel">
+					<h4>
+						<i class="fa fa-angle-right"></i> 과목등록
+					</h4>
+					<hr>
+					<table class="table">
+						<thead>
+							<tr>	
+								<th>하악</th>
+								<th>과목명</th>
+								<th>총강의일수</th>
+								<th>총강의시간</th>
+								<th>강의시간</th>
+								<th>수강대상</th>
+								<th>모집인원</th>
+								<th>수강료</th>
+								<th>수정</th>
+								<th>삭제</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="role" items="${roleList}">
+								<tr>
+									<td>${role.subject_id}</td>
+									<td>${role.subject_name}</td>
+									<td>${role.lecture_totalday}</td>
+									<td>${role.lecture_totaltime}</td>
+									<td>${role.lecture_time}</td>
+									<td>${role.lecture_target}</td>
+									<td>${role.capacity}</td>
+									<td>${role.tuition_fee}</td>
+									<td><a
+										href="${pageContext.request.contextPath}/management/Register4?id=${role.subject_id}">
+											<p>수정</p>
+									</a></td>
+									<td><a
+										href="${pageContext.request.contextPath}/management/Register2">
+											<p>삭제</p>
+									</a></td>
+								</tr>
+							</c:forEach>
+
+						</tbody>
+
+					</table>
+					<%--test:${pageContext.request.contextPath}  --%>
+					<a href="${pageContext.request.contextPath}/management/Register2">
+						<p>등록</p>
+					</a>
+				</div>
+				<!-- /content-panel -->
+			</div>
+			<%-- <!-- /col-md-12 -->
+
+			<div class="col-md-12 mt">
+				<div class="content-panel">
+					<table class="table table-hover">
+						<h4>
+							<i class="fa fa-angle-right"></i> Hover Table
+						</h4>
+						<hr>
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>권한</th>
+								<th>설명</th>
+								<th>생성일시</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="role" items="${roleList}">
+								<tr>
+									<td>${role}</td>
+									<td>${role.role_name}</td>
+									<td>${role.role_desc}</td>
+									<td>${role.create_date}</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+				<!--/content-panel -->
+			</div>
+			<!-- /col-md-12 -->
+		</div>
+		<!-- row -->
+
+		<div class="row mt">
+			<div class="col-md-12">
+				<div class="content-panel">
+					<table class="table table-striped table-advance table-hover">
+						<h4>
+							<i class="fa fa-angle-right"></i> Advanced Table
+						</h4>
+						<hr>
+						<thead>
+							<tr>
+								<th><i class="fa fa-bullhorn"></i> Company</th>
+								<th class="hidden-phone"><i class="fa fa-question-circle"></i>
+									Descrition</th>
+								<th><i class="fa fa-bookmark"></i> Profit</th>
+								<th><i class=" fa fa-edit"></i> Status</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a href="basic_table.html#">Company Ltd</a></td>
+								<td class="hidden-phone">Lorem Ipsum dolor</td>
+								<td>12000.00$</td>
+								<td><span class="label label-info label-mini">Due</span></td>
+								<td>
+									<button class="btn btn-success btn-xs">
+										<i class="fa fa-check"></i>
+									</button>
+									<button class="btn btn-primary btn-xs">
+										<i class="fa fa-pencil"></i>
+									</button>
+									<button class="btn btn-danger btn-xs">
+										<i class="fa fa-trash-o "></i>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="basic_table.html#"> Dashgum co </a></td>
+								<td class="hidden-phone">Lorem Ipsum dolor</td>
+								<td>17900.00$</td>
+								<td><span class="label label-warning label-mini">Due</span></td>
+								<td>
+									 
+									<button class="btn btn-primary btn-xs">
+										<i class="fa fa-pencil"></i>
+									</button>
+									<button class="btn btn-danger btn-xs">
+										<i class="fa fa-trash-o "></i>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="basic_table.html#"> Another Co </a></td>
+								<td class="hidden-phone">Lorem Ipsum dolor</td>
+								<td>14400.00$</td>
+								<td><span class="label label-success label-mini">Paid</span></td>
+								<td>
+									<button class="btn btn-success btn-xs">
+										<i class="fa fa-check"></i>
+									</button>
+									<button class="btn btn-primary btn-xs">
+										<i class="fa fa-pencil"></i>
+									</button>
+									<button class="btn btn-danger btn-xs">
+										<i class="fa fa-trash-o "></i>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="basic_table.html#"> Dashgum ext </a></td>
+								<td class="hidden-phone">Lorem Ipsum dolor</td>
+								<td>22000.50$</td>
+								<td><span class="label label-success label-mini">Paid</span></td>
+								<td>
+									<button class="btn btn-success btn-xs">
+										<i class="fa fa-check"></i>
+									</button>
+									<button class="btn btn-primary btn-xs">
+										<i class="fa fa-pencil"></i>
+									</button>
+									<button class="btn btn-danger btn-xs">
+										<i class="fa fa-trash-o "></i>
+									</button>
+								</td>
+							</tr>
+							<tr>
+								<td><a href="basic_table.html#">Total Ltd</a></td>
+								<td class="hidden-phone">Lorem Ipsum dolor</td>
+								<td>12120.00$</td>
+								<td><span class="label label-warning label-mini">Due</span></td>
+								<td>
+									<button class="btn btn-success btn-xs">
+										<i class="fa fa-check"></i>
+									</button>
+									<button class="btn btn-primary btn-xs">
+										<i class="fa fa-pencil"></i>
+									</button>
+									<button class="btn btn-danger btn-xs">
+										<i class="fa fa-trash-o "></i>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<!-- /content-panel -->
+			</div>
+			<!-- /col-md-12 -->
+		</div>
+		<!-- /row --> --%>
+	</section>
+</section>
 
 
 
-	<!-- inclue common script -->
-    <%@ include file="commonScript.jsp" %>
-	
-	<!--script for this page-->
-    
-  <script>
-      //custom select box
 
-      $(function(){
-          
-      });
 
-  </script>
+<!--main content end-->
+
+
+
+<!-- inclue common script -->
+<%@ include file="commonScript.jsp"%>
+
+<!--script for this page-->
+
+<script>
+	//custom select box
+
+	$(function() {
+
+	});
+</script>
 

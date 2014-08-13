@@ -1,6 +1,6 @@
 /*!
  * Bootstrap v3.2.0 (http://getbootstrap.com)
- * Copyright 2011-2014 Twitter, Inc.
+ * Copyright 2011-2014 Twitter, Inc.c
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
 
@@ -394,6 +394,7 @@ th {
 }
 .glyphicon-lock:before {
   content: "\e033";
+
 }
 .glyphicon-flag:before {
   content: "\e034";
@@ -6201,3 +6202,10 @@ button.close {
   }
 }
 /*# sourceMappingURL=bootstrap.css.map */
+
+/*textarea 크기 변경 막기.*/
+textarea {
+	resize:none;
+}
+
+
