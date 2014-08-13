@@ -61,10 +61,14 @@
                   </li>
 				
                   <li class="sub-menu" name="lectureEvaluation">
-                      <a href="${pageContext.request.contextPath}/management/lectureEvaluation">
+                      <a href="javascript:;">
                           <i class="fa fa-tags"></i>
                           <span>수강후기</span>
                       </a>
+                      <ul class="sub">
+                      		<li name="evaluationRegisterform"><a href="${pageContext.request.contextPath}/management/evaluationRegisterform">평가등록</a></li>
+                      		<li name="lectureEvaluation"><a href="${pageContext.request.contextPath}/management/lectureEvaluation">평가 결과</a></li>
+                      </ul>
                   </li>
                   
                   <li class="sub-menu" name="board">

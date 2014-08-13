@@ -139,6 +139,13 @@ public class ManagementController {
 		return "management.lectureRegister";
 	}
 
+	//평가 등록
+	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
+	public String evaluationRegister(){
+		return "management.evaluationRegisterform";
+		
+	}
+	
 	//강의평가
 	@RequestMapping(value = "lectureEvaluation", method = RequestMethod.GET)
 	public String lectureEvaluation() {		
