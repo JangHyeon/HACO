@@ -4,7 +4,6 @@ import java.util.List;
 
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.Roles;
-import kr.co.haco.VO.Subject;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 
@@ -23,27 +22,4 @@ public interface AccountService{
 	
 	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 	public Employee getEmployee(String account_id);
-	
-	
-	
-	//과목등록: 리스트..
-	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
-	public List<Subject> getSubjectList();
-
-	
-	
-	//과목등록: 수정..
-	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
-	public List<Subject> getSubjectList2(String subject_id);
-	
-	//과목등록: 추가..
-	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
-	public int insertSubject(Subject subject);
-	
-	
-	
-	
-	
-	
-	
 }

@@ -56,7 +56,7 @@
 						<tbody>
 							<c:forEach var="role" items="${roleList}">
 								<tr>
-									<td>태스팅용:${role}</td>
+									<td>${role}</td>
 									<td>${role.role_name}</td>
 									<td>${role.role_desc}</td>
 									<td>${role.create_date}</td>

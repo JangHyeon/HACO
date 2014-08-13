@@ -8,11 +8,8 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.UUID;
 
-import javax.servlet.http.HttpServletRequest;
-
 import kr.co.haco.Service.AccountService;
 import kr.co.haco.Util.ImageJ;
-import kr.co.haco.VO.Subject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -24,231 +21,186 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
-@RequestMapping(value = "management/")
+@RequestMapping(value="management/")
 public class ManagementController {
-
+	
 	@Autowired
 	AccountService accountService;
-
-	// ////직원 관리//////////////////
-	// 직원추가
+	
+	//////직원 관리//////////////////
+	//직원추가
 	@RequestMapping(value = "employeeRegister", method = RequestMethod.GET)
-	public String employeeManagement(Model model) {
-		model.addAttribute("roleList", accountService.getRoleList());
+	public String employeeManagement(Model model){
+		model.addAttribute("roleList",accountService.getRoleList());
 		return "management.employeeRegister";
 	}
+	
+	
 
-	// 직원정보 사진 업로드
+	//직원정보 사진 업로드
 	@RequestMapping(value = "photoUpload", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, String> photoUpload(MultipartHttpServletRequest req) {
-
+	public HashMap<String, String> photoUpload(MultipartHttpServletRequest req){
+		
 		System.out.println("photoUpload");
-
-		InputStream in = null;
-		OutputStream out = null;
-
-		MultipartFile multipartFile = req.getFile("files[]");
-
-		String usrUploadDir = "resources/upload/employeePhoto"; // 저장 폴더명
-		// 업로드 파일명
-		String originalFileName = multipartFile.getOriginalFilename();
-		// 저장 파일명
-		String targetFileName = UUID.randomUUID().toString().replace("-", "")
-				+ "."
-				+ originalFileName.substring(
-						originalFileName.lastIndexOf(".") + 1,
-						originalFileName.length()).toLowerCase();
-		// 저장 경로
-		String targetPath = req.getSession().getServletContext()
-				.getRealPath("/")
-				+ File.separator + usrUploadDir;
-
-		File targetPathDir = new File(targetPath);
-		if (!targetPathDir.exists())
-			targetPathDir.mkdir();
-
-		String savedFilePath = targetPathDir + File.separator + targetFileName;
-
-		try {
-			in = multipartFile.getInputStream();
-			out = new FileOutputStream(savedFilePath);
-
-			int readBytes = 0;
-			byte[] buff = new byte[8192];
-
-			while ((readBytes = in.read(buff, 0, 8192)) != -1) {
-				out.write(buff, 0, readBytes);
-			}
-		} catch (IOException e) {
+		
+	    InputStream in = null;
+	    OutputStream out = null;
+	 
+	    MultipartFile multipartFile = req.getFile("files[]");
+	    
+	    String usrUploadDir = "resources/upload/employeePhoto"; //저장 폴더명
+		//업로드 파일명
+	    String originalFileName = multipartFile.getOriginalFilename();
+	    //저장 파일명
+	    String targetFileName = UUID.randomUUID().toString().replace("-", "") + "." +
+	            originalFileName.substring(originalFileName.lastIndexOf(".") + 1, originalFileName.length()).toLowerCase();
+	    //저장 경로
+	    String targetPath = req.getSession().getServletContext().getRealPath("/")+File.separator + usrUploadDir;
+	    
+	    File targetPathDir = new File(targetPath);
+	    if(!targetPathDir.exists()) targetPathDir.mkdir();
+	     
+	    String savedFilePath = targetPathDir + File.separator + targetFileName;
+	     
+	    try {
+	        in = multipartFile.getInputStream();
+	        out = new FileOutputStream(savedFilePath);
+	         
+	        int readBytes = 0;
+	        byte[] buff = new byte[8192];
+	         
+	        while((readBytes=in.read(buff,0,8192))!=-1){
+	            out.write(buff,0,readBytes);
+	        }           
+	    } catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		} finally {
-			if (in != null)
+		} finally{
+	        if(in!=null)
 				try {
 					in.close();
-					if (out != null)
-						out.close();
+			        if(out!=null) out.close();
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		}
-
-		String result = ImageJ.photoCropAndResize(savedFilePath, 177, 236);
-		System.out.println("result-" + result);
-
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("originalFileName", originalFileName);
-		map.put("renameFileName", targetFileName);
-
-		return map;
+	    }
+	    
+	    String result = ImageJ.photoCropAndResize(savedFilePath,177, 236);
+	    System.out.println("result-"+result);
+	    
+	    
+	    
+	    HashMap<String, String> map = new HashMap<String, String>();
+	    map.put("originalFileName", originalFileName);
+	    map.put("renameFileName", targetFileName);
+	     
+	    return map;
 	}
 
-	// 대쉬보드
+	
+	
+	//대쉬보드
 	@RequestMapping(value = "index", method = RequestMethod.GET)
 	public String index() {
 		System.out.println("index");
 		return "management.index";
 	}
-
-	// 출석
+	
+	
+	//출석
 	@RequestMapping(value = "attendance", method = RequestMethod.GET)
 	public String attendance() {
 		return "management.attendance";
 	}
 
-	// //////과정//////////////////////////////////////////////////////////
-
-	// 과목등록
+	////////과정/////////////////
+	//과목등록
 	@RequestMapping(value = "subjectRegister", method = RequestMethod.GET)
-	public String general(Model model) {
-		// 리스트.
-		System.out.println("subjectRegister");
-		model.addAttribute("roleList", accountService.getSubjectList());
-		System.out.println("move:management.subjectRegister");
+	public String general() {		
 		return "management.subjectRegister";
-		
 	}
-	@RequestMapping(value = "Register2", method = RequestMethod.GET)
-	public String test2() {
-		// 리스트.
-		System.out.println("subjectRegister2//");
-		System.out.println("move:management.subjectRegister2");
-		return "management.subjectRegister2";
-		
-	}
-	@RequestMapping(value = "Register3", method = RequestMethod.GET)
-	public String test3(HttpServletRequest request , Subject subject) {
-		// 리스트.
-		System.out.println("subjectRegister3//");
-		System.out.println("move:management.subjectRegister3");
-		System.out.println("parameter : "+request.getParameter("subject_name"));
-		System.out.println("dto : "+subject.getSubject_name());
-		System.out.println("test:"+accountService.insertSubject(subject));
-		return "management.subjectRegister3";
-		//입력..
-	}
-	@RequestMapping(value = "Register4", method = RequestMethod.GET)
-	public String test4(HttpServletRequest request , Subject subject) {
-		// 리스트.
-		System.out.println("subjectRegister4//");
-		System.out.println("move:management.subjectRegister4");
-		System.out.println("id value:"+request.getParameter("id"));
-		System.out.println("testing...1차..");
-		accountService.getSubjectList2(request.getParameter("id"));
-		System.out.println("testing...재발좀되라..");
-		return "management.subjectRegister4"; 
-		//입력..
-	}
-
-	
-	
-	
-	
-	
-	
-	
-	// ////////////////////////////////////////////////////////////////
-
-	// 과정등록
+	//과정등록
 	@RequestMapping(value = "courseRegister", method = RequestMethod.GET)
-	public String buttons() {
+	public String buttons() {		
 		return "management.courseRegister";
 	}
-
-	// 교육센터
+	//교육센터
 	@RequestMapping(value = "educationCenter", method = RequestMethod.GET)
-	public String educationCenter() {
+	public String educationCenter() {		
 		return "management.educationCenter";
 	}
 
-	// 수강신청
+	
+	//수강신청
 	@RequestMapping(value = "lectureRegister", method = RequestMethod.GET)
-	public String lectureRegister() {
+	public String lectureRegister() {		
 		return "management.lectureRegister";
 	}
 
-	// 강의평가
+	//강의평가
 	@RequestMapping(value = "lectureEvaluation", method = RequestMethod.GET)
-	public String lectureEvaluation() {
+	public String lectureEvaluation() {		
 		return "management.lectureEvaluation";
 	}
-
-	// ///게시판////////////////////
-	// 공지
+	
+	
+	/////게시판////////////////////
+	//공지
 	@RequestMapping(value = "notice", method = RequestMethod.GET)
-	public String notice() {
+	public String notice() {		
 		return "management.notice";
 	}
 
-	// 질문과 답변
+	//질문과 답변
 	@RequestMapping(value = "qna", method = RequestMethod.GET)
-	public String qna() {
+	public String qna() {		
 		return "management.qna";
 	}
-
-	// 모임방
+	
+	//모임방
 	@RequestMapping(value = "community", method = RequestMethod.GET)
-	public String community() {
+	public String community() {		
 		return "management.community";
 	}
 
-	// /////원생////////////////
-	// 신규원생
+	
+	
+
+	///////원생////////////////
+	//신규원생
 	@RequestMapping(value = "newMemberList", method = RequestMethod.GET)
-	public String panels() {
+	public String panels() {		
 		return "management.newMemberList";
 	}
-
-	// 원생목록
+	//원생목록
 	@RequestMapping(value = "memberList", method = RequestMethod.GET)
-	public String basic_table() {
+	public String basic_table() {		
 		return "management.memberList";
 	}
-
-	// 퇴교목록
+	//퇴교목록
 	@RequestMapping(value = "leaveMemberList", method = RequestMethod.GET)
-	public String responsive_table() {
+	public String responsive_table() {		
 		return "management.leaveMemberList";
 	}
+	
+	
 
-	// /직원///////
-	// 센터장
+	///직원///////
+	//센터장
 	@RequestMapping(value = "center", method = RequestMethod.GET)
-	public String morris() {
+	public String morris() {		
 		return "management.center";
 	}
-
-	// 관리직원
+	//관리직원
 	@RequestMapping(value = "manager", method = RequestMethod.GET)
-	public String gallery() {
+	public String gallery() {		
 		return "management.manager";
 	}
-
-	// 강사
+	//강사
 	@RequestMapping(value = "teacher", method = RequestMethod.GET)
-	public String todo_list() {
+	public String todo_list() {		
 		return "management.teacher";
 	}
 }
