@@ -9,6 +9,8 @@ import java.util.HashMap;
 import java.util.UUID;
 
 import kr.co.haco.Service.AccountService;
+import kr.co.haco.Service.EvaluationRegisterService;
+import kr.co.haco.Service.EvaluationRegisterformService;
 import kr.co.haco.Util.ImageJ;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,12 @@ public class ManagementController {
 	
 	@Autowired
 	AccountService accountService;
+	
+	@Autowired
+	EvaluationRegisterService evaluationRegisterService; 
+	
+	@Autowired
+	EvaluationRegisterformService evaluationRegisterformService;
 	
 	//////직원 관리//////////////////
 	//직원추가
@@ -138,11 +146,32 @@ public class ManagementController {
 	public String lectureRegister() {		
 		return "management.lectureRegister";
 	}
-
+	
+	// 평가 등록 리스트
+	@RequestMapping(value="evaluationRegister" , method=RequestMethod.GET)
+	public String evaluationRegister(Model model){
+		model.addAttribute("er",evaluationRegisterService.getevaluationRegist());
+		return "management.evaluationRegister";
+		
+	}
+	
 	//평가 등록
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
-	public String evaluationRegister(){
-		return "management.evaluationRegisterform";
+	public String evaluationRegisterform(Model model , String course_name, int type_code , String question){
+		
+		// 윗부분 과정명, 과목명 , 강사명 , 수강기간 뿌려주기
+		// System.out.println(course_name);
+		model.addAttribute("erf",evaluationRegisterformService.getEvaluationRegisterform(course_name));
+		// System.out.println(evaluationRegisterformService.getEvaluationRegisterform(course_name));
+		
+		// 객관식 질문 등록하기 
+		System.out.println(type_code);
+		System.out.println(question);
+		model.addAttribute("insertque",evaluationRegisterformService.getinsertquestion(type_code, question));
+		model.addAttribute("lastid",evaluationRegisterformService.getlastid());	
+			
+			
+			return "management.evaluationRegisterform";
 		
 	}
 	
