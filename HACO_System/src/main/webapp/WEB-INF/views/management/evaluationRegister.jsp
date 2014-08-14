@@ -19,22 +19,18 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          <h3><i class="fa fa-angle-right"></i> Chartjs Charts</h3>
+          <h3><i class="fa fa-angle-right"></i> 강의평가 등록</h3>
               <!-- page start-->
               <div class="tab-pane" id="chartjs">
                       <div class="col-sm-6">
-                          <div class="content-panel">
-							  <h4><i class="fa fa-angle-right"></i> Doughnut</h4>
-                              <div class="panel-body text-center">
-                                  <canvas id="doughnut" height="300" width="400"></canvas>
-                              </div>
-                          </div>
-                      </div>
-                      <!-- 주관식 -->
-                      <div class="col-sm-6">
-                      <div class="content-panel">
-                      	hi- hello
-                      </div>
+                          <div class="table-responsive">
+							  <table class="table table-striped">
+							<tr><td>순번</td><td>센터명</td><td>과정명</td><td>수강일자</td></tr>
+							<c:forEach var="erl" items="${er}">
+								<tr><td>1</td><td>${erl.location}</td><td><a href="${pageContext.request.contextPath}/management/evaluationRegisterform?course_name=${erl.course_name}">${erl.course_name}</a></td><td>${erl.course_start_date} ~ ${erl.course_end_date}</td></tr>
+							</c:forEach>
+							  </table>
+							</div>
                       </div>
               </div>
               <!-- page end-->
@@ -42,14 +38,12 @@
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->
-     
+     <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0-wip/js/bootstrap.min.js"></script>
      
     <!-- inclue common script -->
     <%@ include file="commonScript.jsp" %>
 
     <!--script for this page-->
-    <script src="${pageContext.request.contextPath}/resources/assets/js/chart-master/Chart.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/chartjs-conf.js"></script>
     
   <script>
       //custom select box
@@ -57,18 +51,6 @@
       $(function(){
           $('select.styled').customSelect();
       });
-      
-     
-
-
   </script>
-  <style>
-			body{
-				padding: 0;
-				margin: 0;
-			}
-			#canvas-holder{
-				width:30%;
-			}
-		</style>
+  
 

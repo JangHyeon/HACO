@@ -17,6 +17,8 @@ import kr.co.haco.Util.ImageJ;
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
+import kr.co.haco.Service.EvaluationRegisterService;
+import kr.co.haco.Service.EvaluationRegisterformService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -36,6 +38,12 @@ public class ManagementController {
 	@Autowired
 	EmployeeService employeeService; 
 	
+	@Autowired
+	EvaluationRegisterService evaluationRegisterService; 
+	
+	@Autowired
+	EvaluationRegisterformService evaluationRegisterformService;
+	
 	//////직원 관리//////////////////
 	//직원추가
 	@RequestMapping(value = "employeeRegister", method = RequestMethod.GET)
@@ -52,7 +60,7 @@ public class ManagementController {
 	
 
 	//직원정보 사진 업로드
-	@RequestMapping(value = "photoUpload", method = RequestMethod.POST)
+	@RequestMapping(value="photoUpload", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, String> photoUpload(MultipartHttpServletRequest req){
 		
@@ -152,7 +160,35 @@ public class ManagementController {
 	public String lectureRegister() {		
 		return "management.lectureRegister";
 	}
-
+	
+	// 평가 등록 리스트
+	@RequestMapping(value="evaluationRegister" , method=RequestMethod.GET)
+	public String evaluationRegister(Model model){
+		model.addAttribute("er",evaluationRegisterService.getevaluationRegist());
+		return "management.evaluationRegister";
+		
+	}
+	
+	//평가 등록
+	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
+	public String evaluationRegisterform(Model model , String course_name/*, int type_code , String question*/){
+		
+		// 윗부분 과정명, 과목명 , 강사명 , 수강기간 뿌려주기
+		// System.out.println(course_name);
+		model.addAttribute("erf",evaluationRegisterformService.getEvaluationRegisterform(course_name));
+		// System.out.println(evaluationRegisterformService.getEvaluationRegisterform(course_name));
+		
+		// 객관식 질문 등록하기 
+		/*System.out.println(type_code);
+		System.out.println(question);*/
+		/*model.addAttribute("insertque",evaluationRegisterformService.getinsertquestion(type_code, question));
+		model.addAttribute("lastid",evaluationRegisterformService.getlastid());	
+			*/
+			
+			return "management.evaluationRegisterform";
+		
+	}
+	
 	//강의평가
 	@RequestMapping(value = "lectureEvaluation", method = RequestMethod.GET)
 	public String lectureEvaluation() {		

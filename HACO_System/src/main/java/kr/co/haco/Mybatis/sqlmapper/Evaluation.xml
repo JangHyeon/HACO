@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 구현하고자하는 인터페이스 풀경로 -->
+<mapper namespace="kr.co.haco.DAO.EvaluationRegisterDAO">
+	<!-- 평가등록 리스트 -->
+	<select id="getevaluationRegist" resultType="kr.co.haco.VO.EvaluationRegister">
+		select ec.location ,oc.open_course_id ,oc.course_name , oc.course_start_date , oc.course_end_date 
+		from open_course as oc
+		inner join education_center as ec on oc.center_id = ec.center_id;
+	</select>
+</mapper>
