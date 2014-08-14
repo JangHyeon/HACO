@@ -15,8 +15,25 @@
 	<insert id="addEmployee">
 		INSERT INTO employee 
 		(account_id,job_code,name_kor,name_eng,gender,address_registered,address_real,
-			phone_cell,email,join_date,join_center,center_id,resident_registration_num1,resident_registration_num2)
+			phone_cell,email,join_date,now_center_id,join_center_id,resident_registration_num1,resident_registration_num2)
 		VALUES(#{account_id},#{job_code},#{name_kor},#{name_eng},#{gender},#{address_registered},#{address_real},
-			#{phone_cell},#{email},#{join_date},#{join_center},#{center_id},#{resident_registration_num1},#{resident_registration_num2})
+			#{phone_cell},#{email},#{join_date},#{now_center_id},#{join_center_id},#{resident_registration_num1},#{resident_registration_num2})
 	</insert>
+	
+	<select id="getEmpList" resultType="kr.co.haco.VO.EmployeeList">
+		SELECT e.now_center_id, ec.location AS now_center_name, e.account_id, e.name_kor,e.phone_cell,e.email,e.join_date, 
+				e.join_center_id ,ec2.location AS join_center_name
+		FROM employee e
+			 INNER JOIN education_center ec
+			 ON e.now_center_id = ec.center_id
+			 INNER JOIN education_center ec2
+			 ON e.join_center_id = ec2.center_id
+		WHERE e.job_code= ${param1}
+		<if test="param2 != 0">
+			AND e.now_center_id = ${param2}
+	    </if>		
+	</select>
+	<select id="getEduCenterList" resultType="kr.co.haco.VO.EducationCenter">
+		select center_id, location FROM education_center order by center_id				
+	</select>
 </mapper>

@@ -14,7 +14,7 @@
               
               	  <p class="centered">
               	  	<a href="${pageContext.request.contextPath}/management/profile/${sessionScope.employee.account_id}">
-              	  		<img src="${pageContext.request.contextPath}/employeePhoto/1173606.jpg" class="img-circle" width="80">
+              	  		<img src="${pageContext.request.contextPath}/employeePhoto/${sessionScope.employee.photo}" class="img-circle" width="80">
               	  	</a>
               	  </p>
               	  <h5 class="centered">${sessionScope.employee.name_eng}<br>(${sessionScope.employee.name_kor})</h5>
@@ -97,9 +97,9 @@
                           <span>직원</span>
                       </a>
                       <ul class="sub">
-                          <li name="center"><a  href="${pageContext.request.contextPath}/management/center">센터장</a></li>
-                          <li name="manager"><a  href="${pageContext.request.contextPath}/management/manager">관리직원</a></li>
-                          <li name="teacher"><a  href="${pageContext.request.contextPath}/management/teacher">강사</a></li>
+                          <li name="center"><a  href="${pageContext.request.contextPath}/management/center?now_center_id=0">센터장</a></li>
+                          <li name="manager"><a  href="${pageContext.request.contextPath}/management/manager?now_center_id=0">관리직원</a></li>
+                          <li name="teacher"><a  href="${pageContext.request.contextPath}/management/teacher?now_center_id=0">강사</a></li>
                       </ul>
                   </li>
               </ul>

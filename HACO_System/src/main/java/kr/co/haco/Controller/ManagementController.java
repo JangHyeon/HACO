@@ -6,12 +6,17 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 
 import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.EmployeeService;
 import kr.co.haco.Util.ImageJ;
+import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
+import kr.co.haco.VO.EmployeeList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -197,19 +202,30 @@ public class ManagementController {
 	
 
 	///직원///////
-	//센터장
-	@RequestMapping(value = "center", method = RequestMethod.GET)
-	public String morris() {		
-		return "management.center";
+	@RequestMapping(value = {"center", "manager", "teacher"}, method = RequestMethod.GET)
+	public String gallery(Model model,int now_center_id , HttpServletRequest request) {	
+		int job_code = 0;
+		
+		String myuri = request.getRequestURI();
+			System.out.println("myurl:"+myuri);				
+		String uri = myuri.substring(myuri.lastIndexOf("/")+1);
+			System.out.println("uri:"+uri);
+		if(uri.equals("center")){
+			job_code = 3;
+		}else if(uri.equals("manager")){
+			job_code = 2;
+		}else if(uri.equals("teacher")){
+			job_code = 1;
+		}	
+		
+		List<EmployeeList> emplist =  employeeService.getEmplList(job_code,now_center_id);
+		List<EducationCenter> eduCenterList = employeeService.getEduCenterList();
+		
+		model.addAttribute("uri", uri);
+		model.addAttribute("eduCenterList", eduCenterList);
+		model.addAttribute("job_code", job_code);
+		model.addAttribute("emplist",emplist);
+		return "management.employee";
 	}
-	//관리직원
-	@RequestMapping(value = "manager", method = RequestMethod.GET)
-	public String gallery() {		
-		return "management.manager";
-	}
-	//강사
-	@RequestMapping(value = "teacher", method = RequestMethod.GET)
-	public String todo_list() {		
-		return "management.teacher";
-	}
+
 }

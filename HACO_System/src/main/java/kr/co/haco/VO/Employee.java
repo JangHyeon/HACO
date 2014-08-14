@@ -21,13 +21,13 @@ public class Employee{
 	private String bank_account;
 	private String account_owner;
 	private Date join_date;
-	private String join_center;
-	private int center_id;	
+	private int join_center_id;
+	private int now_center_id;	
 	private int resident_registration_num1;
 	private int resident_registration_num2;
 	private String photo;
 	
-	//getter,setter
+	
 	public int getAccount_id() {
 		return account_id;
 	}
@@ -124,17 +124,17 @@ public class Employee{
 	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
 	}
-	public String getJoin_center() {
-		return join_center;
+	public int getJoin_center_id() {
+		return join_center_id;
 	}
-	public void setJoin_center(String join_center) {
-		this.join_center = join_center;
+	public void setJoin_center_id(int join_center_id) {
+		this.join_center_id = join_center_id;
 	}
-	public int getCenter_id() {
-		return center_id;
+	public int getNow_center_id() {
+		return now_center_id;
 	}
-	public void setCenter_id(int center_id) {
-		this.center_id = center_id;
+	public void setNow_center_id(int now_center_id) {
+		this.now_center_id = now_center_id;
 	}
 	public int getResident_registration_num1() {
 		return resident_registration_num1;
@@ -153,8 +153,7 @@ public class Employee{
 	}
 	public void setPhoto(String photo) {
 		this.photo = photo;
-	}	
-	
+	}
 	
 	
 	

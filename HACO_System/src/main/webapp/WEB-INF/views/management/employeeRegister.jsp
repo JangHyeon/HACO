@@ -188,11 +188,21 @@
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">채용센터</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="join_center">
+								<input type="text" class="form-control" name="join_center_id">
 							</div>
-						</div>						
-						<input type="hidden" name="center_id" value="9">
-						<input type="hidden" name="join_date" value="2014-08-02">		
+						</div>			
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">현재 센터</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="now_center_id">
+							</div>
+						</div>		
+						<div class="form-group">
+							<label class="col-sm-2 col-sm-2 control-label">입사 일자</label>
+							<div class="col-sm-10">
+								<input type="text" class="form-control" name="join_date">
+							</div>
+						</div>												
 									
 						<button type="submit" class="btn btn-theme">등록</button>						
 					</form>
