@@ -2,10 +2,14 @@ package kr.co.haco.Service;
 
 import java.util.List;
 
+import kr.co.haco.VO.Account;
 import kr.co.haco.VO.Employee;
+import kr.co.haco.VO.Member;
 import kr.co.haco.VO.Roles;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface AccountService{
 	//서비스 인터페이스에서 세부 권한 설정	
@@ -22,4 +26,9 @@ public interface AccountService{
 	
 	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 	public Employee getEmployee(String account_id);
+	
+	public String checkId(String id);
+	
+	@Transactional
+	public int joinMember(Account account, Member member) throws DataIntegrityViolationException ; 
 }

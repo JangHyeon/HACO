@@ -1,14 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-      <!--footer start-->
-      <footer class="site-footer">
-          <div class="text-center">
-              Copyright ⓒ 2014 All rights reserved by HACO.
-              <a href="#" class="go-top">
-                  <i class="fa fa-angle-up"></i>
-              </a>
-          </div>
-      </footer>
-      <!--footer end-->
-
+<footer>
+  <div class="container">
+  	<div class="row">
+      <div class="col-md-12 text-right"><h5>©Company 2014</h5></div>
+    </div>
+  </div>
+</footer>

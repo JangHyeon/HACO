@@ -47,7 +47,7 @@ public class ManagementController {
 	    InputStream in = null;
 	    OutputStream out = null;
 	 
-	    MultipartFile multipartFile = req.getFile("files[]");
+	    MultipartFile multipartFile = req.getFile("file");
 	    
 	    String usrUploadDir = "resources/upload/employeePhoto"; //저장 폴더명
 		//업로드 파일명

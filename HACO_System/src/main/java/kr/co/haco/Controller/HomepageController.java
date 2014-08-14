@@ -19,9 +19,9 @@ public class HomepageController {
 	@Autowired
 	AccountService accountService;
 
-	@RequestMapping(value = "index", method = RequestMethod.GET)
+	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model) {
-		model.addAttribute("roleList",accountService.getRoleList());
+		
 		return "homepage.index";
 	}
 	

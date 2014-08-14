@@ -11,6 +11,10 @@
     <meta name="author" content="Dashboard">
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
+	<!-- favicon -->
+	<link rel="icon" href="${pageContext.request.contextPath}/resources/favicon.ico" type="image/x-icon" />
+    
+    
     <title>DASHGUM - Bootstrap Admin Template</title>
 
     <!-- Bootstrap core CSS -->
@@ -85,7 +89,7 @@
 								  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
 								  <strong>Warning!</strong><br>다른 장소에서 로그인이 되어<br> 로그아웃 되었습니다.
 								</div>
-							</c:if>							
+							</c:if>		
 						</div>
 						
 					</c:if>
@@ -102,7 +106,7 @@
 		            
 		            <div class="registration">
 		                계정을 보유하시지 않으신가요?<br/>
-		                <a class="" href="#">
+		                <a class="" href="${pageContext.request.contextPath}/joinIntro">
 		                    계정 생성
 		                </a>
 		            </div>
