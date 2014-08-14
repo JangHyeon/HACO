@@ -17,91 +17,56 @@
               	  
               	  <!-- 센터장, 본점장만 -->	
 				  <s:authorize ifAnyGranted="MASTER,CENTER">
-                  <li class="mt" name="employeeManagement">
-                      <a href="employeeManagement" >
+                  <li class="mt" name="mansgement">
+                      <a href="sub2" >
                           <i class="fa fa-desktop"></i>
-                          <span>직원 관리</span>
+                          <span>Master, Center Only</span>
                       </a>
                   </li>
 				  </s:authorize>
 				
                   <li class="mt" name="index">
                       <a href="index">
-                          <i class="fa fa-tasks"></i>
-                          <span>대쉬보드</span>
-                      </a>
-                  </li>
-				
-                  <li class="sub-menu" name="attendance">
-                      <a href="attendance">
-                          <i class="fa fa-calendar"></i>
-                          <span>출　　석</span>
+                          <i class="fa fa-dashboard"></i>
+                          <span>Dashboard</span>
                       </a>
                   </li>
 
-                  <li class="sub-menu" name="course">
+                  <li class="sub-menu" name="sub1">
                       <a href="javascript:;" >
-                          <i class="fa fa-cubes"></i>
-                          <span>과　　정</span>
+                          <i class="fa fa-desktop"></i>
+                          <span>UI Elements</span>
                       </a>
                       <ul class="sub">
-                          <li name="sub1-1"><a  href="general">과목등록</a></li>
-                          <li name="sub1-2"><a  href="buttons">과정등록</a></li>
-                          <li name="educationCenter"><a  href="educationCenter">교육센터</a></li>
-                      </ul>
-                  </li>
-				
-                  <li class="sub-menu" name="lectureRegister">
-                      <a href="lectureRegister">
-                          <i class="fa fa-envelope"></i>
-                          <span>수강신청</span>
-                      </a>
-                  </li>
-				
-                  <li class="sub-menu" name="lectureEvaluation">
-                      <a href="lectureEvaluation">
-                          <i class="fa fa-tags"></i>
-                          <span>수강후기</span>
-                      </a>
-                  </li>
-                  
-                  <li class="sub-menu" name="board">
-                      <a href="javascript:;" >
-                          <i class="fa fa-comments"></i>
-                          <span>게시판</span>
-                      </a>
-                      <ul class="sub">
-                          <li name="notice"><a  href="notice">공지사항</a></li>
-                          <li name="qna"><a  href="qna">질문과답변</a></li>
-                          <li name="community"><a  href="community">모임방</a></li>
+                          <li name="sub1-1"><a  href="general">General</a></li>
+                          <li name="sub1-2"><a  href="buttons">Buttons</a></li>
+                          <li name="sub1-3"><a  href="panels">Panels</a></li>
                       </ul>
                   </li>
                   
-                  <li class="sub-menu" name="member">
+                  <li class="sub-menu" name="sub2">
                       <a href="javascript:;" >
-                          <i class="fa fa-graduation-cap"></i>
-                          <span>원생</span>
+                          <i class="fa fa-cogs"></i>
+                          <span>Components</span>
                       </a>
                       <ul class="sub">
-                          <li name="membersub1"><a  href="panels">신규 목록</a></li>
-                          <li name="membersub2"><a  href="basic_table">원생 목록</a></li>
-                          <li name="membersub3"><a  href="responsive_table">퇴교 목록</a></li>
+                          <li name="sub2-1"><a  href="calendar">Calendar</a></li>
+                          <li name="sub2-2"><a  href="gallery">Gallery</a></li>
+                          <li name="sub2-3"><a  href="todo_list">Todo List</a></li>
                       </ul>
                   </li>
-                  
-                  <li class="sub-menu" name="employee">
+                  <li class="sub-menu" name="sub3">
                       <a href="javascript:;" >
-                          <i class="fa fa-users"></i>
-                          <span>직원</span>
+                          <i class="fa fa-book"></i>
+                          <span>Extra Pages</span>
                       </a>
                       <ul class="sub">
-                          <li name="sub1"><a  href="morris">센터장</a></li>
-                          <li name="sub2"><a  href="gallery">관리직원</a></li>
-                          <li name="sub3"><a  href="todo_list">강사</a></li>
+                          <li name="sub3-1"><a  href="blank">Blank Page</a></li>
+                          <li name="sub3-2"><a  href="login">Login</a></li>
+                          <li name="sub3-3"><a  href="lock_screen">Lock Screen</a></li>
                       </ul>
                   </li>
-                  
-                  <%-- <li class="sub-menu" name="sub4">
+                  <li class="sub-menu" name="sub4">
                       <a href="javascript:;" >
                           <i class="fa fa-tasks"></i>
                           <span>Forms</span>
@@ -129,7 +94,7 @@
                           <li name="sub6-1"><a  href="morris">Morris</a></li>
                           <li name="sub6-2"><a  href="chartjs">Chartjs</a></li>
                       </ul>
-                  </li> --%>
+                  </li>
 
               </ul>
               <!-- sidebar menu end-->

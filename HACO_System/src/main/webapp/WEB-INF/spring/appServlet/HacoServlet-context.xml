@@ -26,7 +26,10 @@
 
 	<!-- ※중요※ Annotation사용시 필수 (주석을 통한 DI 설정) -->
 	<context:annotation-config/>
-	
+
+	<!-- 빈 설정파일에 아래와 같은 구문을 추가하면, 클래스와 메소드에 @Transactional 애노테이션을 사용할 수 있다. -->	
+	<tx:annotation-driven />
+
 	
 	<!-- 사용하고자 하는 컨버터의 빈을 설정 파일에 등록하여야 하는데, 
 	대부분의 메시지 컨버터 빈들은 <mvc:annotation-driven> 전용태그를 통하여 자동등록 된다. 

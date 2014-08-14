@@ -11,7 +11,7 @@
 	<link rel="icon" href="${pageContext.request.contextPath}/resources/favicon.ico" type="image/x-icon" />
 
 	<!-- title 영역 -->
-	<title><tiles:getAsString name="title"/> - 관리 페이지</title>
+	<title><tiles:getAsString name="title"/> : HACO System</title>
 
 	<!-- Bootstrap core CSS -->
     <link href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.css" rel="stylesheet">

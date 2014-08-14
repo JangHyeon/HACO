@@ -50,12 +50,12 @@
 							<div class="col-sm-10">
 								<div class="cover">
 									<!-- 업로드된 파일 -->
-									<div id="img-preview"><img class="photo" src=""></div>
+									<div id="img-preview"><i id="loadingIcon" class="fa fa-spinner fa-spin fa-5x"></i><img class="photo" src=""></div>
 									<!-- 부트 스트랩 적용 input버튼 -->
 									<!-- The fileinput-button span is used to style the file input field as button -->
 									<span class="btn btn-success fileinput-button"> <i
 										class="glyphicon glyphicon-plus"></i> <span>사진 선택</span> <!-- The file input field used as target for the file upload widget -->
-										<input id="photoUpFile" type="file" name="files[]"
+										<input id="photoUpFile" type="file" name="file"
 										multiple />
 									</span>
 									<!-- 업로드 프로그래스바 -->

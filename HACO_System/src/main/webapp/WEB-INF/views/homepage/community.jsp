@@ -3,21 +3,10 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 
-<header class="masthead">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-6">
-        <h1><a href="#" title="Scroll down for your viewing pleasure">Bootable Template</a>
-          <p class="lead">3-column Theme + Layout for Bootstrap 3.</p></h1>
-      </div>
-      <div class="col-md-6">
-        <div class="well pull-right">
-          <img src="//placehold.it/280x100/E7E7E7">        
-        </div>
-      </div>
-    </div>
-  </div>
-</header>
+
+
+
+
 
 <!-- Begin Body -->
 <div class="container">
@@ -387,12 +376,17 @@
 </div>
 
 <!-- script references -->
-<script src="${pageContext.request.contextPath}/resources/gazONojfL3/js/jquery.1.9.1.min.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/scripts.js"></script>
-
-
+<script src="http://edge.quantserve.com/quant.js" type="text/javascript"></script>
 <script src="//www.google-analytics.com/analytics.js"></script>
+<script type="text/javascript"
+	src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript"
+	src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+<script
+	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.min.js"></script>
+<script
+	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/scripts.js"></script>
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
@@ -430,5 +424,26 @@
 	ga('create', 'UA-40413119-1', 'bootply.com');
 	ga('send', 'pageview');
 </script>
+<!-- Quantcast Tag -->
+<script type="text/javascript">
+	var _qevents = _qevents || [];
+
+	(function() {
+		var elem = document.createElement('script');
+		elem.src = (document.location.protocol == "https:" ? "https://secure"
+				: "http://edge")
+				+ ".quantserve.com/quant.js";
+		elem.async = true;
+		elem.type = "text/javascript";
+		var scpt = document.getElementsByTagName('script')[0];
+		scpt.parentNode.insertBefore(elem, scpt);
+	})();
+
+	_qevents.push({
+		qacct : "p-0cXb7ATGU9nz5"
+	});
+</script>
+
+
 
 

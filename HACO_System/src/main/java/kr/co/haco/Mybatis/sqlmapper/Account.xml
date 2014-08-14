@@ -15,6 +15,45 @@
 		select * from employee where account_id=#{param1}
 	</select>
 	
+	<!-- 아이디 중복 체크 -->
+	<select id="checkId" parameterType="String" resultType="String">
+		select account_id from account where id=#{param1}
+	</select>
+	
+	<select id="getLastInsertId" resultType="Integer">
+		SELECT LAST_INSERT_ID()
+	</select>
+	
+	<!-- 계정 등록 -->
+	<insert id="insertAccount" parameterType="kr.co.haco.VO.Account">
+		insert into account(id,password) values(#{id},#{password});
+	</insert>
+	
+	
+	<!-- 계정 권한 등록 -->
+	<insert id="insertAuthority" parameterType="kr.co.haco.VO.Authority">
+		insert into authority values(#{account_id},#{role_name});
+	</insert>
+	
+	<!-- 회원 정보 등록 -->
+	<insert id="insertMember" parameterType="kr.co.haco.VO.Member">
+		insert into member(account_id,name,email,phone
+		<if test="zipcode">,zipcode</if>
+		<if test="address">,address</if>
+		<if test="address_detail">,address_detail</if>
+		<if test="company">,company</if>
+		<if test="position">,position</if>
+		<if test="job_duty">,job_duty</if>
+		) values(#{account_id},#{name},#{email},#{phone}
+		<if test="zipcode">,#{zipcode}</if>
+		<if test="address">,#{address}</if>
+		<if test="address_detail">,#{address_detail}</if>
+		<if test="company">,#{company}</if>
+		<if test="position">,#{position}</if>
+		<if test="job_duty">,#{job_duty}</if>
+		);
+	</insert>
+	
 	<!-- 
 	<insert id="insert" parameterType="kr.or.kosta.vo.Notice">
 		<selectKey order="BEFORE" keyProperty="seq" resultType="String">

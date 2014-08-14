@@ -22,7 +22,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler
     	System.out.println("=========login success===========");
     	request.getSession().removeAttribute("SPRING_SECURITY_LAST_EXCEPTION");
 
-    	//권한이 없으면 해당 실패핸들러작동
+    	
     	logger.info("[Login] - account_id:["+auth.getName()+"] / 권한:"+auth.getAuthorities().toString());
     	//logger.info(auth.getDetails().toString());
     	//logger.info(auth.getPrincipal().toString());
@@ -40,8 +40,9 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler
         			a.getAuthority().equals("MANAGER")){
     			url = request.getContextPath() + "/employeeLogin"; //직원 로그인
     			break;
-    		}else if(a.getAuthority().equals("STUDENT")){
-    			url = request.getContextPath() + "/studentLogin"; //학생 로그인
+    		}else if(a.getAuthority().equals("STUDENT") ||
+    				a.getAuthority().equals("GUEST")){
+    			url = request.getContextPath() + "/studentLogin"; //손님, 학생 로그인
     		}
     	}
     	response.sendRedirect(url);

@@ -24,7 +24,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
 		int account_id= employeeDAO.getAccountId();
+		System.out.println("account_id:"+account_id);
 		employeeDAO.addAccount(account_id);
+		System.out.println("employeeDAO.addAccount(account_id)처리 완료");
 		employee.setAccount_id(account_id);		
 		employeeDAO.addEmployee(employee);
 	}

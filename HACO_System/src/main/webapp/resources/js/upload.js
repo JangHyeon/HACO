@@ -1,15 +1,18 @@
 $(function(){
 
 //photoUpFile
+$('#loadingIcon').hide();     
+$('#progress_thumbnail').hide();
+
 $('#photoUpFile').fileupload({
 	url : '/haco/management/photoUpload', 
 	dataType: 'json',
     //replaceFileInput: false,
     dropZone:$(''),
-    singleFileUploads:false,
-    limitMultiFileUploads:1,
-            
+    singleFileUploads: 'true',
+    limitMultiFileUploads:'1',
             add: function(e, data){
+                $('#loadingIcon').fadeIn();
                 $('#progress_thumbnail .progress-bar').css('width', '0%');
                 var validFlag = true;
                 var uploadFile = data.files[0];
@@ -45,13 +48,15 @@ $('#photoUpFile').fileupload({
                 var progress = parseInt(data.loaded / data.total * 100, 10);
                 $('#progress_thumbnail .progress-bar').css('width', progress + '%');
             },
-            done: function (e, data) {            	
+            done: function (e, data) {
+                $('#loadingIcon').fadeOut();            	
             	$('#progress_thumbnail').slideUp(1000,function(){});
             	$('#photo').val(data.result.renameFileName);
             	$('#img-preview img').attr("src","/haco/employeePhoto/"+data.result.renameFileName);
             	console.log("업로드 성공");
             },
             fail: function(){
+                $('#loadingIcon').fadeOut();     
             	$('#progress_thumbnail').slideUp(1000,function(){});
                 alert("서버와 통신 중 문제가 발생했습니다");
             }
@@ -62,78 +67,7 @@ $('#photoUpFile').fileupload({
 		//- life cycle은 add -> progress -> done or fail
 		
 		
-      //append_upload
-        $('#appendform').fileupload({
-            url : '../boardorder/imageappend',
-            dataType: 'html',
-            //replaceFileInput: false,
-            dropZone:$(''),
-            
-            add: function(e, data){
-            	$('#tempcount').val($('#sortable').children().size());
-            	$('#progress_append .progress-bar').css('width', '0%');
-                
-                var validFlag = true;
-                var uploadFile = data.files[0];
-                
-                if (!(/png|jpe?g|gif/i).test(uploadFile.name)) {
-                    alert('png, jpg, gif 만 가능합니다');
-                    validFlag = false;   
-                }else if (uploadFile.size > 5*1024*1024) { // 5mb
-                    alert('파일 용량은 5메가를 초과할 수 없습니다.');
-                    validFlag = false;
-                }
-                
-                if (!validFlag) {
-	        		// <input> 초기화 코드
-	        		data.reset();
-	        	}else{
-	        		$('#progress_append').slideDown(100,function(){});
-	        		data.submit();
-	        	}                
-            },
-            progressall: function(e,data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress_append .progress-bar').css('width', progress + '%');
-            },
-            done: function (e, data) {
-            	$('#progress_append').slideUp(1000,function(){});
-            	setTimeout(function(){
-            		$('#sortable').append(data.result);
-            		$('#sortable').children('.add_img').eq($('#tempcount').val()).css('display','none');
-            		$('#sortable').children('.add_img').eq($('#tempcount').val()).slideDown(500, function(){});
-            	},500); 
-            	console.log("업로드 성공");
-            },
-            fail: function(){
-            	$('#progress_append').slideUp(1000,function(){});
-                alert("서버와 통신 중 문제가 발생했습니다");
-            }
-        });
-        
-        
-        //정렬
-        $('#sortable').sortable({
-        	axis:'y',						//이동축고정
-        	opactiy: 0.5,					//투명도
-        	handle:'.handle',				//드래그영역
-        	placeholder:'dropplaceholder',	//빈자리 보여줄css
-        	revert: true,					//부드러운 복귀
-        	//containment: 'parent',			//드래그 영역 정해주기(부모영역) API참조
-        	//tolerance: 'pointer', 		//드래그 오차(커서)
-        	//helper : 'clone' 				//helper : clone로 설정시 드레그 이벤트시 클릭 이벤트는 동작하지 않는다." +
-        									//(명확한 의미는 .... 드레그시 그 우의 이벤트는 무시해주는 느낌)        	
-        });
-        
-        
-        //추가 이미지 삭제
-        $('#sortable').on('click','.btn_close',function(e){
-        	e.preventDefault();
-        	var index = $('.btn_close').index(this);
-        	console.log(index);
-        	$('#sortable').children('.add_img').eq(index).remove();
-        });
-        
+
         
         //글자수 제한
         var textLengthCheck = function(maxLength,count,input){
