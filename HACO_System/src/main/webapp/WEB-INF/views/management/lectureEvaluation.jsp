@@ -30,6 +30,7 @@
                               </div>
                           </div>
                       </div>
+                      <!-- 주관식 -->
                       <div class="col-sm-6">
                       <div class="content-panel">
                       	hi- hello

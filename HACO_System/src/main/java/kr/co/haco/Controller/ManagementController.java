@@ -157,7 +157,7 @@ public class ManagementController {
 	
 	//평가 등록
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
-	public String evaluationRegisterform(Model model , String course_name, int type_code , String question){
+	public String evaluationRegisterform(Model model , String course_name/*, int type_code , String question*/){
 		
 		// 윗부분 과정명, 과목명 , 강사명 , 수강기간 뿌려주기
 		// System.out.println(course_name);
@@ -165,11 +165,11 @@ public class ManagementController {
 		// System.out.println(evaluationRegisterformService.getEvaluationRegisterform(course_name));
 		
 		// 객관식 질문 등록하기 
-		System.out.println(type_code);
-		System.out.println(question);
-		model.addAttribute("insertque",evaluationRegisterformService.getinsertquestion(type_code, question));
+		/*System.out.println(type_code);
+		System.out.println(question);*/
+		/*model.addAttribute("insertque",evaluationRegisterformService.getinsertquestion(type_code, question));
 		model.addAttribute("lastid",evaluationRegisterformService.getlastid());	
-			
+			*/
 			
 			return "management.evaluationRegisterform";
 		
