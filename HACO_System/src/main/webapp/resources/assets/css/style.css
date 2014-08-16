@@ -2273,8 +2273,17 @@ label {
 
 #loadingIcon{
 	position:absolute;
-	margin: 30px;;
+	margin: 30px;
 	margin-top: 45px; 
 	color: #fff;
 	opacity: 0.6;
+}
+
+#idModal2{
+	margin-top: 15px; 
+}
+
+
+#lodingModal{
+	margin-top: 50px;
 }

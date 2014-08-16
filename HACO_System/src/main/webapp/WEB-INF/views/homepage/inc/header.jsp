@@ -39,8 +39,7 @@
           </li>
         </ul>
         <ul class="nav navbar-right navbar-nav">
-          <li><a href="${pageContext.request.contextPath}/login">로그인</a></li>
-          <!-- 
+          <!-- 검색 레이어 
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-search"></i></a>
             <ul class="dropdown-menu" style="padding:12px;">
@@ -50,14 +49,21 @@
              </ul>
           </li>
            -->
-          <li class="dropdown">
+          
+		  <s:authorize ifNotGranted="GUEST,STUDENT">
+		  	<li><a href="${pageContext.request.contextPath}/login">로그인</a></li> 
+		  </s:authorize>
+		  <s:authorize ifAnyGranted="GUEST,STUDENT">
+		  	<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
             <ul class="dropdown-menu">
-              <li><a href="${pageContext.request.contextPath}/login">My Page</a></li>
+              <li><a href="${pageContext.request.contextPath}/myPage">My Page</a></li>
               <li class="divider"></li>
-              <li><a href="${pageContext.request.contextPath}/logout">Logout</a></li>
+              <li><a href="${pageContext.request.contextPath}/memberLogout">Logout</a></li>
              </ul>
           </li>
+		  </s:authorize>
+          
         </ul>
       </div>
     </div>
