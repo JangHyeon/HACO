@@ -47,7 +47,7 @@
 					<form class="form-horizontal style-form" action="employeeRegister" method="post">
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">사진</label>
-							<div class="col-sm-10">
+							<div cemployeeRegister.jsplass="col-sm-10">
 								<div class="cover">
 									<!-- 업로드된 파일 -->
 									<div id="img-preview"><i id="loadingIcon" class="fa fa-spinner fa-spin fa-5x"></i><img class="photo" src=""></div>
