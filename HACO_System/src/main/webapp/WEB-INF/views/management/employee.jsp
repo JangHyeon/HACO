@@ -83,7 +83,7 @@
 								<tr>
 									<td>${emp.now_center_name}</td>
 									<td>${emp.account_id}</td>
-									<td><a href="#">${emp.name_kor}</a></td>
+									<td><a href="employeeDetail?account_id=${emp.account_id}">${emp.name_kor}</a></td>
 									<td>${emp.phone_cell}</td>
 									<td>${emp.email}</td>
 									<td>${emp.join_date}</td>

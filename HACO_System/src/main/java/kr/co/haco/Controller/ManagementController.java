@@ -238,8 +238,9 @@ public class ManagementController {
 	
 
 	///직원///////
+	//직원 목록 
 	@RequestMapping(value = {"center", "manager", "teacher"}, method = RequestMethod.GET)
-	public String gallery(Model model,int now_center_id , HttpServletRequest request) {	
+	public String employee(Model model,int now_center_id , HttpServletRequest request) {	
 		int job_code = 0;
 		
 		String myuri = request.getRequestURI();
@@ -262,6 +263,12 @@ public class ManagementController {
 		model.addAttribute("job_code", job_code);
 		model.addAttribute("emplist",emplist);
 		return "management.employee";
+	}	
+	//직원 상세정보 조회
+	@RequestMapping(value = {"employeeDetail"}, method = RequestMethod.GET)
+	public String employeeDetail(Model model, int account_id) {	
+		Employee emp = employeeService.getEmp(account_id);
+		model.addAttribute("emp", emp);
+		return "management.employeeDetail";	
 	}
-
 }

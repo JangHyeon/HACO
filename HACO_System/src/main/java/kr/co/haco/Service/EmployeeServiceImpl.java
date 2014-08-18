@@ -19,16 +19,18 @@ public class EmployeeServiceImpl implements EmployeeService {
 	SqlSession sqlSession;
 	
 	@Override	
-	public void addEmployee(Employee employee) {
-		System.out.println(employee.getPhoto());
-		
+	public void addEmployee(Employee employee) {		
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
-		int account_id= employeeDAO.getAccountId();
-		System.out.println("account_id:"+account_id);
-		employeeDAO.addAccount(account_id);
-		System.out.println("employeeDAO.addAccount(account_id)처리 완료");
-		employee.setAccount_id(account_id);		
-		employeeDAO.addEmployee(employee);
+		
+		//1.account테이블에 추가
+		employeeDAO.addAccount();
+		//2. 1번에서 추가된 account_id 조회
+		int account_id = employeeDAO.getAccountId();
+		//3. account의 id컬럼에 account_id값 업데이트 하기 
+		employeeDAO.setUserId(account_id);
+		//4. employee테이블에 추가
+		employee.setAccount_id(account_id);
+		employeeDAO.addEmployee(employee);		
 	}
 	
 	@Override
@@ -40,9 +42,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		if(emplist == null || emplist.size()==0){
 			System.out.println("EmployeeServiceImpl : emplist가 null입니다.");
-		}else{
-			System.out.println("EmployeeServiceImpl : emplist.size() :"+emplist.size());			
 		}
+		
 		return emplist;
 	}
 
@@ -51,9 +52,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
 		List<EducationCenter> eduCenterList = null;
 		eduCenterList = employeeDAO.getEduCenterList();
-		System.out.println("첫번째center_id:"+eduCenterList.get(0).getCenter_id());
+		//System.out.println("첫번째center_id:"+eduCenterList.get(0).getCenter_id());
 		return eduCenterList;
 	}
 
+	@Override
+	public Employee getEmp(int account_id) {
+		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
+		Employee emp = employeeDAO.getEmp(account_id);
+		
+		return emp;
+	}
 	
 }

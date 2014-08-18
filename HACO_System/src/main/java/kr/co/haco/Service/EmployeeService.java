@@ -11,10 +11,16 @@ import org.springframework.transaction.annotation.Transactional;
 
 public interface EmployeeService{
 	
+	//직원 등록
 	@Transactional
 	@PreAuthorize("hasRole('MASTER')")
 	public void addEmployee(Employee employee);
 	
+	//직원 목록 조회
 	public List<EmployeeList> getEmplList(int job_code, int now_center_id);
 	public List<EducationCenter> getEduCenterList();
+	
+	//직원 상세정보 조회
+	public Employee getEmp(int account_id);
+	
 }
