@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.EmployeeService;
 import kr.co.haco.Service.EvaluationRegisterService;
-import kr.co.haco.Service.EvaluationRegisterformService;
 import kr.co.haco.Service.MemberService;
 import kr.co.haco.Util.ImageJ;
 import kr.co.haco.VO.EducationCenter;
@@ -23,6 +22,7 @@ import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
+import kr.co.haco.VO.OpenCourse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -46,10 +46,8 @@ public class ManagementController {
 	MemberService memberService;
 	
 	@Autowired
-	EvaluationRegisterService evaluationRegisterService; 
-	
-	@Autowired
-	EvaluationRegisterformService evaluationRegisterformService;
+	EvaluationRegisterService evaluationRegisterService; 	
+
 	
 	//////직원 관리//////////////////
 	//직원추가
@@ -168,17 +166,19 @@ public class ManagementController {
 		return "management.lectureRegister";
 	}
 	
-	// 평가 등록 리스트
+	//평가 등록 리스트
 	@RequestMapping(value="evaluationRegister" , method=RequestMethod.GET)
 	public String evaluationRegister(Model model){
-		model.addAttribute("er",evaluationRegisterService.getevaluationRegist());
-		return "management.evaluationRegister";
-		
-	}
-	
+		model.addAttribute("er",evaluationRegisterService.getEvaluationRegist());
+		return "management.evaluationRegister";		
+	}	
 	//평가 등록
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
-	public String evaluationRegisterform(Model model , String course_name/*, int type_code , String question*/){
+	public String evaluationRegisterform(Model model ,int open_course_id){
+		model.addAttribute("evalForm",evaluationRegisterService.getEvaluationRegisterform(open_course_id));		
+		return "management.evaluationRegisterform";	
+	}
+/*	public String evaluationRegisterform(Model model , String course_name, int type_code , String question){
 		
 		// 윗부분 과정명, 과목명 , 강사명 , 수강기간 뿌려주기
 		// System.out.println(course_name);
@@ -186,20 +186,19 @@ public class ManagementController {
 		// System.out.println(evaluationRegisterformService.getEvaluationRegisterform(course_name));
 		
 		// 객관식 질문 등록하기 
-		/*System.out.println(type_code);
-		System.out.println(question);*/
-		/*model.addAttribute("insertque",evaluationRegisterformService.getinsertquestion(type_code, question));
+		System.out.println(type_code);
+		System.out.println(question);
+		model.addAttribute("insertque",evaluationRegisterformService.getinsertquestion(type_code, question));
 		model.addAttribute("lastid",evaluationRegisterformService.getlastid());	
-			*/
+			
 			
 			return "management.evaluationRegisterform";
 		
-	}
-	
+	}*/	
 	//강의평가
-	@RequestMapping(value = "lectureEvaluation", method = RequestMethod.GET)
+	@RequestMapping(value = "evaluationResult", method = RequestMethod.GET)
 	public String lectureEvaluation() {		
-		return "management.lectureEvaluation";
+		return "management.evaluationResult";
 	}
 	
 	
@@ -237,13 +236,28 @@ public class ManagementController {
 	//원생목록
 	@RequestMapping(value = "memberOfAcademyList", method = RequestMethod.GET)
 	public String basic_table(Model model,
-			@RequestParam(value="center_id", defaultValue="0")int center_id,
-			@RequestParam(value="open_course_id", defaultValue="0")int open_course_id) {		
-		List<MemberOfAcademy> memberList = memberService.getMemberOfAcademyList(center_id,open_course_id);
-		List<EducationCenter> eduCenterList = employeeService.getEduCenterList();
+			@RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
+			@RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
+		
+		System.out.println("center_id:"+c_id);
+		System.out.println("open_course_id:"+open_course_id);
+/*		MemberOfAcademy moa = new MemberOfAcademy();
+		moa.setCenter_id(center_id);
+		moa.setOpen_course_id(open_course_id);
+		System.out.println("moa.getAccount_id():"+moa.getAccount_id());
+		System.out.println("moa.getOpen_course_id():"+moa.getOpen_course_id());*/
+		
+		List<MemberOfAcademy> memberList = memberService.getMemberOfAcademyList(c_id,open_course_id);
+		List<EducationCenter> eduCenterList = employeeService.getEduCenterList();		
 		
 		model.addAttribute("memberList", memberList);
 		model.addAttribute("eduCenterList", eduCenterList);
+		
+		if(c_id != 0){
+			List<OpenCourse> courseList = memberService.getCourseList(c_id);
+			model.addAttribute("courseList", courseList);
+		}	
+		
 		return "management.memberOfAcademyList";
 	}
 	//퇴교목록
@@ -258,7 +272,9 @@ public class ManagementController {
 	//직원 목록 
 	@RequestMapping(value = {"center", "manager", "teacher"}, method = RequestMethod.GET)
 	//@RequestParam :파라미터로 now_center_id를 보내지 않을 때 기본값을 0으로 셋팅해준다.
-	public String employee(Model model,@RequestParam(value="now_center_id",defaultValue="0") int now_center_id , HttpServletRequest request) {	
+	public String employee(Model model,
+			@RequestParam(value="now_center_id",defaultValue="0") int now_center_id , 
+			HttpServletRequest request) {	
 		int job_code = 0;
 		
 		String myuri = request.getRequestURI();

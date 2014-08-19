@@ -67,7 +67,7 @@
                       </a>
                       <ul class="sub">
                       		<li name="evaluationRegister"><a href="${pageContext.request.contextPath}/management/evaluationRegister">평가등록</a></li>
-                      		<li name="lectureEvaluation"><a href="${pageContext.request.contextPath}/management/lectureEvaluation">평가 결과</a></li>
+                      		<li name="evaluationResult"><a href="${pageContext.request.contextPath}/management/evaluationResult">평가 결과</a></li>
                       </ul>
                   </li>
                   

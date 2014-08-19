@@ -1,6 +1,8 @@
 package kr.co.haco.VO;
 
-import java.util.Date;
+import java.sql.Date;
+
+
 
 public class EvaluationRegisterForm {
 	// 윗 부분 뿌리는 것들

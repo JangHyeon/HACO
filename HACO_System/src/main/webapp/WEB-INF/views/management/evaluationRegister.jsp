@@ -11,30 +11,51 @@
     <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css" rel="stylesheet">
     
-	<input id="current-accordion" type="hidden" value="lectureEvaluation"/>
+	<input id="current-accordion" type="hidden" value="lectureEvaluation,evaluationRegister"/>
 
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
-      <!--main content start-->
+         <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          <h3><i class="fa fa-angle-right"></i> 강의평가 등록</h3>
-              <!-- page start-->
-              <div class="tab-pane" id="chartjs">
-                      <div class="col-sm-6">
-                          <div class="table-responsive">
-							  <table class="table table-striped">
-							<tr><td>순번</td><td>센터명</td><td>과정명</td><td>수강일자</td></tr>
-							<c:forEach var="erl" items="${er}">
-								<tr><td>1</td><td>${erl.location}</td><td><a href="${pageContext.request.contextPath}/management/evaluationRegisterform?course_name=${erl.course_name}">${erl.course_name}</a></td><td>${erl.course_start_date} ~ ${erl.course_end_date}</td></tr>
-							</c:forEach>
-							  </table>
-							</div>
-                      </div>
-              </div>
-              <!-- page end-->
-          </section>          
+          	<h3><i class="fa fa-angle-right"></i> 강의평가 등록</h3>
+		  		<div class="row mt">
+			  		<div class="col-lg-12">
+                      <div class="content-panel">
+                      <h4><i class="fa fa-angle-right"></i> 개설 과정 목록</h4>
+                          <section id="unseen">
+                            <table class="table table-bordered table-striped table-condensed">
+                              <thead>
+                              <tr>                              
+                                 <th class="numeric">순번</th>
+                                 <th class="numeric">센터명</th>
+                                 <th class="numeric">과정명</th>
+                                 <th class="numeric">수강일자</th>               
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <%int idx=0; %>
+                              <c:forEach var="erl" items="${er}">
+                              	<%idx++; %>
+	                          	<tr>	             
+	                          		<td class="numeric"><%=idx %></td>               	
+	                            	<td class="numeric">${erl.location}</td>
+	                                <td class="numeric"><a
+										href="${pageContext.request.contextPath}/management/evaluationRegisterform?open_course_id=${erl.open_course_id}">
+										${erl.course_name}</a></td>
+	                                <td class="numeric">${erl.course_start_date}~ ${erl.course_end_date}</td>	                        
+	                          	</tr>
+                              </c:forEach>   
+                              </tbody>
+                          </table>
+                          </section>
+                  </div><!-- /content-panel -->
+               </div><!-- /col-lg-4 -->			
+		  	</div><!-- /row -->
+		  	
+		  
+		</section><!-- /wrapper -->
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->

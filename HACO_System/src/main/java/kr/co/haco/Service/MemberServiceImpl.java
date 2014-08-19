@@ -29,11 +29,11 @@ public class MemberServiceImpl implements MemberService {
 	
 	//수강중인 원생 목록
 	@Override
-	public List<MemberOfAcademy> getMemberOfAcademyList(int center_id, int open_course_id) {
+	public List<MemberOfAcademy> getMemberOfAcademyList(int center_id,int open_course_id) {
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		
+		System.out.println("MemberServiceImpl:getMemberOfAcademyList실행");
 		List<MemberOfAcademy> memberList = memberDAO.getMember(center_id,open_course_id);
-		
+		System.out.println("MemberServiceImpl:getMemberOfAcademyList:memberDAO.getMember(center_id,open_course_id)실행완료");
 		return memberList;
 	}
 	
@@ -41,7 +41,9 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<OpenCourse> getCourseList(int center_id) {
 		MemberDAO memberDAO = sqlSession.getMapper(MemberDAO.class);
-		List<OpenCourse> courseList = memberDAO.getCourseList(center_id);
+		OpenCourse oc = new OpenCourse();
+		oc.setCenter_id(center_id);
+		List<OpenCourse> courseList = memberDAO.getCourseList(oc);
 		return courseList;
 	}
 	

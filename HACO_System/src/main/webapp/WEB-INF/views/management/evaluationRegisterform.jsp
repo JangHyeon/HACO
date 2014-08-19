@@ -11,7 +11,7 @@
     <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css" rel="stylesheet">
     
-	<input id="current-accordion" type="hidden" value="lectureEvaluation"/>
+	<input id="current-accordion" type="hidden" value="lectureEvaluation,evaluationRegister"/>
 
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -19,105 +19,90 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          <div class="row mt">
-			<div class="col-lg-12">
-				<div class="form-panel">
-					<h4 class="mb">
-						<i class="fa fa-angle-right"></i> 강의평가 등록 </h4>
-					<form class="form-horizontal style-form" method="post" id="evaluationForm" >
-						<div class="form-group">
-						<c:forEach var="er" items="${erf }">
-							<label class="col-sm-2 col-sm-2 control-label">과정명</label>
-							<div class="col-sm-10">
-								${er.course_name}
-							</div>
-						</div>
-						
-						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">강의명</label>
-							<div class="col-sm-10">
-								${er.subject_name}
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">담당강사</label>
-							<div class="col-sm-10">
-								${er.name_kor}
-							</div>
-						</div>
-						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">강의 시간</label>
-							<div class="col-sm-10">
-							${er.course_start_date} ~ ${er.course_end_date}
-							</div>
-					</c:forEach>
-						</div>
-						
-						<!-- 질문을 늘리는 곳 -->
-						<div id="multiple_question" class="form-group">
-							<label class="col-xs-12 col-sm-2 control-label" >객관식 질문</label>
+          	<h3><i class="fa fa-angle-right"></i> 강의평가 등록</h3>
+				<div class="row">		
+						  	
+					<div class="col-lg-12">
+						<div class="form-panel">
+							<h4 class="mb">
+								<i class="fa fa-angle-right"></i> 과정 정보
+							</h4>
+							<form class="form-horizontal style-form" action="employeeRegister" method="post">
+								
+		
+								<div class="form-group">
+									<label class="col-sm-2 col-sm-2 control-label">과정명</label>
+									<div class="col-sm-10">
+										${evalForm.course_name}
+									</div>
+								</div>
+								<div class="form-group">
+									<label class="col-sm-2 col-sm-2 control-label">과목명</label>
+									<div class="col-sm-10">
+										${evalForm.subject_name}
+									</div>
+								</div>					
+								
+								
+								<div class="form-group">
+									<label class="col-sm-2 col-sm-2 control-label">담당강사</label>
+									<div class="col-sm-10">
+										${evalForm.name_kor}
+									</div>
+								</div>	
 							
-							  <div class="col-lg-6">
-							    <div class="input-group">
-							      <input type="text" class="form-control">
-							      <span class="input-group-btn">
-							        <button class="btn btn-default" type="button" id="multiple_btn">+</button>
-							      </span>
-							    </div><!-- /input-group -->
-							  </div><!-- /.col-lg-6 -->
-							<div class="input-group" style="display:none" id="multiple_plus">
-							      <input type="text" class="form-control">
-							</div>
+								<div class="form-group">
+									<label class="col-sm-2 col-sm-2 control-label">강의 기간</label>
+									<div class="col-sm-10">
+										${evalForm.course_start_date} ~ ${evalForm.course_end_date}
+									</div>
+								</div>	
+														
+							</form>
+						</div>
+					</div>
+					
+					<!-- col-lg-12-->
+					<div class="col-lg-12 mt">
+						<div class="form-panel">
+							<h4 class="mb">
+								<i class="fa fa-angle-right"></i> 평가 질문 등록
+							</h4>							
+							<form class="form-horizontal style-form" id="evaluationForm" method="post">
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">질문 유형</label>
+								<div class="col-lg-6">
+							    <div class="input-group">	
+							    	&nbsp;&nbsp;&nbsp;							     
+									<label> <input type="radio" name="type_code"
+										id="optionsRadios1" value="1"> 객관식
+									</label>
+							     	&nbsp;&nbsp;&nbsp;						     	
+								 
+									<label> <input type="radio" name="type_code"
+										id="optionsRadios2" value="2"> 주관식
+									</label>		
+									&nbsp;&nbsp;											     	  
+							     	<button type="button" class="btn btn-default">+</button>							    						  
+							    </div>
+	  						  </div>
+							</div>	
+							<div class="form-group">
+								<label class="col-sm-2 col-sm-2 control-label">Q</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="address_registered">
+								</div>
+							</div>	
 							
+							<button type="button" class="btn btn-success" id="submit_btn">등록</button>
+							<button type="button" class="btn btn-danger" id="cancle_btn">취소</button>
+						</form>				
 						</div>
-						
-						<div class="form-group">
-							<label class="col-xs-12 col-sm-2 control-label">객관식 질문 답변</label>
-							<div class="col-xs-9  col-sm-9">
-								<select id="select">
-									<option selected>선택하시오</option>
-									<option value="03">3질문</option>
-									<option value="05">5질문</option>
-								</select>
-							</div>
-							<div id="test"></div>
-							<div class="col-xs-9  col-sm-9" id="three" style="display:none">
-								<input type="text" class="form-control round-form plus">
-								<input type="text" class="form-control round-form plus">
-								<input type="text" class="form-control round-form plus">
-							</div>
-							
-							<div class="col-xs-9  col-sm-9" id="five" style="display:none">
-								<input type="text" class="form-control round-form plus">
-								<input type="text" class="form-control round-form plus">
-								<input type="text" class="form-control round-form plus">
-								<input type="text" class="form-control round-form plus">
-								<input type="text" class="form-control round-form plus">
-							</div>
-						</div>
-						<div id="easy_question" class="form-group">
-							<label class="col-xs-12 col-sm-2 control-label">주관식 질문</label>
-							 <div class="col-lg-6">
-							    <div class="input-group">
-							      <input type="text" class="form-control">
-							      <span class="input-group-btn">
-							        <button class="btn btn-default" type="button" id="easy_question_btn">+</button>
-							      </span>
-							    </div><!-- /input-group -->
-							  </div><!-- /.col-lg-6 -->
-							<div class="input-group" style="display:none" id="easy_question_plus">
-							      <input type="text" class="form-control">
-							</div>
-						</div>
-						<button type="button" class="btn btn-success" id="submit_btn">등록</button>
-						<button type="button" class="btn btn-danger" id="cancle_btn">취소</button>
-					</form>
-				</div>
-			</div>
-			<!-- col-lg-12-->
-		</div>
-              <!-- page end-->
-          </section>          
+					</div>
+					<!-- col-lg-12--> 
+                  
+				</div><!-- row -->
+		</section><! --/wrapper -->
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->
@@ -127,11 +112,8 @@
     <%@ include file="commonScript.jsp" %>
 
     <!--script for this page-->
-  <script>
-      //custom select box
-
-      $(function(){
-          
+  <script type="text/javascript">
+      $(function(){          
           $('#multiple_btn').click(function(){
         	  // alert("ddd");
         	  // 큰div에 숨긴 div를 복사. 여기서 keypoint!! .css로 display를 풀어준다. 그리고 .clone()을 사용한다
