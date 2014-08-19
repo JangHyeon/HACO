@@ -68,30 +68,64 @@
 							<h4 class="mb">
 								<i class="fa fa-angle-right"></i> 평가 질문 등록
 							</h4>							
+							
 							<form class="form-horizontal style-form" id="evaluationForm" method="post">
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">질문 유형</label>
 								<div class="col-lg-6">
-							    <div class="input-group">	
-							    	&nbsp;&nbsp;&nbsp;							     
-									<label> <input type="radio" name="type_code"
-										id="optionsRadios1" value="1"> 객관식
-									</label>
-							     	&nbsp;&nbsp;&nbsp;						     	
-								 
-									<label> <input type="radio" name="type_code"
-										id="optionsRadios2" value="2"> 주관식
-									</label>		
-									&nbsp;&nbsp;											     	  
-							     	<button type="button" class="btn btn-default">+</button>							    						  
-							    </div>
+								    <div class="input-group">	
+								    	&nbsp;&nbsp;&nbsp;							     
+										<label> <input type="radio" name="type_code"
+											id="essay_question" value="1"> 객관식
+										</label>
+								     	&nbsp;&nbsp;&nbsp;								 
+										<label> <input type="radio" name="type_code"
+											id="multiple_choice" value="2"> 주관식
+										</label>		
+										&nbsp;&nbsp;											     	  
+								     	<button type="button" class="btn btn-default" id="select_question_btn">+</button>							    						  
+								    </div>
 	  						  </div>
 							</div>	
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">Q</label>
+							
+							
+							
+							<!-- 질문 생성 위치 -->
+							<div class="form-group" id="question_place" >
+								<label class="col-sm-2 col-sm-2 control-label">Q_place</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" name="address_registered">
 								</div>
+							</div>	
+							
+							<div class="form-group" id="essay_question" style="display:none">
+								<label class="col-sm-2 col-sm-2 control-label">Q_place주관식</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="essay_question_q">
+								</div>
+							</div>	
+							<!-- 주관식 질문 틀 -->
+							<div class="form-group" id="essay_question" style="display:none">
+								<label class="col-sm-2 col-sm-2 control-label">Q_주관식</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="essay_question_q">
+								</div>
+							</div>	
+							<!-- 객관식 질문 틀 -->
+							<div class="form-group" id="multiple_choice" >
+								<label class="col-sm-2 col-sm-2 control-label">Q_객관식 질문</label>
+								<div class="col-sm-10">
+									<input type="text" class="form-control" name="multiple_choice_question">
+								</div>								
+								<label class="col-sm-2 col-sm-2 control-label">A_객관식 보기</label>
+								<div class="col-lg-6">
+								    <div class="input-group">							    							     
+										<label> 
+											<input type="text" name="multiple_choice_items">
+										</label>								     												     	  
+								     	<button type="button" class="btn btn-default" id="multiple_choice_items_add">+</button>							    						  
+								    </div>
+	  						  </div>
 							</div>	
 							
 							<button type="button" class="btn btn-success" id="submit_btn">등록</button>
@@ -113,39 +147,15 @@
 
     <!--script for this page-->
   <script type="text/javascript">
-      $(function(){          
-          $('#multiple_btn').click(function(){
-        	  // alert("ddd");
-        	  // 큰div에 숨긴 div를 복사. 여기서 keypoint!! .css로 display를 풀어준다. 그리고 .clone()을 사용한다
-        	 $('#multiple_question').append($('#multiple_plus').clone().css("display","block")); 
-     	  });
-          
-         $('#easy_question_btn').click(function(){
-        	$('#easy_question').append($('#easy_question_plus').clone().css("display","block"));
-         }); 
+  	$(function(){          
+    	$("#select_question_btn").click(function(){
+    		var a = $("input:radio[name=type_code]:checked").val();
+    		alert("a:"+a);
+    	});
+    	
     
-         
-         // 객관식 답변 처리
-         $('#select').change(function(){
-        	
-        	if($('#select option:selected').val() == 03){
-        		$('#three').show();
-        		$('#five').hide();
-        	}else if($('#select option:selected').val() == 05){
-        		$('#five').show();
-        		$('#three').hide();
-        	}
-         });
-         
-         $('#submit_btn').click(function(){
-        	$('#evaluationForm').submit(); 
-         });
-         
-         $('#cancle_btn').click(function(){
-         	$('#evaluationForm').submit(); 
-          });
-         
- });
+        
+ 	});
   </script>
   
 

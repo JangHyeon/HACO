@@ -127,26 +127,26 @@
 						<div class="form-group">						
 							<label class="col-sm-2 col-sm-2 control-label">과정명</label>
 							<div class="col-sm-10">
-								${evalForm.course_name}
+								
 							</div>
 						</div>
 						
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">과목명</label>
 							<div class="col-sm-10">
-								${evalForm.subject_name}
+								
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">담당강사</label>
 							<div class="col-sm-10">
-								${evalForm.name_kor}
+								
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">강의 시간</label>
 							<div class="col-sm-10">
-							${evalForm.course_start_date} ~ ${evalForm.course_end_date}
+							
 							</div>					
 						</div>
 						

@@ -200,6 +200,11 @@ public class ManagementController {
 	public String lectureEvaluation() {		
 		return "management.evaluationResult";
 	}
+	//평가등록 폼 _ old
+	@RequestMapping(value = "evaluationRegisterform_old", method = RequestMethod.GET)
+	public String lectureEvaluation_old() {		
+		return "management.evaluationRegisterform_old";
+	}
 	
 	
 	/////게시판////////////////////
