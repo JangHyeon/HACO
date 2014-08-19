@@ -8,6 +8,8 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import kr.co.haco.Service.AccountService;
 import kr.co.haco.Util.ImageJ;
 
@@ -23,11 +25,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @Controller
 @RequestMapping(value="management/")
 public class ManagementController {
-	
-	
-	
-	
-	
 	@Autowired
 	AccountService accountService;
 	
@@ -118,6 +115,13 @@ public class ManagementController {
 	public String attendance() {
 		return "management.attendance";
 	}
+	//출석
+		@RequestMapping(value = "attendancelist", method = RequestMethod.GET)
+		public String attendancelist(HttpServletRequest req) {
+			req.getParameter("attendancesub");
+			System.out.println("요로로로로로로로로로롱!!!!!!!!!!!!!!!!!!!!!");
+			return "management.attendancelist";
+		}
 
 	////////과정/////////////////
 	//과목등록
