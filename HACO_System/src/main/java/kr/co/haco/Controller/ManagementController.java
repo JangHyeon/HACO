@@ -24,6 +24,10 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @RequestMapping(value="management/")
 public class ManagementController {
 	
+	
+	
+	
+	
 	@Autowired
 	AccountService accountService;
 	
