@@ -19,4 +19,7 @@ public interface EmployeeDAO {
 	
 	//직원 상세정보 조회
 	public Employee getEmp(int acccount_id);
+	
+	//직원 상세정보 수정
+	public int updateEmp(Employee emp);
 }

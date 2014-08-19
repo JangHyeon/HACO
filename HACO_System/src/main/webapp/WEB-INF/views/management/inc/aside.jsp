@@ -89,9 +89,9 @@
                           <span>원생</span>
                       </a>
                       <ul class="sub">
-                          <li name="newMemberList"><a  href="${pageContext.request.contextPath}/management/newMemberList">신규 목록</a></li>
-                          <li name="memberList"><a  href="${pageContext.request.contextPath}/management/memberList">원생 목록</a></li>
-                          <li name="leaveMemberList"><a  href="${pageContext.request.contextPath}/management/leaveMemberList">퇴교 목록</a></li>
+                          <li name="memberOfSiteList"><a  href="${pageContext.request.contextPath}/management/memberOfSiteList">회원 목록</a></li>
+                          <li name="memberOfAcademyList"><a  href="${pageContext.request.contextPath}/management/memberOfAcademyList">원생 목록</a></li>
+                          <li name="leaveMemberList"><a  href="${pageContext.request.contextPath}/management/memberOfLeaveList">퇴교 목록</a></li>
                       </ul>
                   </li>
                   
@@ -101,9 +101,9 @@
                           <span>직원</span>
                       </a>
                       <ul class="sub">
-                          <li name="center"><a  href="${pageContext.request.contextPath}/management/center?now_center_id=0">센터장</a></li>
-                          <li name="manager"><a  href="${pageContext.request.contextPath}/management/manager?now_center_id=0">관리직원</a></li>
-                          <li name="teacher"><a  href="${pageContext.request.contextPath}/management/teacher?now_center_id=0">강사</a></li>
+                          <li name="center"><a  href="${pageContext.request.contextPath}/management/center">센터장</a></li>
+                          <li name="manager"><a  href="${pageContext.request.contextPath}/management/manager">관리직원</a></li>
+                          <li name="teacher"><a  href="${pageContext.request.contextPath}/management/teacher">강사</a></li>
                       </ul>
                   </li>
               </ul>

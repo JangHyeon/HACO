@@ -23,4 +23,7 @@ public interface EmployeeService{
 	//직원 상세정보 조회
 	public Employee getEmp(int account_id);
 	
+	//직원 상세정보 수정
+	public int updateEmp(Employee emp);
+	
 }

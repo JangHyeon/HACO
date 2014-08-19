@@ -57,7 +57,7 @@
 						    센터목록 <span class="caret"></span>
 						  </button>
 						  <ul class="dropdown-menu" role="menu">
-						  		<li><a href="manager?now_center_id=0">전체 센터</a></li>
+						  		<li><a href="${uri}?now_center_id=0">전체 센터</a></li>
 						  	<c:forEach var="edu" items="${eduCenterList}">
 						   		<li><a href="${uri}?now_center_id=${edu.center_id}">${edu.location}</a></li>
 						    </c:forEach>					    

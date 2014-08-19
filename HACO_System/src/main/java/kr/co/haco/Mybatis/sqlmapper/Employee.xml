@@ -45,9 +45,16 @@
 	
 	<!-- 직원 상세정보 조회 -->
 	<select id="getEmp" resultType="kr.co.haco.VO.Employee">
-		SELECT account_id,job_code,name_kor,name_eng,gender,address_registered,address_real,phone_home,phone_cell,phone_emergency
+		SELECT account_id,job_code,name_kor,name_eng,gender,address_registered,address_real,phone_home,phone_cell,phone_emergency,
 				email,salary,bank,bank_account,account_owner,join_date,join_center_id,photo,resident_registration_num1,resident_registration_num2,now_center_id
 		FROM employee
 		where account_id = #{account_id}
 	</select>
+	
+	<!-- 직원 상세정보 수정 -->
+	<update id="updateEmp" parameterType="kr.co.haco.VO.Employee">
+		UPDATE employee SET address_registered=#{address_registered},address_real=#{address_real},phone_home=#{phone_home},
+			phone_cell=#{phone_cell},email=#{email},bank=#{bank},bank_account=#{bank_account},account_owner=#{account_owner}
+		WHERE account_id=#{account_id}
+	</update>
 </mapper>

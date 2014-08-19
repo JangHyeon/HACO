@@ -42,8 +42,10 @@
 			<div class="col-lg-12">
 				<div class="form-panel">
 					<h4 class="mb">
-						<i class="fa fa-angle-right"></i> ${emp.name_kor} ${emp.job_code}
-					</h4>				
+						<i class="fa fa-angle-right"></i> ${emp.name_kor} 
+					</h4>						
+				</div>
+						<br>
 						<div class="form-group">
 							<!-- <label class="col-sm-2 col-sm-2 control-label">사진</label> -->
 							
@@ -56,8 +58,10 @@
 									</div>									
 								</div>														
 							</div>	
-								
-							<div class="col-md-12">							
+							<br>
+							
+							<div class="col-md-12">		
+								<h4>기본 정보</h4>					
 								<table class="table">
 										<tr>
 											<td><b>이름</b></td><td>${emp.name_kor}</td>
@@ -72,21 +76,35 @@
 											<td><b>주민등록 상 주소</b></td><td>${emp.address_registered}</td>
 										</tr>
 										<tr>
-											<td><b>전화 번호</b></td><td>${emp.phone_cell}</td>
-											<td><b>이메일</b></td><td>${emp.email}</td>
-										</tr>
-										<tr>
-											<td><b>입사일</b></td><td>${emp.join_date}</td>
-											<td><b>입사 센터</b></td><td>${emp.join_center_id}</td>
-										</tr>
-										<tr>											
-											<td><b>현 근무 센터</b></td><td colspan="3">${emp.now_center_id}</td>
+											<td><b>핸드폰 번호</b></td><td>${emp.phone_cell}</td>
+											<td><b>집전화 번호</b></td><td>${emp.phone_home}</td>
 											
 										</tr>
+										<tr>
+											<td><b>이메일</b></td><td>${emp.email}</td>
+											<td><b>입사일</b></td><td>${emp.join_date}</td>											
+										</tr>
+									
 								</table>
 							</div>
+							
+							<div class="col-md-12">		
+								<h4>급여 정보</h4>					
+								<table class="table">
+									<tr>
+										<td><b>은행</b></td><td>${emp.bank}</td>
+										<td><b>계좌 번호</b></td><td>${emp.bank_account}</td>
+									</tr>
+									<tr>
+										<td><b>급여</b></td><td>${emp.salary}원</td>
+										<td><b>예금주</b></td><td>${emp.account_owner}</td>
+									</tr>								
+								</table>
+							</div>
+							
+							
 						</div>
-					</div>					
+										
 			</div>
 			<!-- col-lg-12-->
 		</div>

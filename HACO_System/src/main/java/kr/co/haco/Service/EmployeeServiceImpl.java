@@ -12,6 +12,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
+/*
+ <!-- 컨트롤러/컴포넌트 스캔 -->
+<context:component-scan base-package="kr.co.haco.Controller  
+									kr.co.haco.Service" />
+위처럼 패키지 단위의 스캔을 사용할 때는 @Component 어노테이션을 class위에 선언해주어야 bean이 생성된다.
+*/
 @Component
 public class EmployeeServiceImpl implements EmployeeService {
 
@@ -62,6 +68,14 @@ public class EmployeeServiceImpl implements EmployeeService {
 		Employee emp = employeeDAO.getEmp(account_id);
 		
 		return emp;
+	}
+	
+	@Override
+	public int updateEmp(Employee emp) {
+		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
+		int result = employeeDAO.updateEmp(emp);
+		
+		return result;
 	}
 	
 }
