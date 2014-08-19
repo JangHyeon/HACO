@@ -34,7 +34,8 @@
                           <div class="form-group">
                               <label class="col-sm-3 control-label"><i class="fa fa-check fa-lg"></i> 아이디</label>
                               <div class="col-sm-8 idArea">
-								  <input type="text" class="form-control" id="id" name="id" disabled>                                  
+								  <input type="text" class="form-control" id="id" name="id" disabled>
+								  <input type="hidden" id="somecheck" value="no"/>                   
                                   <span class="help-block">4~25자의 영문과 숫자로 사용하실 수 있습니다.</span>
                               </div>
                           </div>
@@ -198,9 +199,11 @@
 				function(data){
 	    			if(data =='error'){
 	    				$('#id').tooltip('show');
+	    				$('#somecheck').val('no');
 	    			}else{
 	    				//console.log(data.result);
 	    				$('#id').tooltip('hide');
+	    				$('#somecheck').val('ok');
 	    			}
 			   	}
 	   		)
@@ -330,7 +333,7 @@
                alert("아이디는 영문으로만 시작할 수 있습니다.");
                $('#id').focus();
                return false;
-           }else if($('.tooltip').length>0){
+           }else if($('#somecheck').val() == 'no'){
            	alert('아이디가 중복되었습니다.');
                $('#id').focus();
                return false;

@@ -19,10 +19,10 @@
 		<!-- right content column-->
 		<div class="col-md-10" id="content">
 			<div class="panel">
-				<div class="panel-heading"
-					style="background-color: #111; color: #fff;">회원정보수정</div>
+				<ol class="breadcrumb">
+				  <li class="active">회원정보수정 완료</li>
+				</ol>
 				<div class="panel-body">
-
 					<div class="row content" id="step1">
 						<div class="col-sm-12 col-md-4 col-md-offset-1 mypage_img">
 							<img src="${pageContext.request.contextPath}/images/Administrative_Tools_256x256-32.png"/>

@@ -159,6 +159,12 @@ public class AccountServiceImpl implements AccountService {
 				account.setAccount_id(member.getAccount_id());
 				account = sqlSession.getMapper(AccountDAO.class).getAccount(account);
 				logger.info("[findId] - account_id:["+member.getAccount_id()+"] / 아이디 찾기");
+				
+				//삭제 계정 예외 처리
+				System.out.println(account.getId().substring(0, 6));
+				if(account.getId().substring(0, 6).equals("//del_")){
+					return "notFindID";
+				}
 				return account.getId();
 			}
 		}

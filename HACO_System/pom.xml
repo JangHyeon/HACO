@@ -217,7 +217,9 @@
 				
 		<!-- Servlet -->
 		<!-- 서블릿 라이브러리는 tomcat에서 가져온다 -->
-		<!-- <dependency>
+		<!-- 정보: validateJarFile 해결못함... -->
+		<!-- 
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>

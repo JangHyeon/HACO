@@ -24,7 +24,6 @@ public class SessionDestoryListener implements ApplicationListener<SessionDestro
 				Object atuh = ctx.getAuthentication().getPrincipal();
 				String[] atums = atuh.toString().split(";");
 				logger.info("[Logout] - "+atums[0]);
-				SecurityContextHolder.getContext().setAuthentication(null); //권한설정 초기화
 			}
 		}
 	}

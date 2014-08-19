@@ -19,10 +19,10 @@
 		<!-- right content column-->
 		<div class="col-md-10" id="content">
 			<div class="panel">
-				<div class="panel-heading"
-					style="background-color: #111; color: #fff;">회원탈퇴</div>
+				<ol class="breadcrumb">
+				  <li class="active">회원탈퇴</li>
+				</ol>
 				<div class="panel-body">
-
 					<div class="row content" id="step1">
 						<div class="col-sm-12 col-md-4 col-md-offset-1 delete_img">
 							<img src="${pageContext.request.contextPath}/images/user-delete.svg"/>

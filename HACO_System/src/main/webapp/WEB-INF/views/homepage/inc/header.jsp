@@ -16,9 +16,9 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">학원소개</a>
             <ul class="dropdown-menu">
-              <li><a href="#">학원장 인사말</a></li>
-              <li><a href="#">찾아오시는 길</a></li>
-              <li><a href="#">학원 소개</a></li>
+              <li><a href="${pageContext.request.contextPath}/introduction">학원 소개</a></li>
+              <li><a href="${pageContext.request.contextPath}/introductionGreeting">학원장 인사말</a></li>
+              <li><a href="${pageContext.request.contextPath}/contectUs">찾아오시는 길</a></li>
             </ul>
           </li>
           <li><a href="#">교육과정</a></li>

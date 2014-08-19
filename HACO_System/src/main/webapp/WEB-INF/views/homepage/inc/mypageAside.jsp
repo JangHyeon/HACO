@@ -5,8 +5,7 @@
 
 <div class="col-md-2">
 	<div class="panel panel-default" id="sidebar">
-		<div class="panel-heading"
-			style="background-color: #888; color: #fff;">메뉴</div>
+		<div class="panel-heading">메뉴</div>
 		<div class="panel-body">
 			<ul class="nav nav-stacked">
 				<li><a href="${pageContext.request.contextPath}/memberModify">회원정보수정</a></li>

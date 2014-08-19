@@ -12,12 +12,16 @@
 /* end */
 
 header {
-	min-height:180px;
+	min-height:150px;
   	margin-bottom:5px;
 }
 
 footer{
 	
+}
+
+body{
+	overflow-x: hidden;
 }
 
 /* only apply sticky columns on wider screens */
@@ -458,6 +462,7 @@ margin: 3px 3px 3px 4px;
     border-radius:3px;
     background:#fff;
 	padding:20px;
+	margin-top: 30px;
 }
 
 #close {
@@ -532,4 +537,35 @@ margin: 3px 3px 3px 4px;
 	width:250px;
 	opacity:.5;
 	padding-top: 20px;
+}
+.panel-default>.panel-heading{
+	background-color: #424a5d; 
+	color: #fff;
+}
+.breadcrumb{
+	padding:10px 15px;
+	border-color: #ddd;
+	border-radius: 0;
+	border-width: 0;
+	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+	background-color: #77D0E4;
+}
+.breadcrumb>li+li:before {
+	padding: 0 5px;
+	color: #eee;
+	content: ">\00a0";
+}
+.breadcrumb > li > a{
+	color:#fff;
+}
+.breadcrumb>.active {
+	color:#fff;
+}
+.panel-heading > a{
+	color:#fff;
+}
+.navbar{
+	margin-bottom: 0;
+	z-index: 5;	
 }

@@ -20,33 +20,10 @@
 		<!-- right content column-->
 		<div class="col-md-10" id="content">
 			<div class="panel">
-				<div class="panel-heading"
-					style="background-color: #111; color: #fff;">회원정보수정</div>
+				<ol class="breadcrumb">
+				  <li class="active">회원정보수정</li>
+				</ol>
 				<div class="panel-body">
-
-					<%-- <div class="row content" id="step1">
-						<div class="col-sm-12 col-md-4 col-md-offset-1 mypage_img">
-							<img src="${pageContext.request.contextPath}/images/Folder_-Documents_256x256-32.png"/>
-						</div>
-						<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-1 email_text">
-							<div class="textbox">
-								<h2 class="title">
-									${sessionScope.member.name}님 환영합니다.
-								</h2>
-								<h5>해당 계정의 등급은 <a>
-										<s:authorize ifAllGranted="GUEST">손님</s:authorize>
-										<s:authorize ifAllGranted="STUDENT">학생</s:authorize>
-									</a>회원 입니다.
-								</h5>
-								■ Email : ${sessionScope.member.email}<br>
-								■ Phone : ${sessionScope.member.phone}
-								<div class="btn-group mypageBtn">
-									<button id="nextBtn" class="btn btn-large btn-block btn-primary joinbtn" type="button">정보수정하기</button>
-								</div>
-							</div>						
-						</div>
-					</div> --%>
-					
 					<div class="form-panel">
                       <form id="modifyMemberForm" class="form-horizontal style-form" action="${pageContext.request.contextPath}/memberModifyProcess" method="post">
                           <div class="page-header">

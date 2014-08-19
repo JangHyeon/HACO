@@ -235,12 +235,18 @@
    		            return false;
     	        }
     	    });
-        	
+
 
 			$('#idMsg').hide();
 			$('#passMsg').hide();
         	
+
+        	$('#idModal1').on('shown.bs.modal', function () {
+        		$('#idName').focus();
+        	});
+			
         	$('#findId').on('click',function(){
+        		$('#idMsg').hide();
         		$.post(
         	    	"/haco/forgetId", 	  //url
         	    	{
@@ -259,12 +265,18 @@
         	   	)
         	});
         	
+        	
+
+        	$('#passModal1').on('shown.bs.modal', function () {
+        		id:$('#passID').focus();
+        	});
+        	
         	$('#findPassword').on('click',function(){
         		$('#lodingModal').modal({
         			backdrop:false,
         			keyboard:false
-        			
         		});
+    			$('#passMsg').hide();
         		$.post(
         	    	"/haco/forgetPassword", 	  //url
         	    	{
