@@ -249,7 +249,6 @@
             div.innerHTML = msg; 
         	document.attendancelist.submit();
         }
-// ]]>
     </script>
 <body onload="return window_onload()">
 
