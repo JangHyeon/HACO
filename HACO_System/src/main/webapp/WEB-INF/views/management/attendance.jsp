@@ -191,21 +191,21 @@
                 		msg += "<td id='lmonth'>" + ((7 * i + k + 1 - mod) - lastday);
                 	} else {
                 		if(7 * i + k + 1 - mod==day && YY==year && mm==month+1) {
-	                    	msg += "<td id='today' onclick='javascript:list(" + year + "," + month + ",";
+	                    	msg += "<td id='today' onclick='javascript:list(" + YY + "," + mm + ",";
 		                    
 		                    msg += p_day(i, k, mod, lastday, dd);
 	                    } else {   
 	                        if((7 * i + k + 1)%7 == 0){
-	                        	msg += "<td id='sat' onclick='javascript:list(" + year + "," + month + ",";
+	                        	msg += "<td id='sat' onclick='javascript:list(" + YY + "," + mm + ",";
 		                    
 		                    	msg += p_day(i, k, mod, lastday, dd);
 	                        } else {
 	                            if((7 * i + k + 1)%7 == 1){
-	                            	msg += "<td id='sun' onclick='javascript:list(" + year + "," + month + ",";
+	                            	msg += "<td id='sun' onclick='javascript:list(" + YY + "," + mm + ",";
 		                    
 		                    		msg += p_day(i, k, mod, lastday, dd);
 	                            } else{
-	                            	msg += "<td id='sel' onclick='javascript:list(" + year + "," + month + ",";
+	                            	msg += "<td id='sel' onclick='javascript:list(" + YY + "," + mm + ",";
 		                    
 		                  			msg += p_day(i, k, mod, lastday, dd);
 	                            }

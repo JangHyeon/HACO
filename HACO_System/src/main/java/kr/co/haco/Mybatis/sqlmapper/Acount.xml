@@ -14,7 +14,21 @@
 	<select id="getEmployee" parameterType="Integer" resultType="kr.co.haco.VO.Employee">
 		select * from employee where account_id=#{param1}
 	</select>
-	
+	<!-- <select id="getOpencourse" parameterType="String" resultType="kr.co.haco.VO.OpenCourse">
+		select * from open_course where STR_TO_DATE(#{seldate},'%Y-%m-%d') BETWEEN course_start_date and course_end_date
+	</select> -->
+	<select id="getattenlist" parameterType="hashmap" resultType="kr.co.haco.VO.OpenCourse">
+		select * from open_course where STR_TO_DATE(#{seldate},'%Y-%m-%d') BETWEEN course_start_date and course_end_date
+	</select>
+	<select id="getstdentlist" parameterType="hashmap" resultType="kr.co.haco.VO.Member">
+		select a.open_course_id as ename, c.course_name as course_name, d.subject_name as subject_name, b.name as name
+			from lecture_register a, member b, open_course c, subject d
+			where a.account_id = b.account_id
+			and c.subject_id = d.subject_id
+			and a.open_course_id = c.open_course_id
+			and a.open_course_id = #{ename}
+			and a.lecture_register_code = '4'
+	</select>
 	<!-- 
 	<insert id="insert" parameterType="kr.or.kosta.vo.Notice">
 		<selectKey order="BEFORE" keyProperty="seq" resultType="String">
