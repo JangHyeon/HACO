@@ -178,23 +178,12 @@ public class ManagementController {
 		model.addAttribute("evalForm",evaluationRegisterService.getEvaluationRegisterform(open_course_id));		
 		return "management.evaluationRegisterform";	
 	}
-/*	public String evaluationRegisterform(Model model , String course_name, int type_code , String question){
-		
-		// 윗부분 과정명, 과목명 , 강사명 , 수강기간 뿌려주기
-		// System.out.println(course_name);
-		model.addAttribute("erf",evaluationRegisterformService.getEvaluationRegisterform(course_name));
-		// System.out.println(evaluationRegisterformService.getEvaluationRegisterform(course_name));
-		
-		// 객관식 질문 등록하기 
-		System.out.println(type_code);
-		System.out.println(question);
-		model.addAttribute("insertque",evaluationRegisterformService.getinsertquestion(type_code, question));
-		model.addAttribute("lastid",evaluationRegisterformService.getlastid());	
-			
-			
-			return "management.evaluationRegisterform";
-		
-	}*/	
+	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.POST)
+	public String evaluationRegistertoDb(Model model ,int open_course_id){
+		model.addAttribute("evalForm",evaluationRegisterService.getEvaluationRegisterform(open_course_id));		
+		return "management.evaluationRegisterform";	
+	}
+	
 	//강의평가
 	@RequestMapping(value = "evaluationResult", method = RequestMethod.GET)
 	public String lectureEvaluation() {		
