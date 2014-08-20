@@ -34,7 +34,7 @@
 				<div class="col-sm-12 col-md-4 col-md-offset-1 email_img">
 					<img src="${pageContext.request.contextPath}/images/Email_256x256-32.png"/>
 				</div>
-				<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-1 email_text">
+				<div class="col-sm-8 col-sm-offset-2 col-md-6 col-md-offset-1 email_text2">
 					<c:choose>
 						<c:when test="${data.result=='noChange'}">
 							<div class="textbox">
@@ -61,7 +61,7 @@
 								<h2 class="title"><i class="fa fa-ban fa-2x"></i> 인증 실패</h2>
 								<h5>존재하지 않는 <a>활성키</a>이거나 문제가 발생했습니다.</h5>
 								계속해서 정상적으로 처리가 되지 않는경우 <a>관리자</a>에게 연락해주시기 바랍니다. 
-								<div class="btn-group">
+								<div class="btn-group joinBtn">
 									<button id="nextBtn" class="btn btn-large btn-block btn-primary joinbtn" type="button">메인으로</button>
 								</div>
 							</div>

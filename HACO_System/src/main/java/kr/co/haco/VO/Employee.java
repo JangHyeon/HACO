@@ -24,7 +24,7 @@ public class Employee{
 	private String join_center;
 	private String photo;
 	private int resident_registration_num1;
-	private int center_id;
+	private int now_center_id;
 	public int getAccount_id() {
 		return account_id;
 	}
@@ -139,10 +139,10 @@ public class Employee{
 	public void setResident_registration_num1(int resident_registration_num1) {
 		this.resident_registration_num1 = resident_registration_num1;
 	}
-	public int getCenter_id() {
-		return center_id;
+	public int getNow_center_id() {
+		return now_center_id;
 	}
-	public void setCenter_id(int center_id) {
-		this.center_id = center_id;
+	public void setNow_center_id(int center_id) {
+		this.now_center_id = center_id;
 	}
 }

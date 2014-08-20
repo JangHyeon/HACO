@@ -189,7 +189,7 @@ h3.highlight  {
 }
 
 .caret {
-	color:#fff;
+	/* color:#fff; */
 }
 
 .navbar-toggle {
@@ -316,12 +316,12 @@ color: #808080;
 	border-bottom: none;
 }
 
-.btn-group{
+/* .btn-group{
 	display: block;
 	margin: 30px auto 50px;
 	
 	width: 100px;
-}
+} */
 
 .content > .check{
 	margin-top: 10px;
@@ -484,7 +484,7 @@ margin: 3px 3px 3px 4px;
 
 .email_img img{
 	display:block;
-	margin:0 auto;
+	margin:30px auto 0;
 }
 
 .email_text .title{
@@ -492,18 +492,27 @@ margin: 3px 3px 3px 4px;
 	font-weight: 700;
 }
 
-.email_text{
+.email_text,.email_text2{
 	margin-top:10px;
 }
 
 
 @media (min-width: 992px) {
 	.email_text{
-		margin-top:50px;
+		margin-top:70px;
 	}
 	.email_text .textbox .btn-group{
 	margin: 30px 0;
 	}
+	
+	.email_text2{
+		margin-top:50px;
+	}
+	.email_text2 .textbox .btn-group{
+	margin: 30px 0;
+	}
+}
+	
 }
 
 .top_hr{
@@ -523,10 +532,11 @@ margin: 3px 3px 3px 4px;
 	padding:15px 30px;
 }
 
-.mypageBtn{
+.mypageBtn, .joinBtn, .submitBtn{
+	display: block;
+	margin: 30px auto 50px;
 	width: 150px;
 }
-
 .mypage_img img{
 	display: block;
 	margin: 30px auto;
@@ -568,4 +578,17 @@ margin: 3px 3px 3px 4px;
 .navbar{
 	margin-bottom: 0;
 	z-index: 5;	
+}
+
+.masthead h1{
+	padding-top: 15px;
+	padding-left: 15px;
+}
+
+#noticeForm .control-label{
+	text-align: left;
+}
+
+#selectType > li{
+	cursor: pointer;
 }

@@ -27,7 +27,7 @@
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	
-	padding: 15px 30px 35px;
+	padding: 20px 30px 35px;
 	height:100%;
 }
 
@@ -620,7 +620,7 @@ button.trigger span::before {
 
 #map-canvas{
 	min-height: 100%;
-	opacity: 0.75;
+	opacity: 0.65;
 	max-width: 1000px;
 	margin: 0 auto;
 }

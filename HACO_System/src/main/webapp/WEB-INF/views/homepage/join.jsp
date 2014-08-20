@@ -27,7 +27,7 @@
 			</div>	
 			
 			<div class="form-panel">
-                      <form id="joinForm" class="form-horizontal style-form" action="${pageContext.request.contextPath}/joinProcess" method="post">
+                      <form id="joinForm" class="form-horizontal style-form" method="post">
                           <div class="page-header">
   							<h3><small>필수 정보</small></h3>
 						  </div>
@@ -128,7 +128,7 @@
                                   <input type="text"  class="form-control" id="job_duty" name="job_duty">
                               </div>
                           </div>
-                          <div class="btn-group">
+                          <div class="btn-group mypageBtn">
 							<button id="joinBtn" class="btn btn-large btn-block btn-warning joinbtn" type="button">가입</button>
 						  </div>
                       </form>

@@ -7,7 +7,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-6">
-        <h1><a href="${pageContext.request.contextPath}/myPage" title="마이페이지 메인">My Page</a>
+        <h1><strong><a href="${pageContext.request.contextPath}/myPage" title="마이페이지 메인">My Page</a></strong>
           <p class="lead">${sessionScope.member.name}님의 마이페이지</p></h1>
       </div>
       <div class="col-xs-6">

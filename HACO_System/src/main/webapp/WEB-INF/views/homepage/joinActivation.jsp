@@ -40,7 +40,7 @@
 						</h2>
 						<h5><a>${email}</a>으로 인증 메일을 발송했습니다.</h5>
 						<p>메일을 확인하시고 인증을 해주시면 회원가입이 완료됩니다.</p>
-						<div class="btn-group">
+						<div class="btn-group joinBtn">
 							<button id="nextBtn" class="btn btn-large btn-block btn-primary joinbtn" type="button">메인으로</button>
 						</div>
 					</div>						

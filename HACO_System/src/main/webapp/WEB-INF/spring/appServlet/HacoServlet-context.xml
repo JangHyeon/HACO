@@ -59,6 +59,7 @@
 	<mvc:resources mapping="/images/**" location="/resources/images/" />
 	<mvc:resources mapping="/employeePhoto/**" location="/resources/upload/employeePhoto/" />
 	<mvc:resources mapping="/profilePhoto/**" location="/resources/upload/profilePhoto/" />
+	<mvc:resources mapping="/board/**" location="/resources/upload/board/" />
 		
 	
 	<!-- Tiles 설정 코드 START -->

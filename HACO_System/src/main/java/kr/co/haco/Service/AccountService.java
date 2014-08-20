@@ -36,12 +36,13 @@ public interface AccountService{
 	
 	public Member getMemberToActivationKey(String activation_key);
 	public Member getMemberToAccount_id(String account_id);
-	
 	public Account getAccountToAccount_id(String account_id);
 	
+	@PreAuthorize("hasAnyRole('GUEST','STUDENT')")
 	@Transactional
 	public boolean updateMember(Account account, Member member);
 	
+	@PreAuthorize("hasAnyRole('GUEST','STUDENT')")
 	public boolean deleteMember(Account account);
 	
 	public String findId(String name, String email);

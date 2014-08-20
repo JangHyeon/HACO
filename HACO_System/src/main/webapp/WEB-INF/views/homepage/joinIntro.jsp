@@ -239,7 +239,7 @@
 					<input id="accept_privacy" type="checkbox"> <label
 						for="accept_privacy">개인정보 수집 및 이용에 동의합니다.</label>
 				</div>
-				<div class="btn-group">
+				<div class="btn-group mypageBtn">
 					<button id="nextBtn" class="btn btn-large btn-block btn-success joinbtn" type="button">다음</button>
 				</div>
 			</div>

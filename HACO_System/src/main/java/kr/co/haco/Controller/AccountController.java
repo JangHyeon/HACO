@@ -80,7 +80,7 @@ public class AccountController {
 
 
 	// 홈페이지 회원가입처리
-	@RequestMapping(value = "joinProcess", method = RequestMethod.POST)
+	@RequestMapping(value = "join", method = RequestMethod.POST)
 	public String joinProcess(Member member, Account account, HttpServletRequest request, RedirectAttributes redirectAttributes) {
 		/*try{
 			accountService.joinMember(account, member);
@@ -88,7 +88,7 @@ public class AccountController {
 			System.out.println(e.getMessage());
 		}*/
 		StringBuffer contextURL = request.getRequestURL();
-		contextURL = contextURL.replace(contextURL.lastIndexOf("joinProcess"), contextURL.length(), "");
+		contextURL = contextURL.replace(contextURL.lastIndexOf("join"), contextURL.length(), "");
 		accountService.joinMember(account, member, contextURL);
 		
 
@@ -148,7 +148,7 @@ public class AccountController {
 	}
 	
 	// 회원정보수정 처리
-	@RequestMapping(value="memberModifyProcess", method=RequestMethod.POST)
+	@RequestMapping(value="memberModify", method=RequestMethod.POST)
 	public String memberModifyProcess(Member member, Account account, Principal principal, HttpSession session, RedirectAttributes redirectAttributes) {
 		account.setAccount_id(Integer.parseInt(principal.getName()));
 		if(accountService.updateMember(account, member)){
@@ -171,7 +171,7 @@ public class AccountController {
 	}
 	
 	// 회원 탈퇴 처리
-	@RequestMapping(value="memberDeleteProcess", method=RequestMethod.POST)
+	@RequestMapping(value="memberDelete", method=RequestMethod.POST)
 	public String memberDeleteProcess(Account account, Principal principal, HttpSession session, RedirectAttributes redirectAttributes) {
 		account.setAccount_id(Integer.parseInt(principal.getName()));
 		if(accountService.deleteMember(account)){

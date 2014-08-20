@@ -25,7 +25,7 @@
 				</ol>
 				<div class="panel-body">
 					<div class="form-panel">
-                      <form id="modifyMemberForm" class="form-horizontal style-form" action="${pageContext.request.contextPath}/memberModifyProcess" method="post">
+                      <form id="modifyMemberForm" class="form-horizontal style-form" method="post">
                           <div class="page-header">
   							<h3><small>필수 정보</small></h3>
 						  </div>
@@ -125,7 +125,7 @@
                                   <input type="text"  class="form-control" id="job_duty" name="job_duty" value="${member.job_duty}">
                               </div>
                           </div>
-                          <div class="btn-group">
+                          <div class="btn-group mypageBtn">
 							<button id="modifyBtn" class="btn btn-large btn-block btn-warning joinbtn" type="button">수정하기</button>
 						  </div>
                       </form>

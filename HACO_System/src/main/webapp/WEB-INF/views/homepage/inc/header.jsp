@@ -25,9 +25,9 @@
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">열린마당</a>
             <ul class="dropdown-menu">
-              <li><a href="#">공지사항</a></li>
-              <li><a href="#">질문과 답변</a></li>
-              <li><a href="#">모임방</a></li>
+              <li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
+              <li><a href="${pageContext.request.contextPath}/qna">질문과 답변</a></li>
+              <li><a href="${pageContext.request.contextPath}/community">모임방</a></li>
             </ul>
           </li>
           <li class="dropdown">
@@ -57,9 +57,9 @@
 		  	<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
             <ul class="dropdown-menu">
-              <li><a href="${pageContext.request.contextPath}/myPage">My Page</a></li>
+              <li><a href="${pageContext.request.contextPath}/myPage">마이 페이지</a></li>
               <li class="divider"></li>
-              <li><a href="${pageContext.request.contextPath}/memberLogout">Logout</a></li>
+              <li><a href="${pageContext.request.contextPath}/memberLogout">로그아웃</a></li>
              </ul>
           </li>
 		  </s:authorize>

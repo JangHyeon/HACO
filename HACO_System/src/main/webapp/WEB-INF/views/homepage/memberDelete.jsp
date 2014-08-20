@@ -28,7 +28,7 @@
 							<img src="${pageContext.request.contextPath}/images/user-delete.svg"/>
 						</div>
 						<div class="col-sm-8 col-sm-offset-2 col-md-5 col-md-offset-1 email_text">
-							<form id="deleteMemberForm" class="form-horizontal style-form" action="${pageContext.request.contextPath}/memberDeleteProcess" method="post">
+							<form id="deleteMemberForm" class="form-horizontal style-form" method="post">
 							<div class="textbox">
 								<h2 class="title">
 									회원탈퇴
