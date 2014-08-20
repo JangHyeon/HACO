@@ -19,7 +19,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h3><i class="fa fa-angle-right"></i> 강의평가 등록</h3>
+          	<h3><i class="fa fa-angle-right"></i> 강의평가 등록 완료</h3>
 				<div class="row">		
 						  	
 					<div class="col-lg-12">
@@ -69,23 +69,7 @@
 								<i class="fa fa-angle-right"></i> 평가 질문 등록
 							</h4>							
 							
-							<form class="form-horizontal style-form" id="evaluationForm" action="evaluationRegisterform" method="post">
-							<input type="hidden" name="open_course_id" value="${param.open_course_id}">
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">강의평가 활성여부</label>
-								<div class="col-lg-6">
-								    <div class="input-group">	
-								    	&nbsp;&nbsp;&nbsp;							     
-										<label> <input type="radio" name="state_code"
-											 value="1" checked> 활성
-										</label>
-								     	&nbsp;&nbsp;&nbsp;								 
-										<label> <input type="radio" name="state_code"
-											 value="0"> 비활성
-										</label>																    						  
-								    </div>
-	  						  </div>
-							</div>	
+							<form class="form-horizontal style-form" id="evaluationForm" action="" method="post">
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">질문 유형</label>
 								<div class="col-lg-6">
@@ -113,14 +97,14 @@
 							<div class="form-group" id="essay_question" style="display:none">
 								<label class="col-sm-2 col-sm-2 control-label" id="essay_question_label">Q_주관식</label>
 								<div class="col-sm-8 input-group">
-									<input type="text" class="form-control" id="essay_question_input" name="question">
+									<input type="text" class="form-control" id="essay_question_input">
 								</div>
 							</div>	
 							<!-- 객관식 질문 틀 -->
 							<div class="form-group" id="multiple_choice" style="display:none">
 								<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label" >Q_객관식</label>
 								<div class="col-sm-8 input-group" >
-									<input type="text" class="form-control" id="multiple_choice_input" name="question">
+									<input type="text" class="form-control" id="multiple_choice_input">
 								</div>	
 								<!-- 보기 --> 
 								<div id="multiple_choice_items_place">
@@ -129,7 +113,7 @@
 										<div class="col-lg-6">								
 										    <div>							    							     
 												<label> 
-													<input type="text" class="form-control" name="example_content">
+													<input type="text" class="form-control" name="multiple_choice_items_input">
 												</label>								     												     	  
 										     	<button type="button" class="btn btn-default items_btn" id="multiple_choice_items_btn" >+</button>							    						  
 										    </div>
@@ -225,11 +209,8 @@
     		var btnVal = $(this).val();    		
     		addItems($(this),btnVal); 
     	});   	
-    	
-    	//등록버튼: submit
-    	$("#submit_btn").click(function(){
-        	$("#evaluationForm").submit(); 
-        });
+    
+        
  	});
   </script>
   

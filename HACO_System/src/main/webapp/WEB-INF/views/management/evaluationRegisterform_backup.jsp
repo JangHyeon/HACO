@@ -113,14 +113,14 @@
 							<div class="form-group" id="essay_question" style="display:none">
 								<label class="col-sm-2 col-sm-2 control-label" id="essay_question_label">Q_주관식</label>
 								<div class="col-sm-8 input-group">
-									<input type="text" class="form-control" id="essay_question_input" name="question">
+									<input type="text" class="form-control" id="essay_question_input">
 								</div>
 							</div>	
 							<!-- 객관식 질문 틀 -->
 							<div class="form-group" id="multiple_choice" style="display:none">
 								<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label" >Q_객관식</label>
 								<div class="col-sm-8 input-group" >
-									<input type="text" class="form-control" id="multiple_choice_input" name="question">
+									<input type="text" class="form-control" id="multiple_choice_input">
 								</div>	
 								<!-- 보기 --> 
 								<div id="multiple_choice_items_place">
@@ -129,7 +129,7 @@
 										<div class="col-lg-6">								
 										    <div>							    							     
 												<label> 
-													<input type="text" class="form-control" name="example_content">
+													<input type="text" class="form-control" name="multiple_choice_items_input">
 												</label>								     												     	  
 										     	<button type="button" class="btn btn-default items_btn" id="multiple_choice_items_btn" >+</button>							    						  
 										    </div>

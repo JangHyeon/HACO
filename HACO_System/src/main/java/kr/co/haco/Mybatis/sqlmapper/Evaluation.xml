@@ -6,14 +6,14 @@
 <!-- 구현하고자하는 인터페이스 풀경로 -->
 <mapper namespace="kr.co.haco.DAO.EvaluationRegisterDAO">
 	<!-- 개설과정(평가등록) 리스트 -->
-	<select id="getEvaluationRegist" resultType="kr.co.haco.VO.EvaluationRegister">
+	<select id="getEvaluationRegist" resultType="kr.co.haco.VO.EvaluationRegisterForm">
 		select ec.location , oc.center_id, oc.open_course_id ,oc.course_name , oc.course_start_date , oc.course_end_date
 		from open_course as oc
 		inner join education_center as ec
 		on oc.center_id = ec.center_id
 	</select>	
 	
-	<!-- 평가등록 폼의 과정명,과목명,강사명,수강시간 뿌리기 -->
+	<!-- 평가등록 폼, 기본정보 -과정명,과목명,강사명,수강시간 -->
 	<select id="getEvaluationRegisterform"  resultType="kr.co.haco.VO.EvaluationRegisterForm">
 		select  o.course_name  ,o.course_start_date , o.course_end_date ,s.subject_name ,e.name_kor 
 		 from open_course as o inner join subject as s 
@@ -21,15 +21,18 @@
 		 inner join employee as e 
 		 on e.account_id = o.account_id 
 		 where o.open_course_id=#{open_course_id};
-	</select>
+	</select>	
 	
-	
-	<!-- 객관식 질문 등록 -->
-	<!-- <insert id="insertquestion">
-		insert into eval_question(type_code,question) values(#{type_code},#{question});
+	<!-- 강의평가 등록 -->
+	<insert id="addEvaluation" parameterType="kr.co.haco.VO.EvaluationRegister">
+		INSERT INTO lecture_evaluation(open_course_id,state_code) VALUES(#{open_course_id},#{state_code});
 	</insert>
-	마지막으로 입력된 ID
-	<select id="getlastid" resultType="Integer">
-		select LAST_INSERT_ID();
-	</select> -->
+	<insert id="addQuestion" parameterType="kr.co.haco.VO.EvaluationRegister">
+		INSERT INTO eval_question(open_course_id,type_code,question)
+		VALUES(#{open_course_id},#{type_code},#{question})
+	</insert>
+	<insert id="addQuestionExample" parameterType="kr.co.haco.VO.EvaluationRegister">
+		INSERT INTO eval_question_example(example_id,question_id,example_content)
+		VALUES(#{example_id},#{question_id},#{example_content})
+	</insert>
 </mapper>

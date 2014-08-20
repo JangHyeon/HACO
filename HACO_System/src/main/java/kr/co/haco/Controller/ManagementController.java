@@ -20,6 +20,8 @@ import kr.co.haco.Util.ImageJ;
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
+import kr.co.haco.VO.EvaluationRegister;
+import kr.co.haco.VO.EvaluationRegisterForm;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
 import kr.co.haco.VO.OpenCourse;
@@ -172,19 +174,26 @@ public class ManagementController {
 		model.addAttribute("er",evaluationRegisterService.getEvaluationRegist());
 		return "management.evaluationRegister";		
 	}	
-	//평가 등록
+	//평가 등록 폼
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
 	public String evaluationRegisterform(Model model ,int open_course_id){
 		model.addAttribute("evalForm",evaluationRegisterService.getEvaluationRegisterform(open_course_id));		
 		return "management.evaluationRegisterform";	
 	}
+	//평가 등록
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.POST)
-	public String evaluationRegistertoDb(Model model ,int open_course_id){
-		model.addAttribute("evalForm",evaluationRegisterService.getEvaluationRegisterform(open_course_id));		
-		return "management.evaluationRegisterform";	
+	public String evaluationRegistertoDb(Model model ,EvaluationRegister evalRegister){
+		int result = evaluationRegisterService.addEvalution(evalRegister);
+		model.addAttribute("result", result);
+		if(result>0){
+			System.out.println("평가 등록 성공");
+		}else{
+			System.out.println("평가 등록 실패");
+		}
+		return "management.evaluationRegisterUpdate";	
 	}
 	
-	//강의평가
+	//강의평가 결과
 	@RequestMapping(value = "evaluationResult", method = RequestMethod.GET)
 	public String lectureEvaluation() {		
 		return "management.evaluationResult";

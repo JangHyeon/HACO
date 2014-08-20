@@ -18,7 +18,7 @@ public class EvaluationRegisterImpl implements EvaluationRegisterService {
 	SqlSession sqlsession;
 
 	@Override
-	public List<EvaluationRegister> getEvaluationRegist() {
+	public List<EvaluationRegisterForm> getEvaluationRegist() {
 		
 		return sqlsession.getMapper(EvaluationRegisterDAO.class).getEvaluationRegist();
 	}
@@ -27,6 +27,19 @@ public class EvaluationRegisterImpl implements EvaluationRegisterService {
 	public EvaluationRegisterForm getEvaluationRegisterform(int open_course_id) {
 		return sqlsession.getMapper(EvaluationRegisterDAO.class).getEvaluationRegisterform(open_course_id);
 	}
+
+	
+	@Override
+	public int addEvalution(EvaluationRegister evalRegister) {		
+		EvaluationRegisterDAO evalRegisterDAO = sqlsession.getMapper(EvaluationRegisterDAO.class);
+		int result=0;
+		result += evalRegisterDAO.addEvaluation(evalRegister);
+		result += evalRegisterDAO.addQuestion(evalRegister);
+		//result += evalRegisterDAO.addQuestionExample(evalRegister);
+		return result;
+	}
+
+
 
 	
 	
