@@ -91,11 +91,11 @@
 								<div class="col-lg-6">
 								    <div class="input-group">	
 								    	&nbsp;&nbsp;&nbsp;							     
-										<label> <input type="radio" name="type_code"
+										<label> <input type="radio" name="type"
 											id="essay_question_type" value="1"> 객관식
 										</label>
 								     	&nbsp;&nbsp;&nbsp;								 
-										<label> <input type="radio" name="type_code"
+										<label> <input type="radio" name="type"
 											id="multiple_choice_type" value="2"> 주관식
 										</label>		
 										&nbsp;&nbsp;											     	  
@@ -108,46 +108,13 @@
 																
 							</div>					
 							
-							<!--  ----------------------------------------------------------------- -->
-							<!-- 주관식 질문 틀 -->
-							<div class="form-group" id="essay_question" style="display:none">
-								<label class="col-sm-2 col-sm-2 control-label" id="essay_question_label">Q_주관식</label>
-								<div class="col-sm-8 input-group">
-									<input type="text" class="form-control" id="essay_question_input" name="question">
-								</div>
-							</div>	
-							<!-- 객관식 질문 틀 -->
-							<div class="form-group" id="multiple_choice" style="display:none">
-								<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label" >Q_객관식</label>
-								<div class="col-sm-8 input-group" >
-									<input type="text" class="form-control" id="multiple_choice_input" name="question">
-								</div>	
-								<!-- 보기 --> 
-								<div id="multiple_choice_items_place">
-									<div id="multiple_choice_items">							
-										<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_items_label">A1</label>
-										<div class="col-lg-6">								
-										    <div>							    							     
-												<label> 
-													<input type="text" class="form-control" name="example_content">
-												</label>								     												     	  
-										     	<button type="button" class="btn btn-default items_btn" id="multiple_choice_items_btn" >+</button>							    						  
-										    </div>
-			  						  	</div>
-		  						  	</div> 
-		  						  	
-		  						</div>		
-		  						
-		  										
-	  						  	
-	  						</div>		
-	  						<!-- 객관식 보기 틀 -->
+							
 	  						<div id="multiple_choice_items_tool" style="display:none">							
 								<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_items_label">A1</label>
-								<div class="col-lg-6">								
+								<div class="col-sm-10">								
 								    <div>							    							     
 										<label> 
-											<input type="text" class="form-control" name="multiple_choice_items_input">
+											<input type="text" class="form-control" id="example_content" name="example_content">
 										</label>   												     	  
 									    						    						  
 									</div>
@@ -157,7 +124,43 @@
 							
 							<button type="button" class="btn btn-success" id="submit_btn">등록</button>
 							<button type="button" class="btn btn-danger" id="cancle_btn">취소</button>
-						</form>				
+						</form>			
+						
+						<!--  ----------------------------------------------------------------- -->
+							<!-- 주관식 질문 틀 -->
+							<div class="form-group" id="essay_question" style="display:none">
+								<label class="col-sm-2 col-sm-2 control-label" id="essay_question_label" >Q_주관식</label>
+								<input type="hidden" name="type_code" value="2">
+								<div class="col-sm-8 input-group">
+									<input type="text" class="form-control" id="essay_question_input" name="question">
+								</div>
+							</div>	
+							<!-- 객관식 질문 틀 -->
+							<div class="form-group" id="multiple_choice" style="display:none">
+								<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label">Q_객관식</label>
+								<input type="hidden" name="type_code" value="1">
+								<div class="col-sm-8 input-group" >
+									<input type="text" class="form-control" id="multiple_choice_input" name="question">
+								</div>	
+								<!-- 보기 --> 
+								<div id="multiple_choice_items_place">
+									<div id="multiple_choice_items">							
+										<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_items_label">&nbsp;A1</label>
+										<div class="col-sm-10">								
+										    <div>							    							     
+												<label> 
+													<input type="hidden" id="example_content_delimiter" name="example_content" value="0">
+													<input type="text" class="form-control" id="example_content" name="example_content">
+												</label>								     												     	  
+										     	<button type="button" class="btn btn-default items_btn" id="multiple_choice_items_btn" >+</button>							    						  
+										    </div>
+			  						  	</div>
+		  						  	</div> 
+		  						  	
+		  						</div>	  										
+	  						  	
+	  						</div>		
+	  						<!-- 객관식 보기 틀 -->	
 						</div>
 					</div>
 					<!-- col-lg-12--> 
@@ -180,7 +183,7 @@
   		//객관식,주관식 질문 선택
   		var cnt=0;
     	$("#select_question_btn").click(function(){    		
-    		var type_code = $("input:radio[name=type_code]:checked").val();
+    		var type_code = $("input:radio[name=type]:checked").val();
     		
     	 	if(type_code == 1){ //객관식   	 		
     	 		cnt++;    			
@@ -188,9 +191,9 @@
     			$(newDiv).attr("id", "multiple_choice"+cnt);
     			
     			$(newDiv).find("#multiple_choice_items_btn").val(cnt);
-    			$(newDiv).find("#multiple_choice_items_btn").attr("id", "multiple_choice_items_btn_"+cnt);    			
-    			
-    			$(newDiv).children("#multiple_choice_label").text("Q"+cnt);    			
+    			$(newDiv).find("#multiple_choice_items_btn").attr("id", "multiple_choice_items_btn_"+cnt); 			
+    			$(newDiv).children("#multiple_choice_label").text("Q"+cnt);  			   
+    			$(newDiv).find("#example_content_delimiter").val("|"); 			
     			$("#question_place").append(newDiv); 
     		}else if(type_code == 2){ //주관식 			
     			cnt++;    			
@@ -223,6 +226,7 @@
   		
     	$(".items_btn").click(function(){   		   		
     		var btnVal = $(this).val();    		
+    		//alert("btnVal:"+btnVal);
     		addItems($(this),btnVal); 
     	});   	
     	

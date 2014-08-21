@@ -1,7 +1,10 @@
 package kr.co.haco.DAO;
 
 import java.util.List;
+import java.util.Map;
 
+import kr.co.haco.VO.EvalExample;
+import kr.co.haco.VO.EvalQuestion;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.EvaluationRegisterForm;
 
@@ -12,9 +15,10 @@ public interface EvaluationRegisterDAO {
 	public EvaluationRegisterForm getEvaluationRegisterform(int open_course_id);
 		
 	//평가 등록
+	public int getQuestionId();
 	public int addEvaluation(EvaluationRegister evalRegister);
-	public int addQuestion(EvaluationRegister evalRegister);
-	public int addQuestionExample(EvaluationRegister evalRegister);	
-	
-	
+	//public int addQuestion(Map<String,Object> questionMap);
+	public int addQuestion(EvalQuestion evalRegister);
+	public int addQuestionExample(EvalExample evalRegister);	
+		
 }

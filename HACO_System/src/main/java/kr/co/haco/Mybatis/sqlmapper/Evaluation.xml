@@ -27,12 +27,33 @@
 	<insert id="addEvaluation" parameterType="kr.co.haco.VO.EvaluationRegister">
 		INSERT INTO lecture_evaluation(open_course_id,state_code) VALUES(#{open_course_id},#{state_code});
 	</insert>
+	<!-- 평가 질문을 map에 넣어 한번에 처리하려고 했으나, 객관식 질문은 질문 하나가 insert된 후 보기가 insert되야 하기 때문에 
+		 단일 insert처리하기로 함.
+	<insert id="addQuestion" parameterType="java.util.Map">
+		INSERT INTO eval_question(open_course_id,type_code,question) VALUES
+		<foreach collection="paramList" item="item" separator=",">
+			(#{item.open_course_id},#{item.type_code},#{item.question})
+		</foreach>
+	</insert>			
+		 
+		<foreach> 태그 속성 설명
+		collection : parameterType으로 넘어온 map안에 list(map에 key값)
+		item : collection을 사용할 변수 명
+		seperator : 반복 문자열을 구분할 문자			
+		 
+	 -->	 
 	<insert id="addQuestion" parameterType="kr.co.haco.VO.EvaluationRegister">
-		INSERT INTO eval_question(open_course_id,type_code,question)
-		VALUES(#{open_course_id},#{type_code},#{question})
-	</insert>
+		INSERT INTO eval_question(open_course_id,type_code,question) VALUES
+		 (#{open_course_id},#{type_code},#{question})		
+	</insert>	
 	<insert id="addQuestionExample" parameterType="kr.co.haco.VO.EvaluationRegister">
-		INSERT INTO eval_question_example(example_id,question_id,example_content)
-		VALUES(#{example_id},#{question_id},#{example_content})
-	</insert>
+		INSERT INTO eval_question_example(question_id,example_content)
+		VALUES(#{question_id},#{example_content})
+	</insert>	
+	<select id="getQuestionId" resultType="Integer">
+		<!-- 마지막으로 입력된 ID -->
+		select LAST_INSERT_ID();
+	</select>
+	
+	
 </mapper>
