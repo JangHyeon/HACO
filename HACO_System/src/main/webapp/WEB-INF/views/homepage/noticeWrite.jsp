@@ -53,8 +53,8 @@
 										<label class="btn btn-default active"> 
 										<input type="radio" name="state_code" id="option1" value="1" checked> 일반공지
 										</label> 
-										<label class="btn btn-default"> 
-										<input type="radio" name="state_code" id="option2" value="0"> 비밀공지
+										<label class="btn btn-default">
+										<input type="radio" name="state_code" id="option2" value="0"> 직원공지
 										</label> 
 										<label class="btn btn-default"> 
 										<input type="radio" name="state_code" id="option3" value="2"> 고정공지
@@ -149,6 +149,10 @@ $(document).ready(function(){
 	$('#noticeForm').submit(function() {
 		if ($('#title').val() == "") {
 			alert("제목을 입력하세요");
+			$('#title').focus();
+			return false;
+		}else if($('#title').val().length>50){
+			alert("제목은 50자 이하로 입력해주세요");
 			$('#title').focus();
 			return false;
 		}

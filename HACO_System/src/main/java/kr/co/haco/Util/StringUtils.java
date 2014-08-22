@@ -61,7 +61,7 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
-
+/*
 	public static void main(String[] agrs) {
 		
 		System.out.println(randomPassword(10));
@@ -86,5 +86,5 @@ public class StringUtils {
 		System.out.println(StringUtils.getFixString(title2, titleLength));
 		System.out.println(StringUtils.getFixString(title3, titleLength));
 		System.out.println(StringUtils.getFixString(title4, titleLength));
-	}
+	}*/
 }

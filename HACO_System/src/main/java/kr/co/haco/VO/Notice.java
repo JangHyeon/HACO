@@ -4,10 +4,39 @@ import java.sql.Timestamp;
 
 
 public class Notice{
-	private String pageNum;
-	private String pageSize;
+	private int startNum;
+	
+	public int getStartNum() {
+		return startNum;
+	}
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+	
+	private String center_list;
+
+	public String getCenter_list() {
+		return center_list;
+	}
+	public void setCenter_list(String center_list) {
+		this.center_list = center_list;
+	}
+	
+
+	private int pageNum;
+	private int pageSize;
 	private String searchType;
 	private String searchKey;
+	
+
+	public String getSearchKey() {
+		return searchKey;
+	}
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+	
+	
 	
 	private String name_kor;
 	private String name_eng;
@@ -16,6 +45,15 @@ public class Notice{
 	private int account_id;
 	private int center_id;
 	private Timestamp register_date;
+	private String register_date_string;
+	
+	public String getRegister_date_string() {
+		return register_date_string;
+	}
+	public void setRegister_date_string(String register_date_string) {
+		this.register_date_string = register_date_string;
+	}
+
 	private String title;
 	private int state_code;
 	private String content;
@@ -71,16 +109,16 @@ public class Notice{
 
 	
 	
-	public String getPageNum() {
+	public int getPageNum() {
 		return pageNum;
 	}
-	public void setPageNum(String pageNum) {
+	public void setPageNum(int pageNum) {
 		this.pageNum = pageNum;
 	}
-	public String getPageSize() {
+	public int getPageSize() {
 		return pageSize;
 	}
-	public void setPageSize(String pageSize) {
+	public void setPageSize(int pageSize) {
 		this.pageSize = pageSize;
 	}
 	public String getSearchType() {
@@ -88,12 +126,6 @@ public class Notice{
 	}
 	public void setSearchType(String searchType) {
 		this.searchType = searchType;
-	}
-	public String getSearchKey() {
-		return searchKey;
-	}
-	public void setSearchKey(String searchKey) {
-		this.searchKey = searchKey;
 	}
 	
 

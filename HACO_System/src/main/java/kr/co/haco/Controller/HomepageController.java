@@ -1,31 +1,20 @@
 package kr.co.haco.Controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.UUID;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.HomepageService;
-import kr.co.haco.Util.MultipartUploader;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.Notice;
 
-import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Controller
@@ -68,25 +57,30 @@ public class HomepageController {
 	
 
 	// 공지사항
-	@RequestMapping(value = "/notice", method = RequestMethod.GET)
-	public String notice(Notice notice, Model model, 
-			@RequestParam(defaultValue="1")		String pageNum, 
-			@RequestParam(defaultValue="10")	String pageSize, 
-			@RequestParam(defaultValue="title")	String searchType, 
-			@RequestParam(defaultValue="")		String searchKey) {
+	@RequestMapping(value = {"/notice","/noticeSearch"}, method = RequestMethod.GET)
+	public String notice(Model model, HttpServletRequest request, HttpSession session,
+			@RequestParam(defaultValue="1") int pageNum, 
+			@RequestParam(defaultValue="10") int pageSize, 
+			@RequestParam(defaultValue="title") String searchType, 
+			@RequestParam(defaultValue="") String searchKey) {
+		
+
+		model.addAttribute("searchType",searchType);
+		model.addAttribute("searchKey",searchKey);
+		
+		String servletPath = request.getServletPath();
+		if(servletPath.equals("/noticeSearch")){
+			pageNum = 1;
+		}
+		
+		Notice notice = new Notice();
 		
 		notice.setPageNum(pageNum);
 		notice.setPageSize(pageSize);
 		notice.setSearchType(searchType);
 		notice.setSearchKey(searchKey);
-
-		System.out.println(pageNum);
-		System.out.println(pageSize);
-		System.out.println(searchKey);
-		System.out.println(searchType);
 		
-		model.addAttribute("noticeList",homepageService.getNoticeList(notice));
-
+		homepageService.getNoticeList(notice, session, model);
 		
 		return "homepage.notice";
 	}
@@ -105,11 +99,8 @@ public class HomepageController {
 		
 		homepageService.insertNotice(notice);
 		
-		return "redirect:noticeWrite";
+		return "redirect:notice";
 	}
-	
-	
-	
 	
 	// 공지사항 이미지 첨부
 	/*
@@ -123,6 +114,35 @@ public class HomepageController {
 		return homepageService.noticeUpload(request);
 	}
 		
+	// 공지사항 읽기
+	@RequestMapping(value = "/notice/{notice_id}")
+	public String noticeView(@PathVariable int notice_id, Model model) {
+		model.addAttribute("notice",homepageService.getNotice(notice_id));
+		return "homepage.noticeView";
+	}
+	
+	// 공지사항 수정
+	@RequestMapping(value = "/noticeModify/{notice_id}",method = RequestMethod.GET)
+	public String noticeModify(@PathVariable int notice_id, Model model) {
+		model.addAttribute("notice",homepageService.getNotice(notice_id));
+		return "homepage.noticeModify";
+	}
+	@RequestMapping(value = "/noticeModify/{notice_id}",method = RequestMethod.POST)
+	public String noticeModifyProcess(@PathVariable int notice_id, Notice notice) {
+		System.out.println(homepageService.updateNotice(notice));
+		return "redirect:/notice/"+notice_id;
+	}
+	
+	
+	// 공지 사항 삭제
+	@RequestMapping(value = "/noticeDelete/{notice_id}",method = RequestMethod.GET)
+	public String noticeDelete(@PathVariable int notice_id, Model model) {
+		//model.addAttribute("notice",homepageService.getNotice(notice_id));
+		return "homepage.noticeView";
+	}
+	
+	
+	
 	
 	
 	
