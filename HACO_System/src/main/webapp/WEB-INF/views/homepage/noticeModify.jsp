@@ -32,7 +32,7 @@
 									class="fa fa-check fa-lg"></i> 제목</label>
 								<div class="col-sm-10">
 									<input type="text" class="form-control" id="title"
-										name="title">
+										name="title" value="${notice.title}">
 								</div>
 							</div>
 
@@ -41,7 +41,7 @@
 									class="fa fa-check fa-lg"></i> 내용</label>
 								<div class="col-sm-10">
 									<!-- <textarea id="content" name="content"></textarea> -->
-									<textarea rows="10" cols="5" class="form-control" name="content"></textarea>
+									<textarea rows="10" cols="5" class="form-control" name="content">${notice.content}</textarea>
 								</div>
 							</div>
 
@@ -50,14 +50,14 @@
 									class="fa fa-check fa-lg"></i> 상태 선택</label>
 								<div class="col-sm-10">
 									<div class="btn-group" data-toggle="buttons">
-										<label class="btn btn-default active"> 
-										<input type="radio" name="state_code" id="option1" value="1" checked> 일반공지
+										<label class="btn btn-default<c:if test="${notice.state_code==1}"> active</c:if>">
+										<input type="radio" name="state_code" id="option1" value="1"<c:if test="${notice.state_code==1}"> checked</c:if>> 일반공지
 										</label> 
-										<label class="btn btn-default">
-										<input type="radio" name="state_code" id="option2" value="0"> 직원공지
+										<label class="btn btn-default<c:if test="${notice.state_code==0}"> active</c:if>">
+										<input type="radio" name="state_code" id="option2" value="0"<c:if test="${notice.state_code==0}"> checked</c:if>> 직원공지
 										</label> 
-										<label class="btn btn-default"> 
-										<input type="radio" name="state_code" id="option3" value="2"> 고정공지
+										<label class="btn btn-default<c:if test="${notice.state_code==2}"> active</c:if>"> 
+										<input type="radio" name="state_code" id="option3" value="2"<c:if test="${notice.state_code==2}"> checked</c:if>> 고정공지
 										</label>
 									</div>
 								</div>

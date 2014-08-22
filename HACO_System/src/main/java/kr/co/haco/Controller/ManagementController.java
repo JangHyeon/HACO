@@ -62,7 +62,7 @@ public class ManagementController {
 	
 	
 	//대쉬보드
-	@RequestMapping(value = "index", method = RequestMethod.GET)
+	@RequestMapping(value = {"index",""}, method = RequestMethod.GET)
 	public String index() {
 		System.out.println("index");
 		return "management.index";

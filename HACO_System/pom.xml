@@ -55,6 +55,14 @@
     		<artifactId>imagej-lib</artifactId>
     		<version>1.48</version>
     	</dependency>
+    	<!-- supinanDate Format -->
+		<dependency>
+    		<groupId>supinan</groupId>
+    		<artifactId>supinan-util</artifactId>
+    		<version>1.2</version>
+    	</dependency>
+    	
+    	
 		<!-- Tiles 등록 -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>

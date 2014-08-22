@@ -50,14 +50,19 @@
           </li>
            -->
           
-		  <s:authorize ifNotGranted="GUEST,STUDENT">
+		  <s:authorize ifNotGranted="GUEST,STUDENT,TEACHER,MANAGER,CENTER,MASTER">
 		  	<li><a href="${pageContext.request.contextPath}/login">로그인</a></li> 
 		  </s:authorize>
-		  <s:authorize ifAnyGranted="GUEST,STUDENT">
+		  <s:authorize ifAnyGranted="GUEST,STUDENT,TEACHER,MANAGER,CENTER,MASTER">
 		  	<li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
             <ul class="dropdown-menu">
-              <li><a href="${pageContext.request.contextPath}/myPage">마이 페이지</a></li>
+              <s:authorize ifAnyGranted="GUEST,STUDENT">
+              	<li><a href="${pageContext.request.contextPath}/myPage">마이 페이지</a></li>
+              </s:authorize>
+              <s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
+              	<li><a href="${pageContext.request.contextPath}/management/">관리자 페이지</a></li>
+              </s:authorize>
               <li class="divider"></li>
               <li><a href="${pageContext.request.contextPath}/memberLogout">로그아웃</a></li>
              </ul>

@@ -10,7 +10,106 @@
 		values(#{account_id},#{center_id},#{title},#{state_code},#{content})
 	</insert>
 	
-	<select id="getNoticeList" resultType="kr.co.haco.VO.Notice" parameterType="kr.co.haco.VO.Notice" >
-		select notice_id,name_kor,name_eng,n.account_id as account_id,center_id,register_date,title,state_code,content,hit from notice as n join employee as e on n.account_id = e.account_id
+	
+	<!-- 공지사항 게시물 갯수 -->
+	<select id="getNoticeListCount" resultType="Integer">
+		select 
+		count(notice_id) 
+		from notice as n 
+		join employee as e 
+		on n.account_id = e.account_id
+		<where>
+			<if test="searchType == 'title'">
+				title like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="searchType == 'titleAndContent'">
+				(title like CONCAT('%',#{searchKey},'%')  or content like CONCAT('%',#{searchKey},'%')) 
+			</if>
+			<if test="searchType == 'writer'">
+				name_kor like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="center_id != null and center_id != ''">
+				AND center_id = #{center_id}
+			</if>
+			<if test="center_list != null and center_list !=''">
+				AND center_id in(1,${center_list})
+			</if>
+			<if test="state_code == 0">
+				AND state_code = 1
+			</if>
+			<if test="state_code == 2">
+				AND state_code = 2
+			</if>
+			<if test="state_code == 99">
+				AND state_code in(0,1)
+			</if>
+		</where>
 	</select>
+	
+	<!-- 공지사항 게시물 리스트 -->
+	<select id="getNoticeList" resultType="kr.co.haco.VO.Notice" parameterType="kr.co.haco.VO.Notice" >
+		select 
+		notice_id,n.account_id as account_id,name_kor,name_eng,title,content,state_code,hit,center_id,register_date 
+		from notice as n 
+		join employee as e 
+		on n.account_id = e.account_id
+		<where>
+			<if test="searchType == 'title'">
+				title like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="searchType == 'titleAndContent'">
+				(title like CONCAT('%',#{searchKey},'%')  or content like CONCAT('%',#{searchKey},'%')) 
+			</if>
+			<if test="searchType == 'writer'">
+				name_kor like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="center_id != null and center_id != ''">
+				AND center_id = #{center_id}
+			</if>
+			<if test="center_list != null and center_list !=''">
+				AND center_id in(1,${center_list})
+			</if>
+			<if test="state_code == 0">
+				AND state_code = 1
+			</if>
+			<if test="state_code == 2">
+				AND state_code = 2
+			</if>
+			<if test="state_code == 99">
+				AND state_code in(0,1)
+			</if>
+		</where>
+		order by notice_id desc 
+		limit ${startNum},${pageSize}
+	</select>
+	
+	<!-- 회원이 학생인지 확인 -->
+	<select id="getLectureRegisterByMember" resultType="Integer">
+		select DISTINCT center_id
+		from lecture_register as lr
+		join open_course as os
+		on lr.open_course_id = os.open_course_id
+		where lr.account_id=#{account_id} and lecture_register_code in(2,4)
+	</select>
+	
+	<!-- 공지사항 읽기 -->
+	<select id="getNotice" resultType="kr.co.haco.VO.Notice" parameterType="Integer">
+		select notice_id,name_kor,name_eng,n.account_id as account_id,center_id,register_date,title,state_code,content,hit 
+		from notice as n 
+		join employee as e 
+		on n.account_id = e.account_id 
+		where notice_id=#{notice_id}
+	</select>
+	
+	<!-- 공지사항 수정 -->
+	<update id="updateNotice" parameterType="kr.co.haco.VO.Notice">
+		update notice
+		<set>
+			<if test="title != null and title != ''">title=#{title},</if>
+			<if test="content != null and content != ''">content=#{content},</if>
+			<if test="state_code != null and state_code != ''">state_code=#{state_code},</if>
+		</set>
+		where notice_id=#{notice_id}
+	</update>
+
 </mapper>

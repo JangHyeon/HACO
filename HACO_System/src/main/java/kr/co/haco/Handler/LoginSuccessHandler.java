@@ -20,6 +20,7 @@ public class LoginSuccessHandler implements AuthenticationSuccessHandler
 	
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication auth) throws IOException, ServletException
     {
+    	request.getSession().invalidate();
     	System.out.println("=========login success===========");
     	request.getSession().removeAttribute("SPRING_SECURITY_LAST_EXCEPTION");
 
