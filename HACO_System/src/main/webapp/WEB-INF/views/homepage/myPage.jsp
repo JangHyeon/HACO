@@ -24,6 +24,7 @@
 				  <li class="active">마이페이지</li>
 				</ol>
 				
+				<!-- MainContent -->
 				<div class="panel-body">
 					<div class="row content" id="step1">
 						<div class="col-sm-12 col-md-4 col-md-offset-1 mypage_img">
