@@ -13,6 +13,7 @@ public class EvaluationRegisterForm {
 	private String location;
 	private int center_id;
 	private int open_course_id;	
+	private int state_code;
 	
 	public String getCourse_name() {
 		return course_name;
@@ -62,5 +63,12 @@ public class EvaluationRegisterForm {
 	public void setOpen_course_id(int open_course_id) {
 		this.open_course_id = open_course_id;
 	}
+	public int getState_code() {
+		return state_code;
+	}
+	public void setState_code(int state_code) {
+		this.state_code = state_code;
+	}
+	
 
 }

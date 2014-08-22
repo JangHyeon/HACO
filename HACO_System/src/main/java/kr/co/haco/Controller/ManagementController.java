@@ -168,12 +168,23 @@ public class ManagementController {
 		return "management.lectureRegister";
 	}
 	
-	//평가 등록 리스트
-	@RequestMapping(value="evaluationRegister" , method=RequestMethod.GET)
-	public String evaluationRegister(Model model){
-		model.addAttribute("er",evaluationRegisterService.getEvaluationRegist());
-		return "management.evaluationRegister";		
+	//평가 등록, 평가 결과 리스트
+	@RequestMapping(value = {"evaluationRegisterList", "evaluationResultList"}, method=RequestMethod.GET)
+	public String evaluationRegister(Model model,HttpServletRequest request){
+		//평가등록 리스트: isResult=0, 평가결과 리스트:isResult=1 구분 
+		int isResult=0;
+		String myuri = request.getRequestURI();
+			System.out.println("myurl:"+myuri);				
+		String uri = myuri.substring(myuri.lastIndexOf("/")+1);
+			System.out.println("uri:"+uri);
+		if(uri.equals("evaluationResultList")){
+			isResult =1;
+		}
+		model.addAttribute("uri", uri);
+		model.addAttribute("evalRegList",evaluationRegisterService.getEvaluationRegistList(isResult));
+		return "management.evaluationRegisterList";		
 	}	
+	
 	//평가 등록 폼
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
 	public String evaluationRegisterform(Model model ,int open_course_id){
@@ -198,11 +209,7 @@ public class ManagementController {
 	public String lectureEvaluation() {		
 		return "management.evaluationResult";
 	}
-	//평가등록 폼 _ old
-	@RequestMapping(value = "evaluationRegisterform_old", method = RequestMethod.GET)
-	public String lectureEvaluation_old() {		
-		return "management.evaluationRegisterform_old";
-	}
+	
 	
 	
 	/////게시판////////////////////

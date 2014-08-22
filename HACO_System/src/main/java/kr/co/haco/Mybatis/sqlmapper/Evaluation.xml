@@ -6,11 +6,23 @@
 <!-- 구현하고자하는 인터페이스 풀경로 -->
 <mapper namespace="kr.co.haco.DAO.EvaluationRegisterDAO">
 	<!-- 개설과정(평가등록) 리스트 -->
-	<select id="getEvaluationRegist" resultType="kr.co.haco.VO.EvaluationRegisterForm">
-		select ec.location , oc.center_id, oc.open_course_id ,oc.course_name , oc.course_start_date , oc.course_end_date
+	<select id="getEvaluationRegistList" resultType="kr.co.haco.VO.EvaluationRegisterForm" parameterType="java.util.Map">
+		select ec.location , oc.center_id, oc.open_course_id ,oc.course_name , oc.course_start_date , oc.course_end_date ,ifnull(l.state_code,-1) as state_code
 		from open_course as oc
-		inner join education_center as ec
-		on oc.center_id = ec.center_id
+			inner join education_center as ec
+			on oc.center_id = ec.center_id
+			LEFT OUTER JOIN lecture_evaluation l
+			ON oc.open_course_id = l.open_course_id
+		<!-- <where> -->
+			<if test="isResult == 0">
+				where l.state_code !=  9
+				OR l.state_code IS NULL 
+		    </if>
+		    <if test="isResult == 1">
+		    	where  l.state_code =  9
+		    </if>		    
+	    
+		
 	</select>	
 	
 	<!-- 평가등록 폼, 기본정보 -과정명,과목명,강사명,수강시간 -->

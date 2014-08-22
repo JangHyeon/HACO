@@ -11,7 +11,7 @@
     <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
     <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css" rel="stylesheet">
     
-	<input id="current-accordion" type="hidden" value="lectureEvaluation,evaluationRegister"/>
+	<input id="current-accordion" type="hidden" value="lectureEvaluation,evaluationRegisterList"/>
 
       <!-- **********************************************************************************************************************************************************
       MAIN CONTENT

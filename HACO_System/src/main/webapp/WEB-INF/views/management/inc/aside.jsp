@@ -63,12 +63,11 @@
                   <li class="sub-menu" name="lectureEvaluation">
                       <a href="javascript:;">
                           <i class="fa fa-tags"></i>
-                          <span>수강후기</span>
+                          <span>강의평가</span>
                       </a>
                       <ul class="sub">
-                      		<li name="evaluationRegister"><a href="${pageContext.request.contextPath}/management/evaluationRegister">평가등록</a></li>
-                      		<li name="evaluationResult"><a href="${pageContext.request.contextPath}/management/evaluationResult">평가 결과</a></li>
-                      		<li name="evaluationRegisterform_old"><a href="${pageContext.request.contextPath}/management/evaluationRegisterform_old">test</a></li>
+                      		<li name="evaluationRegisterList"><a href="${pageContext.request.contextPath}/management/evaluationRegisterList">평가등록</a></li>
+                      		<li name="evaluationResultList"><a href="${pageContext.request.contextPath}/management/evaluationResultList">평가 결과</a></li>                      		
                       </ul>
                   </li>
                   
