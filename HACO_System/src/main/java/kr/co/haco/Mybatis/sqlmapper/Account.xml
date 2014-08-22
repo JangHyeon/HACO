@@ -26,9 +26,8 @@
 	
 	<!-- 계정 등록 -->
 	<insert id="insertAccount" parameterType="kr.co.haco.VO.Account">
-		insert into account(id,password) values(#{id},#{password});
+		insert into account(id,password,activation_key) values(#{id},#{password},#{activation_key});
 	</insert>
-	
 	
 	<!-- 계정 권한 등록 -->
 	<insert id="insertAuthority" parameterType="kr.co.haco.VO.Authority">
@@ -37,22 +36,66 @@
 	
 	<!-- 회원 정보 등록 -->
 	<insert id="insertMember" parameterType="kr.co.haco.VO.Member">
-		insert into member(account_id,name,email,phone
-		<if test="zipcode">,zipcode</if>
-		<if test="address">,address</if>
-		<if test="address_detail">,address_detail</if>
-		<if test="company">,company</if>
-		<if test="position">,position</if>
-		<if test="job_duty">,job_duty</if>
-		) values(#{account_id},#{name},#{email},#{phone}
-		<if test="zipcode">,#{zipcode}</if>
-		<if test="address">,#{address}</if>
-		<if test="address_detail">,#{address_detail}</if>
-		<if test="company">,#{company}</if>
-		<if test="position">,#{position}</if>
-		<if test="job_duty">,#{job_duty}</if>
-		);
+		insert into member(account_id,name,email,phone,zipcode,address,address_detail,company,position,job_duty) 
+		values(#{account_id},#{name},#{email},#{phone},#{zipcode},#{address},#{address_detail},#{company},#{position},#{job_duty});
 	</insert>
+	
+	<!-- 계정 정보 -->
+	<select id="getAccount" resultType="kr.co.haco.VO.Account" parameterType="kr.co.haco.VO.Account">
+		select account_id,state_code,id,password,create_date,activation_key from account 
+		<where>
+			<if test="account_id != 0">AND account_id=#{account_id}</if>
+			<if test="activation_key != null and activation_key != ''">AND activation_key=#{activation_key}</if>
+			<if test="id != null and id != ''">AND id=#{id}</if>
+		</where>
+	</select>
+	
+	<!-- 계정 활성화 -->
+	<update id="accountActivation">
+		update account SET state_code=1 where activation_key=#{activation_key}
+	</update>
+	
+	<!-- 회원 정보 -->
+	<select id="getMember" parameterType="kr.co.haco.VO.Member" resultType="kr.co.haco.VO.Member">
+		select account_id,name,zipcode,address,address_detail,email,phone,company,position,job_duty,create_date from member 
+		<where>
+			<if test="account_id != 0">AND account_id=#{account_id}</if>
+			<if test="name != null and name != ''">AND name=#{name}</if>
+			<if test="email != null and email != ''">AND email=#{email}</if>
+		</where>
+	</select>
+	
+	<!-- 계정 수정 -->
+	<update id="updateAccount" parameterType="kr.co.haco.VO.Account">
+		update account
+		<set>
+			<if test="id != null and id != ''">id=#{id},</if>
+			<if test="password != null and password != ''">password=#{password},</if>
+		</set>
+		where account_id=#{account_id}
+	</update>
+	
+	<!-- 회원 수정 -->
+	<update id="updateMember" parameterType="kr.co.haco.VO.Member">
+		update member
+		<set>
+			<if test="name != null and name != ''">name=#{name},</if>
+			<if test="zipcode != null and zipcode != ''">zipcode=#{zipcode},</if>
+			<if test="address != null and address != ''">address=#{address},</if>
+			<if test="address_detail != null and address_detail != ''">address_detail=#{address_detail},</if>
+			<if test="email != null and email != ''">email=#{email},</if>
+			<if test="phone != null and phone != ''">phone=#{phone},</if>
+			<if test="company != null and company != ''">company=#{company},</if>
+			<if test="position != null and position != ''">position=#{position},</if>
+			<if test="job_duty != null and job_duty != ''">job_duty=#{job_duty},</if>
+		</set>
+		where account_id=#{account_id}
+	</update>
+	
+	<!-- 회원 탈퇴(계정) -->
+	<update id="disableAccount" parameterType="kr.co.haco.VO.Account">
+		update account SET state_code=0, id=#{id} where account_id=#{account_id} AND password=#{password}
+	</update>
 	
 	<!-- 
 	<insert id="insert" parameterType="kr.or.kosta.vo.Notice">

@@ -19,5 +19,13 @@ public interface AccountDAO {
 	public int insertAuthority(Authority authority);
 	public int insertMember(Member member);
 	
+	public Account getAccount(Account account);
+	public int accountActivation(String activation_key);
+
+	public Member getMember(Member member);
 	
+	public int updateAccount(Account account);
+	public int updateMember(Member member);
+	
+	public int disableAccount(Account account);
 }

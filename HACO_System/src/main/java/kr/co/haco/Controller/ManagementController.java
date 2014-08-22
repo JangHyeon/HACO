@@ -17,6 +17,7 @@ import kr.co.haco.Service.EmployeeService;
 import kr.co.haco.Service.EvaluationRegisterService;
 import kr.co.haco.Service.MemberService;
 import kr.co.haco.Util.ImageJ;
+import kr.co.haco.Util.MultipartUploader;
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
@@ -66,68 +67,27 @@ public class ManagementController {
 	
 	
 
+
 	//직원정보 사진 업로드
-	@RequestMapping(value="photoUpload", method = RequestMethod.POST)
+	@RequestMapping(value = "photoUpload", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, String> photoUpload(MultipartHttpServletRequest req){
 		
-		System.out.println("photoUpload");
-		
-	    InputStream in = null;
-	    OutputStream out = null;
-	 
 	    MultipartFile multipartFile = req.getFile("file");
+	    String usrUploadDir = "/resources/upload/employeePhoto"; //저장 폴더명
+
+	    MultipartUploader mu = new MultipartUploader(req, usrUploadDir, multipartFile,false);
 	    
-	    String usrUploadDir = "resources/upload/employeePhoto"; //저장 폴더명
-		//업로드 파일명
-	    String originalFileName = multipartFile.getOriginalFilename();
-	    //저장 파일명
-	    String targetFileName = UUID.randomUUID().toString().replace("-", "") + "." +
-	            originalFileName.substring(originalFileName.lastIndexOf(".") + 1, originalFileName.length()).toLowerCase();
-	    //저장 경로
-	    String targetPath = req.getSession().getServletContext().getRealPath("/")+File.separator + usrUploadDir;
-	    
-	    File targetPathDir = new File(targetPath);
-	    if(!targetPathDir.exists()) targetPathDir.mkdir();
-	     
-	    String savedFilePath = targetPathDir + File.separator + targetFileName;
-	     
-	    try {
-	        in = multipartFile.getInputStream();
-	        out = new FileOutputStream(savedFilePath);
-	         
-	        int readBytes = 0;
-	        byte[] buff = new byte[8192];
-	         
-	        while((readBytes=in.read(buff,0,8192))!=-1){
-	            out.write(buff,0,readBytes);
-	        }           
-	    } catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally{
-	        if(in!=null)
-				try {
-					in.close();
-			        if(out!=null) out.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-	    }
-	    
-	    String result = ImageJ.photoCropAndResize(savedFilePath,177, 236);
+	    String result = ImageJ.photoCropAndResize(mu.getFilePath(),177, 236);
 	    System.out.println("result-"+result);
 	    
-	    
-	    
 	    HashMap<String, String> map = new HashMap<String, String>();
-	    map.put("originalFileName", originalFileName);
-	    map.put("renameFileName", targetFileName);
+	    map.put("originalFileName", multipartFile.getOriginalFilename());
+	    map.put("renameFileName", mu.getFileName());
+	    map.put("fileUrl", mu.getFileUrl());
 	     
 	    return map;
 	}
-
 	
 	
 	//대쉬보드

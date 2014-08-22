@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.co.haco.DAO.HomepageDAO">
+	<!-- 공지사항 등록 -->
+	<insert id="insertNotice" parameterType="kr.co.haco.VO.Notice">
+		insert into notice(account_id,center_id,title,state_code,content) 
+		values(#{account_id},#{center_id},#{title},#{state_code},#{content})
+	</insert>
+	
+	<select id="getNoticeList" resultType="kr.co.haco.VO.Notice" parameterType="kr.co.haco.VO.Notice" >
+		select notice_id,name_kor,name_eng,n.account_id as account_id,center_id,register_date,title,state_code,content,hit from notice as n join employee as e on n.account_id = e.account_id
+	</select>
+</mapper>

@@ -13,7 +13,7 @@
 	<div class="no-gutter row">
 		
 		<!-- content column-->
-		<div class="col-md-10 col-md-offset-1" id="content">
+		<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 panel" id="joinform">
 			<div class="page-header">
 				<h1 class="title">
 					계정 만들기 <small>정보 입력</small>
@@ -22,26 +22,20 @@
 			
 			<!-- 진행바 -->
 			<div class="progress progress-striped active">
-			  <div class="progress-bar progress-bar-success" style="width: 20%">
-			    <span class="sr-only">35% Complete (success)</span>
-			  </div>
-			  <div class="progress-bar progress-bar-warning" style="width: 40%">
-			    <span class="sr-only">20% Complete (warning)</span>
-			  </div>
-			  <%-- <div class="progress-bar progress-bar-danger primary" style="width: 10%">
-			    <span class="sr-only">10% Complete (danger)</span>
-			  </div> --%>
+			  <div class="progress-bar progress-bar-success" style="width: 20%"></div>
+			  <div id="joinProgress" class="progress-bar progress-bar-warning" style="width: 0%"></div>
 			</div>	
 			
 			<div class="form-panel">
-                      <form id="joinForm" class="form-horizontal style-form" action="${pageContext.request.contextPath}/joinProcess" method="post">
+                      <form id="joinForm" class="form-horizontal style-form" method="post">
                           <div class="page-header">
   							<h3><small>필수 정보</small></h3>
 						  </div>
                           <div class="form-group">
                               <label class="col-sm-3 control-label"><i class="fa fa-check fa-lg"></i> 아이디</label>
                               <div class="col-sm-8 idArea">
-								  <input type="text" class="form-control" id="id" name="id" disabled>                                  
+								  <input type="text" class="form-control" id="id" name="id" disabled>
+								  <input type="hidden" id="somecheck" value="no"/>                   
                                   <span class="help-block">4~25자의 영문과 숫자로 사용하실 수 있습니다.</span>
                               </div>
                           </div>
@@ -57,8 +51,8 @@
 	                              	    <span class="label label-primary">높음</span>
 									</div>
 									<div id="primary-progress" class="progress progress-striped active">
-										<div class="progress-bar progress-bar-success" style="width: 0%"></div>
 										<div class="progress-bar progress-bar-primary" style="width: 0%"></div>
+										<div class="progress-bar progress-bar-success" style="width: 0%"></div>
 										<div class="progress-bar progress-bar-warning" style="width: 0%"></div>
 										<div class="progress-bar progress-bar-danger" style="width: 0%"></div>
 									</div>
@@ -81,7 +75,7 @@
                           <div class="form-group">
                               <label class="col-sm-3 control-label"><i class="fa fa-check fa-lg"></i> 이메일</label>
                               <div class="col-sm-8">
-                                  <input type="text" class="form-control" id="email" name="email">
+                                  <input type="email" class="form-control" id="email" name="email">
                                   <span class="help-block">실제 사용 중인 이메일 주소가 아니면 비밀번호를 분실 시 찾을 수 없습니다.</span>
                               </div>
                           </div>
@@ -134,7 +128,7 @@
                                   <input type="text"  class="form-control" id="job_duty" name="job_duty">
                               </div>
                           </div>
-                          <div class="btn-group">
+                          <div class="btn-group mypageBtn">
 							<button id="joinBtn" class="btn btn-large btn-block btn-warning joinbtn" type="button">가입</button>
 						  </div>
                       </form>
@@ -147,6 +141,13 @@
 <div id="zipcodeModal" class="remodal" data-remodal-id="modal"></div>
 
 
+<!-- lodingmodel -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="lodingModal" class="modal fade">
+	<div class="modal-dialog">
+		<div id="loaderImage"></div>
+	</div>
+</div>
+<!-- modal -->
 
 <!-- script references -->
 <script src="${pageContext.request.contextPath}/resources/gazONojfL3/js/jquery.1.9.1.min.js"></script>
@@ -158,7 +159,29 @@
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
 	$(document).ready(function(){
+		// init join.jsp
 		$('#id').attr('disabled',false);
+		$('#id').focus();
+		$('#joinProgress').css('width','50%');
+		
+		// 페이지 이탈시 작동
+		var beforeUnload = 1;
+		$(window).on('beforeunload',function(){
+			if(beforeUnload)
+				return "저장하지 않고 페이지를 벗어나려 합니다.\n작성중인 내용은 저장되지 않습니다.";
+		});
+		
+		// BackSpace 키 방지 이벤트
+	    $(document).keydown(function(e){    
+	        if(e.target.nodeName != "INPUT" && e.target.nodeName != "TEXTAREA"){        
+	            if(e.keyCode === 8){
+	            e.preventDefault();
+	            return false;
+	            }
+	        }
+	    });
+		
+
 		
 		//아이디 중복 체크
 		$('#id').tooltip({
@@ -166,11 +189,9 @@
 			trigger:'manual',
 			title:"　이미 존재하는 아이디입니다.　"
 		});
-		
-		var delay=500;
+		var delay=300;
 		var timer = null;
 		var cnt = 0;
-		
 		var idPush = function(){
 			$.post(
 	    		"/haco/checkId", 	  //url
@@ -178,15 +199,16 @@
 				function(data){
 	    			if(data =='error'){
 	    				$('#id').tooltip('show');
+	    				$('#somecheck').val('no');
 	    			}else{
 	    				//console.log(data.result);
 	    				$('#id').tooltip('hide');
+	    				$('#somecheck').val('ok');
 	    			}
 			   	}
 	   		)
 			
 		};
-		
 		$('#id').keyup(function(){
 			clearTimeout(timer);
 			timer = setTimeout(idPush,delay);
@@ -195,9 +217,7 @@
 		
 		
 		//우편번호
-		
 		var $inst = $.remodal.lookup[$('[data-remodal-id=modal]').data('remodal')];
-
 	    var element = document.getElementById('zipcodeModal');
 		
 	    $('#zipcodeBtn').on('click',function(){
@@ -222,8 +242,6 @@
 	            width : '100%',
 	            height : '100%'
 			}).embed(element);
-			
-			
 			$inst.open();
 	    });
 		
@@ -235,38 +253,26 @@
         var regexpNormal2 = /^.*(?=.{7,20})(?=.*[a-z])(?=.*[A-Z]).*$/;
         var regexpHigh = /^.*(?=.{7,20})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/;
         var regexpVeryHigh = /^.*(?=.{7,20})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[~!@#$%^&*()_+]).*$/;
-        
         //var regexpVeryHigh = /^.*(?=.{7,20})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[~!@#$%^&*()_+]).*$/;
         
         $('#password').keyup(function(){
         	if(regexpVeryLow.test($('#password').val())) {
-        		$('#primary-progress .progress-bar-danger').css('width','100%');
-	        	$('#primary-progress .progress-bar-warning').css('width','0%');
-		        $('#primary-progress .progress-bar-success').css('width','0%');
-	    		$('#primary-progress .progress-bar-primary').css('width','0%');
+        		$('#primary-progress .progress-bar').css('width','0%');
 	    		if(regexpLow.test($('#password').val())) {
 	                //alert("영문 포함 7~20자");
+            		$('#primary-progress .progress-bar').css('width','0%');
             		$('#primary-progress .progress-bar-danger').css('width','100%');
-		        	$('#primary-progress .progress-bar-warning').css('width','0%');
-			        $('#primary-progress .progress-bar-success').css('width','0%');
-		    		$('#primary-progress .progress-bar-primary').css('width','0%');
 	        		if(regexpNormal.test($('#password').val()) || regexpNormal2.test($('#password').val())){
 		                //alert("영문 대소문자 or 숫자 포함 7~20자");
-	        			$('#primary-progress .progress-bar-danger').css('width','0%');
+		        		$('#primary-progress .progress-bar').css('width','0%');
 		        		$('#primary-progress .progress-bar-warning').css('width','100%');
-			        	$('#primary-progress .progress-bar-success').css('width','0%');
-		    			$('#primary-progress .progress-bar-primary').css('width','0%');
 		        		if(regexpHigh.test($('#password').val())) {  
 			                //alert("영문 대소문자 숫자 포함 7~20자"); 
-	        				$('#primary-progress .progress-bar-danger').css('width','0%');
-		        			$('#primary-progress .progress-bar-warning').css('width','0%');
+		            		$('#primary-progress .progress-bar').css('width','0%');
 			        		$('#primary-progress .progress-bar-success').css('width','100%');
-		    				$('#primary-progress .progress-bar-primary').css('width','0%');
 			        		if(regexpVeryHigh.test($('#password').val())) { 
 				                //alert("영문 대소문자 숫자 특문 포함 7~20자");  
-			            		$('#primary-progress .progress-bar-danger').css('width','0%');
-			        			$('#primary-progress .progress-bar-warning').css('width','0%');
-				        		$('#primary-progress .progress-bar-success').css('width','0%');
+        						$('#primary-progress .progress-bar').css('width','0%');
 			    				$('#primary-progress .progress-bar-primary').css('width','100%');
 			        		}
 		        		}
@@ -274,13 +280,11 @@
 	            }
             }else{
                 //alert("7~20자");
-        		$('#primary-progress .progress-bar-danger').css('width','0%');
-        		$('#primary-progress .progress-bar-warning').css('width','0%');
-				$('#primary-progress .progress-bar-success').css('width','0%');
-	    		$('#primary-progress .progress-bar-primary').css('width','0%');
+				$('#primary-progress .progress-bar').css('width','0%');
             }
        });
         
+       //숫자만
        $('input[type=tel]').keydown(function(){
     	   if(((event.keyCode>=48)&&(event.keyCode<=57))
                    ||((event.keyCode>=33)&&(event.keyCode<=40))
@@ -303,18 +307,18 @@
     		$(this).prev().prev().focus();
     	  }
        });
-        
+       
+       
        
        $('#joinBtn').on('click',function(){
     	   $('#joinForm').submit();
        });
-       
-       
 
 		$('#joinForm').submit(function(){
            var regexpId = /^\d+/i;
            if($('#id').val() == ""){
                 alert("아이디를 입력하세요");
+                $('#id').addClass('alertFocus');
                 $('#id').focus();
                 return false;
            }else if($('#id').val().length<4 || $('#id').val().length>25){
@@ -329,7 +333,7 @@
                alert("아이디는 영문으로만 시작할 수 있습니다.");
                $('#id').focus();
                return false;
-           }else if($('.tooltip').length>0){
+           }else if($('#somecheck').val() == 'no'){
            	alert('아이디가 중복되었습니다.');
                $('#id').focus();
                return false;
@@ -382,11 +386,19 @@
         		$('#phoneNum2').val() == "" ||
         		$('#phoneNum3').val() == "" ){
                alert("휴대폰 번호를 입력하세요");
-               $('#email').focus();
+               $('#phoneNum3').focus();
                return false;
           }
-          
-          
+           
+          $(window).off('beforeunload');
+    	  $('#joinBtn').off('click');
+    	  $("#joinBtn").attr("disabled", true);
+    	  $('#joinBtn').text('처리중');
+    	  $('#lodingModal').modal({
+  			backdrop:false,
+  			keyboard:false
+  			
+  		   });
 		});
 	});
 </script>

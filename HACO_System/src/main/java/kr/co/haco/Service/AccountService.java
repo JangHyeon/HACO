@@ -30,5 +30,21 @@ public interface AccountService{
 	public String checkId(String id);
 	
 	@Transactional
-	public int joinMember(Account account, Member member) throws DataIntegrityViolationException ; 
+	public void joinMember(Account account, Member member, StringBuffer contextURL) throws DataIntegrityViolationException;
+	
+	public String accountActivation(String activation_key);
+	
+	public Member getMemberToActivationKey(String activation_key);
+	public Member getMemberToAccount_id(String account_id);
+	public Account getAccountToAccount_id(String account_id);
+	
+	@PreAuthorize("hasAnyRole('GUEST','STUDENT')")
+	@Transactional
+	public boolean updateMember(Account account, Member member);
+	
+	@PreAuthorize("hasAnyRole('GUEST','STUDENT')")
+	public boolean deleteMember(Account account);
+	
+	public String findId(String name, String email);
+	public String findPassword(String id, String email, StringBuffer contextURL);
 }

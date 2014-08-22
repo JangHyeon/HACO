@@ -1,13 +1,25 @@
 package kr.co.haco.VO;
 
-import java.sql.Timestamp;
 
 public class Account{
 	private int account_id;
 	private int state_code;
 	private String id;
 	private String password;
+	private String activation_key;
 	
+	public Account(){}
+	public Account(String activation_key){
+		this.activation_key = activation_key;
+	}
+	
+	
+	public String getActivation_key() {
+		return activation_key;
+	}
+	public void setActivation_key(String activation_key) {
+		this.activation_key = activation_key;
+	}
 	public int getAccount_id() {
 		return account_id;
 	}

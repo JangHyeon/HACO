@@ -22,7 +22,15 @@ public class Member{
 	private Timestamp create_date;
 	
 	
+	public Member() {}
 	
+	public Member(int account_id) {
+		this.account_id = account_id;
+	}
+	public Member(String name, String email){
+		this.name = name;
+		this.email = email;
+	}
 	
 	public int getAccount_id() {
 		return account_id;
@@ -68,7 +76,10 @@ public class Member{
 		return this.phone;
 	}
 	public void setPhone(String phone) {
-		this.phone = phone;
+		String[] phonenum = phone.split("-");
+		this.phoneNum1 = phonenum[0];
+		this.phoneNum2 = phonenum[1];
+		this.phoneNum3 = phonenum[2];
 	}
 	
 

@@ -12,8 +12,16 @@
 /* end */
 
 header {
-	min-height:180px;
+	min-height:150px;
   	margin-bottom:5px;
+}
+
+footer{
+	
+}
+
+body{
+	overflow-x: hidden;
 }
 
 /* only apply sticky columns on wider screens */
@@ -33,7 +41,7 @@ header {
   #sidebar.affix {
       position: fixed !important;
       top: 20px;
-      width:200px;
+      width:180px;
   }
 
   #midCol.affix-top {
@@ -181,7 +189,7 @@ h3.highlight  {
 }
 
 .caret {
-	color:#fff;
+	/* color:#fff; */
 }
 
 .navbar-toggle {
@@ -272,6 +280,7 @@ footer {
 .page-header{
 	border-bottom: 1px solid #e6e6e6;
 	margin-bottom: 0px;
+	margin-top:50px;
 }
 
 .page-header > .title{
@@ -307,12 +316,12 @@ color: #808080;
 	border-bottom: none;
 }
 
-.btn-group{
+/* .btn-group{
 	display: block;
 	margin: 30px auto 50px;
 	
 	width: 100px;
-}
+} */
 
 .content > .check{
 	margin-top: 10px;
@@ -336,7 +345,7 @@ margin: 3px 3px 3px 4px;
 }
 
 .progress{
-	margin-bottom: 30px;
+	margin-bottom: 50px;
 }
 
 .form-group #primary-progress{
@@ -360,7 +369,7 @@ margin: 3px 3px 3px 4px;
 }
 
 #zipcode{
-	padding: 0 25px;
+	padding: 0 22px;
 	width: 100px;
 }
 
@@ -401,7 +410,7 @@ margin: 3px 3px 3px 4px;
 	width:50%;
 }
 .form-group .passwordLabel{
-	padding-top: 35px;
+	padding-top: 40px;
 } 
 }
 
@@ -425,28 +434,161 @@ margin: 3px 3px 3px 4px;
 .phoneNumber .fa-minus{
 	margin: 5px 2px 5px 5px;
 }
+}
 
 /* end custom theme */
 
-input[type=text], input[type=password]{
-	font-size: 10pt;
+
+#overlay {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    opacity: 0.5;
+    filter: alpha(opacity=50);
+}
+#modal {
+    position:absolute;
+    background:url(tint20.png) 0 0 repeat;
+    background:rgba(0,0,0,0.2);
+    border-radius:14px;
+    padding:8px;
 }
 
-input::-webkit-input-placeholder { /* WebKit browsers */
-    color:    #ccc;
+
+#joinform{
+    border-radius:3px;
+    background:#fff;
+	padding:20px;
+	margin-top: 30px;
 }
-input:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-    color:    #ccc;
-    opacity:  1;
+
+#close {
+    position:absolute;
+    background:url(close.png) 0 0 no-repeat;
+    width:24px;
+    height:27px;
+    display:block;
+    text-indent:-9999px;
+    top:-7px;
+    right:-7px;
 }
-input::-moz-placeholder { /* Mozilla Firefox 19+ */
-    color:    #ccc;
-    opacity:  1;
+
+#joinProgress{
+	-webkit-transition: width 2.6s ease;
+	-o-transition: width 2.6s ease;
+	transition: width 2.6s ease;
 }
-input:-ms-input-placeholder { /* Internet Explorer 10+ */
-    color:    #ccc;
+
+.email_img img{
+	display:block;
+	margin:30px auto 0;
+}
+
+.email_text .title{
+	font-size: 32px;
+	font-weight: 700;
+}
+
+.email_text,.email_text2{
+	margin-top:10px;
 }
 
 
+@media (min-width: 992px) {
+	.email_text{
+		margin-top:70px;
+	}
+	.email_text .textbox .btn-group{
+	margin: 30px 0;
+	}
+	
+	.email_text2{
+		margin-top:50px;
+	}
+	.email_text2 .textbox .btn-group{
+	margin: 30px 0;
+	}
+}
+	
+}
 
-input::-webkit-input-placeholder,  input::-moz-placeholder {     color:red; }
+.top_hr{
+	clear:both;
+	margin-bottom: 80px;
+}
+.bottom_hr{
+	clear:both;
+	padding-top: 50px;
+	margin-bottom: 150px;
+	
+	border-top: 0;
+	border-bottom: 1px solid #eee;
+}
+
+.headerImg{
+	padding:15px 30px;
+}
+
+.mypageBtn, .joinBtn, .submitBtn{
+	display: block;
+	margin: 30px auto 50px;
+	width: 150px;
+}
+.mypage_img img{
+	display: block;
+	margin: 30px auto;
+}
+.delete_img img{
+	display: block;
+	margin: 30px auto;
+	width:250px;
+	opacity:.5;
+	padding-top: 20px;
+}
+.panel-default>.panel-heading{
+	background-color: #424a5d; 
+	color: #fff;
+}
+.breadcrumb{
+	padding:10px 15px;
+	border-color: #ddd;
+	border-radius: 0;
+	border-width: 0;
+	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+	box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
+	background-color: #77D0E4;
+}
+.breadcrumb>li+li:before {
+	padding: 0 5px;
+	color: #eee;
+	content: ">\00a0";
+}
+.breadcrumb > li > a{
+	color:#fff;
+}
+.breadcrumb>.active {
+	color:#fff;
+}
+.panel-heading > a{
+	color:#fff;
+}
+.navbar{
+	margin-bottom: 0;
+	z-index: 5;	
+}
+
+.masthead h1{
+	padding-top: 15px;
+	padding-left: 15px;
+}
+
+#noticeForm .control-label{
+	text-align: left;
+}
+
+#selectType > li{
+	cursor: pointer;
+}

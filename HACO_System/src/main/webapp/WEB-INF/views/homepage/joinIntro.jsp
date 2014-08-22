@@ -13,7 +13,7 @@
 	<div class="no-gutter row">
 
 		<!-- content column-->
-		<div class="col-md-10 col-md-offset-1" id="content">
+		<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 panel" id="joinform">
 			<div class="page-header">
 				<h1 class="title">
 					계정 만들기 <small>약관 동의</small>
@@ -22,10 +22,11 @@
 			
 			<!-- 진행바 -->
 			<div class="progress progress-striped active">
-			  <div class="progress-bar progress-bar-success" style="width: 20%">
-			    <span class="sr-only">35% Complete (success)</span>
-			  </div>
+			  <div id="joinProgress" class="progress-bar progress-bar-success" style="width: 0%"></div>
 			</div>
+			
+			<hr>
+			
 			<div class="content" id="step1">
 				<h2 class="title">
 					서비스 약관
@@ -238,7 +239,7 @@
 					<input id="accept_privacy" type="checkbox"> <label
 						for="accept_privacy">개인정보 수집 및 이용에 동의합니다.</label>
 				</div>
-				<div class="btn-group">
+				<div class="btn-group mypageBtn">
 					<button id="nextBtn" class="btn btn-large btn-block btn-success joinbtn" type="button">다음</button>
 				</div>
 			</div>
@@ -254,7 +255,8 @@
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
 	$(document).ready(function() {
-
+		$('#joinProgress').css('width','20%');
+		
 		$('#nextBtn').on('click',function(e){
 			
 			if($('#accept_policy').is(':checked') && $('#accept_privacy').is(':checked')){
