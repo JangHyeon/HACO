@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 구현하고자하는 인터페이스 풀경로 -->
+<mapper namespace="kr.co.haco.DAO.MypageDAO">
+	<!-- 수강내역 -->
+	<select id="getMyLecture" resultType="kr.co.haco.VO.MyLectureHistory">
+		SELECT l.account_id,l.open_course_id, o.course_name,
+			o.center_id, e.location,  o.course_start_date, o.course_end_date,
+		    IF(o.course_end_date>NOW(),'수강중','수강완료')  AS now_study,
+		    l.is_survey
+		FROM lecture_register l
+		INNER JOIN open_course o
+		ON l.open_course_id = o.open_course_id
+		INNER JOIN education_center e
+		ON o.center_id = e.center_id
+		WHERE l.account_id=#{account_id}
+	</select>
+	
+	<!-- 강의평가 - 설문내용 불러오기 -->
+	<select id="getEvaluationQuestion" resultType="kr.co.haco.VO.EvaluationRegister" parameterType="Integer">
+		SELECT q.open_course_id,q.question_id,q.question,q.type_code
+		FROM eval_question q
+			INNER JOIN lecture_evaluation l
+			ON q.open_course_id = l.open_course_id
+		WHERE q.open_course_id=#{open_course_id}
+	</select>
+	<select id="getEvaluationExample" resultType="kr.co.haco.VO.EvaluationRegister" parameterType="Integer">
+		SELECT e.example_id, q.question_id, e.example_content
+		FROM eval_question q
+			INNER JOIN lecture_evaluation l
+			ON q.open_course_id = l.open_course_id
+			INNER JOIN eval_question_example e
+			ON q.question_id = e.question_id
+		WHERE q.open_course_id=#{open_course_id}
+	</select>
+</mapper>
+
+
+
+

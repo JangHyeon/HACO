@@ -3,6 +3,8 @@ package kr.co.haco.VO;
 public class EvalExample {
 	private int question_id;
 	private String example_content;
+	private int example_id;
+	
 	public int getQuestion_id() {
 		return question_id;
 	}
@@ -14,6 +16,13 @@ public class EvalExample {
 	}
 	public void setExample_content(String example_content) {
 		this.example_content = example_content;
+	}
+	
+	public int getExample_id() {
+		return example_id;
+	}
+	public void setExample_id(int example_id) {
+		this.example_id = example_id;
 	}
 	
 	@Override
