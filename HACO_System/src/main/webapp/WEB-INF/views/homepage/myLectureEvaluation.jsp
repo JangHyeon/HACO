@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="kr.co.haco.VO.EvaluationRegister"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -41,8 +44,7 @@
 									<h5>임경균강사</h5> 
 									<br>
 								
-									<form class="form-horizontal style-form" action="employeeRegister" method="post">	
-										<c:forEach var="examList" items="${examListofList}">
+									<form class="form-horizontal style-form" action="employeeRegister" method="post">										
 										<c:forEach var="question" items="${questionList}">
 											<div class="form-group">
 												<label class="col-sm-2 col-sm-2 control-label">질문1</label>
@@ -65,13 +67,16 @@
 														<div class="col-lg-6">
 													    <div class="input-group">
 													    	&nbsp;&nbsp;&nbsp;
-													    	
-														    	<c:forEach var="exam" items="${examList}">													    					     
+													    	<%int idx=0;
+													    	List<ArrayList<EvaluationRegister>> examListofList= (List<ArrayList<EvaluationRegister>>)request.getAttribute("examListofList");
+													    	examListofList.get(idx);
+													    	%>									    	 
+													    					     
 																<label> <input type="radio" name="job_code"
 																	id="optionsRadios1" value="1"> ${exam.example_content}
 																</label>
 														     	&nbsp;&nbsp;&nbsp;					
-														     	</c:forEach>								
+														     									
 																													
 													    </div>
 							  						  </div>
@@ -81,7 +86,7 @@
 																							
 											<hr style="display:block;clear:both;">
 										</c:forEach> 
-										</c:forEach>		
+													    	 	} %>
 										<button type="submit" class="btn btn-theme">등록</button>						
 									</form>
 								</div>

@@ -51,7 +51,7 @@ public class HomepageJeController {
 				exam = new ArrayList<EvaluationRegister>();
 				exam.add(examList.get(i));
 			}else{
-				if(examList.get(i-1)==examList.get(i)){ //같은 문제의 보기일 때
+				if(examList.get(i-1).getQuestion_id()==examList.get(i).getQuestion_id()){ //같은 문제의 보기일 때
 					exam.add(examList.get(i));					
 				}else{
 					examListofList.add(exam);
