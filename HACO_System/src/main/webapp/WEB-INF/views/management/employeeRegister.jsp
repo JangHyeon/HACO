@@ -23,6 +23,13 @@
 	href="${pageContext.request.contextPath}/resources/css/jquery.fileupload.css">
 <link rel="stylesheet"
 	href="${pageContext.request.contextPath}/resources/css/upload.css">
+	
+
+<link rel="stylesheet" type="text/css" 
+	href="${pageContext.request.contextPath}/resources/css/datepicker3.css">
+
+
+
 
 <input id="current-accordion" type="hidden"
 	value="employeeManagement,employeeRegister" />
@@ -35,8 +42,8 @@
 	<section class="wrapper">
 		<h3>
 			<i class="fa fa-angle-right"></i> 직원 등록
-		</h3>
-
+		</h3>	
+		
 		<!-- BASIC FORM ELELEMNTS -->
 		<div class="row mt">
 			<div class="col-lg-12">
@@ -119,28 +126,7 @@
 								</label>					  
 						    </div>
   						  </div>
-						</div>
-						
-			<%-- 			<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">직무</label>
-							<div class="col-lg-6">
-						    <div class="input-group">
-						      <span class="input-group-addon">
-						        <input type="radio" name="job_code" value="1">
-						      </span>
-						      <input type="text" class="form-control" value="1강사" readonly>						     
-						      <span class="input-group-addon">
-						        <input type="radio" name="job_code" value="2">
-						      </span>
-						      <input type="text" class="form-control" value="2관리직원" readonly>
-						      <span class="input-group-addon">
-						        <input type="radio" name="job_code" value="3">
-						      </span>
-						      <input type="text" class="form-control" value="3센터장" readonly>
-						    </div><!-- /input-group -->
-  						  </div><!-- /.col-lg-6 -->
-						</div>		
-						 --%>					
+						</div>				
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">주민등록번호</label>
 							<div class="col-sm-10">
@@ -184,26 +170,54 @@
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="email">
 							</div>
-						</div>	
+						</div>							
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">채용센터</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" name="join_center_id">
+							<div class="col-sm-10">						
+								<div class="btn-group">
+									<button id="joinCenterBtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<span>채용센터 선택</span>						
+										<span class="caret"></span>
+									</button>
+									<ul id="joinCenter" class="dropdown-menu pull-right pageSize">
+										<c:forEach var="edu" items="${eduCenterList}">
+									   		<li value="${edu.center_id}"><a>${edu.center_id}:${edu.location}</a></li>
+									    </c:forEach>									
+									</ul>
+								</div>
 							</div>
-						</div>			
+							
+						</div>						
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">현재 센터</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" name="now_center_id">
+							<div class="col-sm-10">	
+								<div class="btn-group">
+									<button id="nowCenterBtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<span>현재센터 선택</span>						
+										<span class="caret"></span>
+									</button>
+									<ul id="nowCenter" class="dropdown-menu pull-right pageSize">
+										<c:forEach var="edu" items="${eduCenterList}">
+									   		<li value="${edu.center_id}"><a>${edu.center_id}:${edu.location}</a></li>
+									    </c:forEach>									
+									</ul>
+								</div>
 							</div>
 						</div>		
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">입사 일자</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control" name="join_date">
-							</div>
+							<div class="col-sm-2">		
+								<div id="datapickerBox">
+									<input class="form-control" type="text" id="wrtDtReg" name="join_date" placeholder="">
+								</div>					
+								<!-- <div class="col-xs-1" id="datapickerBox">
+									<input class="form-control input-sm" type="text" id="wrtDtReg" name="join_date" placeholder="1980-11-09">
+								</div> -->
+							</div>							
 						</div>												
-									
+						<input type="hidden" name="join_center_id">
+						<input type="hidden" name="now_center_id">
+						
 						<button type="submit" class="btn btn-theme">등록</button>						
 					</form>
 				</div>
@@ -228,8 +242,38 @@
 	src="${pageContext.request.contextPath}/resources/js/jquery.fileupload.js"></script>
 <script type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/upload.js"></script>
-<script type="application/javascript">
+	
+<script  type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.js"></script>
+<script  type="text/javascript"
+	src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.kr.js"></script>
 
+<script type="application/javascript">
+	$(document).ready(function(){
+		//채용센터 선택
+		$('#joinCenter>li').on('click',function(){
+			$('#joinCenterBtn>span:first-child').text($('a',this).text());		
+			$('input[name=join_center_id]').val($(this).attr('value'));			
+		});
+		//현재 센터 선택
+		$('#nowCenter>li').on('click',function(){
+			$('#nowCenterBtn>span:first-child').text($('a',this).text());		
+			$('input[name=now_center_id]').val($(this).attr('value'));			
+		});
+		
+		$('#datapickerBox input').datepicker({
+			  format: "yyyy-mm-dd",
+			  startView: 3,
+			  todayBtn:"linked",
+			  language: "kr",
+			  orientation: "top auto",
+			  keyboardNavigation: false,
+			  forceParse: false,
+			  autoclose: true,
+			  todayHighlight: true
+			 });
+	
+	});	
 </script>
 
 

@@ -44,10 +44,12 @@
 									<h5>임경균강사</h5> 
 									<br>
 								
-									<form class="form-horizontal style-form" action="employeeRegister" method="post">										
-										<c:forEach var="question" items="${questionList}">
+									<form class="form-horizontal style-form" action="employeeRegister" method="post">		
+										<%int idx_examListofList=0; 
+										  int idx_question=1;%>																		
+										<c:forEach var="question" items="${questionList}"> <!-- 질문리스트 -->
 											<div class="form-group">
-												<label class="col-sm-2 col-sm-2 control-label">질문1</label>
+												<label class="col-sm-2 col-sm-2 control-label">질문<%=idx_question%></label>
 												<div class="col-sm-10">
 													${question.question}									
 												</div>
@@ -57,7 +59,7 @@
 													<div class="form-group">
 														<label class="col-sm-2 col-sm-2 control-label">주관식 답변</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control" name="name_kor">
+															<input type="text" class="form-control" name="question">
 														</div>											
 													</div>	
 												</c:when>
@@ -67,17 +69,19 @@
 														<div class="col-lg-6">
 													    <div class="input-group">
 													    	&nbsp;&nbsp;&nbsp;
-													    	<%int idx=0;
+													    	<%
+													    	
 													    	List<ArrayList<EvaluationRegister>> examListofList= (List<ArrayList<EvaluationRegister>>)request.getAttribute("examListofList");
-													    	examListofList.get(idx);
-													    	%>									    	 
-													    					     
-																<label> <input type="radio" name="job_code"
-																	id="optionsRadios1" value="1"> ${exam.example_content}
+													    	ArrayList<EvaluationRegister> examList = examListofList.get(idx_examListofList);												    	
+													    	
+													    	for(int i=0;i<examList.size();i++){ %>		     
+																<label> <input type="radio" name="example<%=idx_examListofList%>"
+																	id="optionsRadios1" value="1"> <%= examList.get(i).getExample_content()%>
 																</label>
-														     	&nbsp;&nbsp;&nbsp;					
-														     									
-																													
+														     	&nbsp;&nbsp;&nbsp;													  								
+															<%} 
+													    	idx_examListofList++; 
+															idx_question++;%>														
 													    </div>
 							  						  </div>
 													</div>				
@@ -86,7 +90,7 @@
 																							
 											<hr style="display:block;clear:both;">
 										</c:forEach> 
-													    	 	} %>
+													    	 	
 										<button type="submit" class="btn btn-theme">등록</button>						
 									</form>
 								</div>

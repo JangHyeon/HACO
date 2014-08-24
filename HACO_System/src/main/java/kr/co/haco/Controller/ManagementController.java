@@ -56,11 +56,13 @@ public class ManagementController {
 	//직원추가
 	@RequestMapping(value = "employeeRegister", method = RequestMethod.GET)
 	public String employeeManagement(Model model){
-		model.addAttribute("roleList",accountService.getRoleList());
+		List<EducationCenter> eduList = employeeService.getEduCenterList();
+		model.addAttribute("eduCenterList", eduList);
 		return "management.employeeRegister";
 	}
 	@RequestMapping(value = "employeeRegister", method = RequestMethod.POST)
 	public String employeeManagementAdd(Employee employee){		
+		//System.out.println("employee.getJoin_center_id():"+employee.getJoin_center_id());
 		employeeService.addEmployee(employee);
 		return "management.index";
 	}

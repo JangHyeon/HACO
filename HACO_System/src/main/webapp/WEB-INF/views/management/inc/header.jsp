@@ -194,6 +194,7 @@
 			 <!-- <s:authentication property="principal"/> -->
  
             </div>
+
         </header>
       <!--header end-->
       

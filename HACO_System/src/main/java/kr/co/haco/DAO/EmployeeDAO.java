@@ -2,6 +2,7 @@ package kr.co.haco.DAO;
 
 import java.util.List;
 
+import kr.co.haco.VO.Authority;
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
@@ -11,6 +12,7 @@ public interface EmployeeDAO {
 	public int getAccountId();
 	public void addAccount();	
 	public void setUserId(int account_id);
+	public void setAuthority(Authority authority);
 	public void addEmployee(Employee employee);
 	
 	//직원 목록 조회

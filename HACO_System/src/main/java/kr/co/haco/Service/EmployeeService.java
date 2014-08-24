@@ -18,6 +18,8 @@ public interface EmployeeService{
 	
 	//직원 목록 조회
 	public List<EmployeeList> getEmplList(int job_code, int now_center_id);
+	
+	//센터 목록 조회
 	public List<EducationCenter> getEduCenterList();
 	
 	//직원 상세정보 조회

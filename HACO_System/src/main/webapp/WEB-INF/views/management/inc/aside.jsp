@@ -17,7 +17,7 @@
               	  		<img src="${pageContext.request.contextPath}/employeePhoto/${sessionScope.employee.photo}" class="img-circle" width="80">
               	  	</a>
               	  </p>
-              	  <h5 class="centered">${sessionScope.employee.name_eng}<br>(${sessionScope.employee.name_kor})</h5>
+              	  <h5 class="centered">${sessionScope.employee.name_kor}<br>${sessionScope.employee.name_eng}</h5>
 
 			  	    
               	  <!-- 센터장, 본점장만 -->	

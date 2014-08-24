@@ -3,6 +3,7 @@ package kr.co.haco.Service;
 import java.util.List;
 
 import kr.co.haco.DAO.EmployeeDAO;
+import kr.co.haco.VO.Authority;
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
@@ -24,6 +25,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	SqlSession sqlSession;
 	
+	//직원 등록
 	@Override	
 	public void addEmployee(Employee employee) {		
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
@@ -32,13 +34,25 @@ public class EmployeeServiceImpl implements EmployeeService {
 		employeeDAO.addAccount();
 		//2. 1번에서 추가된 account_id 조회
 		int account_id = employeeDAO.getAccountId();
-		//3. account의 id컬럼에 account_id값 업데이트 하기 
+		//3. account의 id컬럼에 account_id값 넣어주기 
 		employeeDAO.setUserId(account_id);
-		//4. employee테이블에 추가
+		//4. 계정권한 등록
+		String role_name="";
+		if(employee.getJob_code()==1){ //강사
+			role_name="TEACHER";
+		}else if(employee.getJob_code()==2){ //관리직원
+			role_name="MANAGER";  
+		}else if(employee.getJob_code()==3){ //센터장
+			role_name="CENTER";
+		}
+		Authority authority = new Authority(account_id,role_name);
+		employeeDAO.setAuthority(authority);
+		//5. employee테이블에 추가
 		employee.setAccount_id(account_id);
 		employeeDAO.addEmployee(employee);		
 	}
 	
+	//직원 목록 조회
 	@Override
 	public List<EmployeeList> getEmplList(int job_code,int now_center_id) {
 		// TODO Auto-generated method stub
@@ -53,15 +67,17 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return emplist;
 	}
 
+	//센터 목록 조회
 	@Override
 	public List<EducationCenter> getEduCenterList() {
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
 		List<EducationCenter> eduCenterList = null;
 		eduCenterList = employeeDAO.getEduCenterList();
-		//System.out.println("첫번째center_id:"+eduCenterList.get(0).getCenter_id());
+		
 		return eduCenterList;
 	}
-
+	
+	//직원 상세정보 조회
 	@Override
 	public Employee getEmp(int account_id) {
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
@@ -70,6 +86,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		return emp;
 	}
 	
+	//직원 상세정보 수정
 	@Override
 	public int updateEmp(Employee emp) {
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);

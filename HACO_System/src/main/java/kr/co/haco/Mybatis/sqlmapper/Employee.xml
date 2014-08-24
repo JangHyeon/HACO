@@ -12,11 +12,14 @@
 		select LAST_INSERT_ID();
 	</select>
 	<insert id="addAccount">	 	
-		INSERT INTO account (state_code,password) VALUES(1,'1006')	
+		INSERT INTO account (state_code,password) VALUES(1,'1004')	
 	</insert>	
 	<update id="setUserId">
 		update account SET id= #{account_id} WHERE account_id=#{account_id}
 	</update>
+	<insert id="setAuthority" parameterType="kr.co.haco.VO.Authority">
+		insert into authority values(#{account_id},#{role_name});
+	</insert>
 	<insert id="addEmployee">
 		INSERT INTO employee 
 		(account_id,job_code,name_kor,name_eng,gender,address_registered,address_real,
@@ -39,6 +42,7 @@
 			AND e.now_center_id = ${param2}
 	    </if>		
 	</select>
+	<!-- 센터 목록조회 -->
 	<select id="getEduCenterList" resultType="kr.co.haco.VO.EducationCenter">
 		select center_id, location FROM education_center order by center_id				
 	</select>
