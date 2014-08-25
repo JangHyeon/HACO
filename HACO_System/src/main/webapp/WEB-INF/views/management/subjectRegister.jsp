@@ -1,192 +1,206 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
+<input id="current-accordion" type="hidden"
+	value="course,subjectRegister" />
 
-    <!--external css-->
-    <link href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
-        
-    <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css" rel="stylesheet">
+<!--external css-->
+<link
+	href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
 
+<!-- Custom styles for this template -->
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css"
+	rel="stylesheet">
 
-	<input id="current-accordion" type="hidden" value="course,subjectRegister"/>
+<script type="text/javascript">
+ 
+    var nowDate = new Date();               //오늘 날짜 객체 선언  
+    var nYear = nowDate.getFullYear();      //오늘의 년도  
+    var nMonth = nowDate.getMonth() ;       //오늘의 월 ※ 0월부터 시작  
+    var nDate = nowDate.getDate();           //오늘의 날  
+    var nNumday = nowDate.getDay();         //오늘의 요일 0=일요일...6=토요일  
+    var endDay=new Array(31,28,31,30,31,30,31,31,30,31,30,31);      //각달의 마지막 날짜  
+    var dayName=new Array("일", "월", "화", "수", "목", "금", "토"); // 숫자 요일을 문자 요일 바꿀 함수  
+    var col=0;  //요일을 이용해서 나중에 앞뒤 빈 날짜칸 계산   
+    eDate= new Date(nYear,nMonth,1);       // 1일의 숫자 요일을 구하기 위해서날짜 객체 선언  
+    var fNumday=eDate.getDay();    // 이번달 1일의 숫자 요일  
+    var lastDay=endDay[nMonth]; //이번달의 마지막 날짜  
+  
+    function calendar(){  
+  
+        if ((eDate.getMonth()==1)&&(((eDate.getYear()%4==0)&&(eDate.getYear() %100 !=0))||eDate.getYear() % 400 ==0 ))  
+        {lastDay=29;} // 0월 부터 시작하므로 1는 2월임. 윤달 계산 4년마다 29일 , 100년는 28일, 400년 째는 29일  
+  
+        calendarStr  = "<TABLE>"  
+        calendarStr +="<TR align=center><TD valign=middle>"  
+  
+        calendarStr +="</TD><TD colspan=5 >"  
+        calendarStr +="<font size=3 color=black>  <b>"+eDate.getFullYear()+"년 "+(eDate.getMonth()+1)+"월</b></font> "// 해당하는 년도와 월 표시  
+        calendarStr +="</TD><TD valign=middle>"  
+  
+        calendarStr +="</TD></TR><TR>"  
+        for (i=0;i<dayName.length;i++){            
+            calendarStr +="<TD class=week>"+dayName[i] + "</TD>" // 숫자 요일을 날짜 요일로 입력  
+        }  
+  
+        calendarStr +="</TR><TR align=center>"  
+  
+        for (i=0;i<fNumday;i++){          // 첫번째 날짜의 숫자 요일을 구해서 그전까지는 빈칸 처리  
+            calendarStr +="<TD>&nbsp;</TD>"   
+            col++;                       
+        }  
+  
+        for ( i=1; i<=lastDay; i++){       // 해당 월의 달력   
+            if(eDate.getFullYear()==nYear&&eDate.getMonth()==nMonth&&i==nDate){//오늘이면 today 스타일로 표시  
+                calendarStr +="<TD class=today >"+i+"</TD>"   
+            }else{  
+                if(col==0){              //일요일이면  
+                    calendarStr +="<TD class=sunday>"+i+"</TD>"  
+                }else if(1<=col&&col<=5){//그외 평범한 날이면  
+                    calendarStr +="<TD class=workday>"+i+"</TD>"   
+                }else if(col==6){        //토요일이면  
+                    calendarStr +="<TD class=satday>"+i+"</TD>"   
+                }  
+            }             
+  
+            col++;  
+  
+            if(col==7){     //7칸을 만들면 줄 바꾸어 새 줄을 만들고 다시 첫 칸부터 시작  
+                calendarStr +="</TR><TR align=center>"  
+                col=0;  
+            }  
+        }     
+  
+        for (i=col;i<dayName.length;i++){        //마지막 날에서 남은 요일의 빈 칸 만들기  
+            calendarStr +="<TD>&nbsp;</TD>"  
+        }  
+  
+        calendarStr +="</TR></TABLE>"  
+        document.getElementById('calendarView').innerHTML = calendarStr //만든 달력 소스를 화면에 보여주기  
+    }  
+    
+</script>
+<input id="current-accordion" type="hidden"
+	value="course,subjectRegister" />
 
-      <!-- **********************************************************************************************************************************************************
+<!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
-      		<div class="row mt">
-      			<div class="col-lg-6 col-md-6 col-sm-12">
-      				<! -- BASIC PROGRESS BARS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Basic Progress Bars</h4>
-	      				<div class="progress">
-						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-						    <span class="sr-only">40% Complete (success)</span>
-						  </div>
-						</div>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-						    <span class="sr-only">20% Complete</span>
-						  </div>
-						</div>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-						    <span class="sr-only">60% Complete (warning)</span>
-						  </div>
-						</div>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-						    <span class="sr-only">80% Complete</span>
-						  </div>
-						</div>
-      				</div><!--/showback -->
-      				
-      				<! -- STRIPPED PROGRESS BARS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Stripped Progress Bars</h4>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-						    <span class="sr-only">40% Complete (success)</span>
-						  </div>
-						</div>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-						    <span class="sr-only">20% Complete</span>
-						  </div>
-						</div>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-						    <span class="sr-only">60% Complete (warning)</span>
-						  </div>
-						</div>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-						    <span class="sr-only">80% Complete (danger)</span>
-						  </div>
-						</div>      				
-					</div><!-- /showback -->
-					
-      				<! -- ANIMATED PROGRESS BARS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Animated Progress Bars</h4>
-	      				<div class="progress progress-striped active">
-						  <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-						    <span class="sr-only">45% Complete</span>
-						  </div>
-						</div>
-      				</div><!-- /showback -->
-      				
-      				<! -- MODALS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Modal Example</h4>
-						<!-- Button trigger modal -->
-						<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
-						  Launch Modal
-						</button>
+<!--main content start-->
+
+<section id="main-content">
+	<section class="wrapper">
+		<h3>
+			<i class="fa fa-angle-right"></i> 서브페이지 샘플
+		</h3>
+		<h5>
+			<a href="http://fontawesome.io/icons/" target="_blank">- aside
+				아이콘 정보</a>
+		</h5>
+		<div class="row">
+
+			<div class="col-md-12">
+				<div class="content-panel">
+					<h4>
+						<i class="fa fa-angle-right"></i> 과목등록
+					</h4>
+					<hr>
+					<table class="table">
+						<thead>
+							<tr>	
+								<th>하악</th>
+								<th>과목명</th>
+								<th>총강의일수</th>
+								<th>총강의시간</th>
+								<th>강의시간</th>
+								<th>수강대상</th>
+								<th>모집인원</th>
+								<th>수강료</th>
+								<th>수정</th>
+								<th>삭제</th>
+							</tr>
+						</thead>
+						<tbody>
 						
-						<!-- Modal -->
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-						      </div>
-						      <div class="modal-body">
-						        Hi there, I am a Modal Example for Dashgum Admin Panel.
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						        <button type="button" class="btn btn-primary">Save changes</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>      				
-      				</div><!-- /showback -->
-      				
-      				<! -- GRITTER NOTICES -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Gritter Examples</h4>
-							<p>Click on below buttons to check it out.</p>
-							<a id="add-regular" class="btn btn-default btn-sm" href="javascript:;">Regular</a>
-							<a id="add-sticky" class="btn btn-success  btn-sm" href="javascript:;">Sticky</a>
-							<a id="add-without-image" class="btn btn-info  btn-sm" href="javascript:;">Imageless</a>
-							<a id="add-gritter-light" class="btn btn-warning  btn-sm" href="javascript:;">Light</a>
-							<a id="remove-all" class="btn btn-danger  btn-sm" href="general.html#">Remove all</a>
-      				</div><!-- /showback -->
-      				
-      			</div><! --/col-lg-6 -->
-      			
-      			
-      			<div class="col-lg-6 col-md-6 col-sm-12">
-      				<! -- ALERTS EXAMPLES -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Alerts Examples</h4>
-							<div class="alert alert-success"><b>Well done!</b> You successfully read this important alert message.</div>
-							<div class="alert alert-info"><b>Heads up!</b> This alert needs your attention, but it's not super important.</div>
-							<div class="alert alert-warning"><b>Warning!</b> Better check yourself, you're not looking too good.</div>
-							<div class="alert alert-danger"><b>Oh snap!</b> Change a few things up and try submitting again.</div>      				
-      				</div><!-- /showback -->
-      				
-      				<! -- DISMISSABLE ALERT -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Dismissable Alert</h4>
-						<div class="alert alert-warning alert-dismissable">
-						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						  <strong>Warning!</strong> Better check yourself, you're not looking too good.
-						</div>      				
-      				</div><!-- /showback -->
-      				
-      				<! -- BADGES -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Badges</h4>
-						<span class="badge">5</span>
-						<span class="badge bg-primary">10</span>
-						<span class="badge bg-success">15</span>
-						<span class="badge bg-info">20</span>
-						<span class="badge bg-inverse">25</span>
-						<span class="badge bg-warning">30</span>
-						<span class="badge bg-important">35</span>
-      				</div><!-- /showback -->
-      				
-      				<! -- LABELS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Labels</h4>
-							<span class="label label-default">label</span>
-							<span class="label label-primary">Primary</span>
-							<span class="label label-success">Success</span>
-							<span class="label label-info">Info</span>
-							<span class="label label-warning">Warning</span>
-							<span class="label label-danger">Danger</span>
-                    </div><!-- /showback -->
-      			
-      			</div><!-- /col-lg-6 -->
-      			
-      		</div><!--/ row -->
-          </section><!-- /wrapper -->
-      </section><!-- /MAIN CONTENT -->
+							<c:forEach var="role" items="${roleList}">
+								<tr>
+									<td>${role.subject_id}</td>
+									<td>${role.subject_name}</td>
+									<td>${role.lecture_totalday}</td>
+									<td>${role.lecture_totaltime}</td>
+									<td><fmt:formatDate type="time" value="${role.lecture_time_start}"/>~
+									<fmt:formatDate type="time" value="${role.lecture_time_end}"/></td>
+									<td>${role.lecture_target}</td>
+									<td>${role.capacity}</td>
+									<td>${role.tuition_fee}</td>
+									<td><a
+										href="${pageContext.request.contextPath}/management/subjectUpdate?id=${role.subject_id}">
+											   <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                               
+									</a></td>
+									<td><a
+										href="${pageContext.request.contextPath}/management/DeleteOk?id=${role.subject_id}">
+											 <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+									</a></td>
+								</tr>
+							</c:forEach>
 
-      <!--main content end-->
+						</tbody>
+  										
+					</table>
+					<%--test:${pageContext.request.contextPath}  --%>
+					<a class="btn btn-success btn-sm pull-left"  href="${pageContext.request.contextPath}/management/subjectInsert">
+					new subject</a>	
+				</div>
+				<div id="calendarView">calendarView
+				</div>
+				
+				
+				
+				
+			<%-- 	<form  id="test" method="get">
+					<a href="${pageContext.request.contextPath}/management/subjectInsert"  id="test2">test</a>
+					<input type="text" name="aaa" value="ttttttttt">
+				</form> --%>
+				<!-- /content-panel -->
+			</div>
+	</section>
+</section>
 
+<script>
+	//custom select box
 
-
-	<!-- inclue common script -->
-    <%@ include file="commonScript.jsp" %>
-	
-	<!--script for this page-->
+	/* $(function() {
+		$("test2").click(function() {
+		 alert("D");
+			 $("test").attr("action", ($("test2"),href));
+			});
     
-  <script>
-      //custom select box
+	}); */
+</script>
 
-      $(function(){
-          
-      });
 
-  </script>
+
+
+<!--main content end-->
+
+
+<!-- inclue common script -->
+<%@ include file="commonScript.jsp"%>
+
+<!--script for this page-->
+
+
+
+
 

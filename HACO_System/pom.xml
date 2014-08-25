@@ -13,7 +13,7 @@
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
-
+ 
 	<!-- 프로젝트내 저장소 설정 -->
 	<repositories>
 		<repository>
@@ -47,7 +47,11 @@
 
 
 <!-- ///////////////////////////////////////////////////////////////////////////////// -->
-
+<dependency>
+    <groupId>org.codehaus.jackson</groupId>
+    <artifactId>jackson-mapper-asl</artifactId>
+    <version>1.8.5</version>
+</dependency>
 
 		<!-- imageJ -->
 		<dependency>
@@ -126,7 +130,7 @@
 		</dependency>
 
 
-		
+		 
     	
     	<!-- 한글 떄문에 xml 파싱시 오류날 경우 (URI$MalformedRUIException오류 -->
     	<dependency>

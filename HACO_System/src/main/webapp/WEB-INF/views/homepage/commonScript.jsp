@@ -4,6 +4,9 @@
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-1.8.3.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
+   <!--추가-->
+     <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-datetimepicker.min.js"></script>
+   
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.scrollTo.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.nicescroll.js" type="text/javascript"></script>

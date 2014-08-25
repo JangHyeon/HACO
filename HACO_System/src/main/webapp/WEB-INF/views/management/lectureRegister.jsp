@@ -238,10 +238,10 @@
     <%@ include file="commonScript.jsp" %>
 
     <!--script for this page-->
-    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
+  <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-ui-1.9.2.custom.min.js"></script>
 
 	<!--custom switch-->
-	<script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-switch.js"></script>
+ 	<script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap-switch.js"></script>
 	
 	<!--custom tagsinput-->
 	<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.tagsinput.js"></script>
