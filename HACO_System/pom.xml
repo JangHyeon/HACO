@@ -9,11 +9,11 @@
 	<version>1.0.0-BUILD-SNAPSHOT</version>
 	<properties>
 		<java-version>1.6</java-version>
-		<org.springframework-version>3.1.1.RELEASE</org.springframework-version>
+		<org.springframework-version>3.2.2.RELEASE</org.springframework-version>
 		<org.aspectj-version>1.6.10</org.aspectj-version>
 		<org.slf4j-version>1.6.6</org.slf4j-version>
 	</properties>
- 
+
 	<!-- 프로젝트내 저장소 설정 -->
 	<repositories>
 		<repository>
@@ -47,11 +47,7 @@
 
 
 <!-- ///////////////////////////////////////////////////////////////////////////////// -->
-<dependency>
-    <groupId>org.codehaus.jackson</groupId>
-    <artifactId>jackson-mapper-asl</artifactId>
-    <version>1.8.5</version>
-</dependency>
+
 
 		<!-- imageJ -->
 		<dependency>
@@ -59,6 +55,14 @@
     		<artifactId>imagej-lib</artifactId>
     		<version>1.48</version>
     	</dependency>
+    	<!-- supinanDate Format -->
+		<dependency>
+    		<groupId>supinan</groupId>
+    		<artifactId>supinan-util</artifactId>
+    		<version>1.2</version>
+    	</dependency>
+    	
+    	
 		<!-- Tiles 등록 -->
 		<dependency>
 			<groupId>org.apache.tiles</groupId>
@@ -123,14 +127,12 @@
 		</dependency>
 		
 		<!-- Jackson mapper -->
-		<dependency>
+	 	<dependency>
 			<groupId>org.codehaus.jackson</groupId>
 			<artifactId>jackson-mapper-asl</artifactId>
 			<version>1.9.13</version>
 		</dependency>
-
-
-		 
+		
     	
     	<!-- 한글 떄문에 xml 파싱시 오류날 경우 (URI$MalformedRUIException오류 -->
     	<dependency>
@@ -139,9 +141,37 @@
 			<version>2.9.1</version>
 		</dependency>
 		
+
+		<!-- SMTP 메일 서버 설정 Start -->
+		<!-- Java Mail 등록 -->
+		<dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>javax.mail-api</artifactId>
+			<version>1.4.7</version>
+		</dependency>
 		
-
-
+		<!-- Sun Java Mail 등록 -->
+		<dependency>
+			<groupId>com.sun.mail</groupId>
+			<artifactId>javax.mail</artifactId>
+			<version>1.4.4</version>
+		</dependency>
+		
+		<!-- Spring Context Support 등록 -->
+		<dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context-support</artifactId>
+            <version>4.0.1.RELEASE</version>
+        </dependency>
+        
+        <!-- velocity를 통해 메일 폼 -->
+        <dependency>
+			<groupId>org.apache.velocity</groupId>
+			<artifactId>velocity-tools</artifactId>
+			<version>2.0</version>
+ 		</dependency>        
+        <!-- SMTP 메일 서버 설정 End -->
+        
 		
 		<!-- Logging -->
 		<dependency>
@@ -195,7 +225,9 @@
 				
 		<!-- Servlet -->
 		<!-- 서블릿 라이브러리는 tomcat에서 가져온다 -->
-		<!-- <dependency>
+		<!-- 정보: validateJarFile 해결못함... -->
+		<!-- 
+		<dependency>
 			<groupId>javax.servlet</groupId>
 			<artifactId>servlet-api</artifactId>
 			<version>2.5</version>

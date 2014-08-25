@@ -1,36 +1,40 @@
 $(function(){
 
 //photoUpFile
+$('#loadingIcon').hide();     
+$('#progress_thumbnail').hide();
+
 $('#photoUpFile').fileupload({
 	url : '/haco/management/photoUpload', 
 	dataType: 'json',
     //replaceFileInput: false,
     dropZone:$(''),
-    singleFileUploads:false,
-    limitMultiFileUploads:1,
-            
+    singleFileUploads: 'true',
+    limitMultiFileUploads:'1',
             add: function(e, data){
+                $('#loadingIcon').fadeIn();
                 $('#progress_thumbnail .progress-bar').css('width', '0%');
                 var validFlag = true;
                 var uploadFile = data.files[0];
 
                 if (!(/png|jpe?g|gif/i).test(uploadFile.name)) {
+                    alert('png, jpg, gif 만 가능합니다');
                     validFlag = false;   
                 }else if (uploadFile.size > 5*1024*1024) { // 5mb
-                    alert('�뚯씪 �⑸웾��5硫붽�瑜�珥덇낵�����놁뒿�덈떎.');
+                    alert('파일 용량은 5메가를 초과할 수 없습니다.');
                     validFlag = false;
                 }else{
                     var _URL = window.URL || window.webkitURL; 
     				var img = new Image();
     		        img.onload = function() {
     		        	if (this.width < 118 || this.height < 157){
-    		                alert('118 x 157 蹂대떎 ���대�吏�� �좏깮��二쇱꽭��');
+    		                alert('118 x 157 보다 큰 이미지를 선택해 주세요.');
     		                validFlag = false;
     		        	}
     		        	_URL.revokeObjectURL(img.src);
     		        	
     		        	if (!validFlag) {
-    	                    // <input> 珥덇린��肄붾뱶
+    	                    // <input> 초기화 코드
     	                    data.reset();
     	                }else{
     	                	$('#progress_thumbnail').slideDown(100,function(){});
@@ -44,97 +48,28 @@ $('#photoUpFile').fileupload({
                 var progress = parseInt(data.loaded / data.total * 100, 10);
                 $('#progress_thumbnail .progress-bar').css('width', progress + '%');
             },
-            done: function (e, data) {            	
+            done: function (e, data) {
+                $('#loadingIcon').fadeOut();            	
             	$('#progress_thumbnail').slideUp(1000,function(){});
             	$('#photo').val(data.result.renameFileName);
             	$('#img-preview img').attr("src","/haco/employeePhoto/"+data.result.renameFileName);
-            	console.log("�낅줈���깃났");
+            	console.log("업로드 성공");
             },
             fail: function(){
+                $('#loadingIcon').fadeOut();     
             	$('#progress_thumbnail').slideUp(1000,function(){});
-                alert("�쒕쾭���듭떊 以�臾몄젣媛�諛쒖깮�덉뒿�덈떎");
+                alert("서버와 통신 중 문제가 발생했습니다");
             }
         });
-		//- dataType : �쒕쾭�먯꽌 �묐떟諛쏆쓣 �곗씠�곗쓽 ��엯. (xml, json, script, or html)
-		//- replaceFileInput : 湲곕낯媛믪� true, �뚯씪��泥⑤��섎㈃ �대깽���몃뱾留��쒖젏�먯꽌 �뚯씪�낅젰�쇱쓣 �대줎�쇰줈 ��껜�쒕떎. 
- 		//��媛믪씠 false硫�fileUpload �대깽���꾩뿉���뚯씪�낅젰�쇱쓽 泥⑤��뚯씪���щ씪吏�� �딅뒗��1
-		//- life cycle��add -> progress -> done or fail
+		//- dataType : 서버에서 응답받을 데이터의 타입. (xml, json, script, or html)
+		//- replaceFileInput : 기본값은 true, 파일이 첨부되면 이벤트 핸들링 시점에서 파일입력폼을 클론으로 대체한다. 
+ 		//이 값이 false면 fileUpload 이벤트 후에도 파일입력폼의 첨부파일이 사라지지 않는다.1
+		//- life cycle은 add -> progress -> done or fail
 		
 		
-      //append_upload
-        $('#appendform').fileupload({
-            url : '../boardorder/imageappend',
-            dataType: 'html',
-            //replaceFileInput: false,
-            dropZone:$(''),
-            
-            add: function(e, data){
-            	$('#tempcount').val($('#sortable').children().size());
-            	$('#progress_append .progress-bar').css('width', '0%');
-                
-                var validFlag = true;
-                var uploadFile = data.files[0];
-                
-                if (!(/png|jpe?g|gif/i).test(uploadFile.name)) {
-                    alert('png, jpg, gif 留�媛�뒫�⑸땲��');
-                    validFlag = false;   
-                }else if (uploadFile.size > 5*1024*1024) { // 5mb
-                    alert('�뚯씪 �⑸웾��5硫붽�瑜�珥덇낵�����놁뒿�덈떎.');
-                    validFlag = false;
-                }
-                
-                if (!validFlag) {
-	        		// <input> 珥덇린��肄붾뱶
-	        		data.reset();
-	        	}else{
-	        		$('#progress_append').slideDown(100,function(){});
-	        		data.submit();
-	        	}                
-            },
-            progressall: function(e,data) {
-                var progress = parseInt(data.loaded / data.total * 100, 10);
-                $('#progress_append .progress-bar').css('width', progress + '%');
-            },
-            done: function (e, data) {
-            	$('#progress_append').slideUp(1000,function(){});
-            	setTimeout(function(){
-            		$('#sortable').append(data.result);
-            		$('#sortable').children('.add_img').eq($('#tempcount').val()).css('display','none');
-            		$('#sortable').children('.add_img').eq($('#tempcount').val()).slideDown(500, function(){});
-            	},500); 
-            	console.log("�낅줈���깃났");
-            },
-            fail: function(){
-            	$('#progress_append').slideUp(1000,function(){});
-                alert("�쒕쾭���듭떊 以�臾몄젣媛�諛쒖깮�덉뒿�덈떎");
-            }
-        });
+
         
-        
-        //�뺣젹
-        $('#sortable').sortable({
-        	axis:'y',						//�대룞異뺢퀬��
-        	opactiy: 0.5,					//�щ챸��
-        	handle:'.handle',				//�쒕옒洹몄쁺��
-        	placeholder:'dropplaceholder',	//鍮덉옄由�蹂댁뿬以꼊ss
-        	revert: true,					//遺�뱶�ъ슫 蹂듦�
-        	//containment: 'parent',			//�쒕옒洹��곸뿭 �뺥빐二쇨린(遺�え�곸뿭) API李몄“
-        	//tolerance: 'pointer', 		//�쒕옒洹��ㅼ감(而ㅼ꽌)
-        	//helper : 'clone' 				//helper : clone濡��ㅼ젙���쒕젅洹��대깽�몄떆 �대┃ �대깽�몃뒗 �숈옉�섏� �딅뒗��" +
-        									//(紐낇솗���섎���.... �쒕젅洹몄떆 洹��곗쓽 �대깽�몃뒗 臾댁떆�댁＜���먮굦)        	
-        });
-        
-        
-        //異붽� �대�吏���젣
-        $('#sortable').on('click','.btn_close',function(e){
-        	e.preventDefault();
-        	var index = $('.btn_close').index(this);
-        	console.log(index);
-        	$('#sortable').children('.add_img').eq(index).remove();
-        });
-        
-        
-        //湲�옄���쒗븳
+        //글자수 제한
         var textLengthCheck = function(maxLength,count,input){
 	        var $count = $(count);
 	        var $input = $(input);
@@ -145,11 +80,11 @@ $('#photoUpFile').fileupload({
 	            if (remain < 0) {    
 	            	var str = $input.val();
 	            	
-	            	alert('理쒕�'+maxLength+"�먭퉴吏��묒꽦�����덉뒿�덈떎.");
+	            	alert('최대'+maxLength+"자까지 작성할 수 있습니다.");
 	            	$input.val(str.substr(0, maxLength));            
 	            	count = 0;       
 	            }
-	        	$count.text(textLength+"/"+maxLength+"/");  
+	        	$count.text(textLength+"/"+maxLength+"자");  
 	        });
         };
 
@@ -158,28 +93,32 @@ $('#photoUpFile').fileupload({
 
         
         
-        //�꾩넚
+        //전송
         $('.btn_ty5').on('click',function(e){
         	e.preventDefault();     
         	
-        	//�좏슚��泥댄겕
+        	//유효성 체크
 			if($('#subject').val() == ""){
+				alert("제목을 입력하세요");
 				$('#subject').focus();
 				return;
 			}else if($('#content').val() == ""){
-			
+				alert("소개글을 입력하세요");
 				$('#content').focus();
 				return;
 			}else if($('#thumbnail').val() == ""){
+				alert("썸네일 이미지를 등록해주세요");
 				$(window).scrollTop($('#img-preview').offset().top-70);
 				return;
 			}else if($('.add_img').size() == 0){
+				alert("한개 이상의 이미지를 등록해주세요");
 				return;
 			}else{
 				var flag = true;
 				$('.add_img').each(function(){
 					var index = $('.add_img').index(this)+1;
 					if($(this).find("input[name='img_tag']").val()==""){
+						alert(index+"번째 이미지의 태그를 입력해주세요");
 						$(this).find("input[name='img_tag']").focus();
 						flag = false;
 					}
@@ -190,8 +129,8 @@ $('#photoUpFile').fileupload({
 			}			
 			
         	
-        	var refcount = 0; 	//�꾩넚 媛앹껜 �섎쾭留�
-    		var completecount = 0; //�꾨즺 移댁슫��
+        	var refcount = 0; 	//전송 객체 넘버링
+    		var completecount = 0; //완료 카운트
     		
         	var sendData = {
         			subject: $("#subject").val(),
@@ -199,13 +138,13 @@ $('#photoUpFile').fileupload({
                     secret: $('#secret').is(':checked'),
                     thumbnail: $("#thumbnail").val()
             };
-    		$.post(//蹂몃Ц �깅줉
+    		$.post(//본문 등록
     			"../boardorder/articlewrite", 	//url
 				sendData ,       				//data(send)
 			    function(writeidx){
     				$('#idx').val(writeidx);
 					$('.add_img').each(function(){
-		        		$.post(//�대�吏��깅줉
+		        		$.post(//이미지 등록
 		        			"../boardorder/imagewrite",
 		        			{
 		        				idx : writeidx,
@@ -219,7 +158,7 @@ $('#photoUpFile').fileupload({
 		        			},
 		        			function(returndata){
 		        				if(returndata==0){
-		        				
+		        					alert("이미지 등록에 실패했습니다\n다시 시도해 주세요");
 		        				}else{
 		        					if(++completecount==$('.add_img').size()){
 		        						$('#processform').trigger('submit');
@@ -229,11 +168,11 @@ $('#photoUpFile').fileupload({
 		        		).done(function() {
 		        		})
 		        		.fail(function() {
-		                    alert("�쒕쾭���듭떊 以�臾몄젣媛�諛쒖깮�덉뒿�덈떎");
+		                    alert("서버와 통신 중 문제가 발생했습니다");
 		        		});
 		        		refcount++;
 		        	});
-					//alert('�꾩넚��);
+					//alert('전송후');
 				}
    		);
         });      

@@ -17,9 +17,12 @@ import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.CourseService;
 import kr.co.haco.Service.SubjectService;
 import kr.co.haco.Util.ImageJ;
+import kr.co.haco.Util.MultipartUploader;
 import kr.co.haco.VO.Employee;
+import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Subject;
+import kr.co.haco.VO.Subject2;
 import kr.co.haco.VO.getCourseList;
 
 import org.codehaus.jackson.JsonGenerationException;
@@ -55,71 +58,26 @@ public class ManagementController {
 		return "management.employeeRegister";
 	}
 
-	// 직원정보 사진 업로드
-	@RequestMapping(value = "photoUploadn ", method = RequestMethod.POST)
+	
+	//직원정보 사진 업로드
+	@RequestMapping(value = "photoUpload", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, String> photoUpload(MultipartHttpServletRequest req) {
+	public HashMap<String, String> photoUpload(MultipartHttpServletRequest req){
+		
+	    MultipartFile multipartFile = req.getFile("file");
+	    String usrUploadDir = "/resources/upload/employeePhoto"; //저장 폴더명
 
-		System.out.println("photoUpload");
-
-		InputStream in = null;
-		OutputStream out = null;
-
-		MultipartFile multipartFile = req.getFile("files[]");
-
-		String usrUploadDir = "resources/upload/employeePhoto"; // 저장 폴더명
-		// 업로드 파일명
-		String originalFileName = multipartFile.getOriginalFilename();
-		// 저장 파일명
-		String targetFileName = UUID.randomUUID().toString().replace("-", "")
-				+ "."
-				+ originalFileName.substring(
-						originalFileName.lastIndexOf(".") + 1,
-						originalFileName.length()).toLowerCase();
-		// 저장 경로
-		String targetPath = req.getSession().getServletContext()
-				.getRealPath("/")
-				+ File.separator + usrUploadDir;
-
-		File targetPathDir = new File(targetPath);
-		if (!targetPathDir.exists())
-			targetPathDir.mkdir();
-
-		String savedFilePath = targetPathDir + File.separator + targetFileName;
-
-		try {
-			in = multipartFile.getInputStream();
-			out = new FileOutputStream(savedFilePath);
-
-			int readBytes = 0;
-			byte[] buff = new byte[8192];
-
-			while ((readBytes = in.read(buff, 0, 8192)) != -1) {
-				out.write(buff, 0, readBytes);
-			}
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} finally {
-			if (in != null)
-				try {
-					in.close();
-					if (out != null)
-						out.close();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-		}
-
-		String result = ImageJ.photoCropAndResize(savedFilePath, 177, 236);
-		System.out.println("result-" + result);
-
-		HashMap<String, String> map = new HashMap<String, String>();
-		map.put("originalFileName", originalFileName);
-		map.put("renameFileName", targetFileName);
-
-		return map;
+	    MultipartUploader mu = new MultipartUploader(req, usrUploadDir, multipartFile,false);
+	    
+	    String result = ImageJ.photoCropAndResize(mu.getFilePath(),177, 236);
+	    System.out.println("result-"+result);
+	    
+	    HashMap<String, String> map = new HashMap<String, String>();
+	    map.put("originalFileName", multipartFile.getOriginalFilename());
+	    map.put("renameFileName", mu.getFileName());
+	    map.put("fileUrl", mu.getFileUrl());
+	     
+	    return map;
 	}
 
 	// 대쉬보드
@@ -146,7 +104,36 @@ public class ManagementController {
 		System.out.println("move:management.subjectRegister//att:roleList");
 		return "management.subjectRegister";
 	}
-
+	
+	/////////////////장갓.ver //////////////////////////
+	@RequestMapping(value="subjectRegister2",method = RequestMethod.GET)
+	public String subjectRegister2(Model model,HttpServletRequest request
+			, int pagenum , int pagesize,String searchtype, String searchvalue){
+		
+		System.out.println("************************************************");
+		
+		model.addAttribute("searchType",searchtype);
+		model.addAttribute("searchKey", searchvalue);
+		
+		
+		Subject2 subject2 = new Subject2();
+		subject2.setPagenum(pagenum);
+		subject2.setPagesize(pagesize);
+		subject2.setSearchtype(searchtype);
+		subject2.setSearchvalue(searchvalue);
+		
+		
+		
+		
+		
+		return null;
+	}
+	
+	
+	
+	
+	
+	
 	// 과목등록 insertForm..
 	@RequestMapping(value = "subjectInsert", method = RequestMethod.GET)
 	public String insertForm(Model model) {
