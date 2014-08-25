@@ -4,12 +4,12 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="kr.co.haco.DAO.HomepageDAO">
+
 	<!-- 공지사항 등록 -->
 	<insert id="insertNotice" parameterType="kr.co.haco.VO.Notice">
 		insert into notice(account_id,center_id,title,state_code,content) 
 		values(#{account_id},#{center_id},#{title},#{state_code},#{content})
 	</insert>
-	
 	
 	<!-- 공지사항 게시물 갯수 -->
 	<select id="getNoticeListCount" resultType="Integer">
@@ -34,7 +34,7 @@
 			<if test="center_list != null and center_list !=''">
 				AND center_id in(1,${center_list})
 			</if>
-			<if test="state_code == 0">
+			<if test="state_code == 1">
 				AND state_code = 1
 			</if>
 			<if test="state_code == 2">
@@ -69,7 +69,7 @@
 			<if test="center_list != null and center_list !=''">
 				AND center_id in(1,${center_list})
 			</if>
-			<if test="state_code == 0">
+			<if test="state_code == 1">
 				AND state_code = 1
 			</if>
 			<if test="state_code == 2">
@@ -98,8 +98,15 @@
 		from notice as n 
 		join employee as e 
 		on n.account_id = e.account_id 
-		where notice_id=#{notice_id}
+		where notice_id=#{notice_id} and state_code!=9
 	</select>
+
+	<!-- 공지사항 조회수 증가 -->
+	<update id="countNotice" parameterType="Integer">
+		update notice 
+		set hit=IFNULL(hit,0) + 1 
+		WHERE notice_id = #{notice_id}
+	</update>
 	
 	<!-- 공지사항 수정 -->
 	<update id="updateNotice" parameterType="kr.co.haco.VO.Notice">
@@ -107,9 +114,122 @@
 		<set>
 			<if test="title != null and title != ''">title=#{title},</if>
 			<if test="content != null and content != ''">content=#{content},</if>
-			<if test="state_code != null and state_code != ''">state_code=#{state_code},</if>
+			state_code=#{state_code}
 		</set>
 		where notice_id=#{notice_id}
 	</update>
 
+	<!-- 공지사항 삭제 -->
+	<update id="deleteNotice" parameterType="Integer">
+		update notice
+		set state_code=9    
+		where notice_id=#{notice_id}
+	</update>
+	
+
+	<!-- 질문 등록 -->
+	<insert id="insertQna" parameterType="kr.co.haco.VO.Qna" useGeneratedKeys="true" keyProperty="insert_group_no">
+		<selectKey resultType="Integer" order="BEFORE" keyProperty="insert_group_no">
+			select IFNULL(max(qna_id)+1,1) from qna
+		</selectKey>
+		insert into qna(account_id,title,state_code,content,group_no,divide_code) 
+		values(#{account_id},#{title},#{state_code},#{content},
+		<if test="group_no == 0">
+			#{insert_group_no},
+		</if>
+		<if test="group_no != 0">
+			#{group_no},
+		</if>
+		#{divide_code})
+	</insert>
+	
+	<!-- 질문과 답변 게시물 갯수 -->
+	<select id="getQnaListCount" resultType="Integer">
+		select 
+			count(qna_id)  
+		from qna as q 
+		left outer join employee as e 
+        on q.account_id = e.account_id
+		left outer join member as m 
+		on q.account_id = m.account_id
+		<where>
+			<if test="searchType == 'title'">
+				title like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="searchType == 'titleAndContent'">
+				(title like CONCAT('%',#{searchKey},'%') or content like CONCAT('%',#{searchKey},'%')) 
+			</if>
+			<if test="searchType == 'writer'">
+				name like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="hit > 0">
+				name &gt; #{hit}
+			</if>
+		</where>
+	</select>
+	
+	<!-- 질문과 답변 게시물 리스트 -->
+	<select id="getQnaList" resultType="kr.co.haco.VO.Qna" parameterType="kr.co.haco.VO.Qna">
+		select 
+			qna_id,q.account_id as account_id,name_kor,name_eng,name,title,content,group_no,divide_code,state_code,hit,register_date 
+		from qna as q 
+		left outer join employee as e 
+        on q.account_id = e.account_id
+		left outer join member as m 
+		on q.account_id = m.account_id
+		<where>
+			<if test="searchType == 'title'">
+				title like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="searchType == 'titleAndContent'">
+				(title like CONCAT('%',#{searchKey},'%')  or content like CONCAT('%',#{searchKey},'%')) 
+			</if>
+			<if test="searchType == 'writer'">
+				name like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="hit > 0">
+				name &gt; #{hit}
+			</if>
+			and state_code!=9
+		</where>
+		order by  group_no desc, qna_id asc
+		limit ${startNum},${pageSize}
+	</select>
+	
+	<!-- 질문과 답변 읽기 -->
+	<select id="getQna" resultType="kr.co.haco.VO.Qna" parameterType="Integer">
+		select 
+			qna_id,q.account_id as account_id,name_kor,name_eng,name,title,content,group_no,divide_code,state_code,hit,register_date 
+		from qna as q 
+		left outer join employee as e 
+        on q.account_id = e.account_id
+		left outer join member as m 
+		on q.account_id = m.account_id
+		where qna_id=#{qna_id} and state_code!=9
+	</select>
+
+	<!-- 질문과 답변 조회수 증가 -->
+	<update id="countQna" parameterType="Integer">
+		update qna 
+		set hit=IFNULL(hit,0) + 1 
+		WHERE qna_id = #{qna_id}
+	</update>
+	
+	<!-- 질문과 답변 수정 -->
+	<update id="updateQna" parameterType="kr.co.haco.VO.Notice">
+		update qna
+		<set>
+			<if test="title != null and title != ''">title=#{title},</if>
+			<if test="content != null and content != ''">content=#{content},</if>
+			state_code=#{state_code}
+		</set>
+		where qna_id=#{qna_id}
+	</update>
+
+	<!-- 질문과 답변 삭제 -->
+	<update id="deleteQna" parameterType="Integer">
+		update qna
+		set state_code=9    
+		where qna_id=#{qna_id}
+	</update>
 </mapper>

@@ -49,10 +49,13 @@ public class MultipartUploader {
 				+ usrUploadDir.replace("/", File.separator);
 
 		// 저장 경로 폴더 생성
+		
+		System.out.println(targetPath);
+		
 		File targetPathDir = new File(targetPath);
 		if (!targetPathDir.exists())
-			targetPathDir.mkdir();
-
+			targetPathDir.mkdirs();
+		
 		String savedFilePath = targetPathDir + File.separator + targetFileName;
 
 		InputStream in = null;

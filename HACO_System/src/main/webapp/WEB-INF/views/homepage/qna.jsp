@@ -6,7 +6,7 @@
 
 
 <!-- myPage header column -->
-<%@ include file="inc/noticeHeader.jsp"%>
+<%@ include file="inc/qnaHeader.jsp"%>
 
 
 <!-- Begin Body -->
@@ -26,7 +26,7 @@
 									<hr> -->
 									<div class="pull-right topToggle">
 										<div class="btn-group">
-										  <button type="button" class="btn btn-default" id="noticeToggle" data-toggle="button" data-noti-text="공지 보이기">공지 숨기기</button>										 
+										  <!-- <button type="button" class="btn btn-default" id="qnaToggle" data-toggle="button" data-noti-text="자주묻는질문 보이기">자주묻는질문 숨기기</button> -->										 
 										  <div class="btn-group">
 										    <button id="pageBtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 										      <c:choose>
@@ -57,47 +57,61 @@
 									<table class="table table-hover">
 										<thead>
 											<tr>
-												<th class="idx">#</th>
+												<th class="divide_code">구분</th>
 												<th>제목</th>
-												<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
-													<th>작성자</th>
-												</s:authorize>
+												<th>작성자</th>
 												<th class="writeDate">작성일</th>
 												<th class="hit">조회</th>
 											</tr>
 										</thead>
-										<tbody id="topNotice">
-											<c:forEach var="top" items="${topNoticeList}">
-												<tr class="topNotice">
-													<td><i class='fa fa-bullhorn'></td>
-													<td><a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/<c:if test="${searchKey==''}">[emptySearchKey]</c:if><c:if test="${searchKey!=''}">${searchKey}</c:if>/noticeId/${top.notice_id}">${top.title}</a></td>
-														<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
-													<td>${top.name_kor}</td>
-													</s:authorize>
-													<td>${top.register_date_string}</td>
-													<td>${top.hit}</td>
-												</tr>
-											</c:forEach>
-										</tbody>
 										<tbody>
-											<c:forEach var="notice" items="${noticeList}">
+											<c:forEach var="qna" items="${qnaList}">
 												<tr>
-													<td>${notice.notice_id}</td>
-													<td><a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${notice.title}</a></td>
-													<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
-														<td>${notice.name_kor}</td>
-													</s:authorize>
-													<td>${notice.register_date_string}</td>
-													<td>${notice.hit}</td>
+													<td>
+														<c:if test="${qna.divide_code_toString == 'Q'}">
+															<span class='label label-default'><i class='fa fa-question-circle'></i> 질문 </span>
+														</c:if>
+														<c:if test="${qna.divide_code_toString == 'A'}">
+															<span class='label label-primary'><i class='fa fa-tag'></i> 답변 </span>
+														</c:if>
+													</td>
+													
+														
+													
+													<td>
+														<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
+															<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
+														</s:authorize>
+														<s:authorize ifAnyGranted="GUEST,STUDENT">
+															<c:choose>
+																<c:when test="${sessionScope.member.account_id==qna.account_id}">
+																	<c:set var="group_id" value="${qna.group_no}" scope="page" />
+																	<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
+																</c:when>
+																<c:when test="${qna.state_code!=0}">
+																	<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
+																</c:when>
+																<c:when test="${group_id==qna.group_no}">
+																	<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
+																</c:when>
+																<c:otherwise>
+																	<a class="lock">${qna.title}</a>
+																</c:otherwise>
+															</c:choose>
+														</s:authorize>
+													</td>
+													<td>${qna.name_kor}${qna.name}</td>
+													<td>${qna.register_date_string}</td>
+													<td>${qna.hit}</td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
 									
-						            <s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
-										<div class="pull-right">
-											<button id="writeBtn" class="btn btn-default" type="button">공지사항 작성하기</button>
-										</div>
+									<s:authorize ifAnyGranted="GUEST,STUDENT">
+						            <div class="pull-right">
+										<button id="writeBtn" class="btn btn-default" type="button">질문 올리기</button>
+									</div>
 									</s:authorize>
 
 									<div class="col-xs-12">
@@ -105,7 +119,7 @@
 										<ul class="pagination pagination-centered">
 											<!-- 이전 링크 -->
 											<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
-												<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/notice/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
+												<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/qna/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
 											</li>
 											
 										  	<!-- 페이지 리스트   -->
@@ -116,16 +130,16 @@
 													<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
 												</c:if>
 												<c:if test="${i!=pageNum}">
-													<li><a href="${pageContext.request.contextPath}/notice/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
+													<li><a href="${pageContext.request.contextPath}/qna/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
 												</c:if>
 											</c:forEach>
 											</c:if>
 										  	<!-- 다음링크 -->
 											<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
-												<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/notice/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
+												<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/qna/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
 											</li>
 										</ul>
-									</div>						
+									</div>					
 										
 									<!-- 검색 -->
 									<div class="col-sm-6 col-sm-offset-3" style="clear:both">
@@ -192,7 +206,7 @@ $(document).ready(function(){
 			alert('검색어를 입력해주세요.');
 			$('#inputSearchKey').focus();
 		}else{
-			location.href="${pageContext.request.contextPath}/notice/pageSize/"+$('input[name=pageSize]').val()+"/pageNum/1/searchType/"+$('input[name=searchType]').val()+"/searchKey/"+$('input[name=searchKey]').val();
+			location.href="${pageContext.request.contextPath}/qna/pageSize/"+$('input[name=pageSize]').val()+"/pageNum/1/searchType/"+$('input[name=searchType]').val()+"/searchKey/"+$('input[name=searchKey]').val();
 		}
 	}
 	
@@ -211,16 +225,16 @@ $(document).ready(function(){
 
 	//공지 토글
 	var toggle = false;
-	$('#noticeToggle').on('click',function(){
+	$('#qnaToggle').on('click',function(){
 		if(!toggle){
 			$(this).button('noti');
 			toggle=true;
-			$('#topNotice').hide();
+			$('#topqna').hide();
 		}else{
 			$(this).blur();
 			$(this).button('reset');
 			toggle=false;
-			$('#topNotice').show();
+			$('#topqna').show();
 		}
 	});
 	
@@ -234,9 +248,10 @@ $(document).ready(function(){
 		submit();
 	});
 	
+	
 	// 글쓰기 페이지
 	$('#writeBtn').on('click', function() {
-		location.href='${pageContext.request.contextPath}/noticeWrite';
+		location.href='${pageContext.request.contextPath}/questionWrite';
 	});
 });
 

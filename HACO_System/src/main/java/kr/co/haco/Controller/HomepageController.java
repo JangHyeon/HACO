@@ -1,11 +1,14 @@
 package kr.co.haco.Controller;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.haco.Service.HomepageService;
 import kr.co.haco.VO.Employee;
+import kr.co.haco.VO.Member;
 import kr.co.haco.VO.Notice;
+import kr.co.haco.VO.Qna;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,14 +16,20 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HomepageController {
 	@Autowired
 	HomepageService homepageService;
+
+	// 에러페이지
+	@RequestMapping(value = "/error", method = RequestMethod.GET)
+	public String error() {
+		return "homepage.error";
+	}
 
 	// 메인페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -52,38 +61,6 @@ public class HomepageController {
 	}	
 	
 	
-	
-
-	
-
-	// 공지사항
-	@RequestMapping(value = {"/notice","/noticeSearch"}, method = RequestMethod.GET)
-	public String notice(Model model, HttpServletRequest request, HttpSession session,
-			@RequestParam(defaultValue="1") int pageNum, 
-			@RequestParam(defaultValue="10") int pageSize, 
-			@RequestParam(defaultValue="title") String searchType, 
-			@RequestParam(defaultValue="") String searchKey) {
-		
-
-		model.addAttribute("searchType",searchType);
-		model.addAttribute("searchKey",searchKey);
-		
-		String servletPath = request.getServletPath();
-		if(servletPath.equals("/noticeSearch")){
-			pageNum = 1;
-		}
-		
-		Notice notice = new Notice();
-		
-		notice.setPageNum(pageNum);
-		notice.setPageSize(pageSize);
-		notice.setSearchType(searchType);
-		notice.setSearchKey(searchKey);
-		
-		homepageService.getNoticeList(notice, session, model);
-		
-		return "homepage.notice";
-	}
 
 	// 공지사항 작성 페이지
 	@RequestMapping(value = "/noticeWrite", method = RequestMethod.GET)
@@ -111,47 +88,263 @@ public class HomepageController {
 	@RequestMapping(value = "/noticeUpload", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
 	@ResponseBody
 	public String noticeUpload(MultipartHttpServletRequest request) {
-		return homepageService.noticeUpload(request);
+		return homepageService.CkeditorUpload(request,"/board/notice");
 	}
+	
+	// 공지사항(페이지 정보가 없는경우) 
+	@RequestMapping(value = "/notice", method = RequestMethod.GET, params="!pageNum")
+	public String noticeDefault(Model model, HttpServletRequest request, HttpSession session, Notice notice) {
+		homepageService.getNoticeList(notice, session, model, request.getContextPath());
+		return "homepage.notice";
+	}
+	
+	// 공지사항 리스트
+	@RequestMapping(value = "/notice/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}")
+	public String notice(Model model, HttpServletRequest request, HttpSession session,
+			@PathVariable String searchType,
+			@PathVariable String searchKey,
+			@PathVariable int pageSize,
+			@PathVariable int pageNum) {
+
+		Notice notice = new Notice();
+		notice.setSearchType(searchType);
+		notice.setPageSize(pageSize);
+		notice.setPageNum(pageNum);
+		notice.setSearchKey(searchKey);		
 		
+		
+		//인코딩 설정을 했는데도 인코딩이 꺠질시에는 일일이 바이트 처리 ( server.xml 설정 변경으로 사용안함 )
+		/*try {
+			notice.setSearchKey(new String(searchKey.getBytes("8859_1"),"UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}*/
+		
+		if(searchKey.equals("[noKeyword]")){
+			notice.setSearchKey("");
+		}
+		
+		homepageService.getNoticeList(notice, session, model, request.getContextPath());
+		return "homepage.notice";
+	}
+	
 	// 공지사항 읽기
-	@RequestMapping(value = "/notice/{notice_id}")
-	public String noticeView(@PathVariable int notice_id, Model model) {
-		model.addAttribute("notice",homepageService.getNotice(notice_id));
+	@RequestMapping(value = "/noticeView/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}/noticeId/{notice_id}", method = RequestMethod.GET)
+	public String noticeView(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			RedirectAttributes redirectAttributes,
+			@PathVariable int pageSize,
+			@PathVariable int pageNum,
+			@PathVariable int notice_id,
+			@PathVariable String searchType,
+			@PathVariable String searchKey) {
+ 
+		
+		Notice notice = homepageService.getNotice(request,response,session,notice_id);
+		
+		if(notice==null){
+			redirectAttributes.addFlashAttribute("errorMsg", "존재하지 않는 페이지입니다.");
+			return "redirect:/error"; //없는 페이지
+		}else if(notice.getError()!=null){
+			redirectAttributes.addFlashAttribute("errorMsg", notice.getError());
+			return "redirect:/error";
+		}
+		
+		notice.setSearchKey(searchKey);
+		notice.setSearchType(searchType);
+		notice.setPageNum(pageNum);
+		notice.setPageSize(pageSize);
+		
+		model.addAttribute("notice",notice);
 		return "homepage.noticeView";
 	}
 	
-	// 공지사항 수정
-	@RequestMapping(value = "/noticeModify/{notice_id}",method = RequestMethod.GET)
-	public String noticeModify(@PathVariable int notice_id, Model model) {
-		model.addAttribute("notice",homepageService.getNotice(notice_id));
+	// 공지사항 수정 페이지
+	@RequestMapping(value = "/noticeModify/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}/noticeId/{notice_id}", method = RequestMethod.GET)
+	public String noticeModify(Model model,
+			@PathVariable int pageSize,
+			@PathVariable int pageNum,
+			@PathVariable int notice_id,
+			@PathVariable String searchType,
+			@PathVariable String searchKey) {
+
+		Notice notice = homepageService.getNotice(notice_id);
+		notice.setSearchKey(searchKey);
+		notice.setSearchType(searchType);
+		notice.setPageNum(pageNum);
+		notice.setPageSize(pageSize);
+		
+		model.addAttribute("notice",notice);
+		
 		return "homepage.noticeModify";
 	}
-	@RequestMapping(value = "/noticeModify/{notice_id}",method = RequestMethod.POST)
-	public String noticeModifyProcess(@PathVariable int notice_id, Notice notice) {
-		System.out.println(homepageService.updateNotice(notice));
-		return "redirect:/notice/"+notice_id;
+	//공지사항 수정
+	@RequestMapping(value = "/noticeModifyProcess",method = RequestMethod.POST)
+	public String noticeModifyProcess(Notice notice) {
+		homepageService.updateNotice(notice);
+		return "redirect:/noticeView/pageSize/"+notice.getPageSize()+"/pageNum/"+notice.getPageNum()+"/searchType/"+notice.getSearchType()+"/searchKey/"+notice.getSearchKey()+"/noticeId/"+notice.getNotice_id();
 	}
-	
 	
 	// 공지 사항 삭제
 	@RequestMapping(value = "/noticeDelete/{notice_id}",method = RequestMethod.GET)
 	public String noticeDelete(@PathVariable int notice_id, Model model) {
-		//model.addAttribute("notice",homepageService.getNotice(notice_id));
-		return "homepage.noticeView";
+		homepageService.deleteNotice(notice_id);
+		return "redirect:/notice";
 	}
 	
 	
 	
 	
 	
-	
-	// 질문과 답변
-	@RequestMapping(value = "/qna", method = RequestMethod.GET)
-	public String qna(Model model) {
+	// 질문 작성 페이지
+	@RequestMapping(value = "/questionWrite", method = RequestMethod.GET)
+	public String qnaWrite(HttpServletRequest request) {
+		return "homepage.questionWrite";
+	}
+	// 질문 작성
+	@RequestMapping(value = "/questionWrite", method = RequestMethod.POST)
+	public String qnaWriteProcess(Qna question, HttpSession session) {
+		Member member = (Member)session.getAttribute("member");
+		question.setAccount_id(member.getAccount_id());
+		question.setDivide_code('Q');
+		homepageService.insertQuestion(question);
 		
+		return "redirect:qna";
+	}
+	
+	// 질문과 답변 업로드
+	@RequestMapping(value = "/qnaUpload", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String qnaUpload(MultipartHttpServletRequest request) {
+		return homepageService.CkeditorUpload(request,"/board/qna");
+	}
+	
+
+	// 질문과 답변(페이지 정보가 없는경우) 
+	@RequestMapping(value = "/qna", method = RequestMethod.GET, params="!pageNum")
+	public String qnaDefault(Model model, HttpServletRequest request, HttpSession session, Qna qna) {
+		homepageService.getQnaList(qna, session, model, request.getContextPath());
 		return "homepage.qna";
 	}
+	
+	// 질문과 답변
+	@RequestMapping(value = "/qna/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}")
+	public String qna(Model model, HttpServletRequest request, HttpSession session,
+			@PathVariable String searchType,
+			@PathVariable String searchKey,
+			@PathVariable int pageSize,
+			@PathVariable int pageNum) {
+		Qna qna = new Qna();
+		qna.setSearchType(searchType);
+		qna.setPageSize(pageSize);
+		qna.setPageNum(pageNum);
+		qna.setSearchKey(searchKey);		
+		
+		if(searchKey.equals("[noKeyword]")){
+			qna.setSearchKey("");
+		}
+		
+		homepageService.getQnaList(qna, session, model, request.getContextPath());
+		return "homepage.qna";
+	}
+	
+
+	// 질문과 답변 읽기
+	@RequestMapping(value = "/qnaView/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}/qnaId/{qna_id}", method = RequestMethod.GET)
+	public String qnaView(Model model, HttpServletRequest request, HttpServletResponse response, HttpSession session,
+			RedirectAttributes redirectAttributes,
+			@PathVariable int pageSize,
+			@PathVariable int pageNum,
+			@PathVariable int qna_id,
+			@PathVariable String searchType,
+			@PathVariable String searchKey) {
+
+		Qna qna = homepageService.getQna(request,response,session,qna_id);
+		
+		if(qna==null){
+			redirectAttributes.addFlashAttribute("errorMsg", "존재하지 않는 페이지입니다.");
+			return "redirect:/error"; //없는 페이지
+		}else if(qna.getError()!=null){
+			redirectAttributes.addFlashAttribute("errorMsg", qna.getError());
+			return "redirect:/error";
+		}
+		
+		
+		qna.setSearchKey(searchKey);
+		qna.setSearchType(searchType);
+		qna.setPageNum(pageNum);
+		qna.setPageSize(pageSize);
+		
+		model.addAttribute("qna",qna);
+		return "homepage.qnaView";
+	}
+	
+	// 질문과 답변 수정 페이지
+	@RequestMapping(value = "/qnaModify/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}/qnaId/{qna_id}", method = RequestMethod.GET)
+	public String qnaModify(Model model,
+			@PathVariable int pageSize,
+			@PathVariable int pageNum,
+			@PathVariable int qna_id,
+			@PathVariable String searchType,
+			@PathVariable String searchKey) {
+
+		Qna qna = homepageService.getQna(qna_id);
+		qna.setSearchKey(searchKey);
+		qna.setSearchType(searchType);
+		qna.setPageNum(pageNum);
+		qna.setPageSize(pageSize);
+		
+		model.addAttribute("qna",qna);
+		
+		return "homepage.qnaModify";
+	}
+	// 질문과 답변 수정
+	@RequestMapping(value = "/qnaModifyProcess",method = RequestMethod.POST)
+	public String qnaModifyProcess(Qna qna) {
+		homepageService.updateQna(qna);
+		return "redirect:/qnaView/pageSize/"+qna.getPageSize()+"/pageNum/"+qna.getPageNum()+"/searchType/"+qna.getSearchType()+"/searchKey/"+qna.getSearchKey()+"/qnaId/"+qna.getQna_id();
+	}
+	
+	// 질문과 답변 삭제
+	@RequestMapping(value = "/qnaDelete/{qna_id}",method = RequestMethod.GET)
+	public String qnaDelete(@PathVariable int qna_id, Model model) {
+		homepageService.deleteQna(qna_id);
+		return "redirect:/qna";
+	}
+	
+	// 답변 작성 페이지
+	@RequestMapping(value = "/answerWrite/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}/qnaId/{qna_id}", method = RequestMethod.GET)
+	public String answerWrite(Model model,
+			@PathVariable int pageSize,
+			@PathVariable int pageNum,
+			@PathVariable int qna_id,
+			@PathVariable String searchType,
+			@PathVariable String searchKey) {
+
+		Qna qna = homepageService.getQna(qna_id);
+		qna.setSearchKey(searchKey);
+		qna.setSearchType(searchType);
+		qna.setPageNum(pageNum);
+		qna.setPageSize(pageSize);
+		qna.setGroup_no(qna_id);
+		
+		qna.setTitle(qna.getTitle()+" - 답변");
+		qna.setContent(qna.getContent()+"<br />&nbsp;<hr /><br />&nbsp;");
+		
+		model.addAttribute("qna",qna);
+		
+		return "homepage.answerWrite";
+	}
+	// 답변 작성
+	@RequestMapping(value = "/answerWrite", method = RequestMethod.POST)
+	public String answerWriteProcess(Qna answer, HttpSession session) {
+		Employee employee = (Employee)session.getAttribute("employee");
+		answer.setAccount_id(employee.getAccount_id());
+		answer.setDivide_code('A');
+		homepageService.insertAnser(answer);
+		
+		return "redirect:/qna";
+	}
+	
 	
 	
 	// 커뮤니티

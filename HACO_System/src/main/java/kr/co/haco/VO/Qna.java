@@ -3,7 +3,7 @@ package kr.co.haco.VO;
 import java.sql.Timestamp;
 
 
-public class Notice{
+public class Qna{
 	private String error;
 	public String getError() {
 		return error;
@@ -12,6 +12,8 @@ public class Notice{
 		this.error = error;
 	}
 
+	
+	
 	private int startNum;
 	
 	public int getStartNum() {
@@ -21,14 +23,45 @@ public class Notice{
 		this.startNum = startNum;
 	}
 	
-	private String center_list;
+	private int group_no;
+	private int insert_group_no;
+	
+	
+	public int getGroup_no() {
+		return this.group_no;
+	}
+	public void setGroup_no(int group_no) {
+		this.group_no = group_no;
+	}
+	
 
-	public String getCenter_list() {
-		return center_list;
+	public int getInsert_group_no() {
+		return insert_group_no;
 	}
-	public void setCenter_list(String center_list) {
-		this.center_list = center_list;
+	public void setInsert_group_no(int insert_group_no) {
+		this.insert_group_no = insert_group_no;
 	}
+	
+	
+
+	private char divide_code;
+	private String divide_code_toString;
+
+	public String getDivide_code_toString() {
+		return divide_code_toString;
+	}
+	public void setDivide_code_toString(String divide_code_toString) {
+		this.divide_code_toString = divide_code_toString;
+	}
+	
+
+	public char getDivide_code() {
+		return divide_code;
+	}
+	public void setDivide_code(char divide_code) {
+		this.divide_code = divide_code;
+	}
+	
 	
 
 	private int pageNum;
@@ -44,14 +77,29 @@ public class Notice{
 		this.searchKey = searchKey;
 	}
 	
+
+	private String name;
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
 	
-	
+
 	private String name_kor;
 	private String name_eng;
 	
-	private int notice_id;
+	private int qna_id;
+
+	public int getQna_id() {
+		return qna_id;
+	}
+	public void setQna_id(int qna_id) {
+		this.qna_id = qna_id;
+	}
+	
 	private int account_id;
-	private int center_id;
 	private Timestamp register_date;
 	private String register_date_string;
 	
@@ -66,23 +114,12 @@ public class Notice{
 	private int state_code;
 	private String content;
 	private int hit;
-	public int getNotice_id() {
-		return notice_id;
-	}
-	public void setNotice_id(int notice_id) {
-		this.notice_id = notice_id;
-	}
+	
 	public int getAccount_id() {
 		return account_id;
 	}
 	public void setAccount_id(int account_id) {
 		this.account_id = account_id;
-	}
-	public int getCenter_id() {
-		return center_id;
-	}
-	public void setCenter_id(int center_id) {
-		this.center_id = center_id;
 	}
 	public Timestamp getRegister_date() {
 		return register_date;

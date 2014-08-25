@@ -35,7 +35,6 @@
 										name="title">
 								</div>
 							</div>
-
 							<div class="form-group">
 								<label class="col-sm-2 control-label"><i
 									class="fa fa-check fa-lg"></i> 내용</label>
@@ -107,7 +106,10 @@
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
-$(document).ready(function(){		
+$(document).ready(function(){
+	
+	$('#title').focus();
+	
 	var ckeditor;
 	
 	//CKEDITOR를 textarea의 name값: 'content'랑 교체
@@ -121,8 +123,6 @@ $(document).ready(function(){
         filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images' 
 	});
 	ckeditor = CKEDITOR.instances['content'];
-
-	$('#password').focus();
 
 	// 페이지 이탈시 작동
 	var beforeUnload = 1;
