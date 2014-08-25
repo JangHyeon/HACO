@@ -44,22 +44,22 @@
 									<h5>임경균강사</h5> 
 									<br>
 								
-									<form class="form-horizontal style-form" action="employeeRegister" method="post">		
+									<form class="form-horizontal style-form" id="evalResultFrm">		
 										<%int idx_examListofList=0; 
 										  int idx_question=1;%>																		
 										<c:forEach var="question" items="${questionList}"> <!-- 질문리스트 -->
+										<div class="quest">
 											<div class="form-group">
 												<label class="col-sm-2 col-sm-2 control-label">질문<%=idx_question%></label>
-												<div class="col-sm-10">
-													${question.question}									
-												</div>
+												<div class="col-sm-10">${question.question}</div>			
+												<input type="hidden" name="question_id" value="${question.question_id}">
 											</div>	
 											<c:choose>
 												<c:when test="${question.type_code=='2'}"> <!-- 주관식일때 -->										
 													<div class="form-group">
 														<label class="col-sm-2 col-sm-2 control-label">주관식 답변</label>
 														<div class="col-sm-10">
-															<input type="text" class="form-control" name="question">
+															<input type="text" class="form-control" name="answer">
 														</div>											
 													</div>	
 												</c:when>
@@ -68,9 +68,8 @@
 														<label class="col-sm-2 col-sm-2 control-label">보기</label>
 														<div class="col-lg-6">
 													    <div class="input-group">
-													    	&nbsp;&nbsp;&nbsp;
-													    	<%
-													    	
+													    	<!-- &nbsp;&nbsp;&nbsp; -->
+													    	<%													    	
 													    	List<ArrayList<EvaluationRegister>> examListofList= (List<ArrayList<EvaluationRegister>>)request.getAttribute("examListofList");
 													    	ArrayList<EvaluationRegister> examList = examListofList.get(idx_examListofList);												    	
 													    	
@@ -80,18 +79,18 @@
 																</label>
 														     	&nbsp;&nbsp;&nbsp;													  								
 															<%} 
-													    	idx_examListofList++; 
-															idx_question++;%>														
+													    	idx_examListofList++;%>																									
 													    </div>
 							  						  </div>
 													</div>				
 												</c:when>											
-											</c:choose>														
-																							
+											</c:choose>
+										</div>														
+											<%idx_question++;%>														
 											<hr style="display:block;clear:both;">
 										</c:forEach> 
-													    	 	
-										<button type="submit" class="btn btn-theme">등록</button>						
+												    	 	
+										<button type="button" class="btn btn-theme" id="uploadBtn">등록</button>						
 									</form>
 								</div>
 							</div>
@@ -136,21 +135,60 @@
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 
 <script type="text/javascript">
-	$(document).ready(function() {
-		
-		$('#sidebar').affix({
-			offset : {
-				top : 230,
-				bottom : 100
-			}
-		});
-	});
+	
 </script>
 
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
-
+$(document).ready(function() {
+	//?
+	$('#sidebar').affix({
+		offset : {
+			top : 230,
+			bottom : 100
+		}
+	});
+	
+	//설문 결과 등록
+	$("#uploadBtn").click(function(){	
+		var questList = $(".quest").length;	 
+		var main = new Array(); 
+		
+		for(var i=0; i<questList; i++){
+			sub = new Object();   
+			sub['question_id'] =$("#evalResultFrm").find("input[name='question_id']").eq(i).val();
+			sub['answer'] = $("#evalResultFrm").find("input[name='answer']").eq(i).val();			
+			//alert("question_id:"+sub.question_id);
+			//alert("answer:"+sub.answer);
+			
+			main[i] = sub;
+		}
+		
+		var jsonData = JSON.stringify(main);	 //객체를 string화 시켜주는 것.
+		//alert("jsonData:"+jsonData);		
+		console.log(jsonData);
+		
+		$.ajax({
+            type : "POST",
+            dataType : "json",
+            url : 'myLectureEvaluation',
+            data : {answerList:jsonData},
+            success : function(result) {               
+                 if(result>0){
+                	 console.log("result:"+result);
+                	 alert("설문이 등록되었습니다. 감사합니다.^^");
+                	 location.href="myLectureHistory";
+                 }
+            },error : function(xhr, status, error) {
+	             alert("이미 등록한 설문입니다.");	             
+	        }           
+    	});
+		
+		
+	}); //등록 버튼 클릭
+	
+});
 	
 </script>
 

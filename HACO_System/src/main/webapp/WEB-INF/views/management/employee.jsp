@@ -116,15 +116,8 @@
 	src="${pageContext.request.contextPath}/resources/assets/js/sparkline-chart.js"></script>
 <script
 	src="${pageContext.request.contextPath}/resources/assets/js/zabuto_calendar.js"></script>
-
-
-
 <script type="application/javascript">
-	
-        $(document).ready(function () {
-			
-        }
-    
+
 </script>
 
 

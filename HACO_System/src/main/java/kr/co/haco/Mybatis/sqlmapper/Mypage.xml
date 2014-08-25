@@ -36,6 +36,11 @@
 			ON q.question_id = e.question_id
 		WHERE q.open_course_id=#{open_course_id}
 	</select>
+	<!-- 강의평가 - 설문내용 저장하기 -->
+	<insert id="uploadEvalResult" parameterType="kr.co.haco.VO.EvalQuestionAnswer">
+		INSERT INTO eval_question_answer(question_id,answer,account_id) 
+		VALUES(#{question_id},#{answer},#{account_id})
+	</insert>
 </mapper>
 
 

@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.haco.DAO.MypageDAO;
+import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.MyLectureHistory;
 
@@ -36,6 +37,15 @@ public class HomepageMyPageServiceImpl implements HomepageMyPageService {
 		evaluation.put("questionList", questionList);
 		evaluation.put("examList", examList);		
 		return evaluation;
+	}	
+	
+	//강의평가 하기
+	@Override
+	public int uploadEvalResult(EvalQuestionAnswer evalQuestionAnswer) {
+		MypageDAO mypageDAO = sqlsession.getMapper(MypageDAO.class);
+		int result = mypageDAO.uploadEvalResult(evalQuestionAnswer);
+		return result;
 	}
+	
 	
 }

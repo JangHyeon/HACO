@@ -60,10 +60,9 @@
 									<div id="img-preview"><i id="loadingIcon" class="fa fa-spinner fa-spin fa-5x"></i><img class="photo" src=""></div>
 									<!-- 부트 스트랩 적용 input버튼 -->
 									<!-- The fileinput-button span is used to style the file input field as button -->
-									<span class="btn btn-success fileinput-button"> <i
-										class="glyphicon glyphicon-plus"></i> <span>사진 선택</span> <!-- The file input field used as target for the file upload widget -->
-										<input id="photoUpFile" type="file" name="file"
-										multiple />
+									<span class="btn btn-success fileinput-button"> 
+										<i class="glyphicon glyphicon-plus"></i> <span>사진 선택</span> <!-- The file input field used as target for the file upload widget -->
+										<input id="photoUpFile" type="file" name="file" multiple />										
 									</span>
 									<!-- 업로드 프로그래스바 -->
 									<div id="progress_thumbnail" class="progress">
@@ -83,13 +82,13 @@
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">한글 이름</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="name_kor">
+								<input type="text" class="form-control onlyAlphanum" name="name_kor">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">영문 이름</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="name_eng">
+								<input type="text" class="form-control onlyAlphanum" name="name_eng">
 							</div>
 						</div>					
 						<div class="form-group">
@@ -130,9 +129,9 @@
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">주민등록번호</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control-je" 
+								<input type="text" class="form-control-je onlyNumber" 
 								name="resident_registration_num1" maxlength="6"> -
-								<input type="text" class="form-control-je" 
+								<input type="text" class="form-control-je onlyNumber" 
 								name="resident_registration_num2" maxlength="7">
 							</div>
 						</div>	
@@ -147,24 +146,18 @@
 							<div class="col-sm-10">
 								<input type="text" class="form-control" name="address_real">
 							</div>
-						</div>	
+						</div>						
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">휴대폰번호</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control" name="phone_cell">
-							</div>
-						</div>	
-					<!-- 	<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">휴대폰번호</label>
-							<div class="col-sm-10">
-								<input type="text" class="form-control-je" 
+								<input type="text" class="form-control-je onlyNumber" 
 								name="phone_cell1" maxlength="3"> -
-								<input type="text" class="form-control-je" 
+								<input type="text" class="form-control-je onlyNumber" 
 								name="phone_cell2" maxlength="4"> -
-								<input type="text" class="form-control-je" 
+								<input type="text" class="form-control-je onlyNumber" 
 								name="phone_cell3" maxlength="4">
 							</div>
-						</div>	 -->
+						</div>	
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">이메일</label>
 							<div class="col-sm-10">
@@ -247,9 +240,17 @@
 	src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.js"></script>
 <script  type="text/javascript"
 	src="${pageContext.request.contextPath}/resources/js/bootstrap-datepicker.kr.js"></script>
+<script type="text/javascript" 
+	src="${pageContext.request.contextPath}/resources/js/jquery.alphanum.js"></script>  
 
 <script type="application/javascript">
 	$(document).ready(function(){
+		//유효성 검사 
+		//숫자만 입력 가능하도록 처리 하는 부분
+        $(".onlyNumber").numeric();       
+        //문자,숫자만 입력- 특수문자입력 불가
+        $(".onlyAlphanum").alphanum();       
+        
 		//채용센터 선택
 		$('#joinCenter>li').on('click',function(){
 			$('#joinCenterBtn>span:first-child').text($('a',this).text());		

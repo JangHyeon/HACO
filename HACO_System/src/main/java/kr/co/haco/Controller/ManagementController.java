@@ -62,6 +62,8 @@ public class ManagementController {
 	}
 	@RequestMapping(value = "employeeRegister", method = RequestMethod.POST)
 	public String employeeManagementAdd(Employee employee){		
+		
+		System.out.println("employ.photo:"+employee.getPhoto());
 		//System.out.println("employee.getJoin_center_id():"+employee.getJoin_center_id());
 		employeeService.addEmployee(employee);
 		return "management.index";

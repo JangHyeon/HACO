@@ -23,9 +23,9 @@
 	<insert id="addEmployee">
 		INSERT INTO employee 
 		(account_id,job_code,name_kor,name_eng,gender,address_registered,address_real,
-			phone_cell,email,join_date,now_center_id,join_center_id,resident_registration_num1,resident_registration_num2)
+			phone_cell,email,join_date,now_center_id,join_center_id,resident_registration_num1,resident_registration_num2,photo)
 		VALUES(#{account_id},#{job_code},#{name_kor},#{name_eng},#{gender},#{address_registered},#{address_real},
-			#{phone_cell},#{email},#{join_date},#{now_center_id},#{join_center_id},#{resident_registration_num1},#{resident_registration_num2})
+			#{phone_cell},#{email},#{join_date},#{now_center_id},#{join_center_id},#{resident_registration_num1},#{resident_registration_num2},#{photo})			
 	</insert>
 	
 	<!-- 직원 목록 조회 -->

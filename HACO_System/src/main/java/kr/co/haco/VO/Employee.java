@@ -14,6 +14,9 @@ public class Employee{
 	private String address_real;
 	private String phone_home;
 	private String phone_cell;
+	private String phone_cell1;
+	private String phone_cell2;
+	private String phone_cell3;
 	private int phone_emergency;
 	private String email;
 	private int salary;
@@ -77,11 +80,33 @@ public class Employee{
 		this.phone_home = phone_home;
 	}
 	public String getPhone_cell() {
-		return phone_cell;
+		return phone_cell1+"-"+phone_cell2+"-"+phone_cell3;
 	}
-	public void setPhone_cell(String phone_cell) {
-		this.phone_cell = phone_cell;
+	public void setPhone_cell(String phone_cell) {		
+		String[] p = phone_cell.split("-");
+		phone_cell1 = p[0];
+		phone_cell2 = p[1];
+		phone_cell3 = p[2];
 	}
+	public String getPhone_cell1() {
+		return phone_cell1;
+	}
+	public void setPhone_cell1(String phone_cell1) {
+		this.phone_cell1 = phone_cell1;
+	}
+	public String getPhone_cell2() {
+		return phone_cell2;
+	}
+	public void setPhone_cell2(String phone_cell2) {
+		this.phone_cell2 = phone_cell2;
+	}
+	public String getPhone_cell3() {
+		return phone_cell3;
+	}
+	public void setPhone_cell3(String phone_cell3) {
+		this.phone_cell3 = phone_cell3;
+	}
+
 	public int getPhone_emergency() {
 		return phone_emergency;
 	}
