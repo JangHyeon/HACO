@@ -7,7 +7,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-6">
-        <h1><strong><a href="${pageContext.request.contextPath}/myPage">공지사항</a></strong>
+        <h1><strong><a href="${pageContext.request.contextPath}/notice">공지사항</a></strong>
           <p class="lead">열린마당</p></h1>
       </div>
       <div class="col-xs-6">

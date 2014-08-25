@@ -6,7 +6,7 @@ import java.util.Map;
 import java.util.UUID;
 
 import kr.co.haco.DAO.AccountDAO;
-import kr.co.haco.Util.StringUtils;
+import kr.co.haco.Util.myStringUtils;
 import kr.co.haco.VO.Account;
 import kr.co.haco.VO.Authority;
 import kr.co.haco.VO.Employee;
@@ -193,7 +193,7 @@ public class AccountServiceImpl implements AccountService {
 				if(member!=null){
 					Account passAccount = new Account();
 					passAccount.setAccount_id(account.getAccount_id());
-					passAccount.setPassword(StringUtils.randomPassword(7));
+					passAccount.setPassword(myStringUtils.randomPassword(7));
 					
 					if(sqlSession.getMapper(AccountDAO.class).updateAccount(passAccount)==1){
 						logger.info("[findPassword] - account_id:["+member.getAccount_id()+"] / 비밀번호 찾기");

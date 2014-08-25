@@ -1,6 +1,6 @@
 package kr.co.haco.Util;
 
-public class StringUtils {
+public class myStringUtils {
 	/**
 	 * 한글 및 영문 글자 길이를 잘라서 리턴
 	 * 
