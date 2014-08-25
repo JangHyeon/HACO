@@ -11,6 +11,7 @@ import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.MyLectureHistory;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,39 +85,27 @@ public class HomepageJeController {
 	@RequestMapping(value = "/myLectureEvaluation", method = RequestMethod.POST)	
 	@ResponseBody
 	public int doEvaluation(Model model,String answerList, Principal principal) throws JSONException{
-		System.out.println("Controller-myLectureEvaluation");
-		 
-		JSONObject obj = new JSONObject(answerList);
-		/*
-	      String data = request.getParameter("json");
-	      System.out.println(data);
-	      
-	      JsonParser parser = new JsonParser();
-	      JsonElement element = parser.parse(data);
-	      JsonArray jArray = element.getAsJsonArray();
-	      
-	      JSONObject obj = new JSONObject(data);*/
-	      
-	      
-	      
-		/*
-		int question_id=Integer.parseInt((String)obj.get("question_id"));
-		String answer = (String)obj.get("answer");
-		System.out.println("question_id:"+question_id);
-		System.out.println("answer:"+answer);
+		System.out.println("Controller-myLectureEvaluation");		
+		int result =0;
 		int account_id = Integer.parseInt(principal.getName());
 		
-		EvalQuestionAnswer evalQuestionAnswer = new EvalQuestionAnswer();
-		evalQuestionAnswer.setAccount_id(account_id);
-		evalQuestionAnswer.setQuestion_id(question_id);
-		evalQuestionAnswer.setAnswer(answer);
+		JSONArray answerJsonArray = new JSONArray(answerList);
+		for(int i=0; i<answerJsonArray.length(); i++){
+			JSONObject answerJson = answerJsonArray.getJSONObject(i);
+			int question_id=Integer.parseInt((String)answerJson.get("question_id"));
+			String answer = (String)answerJson.get("answer");
+			System.out.println("question_id:"+question_id);
+			System.out.println("answer:"+answer);
+			
+			EvalQuestionAnswer evalQuestionAnswer = new EvalQuestionAnswer();
+			evalQuestionAnswer.setAccount_id(account_id);
+			evalQuestionAnswer.setQuestion_id(question_id);
+			evalQuestionAnswer.setAnswer(answer);
+			
+			result += homepageMyPageService.uploadEvalResult(evalQuestionAnswer);			
+		}
+		System.out.println("result:"+result);		
 		
-		int result = homepageMyPageService.uploadEvalResult(evalQuestionAnswer);
-		System.out.println("result:"+result);
-		
-		//HashMap<String, Integer> resultMap = new HashMap<String, Integer>();		
-		//resultMap.put("result", result);
-		 */
 		return result;
 	}
 

@@ -53,6 +53,7 @@
 												<label class="col-sm-2 col-sm-2 control-label">질문<%=idx_question%></label>
 												<div class="col-sm-10">${question.question}</div>			
 												<input type="hidden" name="question_id" value="${question.question_id}">
+												<input type="hidden" name="type_code" value="${question.type_code}">
 											</div>	
 											<c:choose>
 												<c:when test="${question.type_code=='2'}"> <!-- 주관식일때 -->										
@@ -75,7 +76,7 @@
 													    	
 													    	for(int i=0;i<examList.size();i++){ %>		     
 																<label> <input type="radio" name="example<%=idx_examListofList%>"
-																	id="optionsRadios1" value="1"> <%= examList.get(i).getExample_content()%>
+																	id="optionsRadios1"> <%= examList.get(i).getExample_content()%>
 																</label>
 														     	&nbsp;&nbsp;&nbsp;													  								
 															<%} 
@@ -157,19 +158,28 @@ $(document).ready(function() {
 		
 		for(var i=0; i<questList; i++){
 			sub = new Object();   
-			sub['question_id'] =$("#evalResultFrm").find("input[name='question_id']").eq(i).val();
-			sub['answer'] = $("#evalResultFrm").find("input[name='answer']").eq(i).val();			
-			//alert("question_id:"+sub.question_id);
-			//alert("answer:"+sub.answer);
+			sub['question_id'] =$("#evalResultFrm").find("input[name='question_id']").eq(i).val();			
+			var type_code = $("#evalResultFrm").find("input[name='type_code']").eq(i).val();
+			//alert("type_code:"+type_code);
+			
+			//객관식일때
+			if(type_code=='1'){ 
+				sub['answer'] = $("#evalResultFrm").find("input:radio[name='answer'+i]:checked").eq(i).val();
+			}else if(type_code=='2'){
+				sub['answer'] = $("#evalResultFrm").find("input[name='answer']").eq(i).val();	
+			}		
+			alert("type_code:"+type_code);
+			alert("question_id:"+sub.question_id);
+			alert("answer:"+sub.answer); 
 			
 			main[i] = sub;
 		}
 		
-		var jsonData = JSON.stringify(main);	 //객체를 string화 시켜주는 것.
+		var jsonData = JSON.stringify(main); //객체를 string화 시켜주는 것.
 		//alert("jsonData:"+jsonData);		
 		console.log(jsonData);
 		
-		$.ajax({
+/* 		$.ajax({
             type : "POST",
             dataType : "json",
             url : 'myLectureEvaluation',
@@ -184,9 +194,9 @@ $(document).ready(function() {
 	             alert("이미 등록한 설문입니다.");	             
 	        }           
     	});
+		 */
 		
-		
-	}); //등록 버튼 클릭
+	}); //등록 버튼 클릭 끝
 	
 });
 	
