@@ -81,7 +81,21 @@ html, body, .contain, .header {
 	-webkit-box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.09);
 	box-shadow: 0 -2px 3px rgba(0, 0, 0, 0.09);
 }
+.error .header{
+	min-height: 525px;
+}
+.content > .error{
+	text-align:center;
+}
 
+#errorMsg > p{
+	margin-bottom: 3px;
+	opacity: 0.7;
+}
+#errorMsg > p:first-child{
+	font-weight: 700;
+	opacity: 1;
+}
 
 #backst {
 	position: absolute;

@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
-
+<% response.setStatus(200); %>
 
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/demo.css" />
@@ -11,9 +11,9 @@
 
 
 <!-- Begin Body -->
-<div class="demo-7">
+<div class="demo-7 error">
 		<!-- content column-->
-		<div id="container" class="contain intro-effect-jam3">
+		<div id="container" class="contain intro-effect-jam3 modify">
 		
 		<header class="header">
 				<div class="bg-img">
@@ -21,21 +21,33 @@
 				</div>
 				<div class="title">
 					<h1>ERROR</h1>
-					<p class="subline"><img src="${pageContext.request.contextPath}/resources/images/emo_03-ac8a685c093048c167479e7b346d7f8c.gif"><br>${errorMsg}</p>
-					<p>Please check the <strong> path </strong></p>
+					<p class="subline">
+						<img src="${pageContext.request.contextPath}/resources/images/emo_03-ac8a685c093048c167479e7b346d7f8c.gif">
+						<br>
+						${errorMsg}
+					</p>
+					<p>Please check <strong> URL </strong></p>
 				</div>
 			</header>
 			<button class="trigger" data-info="Click or ScollDown"><span>Trigger</span></button>
 			<article class="content">
-				<div>
+				<div id="errorMsg" class="error">
 					<c:if test="${errorMsg=='PageNotFound'}">
 						<p>존재하지 않는 페이지 입니다.</p>
 						<p>경로를 확인해주세요!</p>
 					</c:if>
+					<c:if test="${errorMsg=='NotSupported'}">
+						<p>지원하지 않는 방식입니다.</p>
+						<p>올바른 방식으로 시도하세요!</p>
+					</c:if>
+					<c:if test="${errorMsg=='FileNotFound'}">
+						<p>파일을 찾을 수 없습니다.</p>
+						<p>올바른 파일명을 입력하세요!</p>
+					</c:if>
 					
 					<c:if test="${errorMsg=='Error'}">
 						<p>이럴리가 없는데...</p>
-						<p>다시 시도해주시거나 관리자에게 연락해주세요!</p>
+						<p>다시 로그인 후 시도해주시거나 관리자에게 연락해주세요!</p>
 					</c:if>
 					
 					<c:if test="${errorMsg=='NoAuthority'}">
@@ -68,7 +80,7 @@
 				
 				$("#backst").backstretch("${pageContext.request.contextPath}/resources/images/wallpaper-1845631.jpg");
 				
-				// detect if IE : from http://stackoverflow.com/a/16657946		
+				/* // detect if IE : from http://stackoverflow.com/a/16657946		
 				var ie = (function(){
 					var undef,rv = -1; // Return value assumes failure.
 					var ua = window.navigator.userAgent;
@@ -99,6 +111,7 @@
 					e.preventDefault();
 					e.returnValue = false;  
 				}
+				
 
 				function keydown(e) {
 					for (var i = keys.length; i--;) {
@@ -181,6 +194,7 @@
 					}
 
 					// simulating the end of the transition:
+					var simultimer = setInterval(function(){ $("#backst").trigger('resize'); },0);
 					setTimeout( function() {
 						isRevealed = !isRevealed;
 						isAnimating = false;
@@ -188,8 +202,9 @@
 							noscroll = false;
 							enable_scroll();
 						}else{
-							$(window).trigger('resize');
+							
 						}
+						clearsetInterval(simultimer);
 					}, 600 );
 				}
 
@@ -207,5 +222,8 @@
 				
 				window.addEventListener( 'scroll', scrollPage );
 				trigger.addEventListener( 'click', function() { toggle( 'reveal' ); } );
+				
+
+				$('button.trigger').trigger('click'); */
 			})();
 		</script>

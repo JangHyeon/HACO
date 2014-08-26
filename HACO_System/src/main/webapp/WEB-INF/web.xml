@@ -71,10 +71,16 @@
 		<error-code>404</error-code>
 		<location>/error/PageNotFound</location>
 	</error-page>
+  	<error-page>
+		<error-code>405</error-code>
+		<location>/error/NotSupported</location>
+	</error-page>
 	<error-page>
 		<error-code>500</error-code>
 		<location>/error/Error</location>
-	</error-page>
+	</error-page> 
+
+
 	
 	
 

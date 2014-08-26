@@ -1,5 +1,10 @@
 package kr.co.haco.Controller;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,7 +31,7 @@ public class HomepageController {
 	HomepageService homepageService;
 
 	// 에러페이지
-	@RequestMapping(value = "/error/{msg}", method = RequestMethod.GET)
+	@RequestMapping(value = "/error/{msg}")
 	public String error(@PathVariable String msg, Model model) {
 		model.addAttribute("errorMsg", msg);
 		return "homepage.error";
@@ -329,7 +334,7 @@ public class HomepageController {
 		qna.setGroup_no(qna_id);
 		
 		qna.setTitle(qna.getTitle()+" - 답변");
-		qna.setContent(qna.getContent()+"<br />&nbsp;<hr /><br />&nbsp;");
+		qna.setContent(qna.getContent()+"</div><br/>&nbsp;<hr/><br/>&nbsp;");
 		
 		model.addAttribute("qna",qna);
 		
@@ -337,7 +342,7 @@ public class HomepageController {
 	}
 	// 답변 작성
 	@RequestMapping(value = "/answerWrite", method = RequestMethod.POST)
-	public String answerWriteProcess(Qna answer, HttpSession session) {
+	public String answerWriteProcess(Qna answer, HttpSession session) throws NullPointerException{
 		Employee employee = (Employee)session.getAttribute("employee");
 		answer.setAccount_id(employee.getAccount_id());
 		answer.setDivide_code('A');
@@ -346,6 +351,49 @@ public class HomepageController {
 		return "redirect:/qna";
 	}
 	
+	
+	// 다운로드
+	@RequestMapping(value = "/upload/board/{boardName}/file/{fileName:.+}")
+	public String download(
+            @PathVariable String boardName,
+            @PathVariable String fileName,
+            HttpServletResponse response,
+            HttpServletRequest request){
+		
+		try{
+	
+			//다운로드 기본 설정 (브라우져가 read 하지 않고 ... 다운 )
+			//요청 - 응답 간에 헤더정보에 설정을 강제 다운로드
+			String userAgent = request.getHeader("User-Agent");
+			
+			if (userAgent.indexOf("MSIE") > -1 || userAgent.indexOf("Trident") > -1) {   // MS IE 브라우저에서 한글 인코딩
+			   response.setHeader("Content-Disposition", "attachment; filename="
+			   + java.net.URLEncoder.encode(fileName, "UTF-8").replaceAll("\\+", "\\ ") + ";");
+			} else {                                                                     // 모질라나 오페라 브라우저에서 한글 인코딩​
+				response.setHeader("Content-Disposition",
+				"attachment; filename=" + new String(fileName.getBytes("UTF-8"), "ISO-8859-1").replaceAll("\\+", "\\ ") + ";");
+			}
+			//파일명 전송 
+			//파일 내용전송
+			String fullpath = request.getSession().getServletContext().getRealPath("/resources/upload/board/" + boardName + "/file/" + fileName).replace("/", File.separator);
+			FileInputStream fin = new FileInputStream(fullpath);
+			//출력 도구 얻기 :response.getOutputStream()
+			ServletOutputStream sout = response.getOutputStream();
+			byte[] buf = new byte[1024]; //전체를 다읽지 않고 1204byte씩 읽어서
+			int size = 0;
+			while((size=fin.read(buf,0,buf.length)) != -1) //buffer 에 1024byte 담고
+			{                                              //마지막 남아있는 byte 담고  그다음 없으면 탈출
+				sout.write(buf, 0, size); //1kbyte씩 출력 
+			}
+			fin.close();
+			sout.close();
+		
+		}catch(IOException e){
+			System.out.println(e.getMessage());
+			return "redirect:/error/FileNotFound";
+		}
+		return null;
+	}
 	
 	
 	// 커뮤니티

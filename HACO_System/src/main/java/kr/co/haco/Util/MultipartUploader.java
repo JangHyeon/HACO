@@ -31,6 +31,17 @@ public class MultipartUploader {
 
 	public MultipartUploader(HttpServletRequest request, String usrUploadDir,
 			MultipartFile multipartFile, boolean Rename) {
+		
+		// 저장 경로
+				String targetPath = request.getSession().getServletContext().getRealPath("")
+						+ usrUploadDir.replace("/", File.separator);
+
+		// 저장 경로 폴더 생성
+		File targetPathDir = new File(targetPath);
+		if (!targetPathDir.exists())
+			targetPathDir.mkdirs();
+		
+		
 		// 업로드 파일명
 		String originalFileName = multipartFile.getOriginalFilename();
 		// 저장 파일명
@@ -43,21 +54,17 @@ public class MultipartUploader {
 							originalFileName.length()).toLowerCase();
 		}
 		
-		// 저장 경로
-		String targetPath = request.getSession().getServletContext()
-				.getRealPath("")
-				+ usrUploadDir.replace("/", File.separator);
-
-		// 저장 경로 폴더 생성
-		
-		System.out.println(targetPath);
-		
-		File targetPathDir = new File(targetPath);
-		if (!targetPathDir.exists())
-			targetPathDir.mkdirs();
 		
 		String savedFilePath = targetPathDir + File.separator + targetFileName;
-
+		
+		//중복 파일명 처리
+		File newfile = new File(savedFilePath);
+		if(newfile.exists()){
+			System.out.println("파일이 중복됨");
+			targetFileName = System.currentTimeMillis()+"-"+targetFileName;
+			savedFilePath = targetPathDir + File.separator + targetFileName;
+		}
+		System.out.println(savedFilePath);
 		InputStream in = null;
 		OutputStream out = null;
 
@@ -95,6 +102,10 @@ public class MultipartUploader {
 		// contextURL+StringUtils.replace(usrUploadDir+"/"+targetFileName, "//",
 		// "/");
 
+		//경로 숨김
+		usrUploadDir = usrUploadDir.replaceAll("/resources", "");
+		
+		
 		HashMap<String, String> map = new HashMap<String, String>();
 		map.put("fileUrl", contextURL + usrUploadDir + "/" + targetFileName);
 		map.put("filePath", savedFilePath);
@@ -105,7 +116,7 @@ public class MultipartUploader {
 		this.fileName = map.get("fileName");
 	}
 
-	public HashMap<String, String> uploadFile(HttpServletRequest request,
+	/*public HashMap<String, String> uploadFile(HttpServletRequest request,
 			String usrUploadDir, MultipartFile multipartFile) {
 
 		// 업로드 파일명
@@ -175,5 +186,5 @@ public class MultipartUploader {
 		this.fileName = map.get("fileName");
 
 		return map;
-	}
+	}*/
 }

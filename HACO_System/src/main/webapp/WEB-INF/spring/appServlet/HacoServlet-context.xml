@@ -57,6 +57,7 @@
 	<!-- 리소스 경로 예외 처리 -->
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<mvc:resources mapping="/images/**" location="/resources/images/" />
+	<mvc:resources mapping="/upload/**" location="/resources/upload/" />
 	<mvc:resources mapping="/employeePhoto/**" location="/resources/upload/employeePhoto/" />
 	<mvc:resources mapping="/profilePhoto/**" location="/resources/upload/profilePhoto/" />
 	<mvc:resources mapping="/board/**" location="/resources/upload/board/" />

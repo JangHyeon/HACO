@@ -165,6 +165,7 @@
 			<if test="hit > 0">
 				name &gt; #{hit}
 			</if>
+			and state_code!=9
 		</where>
 	</select>
 	

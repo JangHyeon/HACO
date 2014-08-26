@@ -755,3 +755,7 @@ tbody > tr > td > a > i{
 tbody > tr > td > a > span > .fa-question{
 	width:9px;
 }
+
+.content > .question{
+	opacity: 0.7;
+}
