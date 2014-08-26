@@ -2,6 +2,7 @@ package kr.co.haco.Service;
 
 import java.util.List;
 
+import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.Subject;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -28,4 +29,10 @@ public interface SubjectService {
 	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 	public int deleteSubject(String subject_id);
 	////////////////////////////////////////////////////////////////////
+	
+	// 강사명검색.
+	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
+	public List<Employee> getName(String name);
+	////////////////////////////////////////////////////////////////////
+	
 }

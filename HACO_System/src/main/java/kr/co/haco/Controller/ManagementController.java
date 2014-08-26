@@ -441,4 +441,25 @@ public class ManagementController {
 	public String todo_list() {
 		return "management.teacher";
 	}
+	
+	
+	
+	
+	/////test//////////
+	@RequestMapping(value = "test", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> key(String json_data, Model model,
+			HttpServletResponse rs) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		System.out.println("************************************************");
+		System.out.println("json_data_value: "+json_data);
+
+		subjectService.getName(json_data);
+		
+		
+		HashMap<String, Object> mapJson = new HashMap<String, Object>();
+		mapJson.put("t",subjectService.getName(json_data));
+		System.out.println("mapJson_value: "+mapJson);
+		return mapJson;
+	}
 }

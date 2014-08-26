@@ -27,6 +27,11 @@
 
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datetimepicker.min.css 	">
+
+<link rel="stylesheet"
+	href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+
 <input id="current-accordion" type="hidden"
 	value="course,subjectRegister" />
 
@@ -48,9 +53,8 @@
 						<i class="fa fa-angle-right"></i> 과정등록
 					</h4>
 						<form class="form-horizontal style-form" action="courseInsertOk" id="insertsubject" method="get">
-				
-							강사명:<input type="text" name="name">
-							
+				 	강사명:<input type="text" name="name" id="tags">
+					
 						 	<select id ="selectCenter" name="center_id">
 								<option value="">교육센터명</option>
 								<c:forEach var="Center" items="${Center}">
@@ -98,11 +102,34 @@
 
 
 <!--script for this page-->
+  <script src="//code.jquery.com/ui/1.11.1/jquery-ui.js"></script>
+ 
+<!--script for this page-->
 
 <script type="text/javascript">
 	$(function() {
 
-	
+		$("#tags").on('keyup', function() {
+			var date2 = [];
+			var json_data = $(this).val();
+			// alert("test2");
+			$.ajax({
+				type : 'POST',
+				url : 'test',
+				data : 'json_data=' + json_data,
+				dataType : "json",
+				success : function(date) {
+				for (var i = 0; i < date.t.length; i++) {
+					date2.push(date.t[i].name_kor);
+				} 
+				  $("#tags").autocomplete({
+						source : date2
+					});
+				},
+				error : function() {
+				}
+			});
+		});
 
 		$("#selectCenter").change(
 				function() {

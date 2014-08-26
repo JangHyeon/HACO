@@ -68,4 +68,11 @@
 		where subject_id=#{subject_id}
 	</delete>
 	<!-- /////////////////////과정 부분///////////////////////////// -->
+	
+		<!-- 강사명 자동완성 부분 -->
+	<select id="getName" resultType="kr.co.haco.VO.Employee" parameterType="String">
+		select name_kor from employee where job_code=1 and name_kor like CONCAT(#{param1},'%')			
+	</select>
+	
+	
 </mapper>

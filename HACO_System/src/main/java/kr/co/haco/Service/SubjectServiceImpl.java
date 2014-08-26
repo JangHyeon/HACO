@@ -3,6 +3,7 @@ package kr.co.haco.Service;
 import java.util.List;
 
 import kr.co.haco.DAO.SubjectDAO;
+import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.Subject;
 
 import org.apache.ibatis.session.SqlSession;
@@ -39,5 +40,13 @@ public class SubjectServiceImpl implements SubjectService {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(SubjectDAO.class).deleteSubject(subject_id);
 	}
+	
+	
+	
+	@Override
+	public List<Employee> getName(String name) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(SubjectDAO.class).getName(name);
+		}
 
 }

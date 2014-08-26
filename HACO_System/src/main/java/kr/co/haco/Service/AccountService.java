@@ -51,4 +51,7 @@ public interface AccountService{
 	
 	public String findId(String name, String email);
 	public String findPassword(String id, String email, StringBuffer contextURL);
+	
+	
+	
 }

@@ -2,6 +2,7 @@ package kr.co.haco.DAO;
 
 import java.util.List;
 
+import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.Subject;
 
 public interface SubjectDAO {
@@ -10,4 +11,6 @@ public interface SubjectDAO {
 	public int insertSubject(Subject subject);
 	public int updateSubject(Subject subject);
 	public int deleteSubject(String subject_id);
+
+	public List<Employee> getName(String name);
 }
