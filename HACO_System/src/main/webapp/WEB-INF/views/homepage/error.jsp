@@ -21,16 +21,27 @@
 				</div>
 				<div class="title">
 					<h1>ERROR</h1>
-					<p class="subline">왜 이곳으로 접근하십니까...</p>
-					<p>why <strong>this </strong> &#8212; page &nbsp;&nbsp;<font face="Nanum Gothic">?</font></p>
+					<p class="subline"><img src="${pageContext.request.contextPath}/resources/images/emo_03-ac8a685c093048c167479e7b346d7f8c.gif"><br>${errorMsg}</p>
+					<p>Please check the <strong> path </strong></p>
 				</div>
 			</header>
 			<button class="trigger" data-info="Click or ScollDown"><span>Trigger</span></button>
 			<article class="content">
 				<div>
-					<p>${errorMsg}</p>
-					<p>앞으로는 하지마세요!</p>
+					<c:if test="${errorMsg=='PageNotFound'}">
+						<p>존재하지 않는 페이지 입니다.</p>
+						<p>경로를 확인해주세요!</p>
+					</c:if>
 					
+					<c:if test="${errorMsg=='Error'}">
+						<p>이럴리가 없는데...</p>
+						<p>다시 시도해주시거나 관리자에게 연락해주세요!</p>
+					</c:if>
+					
+					<c:if test="${errorMsg=='NoAuthority'}">
+						<p>권한이 없습니다.</p>
+						<p>올바른 경로로 접속해주세요!</p>
+					</c:if>
 				</div>
 			</article>
 		
@@ -55,7 +66,7 @@
 		});
 			(function() {
 				
-				$("#backst").backstretch("${pageContext.request.contextPath}/resources/images/wallpaper-1200407.jpg");
+				$("#backst").backstretch("${pageContext.request.contextPath}/resources/images/wallpaper-1845631.jpg");
 				
 				// detect if IE : from http://stackoverflow.com/a/16657946		
 				var ie = (function(){

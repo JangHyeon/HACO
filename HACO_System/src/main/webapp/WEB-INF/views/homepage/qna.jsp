@@ -82,7 +82,7 @@
 														<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
 															<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
 														</s:authorize>
-														<s:authorize ifAnyGranted="GUEST,STUDENT">
+														<s:authorize ifNotGranted="TEACHER,MANAGER,CENTER,MASTER">
 															<c:choose>
 																<c:when test="${sessionScope.member.account_id==qna.account_id}">
 																	<c:set var="group_id" value="${qna.group_no}" scope="page" />

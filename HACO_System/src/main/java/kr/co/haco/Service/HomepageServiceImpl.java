@@ -473,8 +473,8 @@ public class HomepageServiceImpl implements HomepageService {
 		
 		qna.setDivide_code_toString(String.valueOf(qna.getDivide_code()));
 		
-		//해당글그룹의 원본글 찾기
-		if(qna.getDivide_code()=='A'){
+		// 비공개 답변 글그룹의 원본글 찾기
+		if(qna.getState_code()==0 && qna.getDivide_code()=='A'){
 			Qna oriQuestion = sqlSession.getMapper(HomepageDAO.class).getQna(qna.getGroup_no());
 			
 			//비회원

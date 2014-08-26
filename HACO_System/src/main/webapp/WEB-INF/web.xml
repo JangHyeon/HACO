@@ -63,18 +63,18 @@
 
   
   <!-- 에러 페이지 (◆)-->
-  	<!-- <error-page>
+  	<error-page>
 		<error-code>403</error-code>
-		<location>/Error/NoAuthority.jsp</location>
+		<location>/error/NoAuthority</location>
 	</error-page>
   	<error-page>
 		<error-code>404</error-code>
-		<location>/Error/EmptyPage.jsp</location>
+		<location>/error/PageNotFound</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/Error/Error.jsp</location>
-	</error-page> -->
+		<location>/error/Error</location>
+	</error-page>
 	
 	
 

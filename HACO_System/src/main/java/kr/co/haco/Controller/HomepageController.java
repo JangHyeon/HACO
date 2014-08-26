@@ -26,8 +26,9 @@ public class HomepageController {
 	HomepageService homepageService;
 
 	// 에러페이지
-	@RequestMapping(value = "/error", method = RequestMethod.GET)
-	public String error() {
+	@RequestMapping(value = "/error/{msg}", method = RequestMethod.GET)
+	public String error(@PathVariable String msg, Model model) {
+		model.addAttribute("errorMsg", msg);
 		return "homepage.error";
 	}
 
