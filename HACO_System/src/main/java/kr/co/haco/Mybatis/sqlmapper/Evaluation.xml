@@ -67,5 +67,17 @@
 		select LAST_INSERT_ID();
 	</select>
 	
+	<!-- 강의 평가 결과 -->
+	<select id="getEvalResult" resultType="kr.co.haco.VO.EvalExampleResult">
+		SELECT exam.question_id, exam.example_id, exam.example_content,IFNULL(r.counts,0) AS counts
+		FROM (SELECT question_id, example_id, example_content FROM eval_question_example WHERE question_id=162) exam
+		 LEFT OUTER JOIN (SELECT question_id,example_id,COUNT(*) AS counts
+		                      FROM eval_example_result
+		                      WHERE  open_course_id =26
+		                       AND question_id = 162
+		                      GROUP BY example_id) r
+		 ON r.example_id = exam.example_id
+	</select>
+	
 	
 </mapper>

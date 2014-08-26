@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.haco.VO.EvalExample;
+import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestion;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.EvaluationRegisterForm;
@@ -21,4 +22,8 @@ public interface EvaluationRegisterDAO {
 	public int addQuestion(EvalQuestion evalRegister);
 	public int addQuestionExample(EvalExample evalRegister);	
 		
+	
+	//평가 결과 -일단은 객관식만
+	public List<EvalExampleResult> getEvalResult(int open_course_id);
+	
 }

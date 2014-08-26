@@ -7,6 +7,7 @@ import java.util.Map;
 
 import kr.co.haco.DAO.EvaluationRegisterDAO;
 import kr.co.haco.VO.EvalExample;
+import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestion;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.EvaluationRegisterForm;
@@ -174,5 +175,13 @@ public class EvaluationRegisterImpl implements EvaluationRegisterService {
 
 		return result;	
 	}
+	//강의 평가 결과
+	@Override
+	public List<EvalExampleResult> getEvalResult(int open_course_id) {
+		EvaluationRegisterDAO evalDAO = sqlsession.getMapper(EvaluationRegisterDAO.class);
+		List<EvalExampleResult> resultList = evalDAO.getEvalResult(open_course_id);	
+		return resultList;
+	}
+	
 	
 }

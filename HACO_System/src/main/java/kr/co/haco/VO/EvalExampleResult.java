@@ -5,6 +5,8 @@ public class EvalExampleResult {
 	private int question_id;
 	private int example_id;
 	private int account_id;
+	private String example_content;
+	private int counts;
 	
 	public int getOpen_course_id() {
 		return open_course_id;
@@ -30,4 +32,17 @@ public class EvalExampleResult {
 	public void setAccount_id(int account_id) {
 		this.account_id = account_id;
 	}
+	public String getExample_content() {
+		return example_content;
+	}
+	public void setExample_content(String example_content) {
+		this.example_content = example_content;
+	}
+	public int getCounts() {
+		return counts;
+	}
+	public void setCounts(int counts) {
+		this.counts = counts;
+	}
+	
 }

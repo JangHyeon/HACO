@@ -1,14 +1,9 @@
 package kr.co.haco.Controller;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.Principal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.UUID;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,12 +16,14 @@ import kr.co.haco.Util.MultipartUploader;
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
+import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvaluationRegister;
-import kr.co.haco.VO.EvaluationRegisterForm;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
 import kr.co.haco.VO.OpenCourse;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -170,8 +167,21 @@ public class ManagementController {
 	
 	//강의평가 결과
 	@RequestMapping(value = "evaluationResult", method = RequestMethod.GET)
-	public String lectureEvaluation() {		
-		return "management.evaluationResult";
+	public String lectureEvaluation(Model model, int open_course_id) {		
+		List<EvalExampleResult> resultList = evaluationRegisterService.getEvalResult(open_course_id);
+		
+		JSONArray jsonArray = new JSONArray(resultList);
+		
+		System.out.println("jsonArray:" + jsonArray);
+		  
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("resultList", jsonArray);
+		  
+		JSONObject jsonObject = new JSONObject(map);		
+		System.out.println("jsonObject:" + jsonObject);
+		
+		model.addAttribute("aa", jsonObject);
+		return "management.evaluationResult.jsp";
 	}
 	
 	

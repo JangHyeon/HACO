@@ -58,8 +58,6 @@
     
 <script type="text/javascript"> 
 	$(function () {
-		var a = <%=   %>  
-		$.getJson(),function(data){}
 	    $('#je').highcharts({
 	        chart: {
 	            plotBackgroundColor: null,
@@ -89,8 +87,18 @@
 	            type: 'pie',
 	            name: 'Browser shareT', //마우스오버시 
 	            data: [
-	                	
-	            	  ]
+	                ['Firefox',   45.0],
+	                ['IE',       26.8],
+	                {
+	                    name: 'Chrome',
+	                    y: 12.8,
+	                    sliced: true,
+	                    selected: true
+	                },
+	                ['Safari',    8.5],
+	                ['Opera',     6.2],
+	                ['Others',   0.7]
+	            ]
 	        }]
 	    });
 	});

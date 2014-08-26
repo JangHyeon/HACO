@@ -2,11 +2,11 @@ package kr.co.haco.Service;
 
 import java.util.List;
 
-import org.springframework.transaction.annotation.Transactional;
-
+import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.EvaluationRegisterForm;
-import kr.co.haco.VO.Open_Course;
+
+import org.springframework.transaction.annotation.Transactional;
 
 public interface EvaluationRegisterService {
 	//개설과정 목록
@@ -18,5 +18,8 @@ public interface EvaluationRegisterService {
 	@Transactional
 	//평가 등록
 	public int addEvalution(EvaluationRegister evalRegister);
+	
+	//평가 결과 보기 - 일단은 객관식만
+	public List<EvalExampleResult> getEvalResult(int open_course_id);
 	
 }
