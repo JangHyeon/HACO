@@ -2,6 +2,7 @@ package kr.co.haco.DAO;
 
 import java.util.List;
 
+import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.MyLectureHistory;
@@ -13,5 +14,8 @@ public interface MypageDAO {
 	public List<EvaluationRegister> getEvaluationQuestion(int open_course_id);
 	public List<EvaluationRegister> getEvaluationExample(int open_course_id);
 	//강의평가 하기
-	public int uploadEvalResult(EvalQuestionAnswer evalQuestAnswer);
+	 //주관식 답변
+	public int uploadEvalAnswer(EvalQuestionAnswer evalQuestAnswer);
+	 //객관식 답변
+	public int uploadEvalExam(EvalExampleResult evalExampleResult);
 }

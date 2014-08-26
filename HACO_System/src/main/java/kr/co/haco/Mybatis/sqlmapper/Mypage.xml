@@ -37,9 +37,15 @@
 		WHERE q.open_course_id=#{open_course_id}
 	</select>
 	<!-- 강의평가 - 설문내용 저장하기 -->
-	<insert id="uploadEvalResult" parameterType="kr.co.haco.VO.EvalQuestionAnswer">
+	<!-- 주관식 일때 -->
+	<insert id="uploadEvalAnswer" parameterType="kr.co.haco.VO.EvalQuestionAnswer">
 		INSERT INTO eval_question_answer(question_id,answer,account_id) 
 		VALUES(#{question_id},#{answer},#{account_id})
+	</insert>
+	<!-- 객관식 일때 --> 
+	<insert id="uploadEvalExam">
+		INSERT INTO eval_example_result(open_course_id,question_id,example_id,account_id)
+		VALUES(#{open_course_id},#{question_id},#{example_id},#{account_id})
 	</insert>
 </mapper>
 

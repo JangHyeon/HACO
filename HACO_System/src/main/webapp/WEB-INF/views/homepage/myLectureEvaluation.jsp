@@ -44,7 +44,8 @@
 									<h5>임경균강사</h5> 
 									<br>
 								
-									<form class="form-horizontal style-form" id="evalResultFrm">		
+									<form class="form-horizontal style-form" id="evalResultFrm">	
+										<input type="hidden" name="open_course_id" value="${param.open_course_id}">	
 										<%int idx_examListofList=0; 
 										  int idx_question=1;%>																		
 										<c:forEach var="question" items="${questionList}"> <!-- 질문리스트 -->
@@ -53,7 +54,7 @@
 												<label class="col-sm-2 col-sm-2 control-label">질문<%=idx_question%></label>
 												<div class="col-sm-10">${question.question}</div>			
 												<input type="hidden" name="question_id" value="${question.question_id}">
-												<input type="hidden" name="type_code" value="${question.type_code}">
+												<input type="hidden" name="type_code" value="${question.type_code}">												
 											</div>	
 											<c:choose>
 												<c:when test="${question.type_code=='2'}"> <!-- 주관식일때 -->										
@@ -76,9 +77,7 @@
 													    	
 													    	for(int i=0;i<examList.size();i++){ %>		     
 																<label> <input type="radio" name="example<%=idx_examListofList%>"
-																	id="optionsRadios1"> <%= examList.get(i).getExample_content()%>
-																</label>
-														     	&nbsp;&nbsp;&nbsp;													  								
+																	id="optionsRadios1" value="<%= examList.get(i).getExample_id()%>"><%= examList.get(i).getExample_content()%></label>&nbsp;&nbsp;&nbsp;														     														  								
 															<%} 
 													    	idx_examListofList++;%>																									
 													    </div>
@@ -153,39 +152,57 @@ $(document).ready(function() {
 	
 	//설문 결과 등록
 	$("#uploadBtn").click(function(){	
-		var questList = $(".quest").length;	 
+		var questList = $(".quest").length;	
+		//ajax로 보낼 Object
+		var sendData = new Object();
+		
+		//공통데이터
+		var commonData = new Object();
+		commonData['course_id'] = $("#evalResultFrm").find("input[name='open_course_id']").val();	
+		//질문데이터
+		var answerData = new Object();
 		var main = new Array(); 
+		var idx_quest=0;
+		var idx_exam=0;
 		
 		for(var i=0; i<questList; i++){
 			sub = new Object();   
 			sub['question_id'] =$("#evalResultFrm").find("input[name='question_id']").eq(i).val();			
 			var type_code = $("#evalResultFrm").find("input[name='type_code']").eq(i).val();
+			sub['type_code'] = type_code;
 			//alert("type_code:"+type_code);
 			
 			//객관식일때
-			if(type_code=='1'){ 
-				sub['answer'] = $("#evalResultFrm").find("input:radio[name='answer'+i]:checked").eq(i).val();
+			if(type_code=='1'){				
+				sub['example_id'] = $("#evalResultFrm").find("input:radio[name=example"+idx_exam+"]:checked").val();
+				idx_exam++;
 			}else if(type_code=='2'){
-				sub['answer'] = $("#evalResultFrm").find("input[name='answer']").eq(i).val();	
+				sub['answer'] = $("#evalResultFrm").find("input[name='answer']").eq(idx_quest).val();	
+				idx_quest++;
 			}		
-			alert("type_code:"+type_code);
-			alert("question_id:"+sub.question_id);
-			alert("answer:"+sub.answer); 
+			//alert("type_code:"+type_code);
+			//alert("question_id:"+sub.question_id);
+			//alert("answer:"+sub.answer); 
 			
 			main[i] = sub;
 		}
+		answerData['answerData'] = main;
 		
-		var jsonData = JSON.stringify(main); //객체를 string화 시켜주는 것.
+		sendData['sub1']=commonData;
+		sendData['sub2']=answerData;
+		
+		var jsonData = JSON.stringify(sendData); //객체를 string화 시켜주는 것.
 		//alert("jsonData:"+jsonData);		
 		console.log(jsonData);
 		
-/* 		$.ajax({
+ 		$.ajax({
             type : "POST",
             dataType : "json",
             url : 'myLectureEvaluation',
             data : {answerList:jsonData},
             success : function(result) {               
                  if(result>0){
+                	 console.log(jsonData);
                 	 console.log("result:"+result);
                 	 alert("설문이 등록되었습니다. 감사합니다.^^");
                 	 location.href="myLectureHistory";
@@ -194,7 +211,7 @@ $(document).ready(function() {
 	             alert("이미 등록한 설문입니다.");	             
 	        }           
     	});
-		 */
+		
 		
 	}); //등록 버튼 클릭 끝
 	
