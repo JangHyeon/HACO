@@ -75,9 +75,6 @@
 		<error-code>500</error-code>
 		<location>/Error/Error.jsp</location>
 	</error-page> -->
-	
-	
-
 	<!-- 개별빈 -->
 	<servlet>
 		<servlet-name>HacoServlet</servlet-name>

@@ -1,17 +1,15 @@
 package kr.co.haco.Service;
 
-import java.util.HashMap;
 import java.util.List;
 
-import kr.co.haco.VO.CenterClassroom;
-import kr.co.haco.VO.EducationCenter;
+import kr.co.haco.VO.Account;
 import kr.co.haco.VO.Employee;
-import kr.co.haco.VO.LectureRegister;
 import kr.co.haco.VO.Member;
-import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Roles;
 
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 
 public interface AccountService{
 	//서비스 인터페이스에서 세부 권한 설정	
@@ -28,11 +26,25 @@ public interface AccountService{
 	
 	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 	public Employee getEmployee(String account_id);
-	public List<OpenCourse> getattenlist(HashMap map);
-	public List<Member> getstdentlist(HashMap map);
-	public LectureRegister getregister(LectureRegister lecture_register_id);
-	public EducationCenter getcenter(EducationCenter location);
-	public CenterClassroom getclassroom(CenterClassroom classroom);
-	public Employee getemployee(Employee name_kor);
 	
+	public String checkId(String id);
+	
+	@Transactional
+	public void joinMember(Account account, Member member, StringBuffer contextURL) throws DataIntegrityViolationException;
+	
+	public String accountActivation(String activation_key);
+	
+	public Member getMemberToActivationKey(String activation_key);
+	public Member getMemberToAccount_id(String account_id);
+	public Account getAccountToAccount_id(String account_id);
+	
+	@PreAuthorize("hasAnyRole('GUEST','STUDENT')")
+	@Transactional
+	public boolean updateMember(Account account, Member member);
+	
+	@PreAuthorize("hasAnyRole('GUEST','STUDENT')")
+	public boolean deleteMember(Account account);
+	
+	public String findId(String name, String email);
+	public String findPassword(String id, String email, StringBuffer contextURL);
 }

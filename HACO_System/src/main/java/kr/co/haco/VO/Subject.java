@@ -1,24 +1,42 @@
 package kr.co.haco.VO;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Subject {
-	int subject_id;
-	String subject_name;
-	int capacity;
-	String subject_explanation;
-	String instructional_objectives;
-	String subject_point;
-	String lecture_target;
-	int lecture_totalday;
-	int lecture_totaltime;
-	String lecture_time;
-	int tuition_fee;
-	String lecture_content;
-	Date create_date;
-	Date update_date;
-	int center_id;
-	
+	private int subject_id;
+	private String subject_name;
+	private int capacity;
+	private String subject_explanation;
+	private String instructional_objectives;
+	private String subject_point;
+	private String lecture_target;
+	private int lecture_totalday;
+	private int lecture_totaltime;
+	private String lecture_time;
+	private int tuition_fee;
+	private String lecture_content;
+	private Date create_date;
+	private Date update_date;
+	private int center_id;
+	private String course_name;
+	private String name_kor;
+	private Date course_start_date;
+	private Date course_end_date;
+	private Time lecture_time_start;
+	private Time lecture_time_end;
+	private String course_id;
+	private String location;
+	private int CNT;
+	private String name;
+	private String open_course_id;
+	private int account_id;
+	public int getAccount_id() {
+		return account_id;
+	}
+	public void setAccount_id(int account_id) {
+		this.account_id = account_id;
+	}
 	public int getSubject_id() {
 		return subject_id;
 	}
@@ -108,6 +126,72 @@ public class Subject {
 	}
 	public void setCenter_id(int center_id) {
 		this.center_id = center_id;
+	}
+	public String getCourse_name() {
+		return course_name;
+	}
+	public void setCourse_name(String course_name) {
+		this.course_name = course_name;
+	}
+	public String getName_kor() {
+		return name_kor;
+	}
+	public void setName_kor(String name_kor) {
+		this.name_kor = name_kor;
+	}
+	public Date getCourse_start_date() {
+		return course_start_date;
+	}
+	public void setCourse_start_date(Date course_start_date) {
+		this.course_start_date = course_start_date;
+	}
+	public Date getCourse_end_date() {
+		return course_end_date;
+	}
+	public void setCourse_end_date(Date course_end_date) {
+		this.course_end_date = course_end_date;
+	}
+	public Time getLecture_time_start() {
+		return lecture_time_start;
+	}
+	public void setLecture_time_start(Time lecture_time_start) {
+		this.lecture_time_start = lecture_time_start;
+	}
+	public Time getLecture_time_end() {
+		return lecture_time_end;
+	}
+	public void setLecture_time_end(Time lecture_time_end) {
+		this.lecture_time_end = lecture_time_end;
+	}
+	public String getCourse_id() {
+		return course_id;
+	}
+	public void setCourse_id(String course_id) {
+		this.course_id = course_id;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	public int getCNT() {
+		return CNT;
+	}
+	public void setCNT(int cNT) {
+		CNT = cNT;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getOpen_course_id() {
+		return open_course_id;
+	}
+	public void setOpen_course_id(String open_course_id) {
+		this.open_course_id = open_course_id;
 	}
 	
 }

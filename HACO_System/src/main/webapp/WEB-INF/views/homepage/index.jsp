@@ -1,481 +1,434 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 
+<header class="masthead">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1><a href="#" title="Scroll down for your viewing pleasure">Bootable Template</a>
+          <p class="lead">3-column Theme + Layout for Bootstrap 3.</p></h1>
+      </div>
+      <div class="col-md-6">
+        <div class="well pull-right">
+          <img src="//placehold.it/280x100/E7E7E7">        
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
 
-    <!--external css-->
-    <link href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/css/zabuto_calendar.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/lineicons/style.css">    
-    
-    <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css" rel="stylesheet">
-
-    <script src="${pageContext.request.contextPath}/resources/assets/js/chart-master/Chart.js"></script>
-
-	<input id="current-accordion" type="hidden" value="index"/>
-
-      <!-- **********************************************************************************************************************************************************
-      MAIN CONTENT
-      *********************************************************************************************************************************************************** -->
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
-				----------------------------------------------
-              <div class="row">
-                  <div class="col-lg-9 main-chart">
-                  
-                  	<div class="row mtbox">
-                  		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
-                  			<div class="box1">
-					  			<span class="li_heart"></span>
-					  			<h3>933</h3>
-                  			</div>
-					  			<p>933 People liked your page the last 24hs. Whoohoo!</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_cloud"></span>
-					  			<h3>+48</h3>
-                  			</div>
-					  			<p>48 New files were added in your cloud storage.</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_stack"></span>
-					  			<h3>23</h3>
-                  			</div>
-					  			<p>You have 23 unread messages in your inbox.</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_news"></span>
-					  			<h3>+10</h3>
-                  			</div>
-					  			<p>More than 10 news were added in your reader.</p>
-                  		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_data"></span>
-					  			<h3>OK!</h3>
-                  			</div>
-					  			<p>Your server is working perfectly. Relax & enjoy.</p>
-                  		</div>
-                  	
-                  	</div><!-- /row mt -->	
-                  
-                      
-                      <div class="row mt">
-                      <!-- SERVER STATUS PANELS -->
-                      	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="white-panel pn donut-chart">
-                      			<div class="white-header">
-						  			<h5>SERVER LOAD</h5>
-                      			</div>
-								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-database"></i> 70%</p>
-									</div>
-	                      		</div>
-								<canvas id="serverstatus01" height="120" width="120"></canvas>
-								<script>
-									var doughnutData = [
-											{
-												value: 70,
-												color:"#68dff0"
-											},
-											{
-												value : 30,
-												color : "#fdfdfd"
-											}
-										];
-										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
-								</script>
-	                      	</div><! --/grey-panel -->
-                      	</div><!-- /col-md-4-->
-                      	
-
-                      	<div class="col-md-4 col-sm-4 mb">
-                      		<div class="white-panel pn">
-                      			<div class="white-header">
-						  			<h5>TOP PRODUCT</h5>
-                      			</div>
-								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-heart"></i> 122</p>
-									</div>
-									<div class="col-sm-6 col-xs-6"></div>
-	                      		</div>
-	                      		<div class="centered">
-										<img src="${pageContext.request.contextPath}/resources/assets/img/product.png" width="120">
-	                      		</div>
-                      		</div>
-                      	</div><!-- /col-md-4 -->
-                      	
-						<div class="col-md-4 mb">
-							<!-- WHITE PANEL - TOP USER -->
-							<div class="white-panel pn">
-								<div class="white-header">
-									<h5>TOP USER</h5>
-								</div>
-								<p><img src="${pageContext.request.contextPath}/resources/assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
-								<p><b>Zac Snider</b></p>
-								<div class="row">
-									<div class="col-md-6">
-										<p class="small mt">MEMBER SINCE</p>
-										<p>2012</p>
-									</div>
-									<div class="col-md-6">
-										<p class="small mt">TOTAL SPEND</p>
-										<p>$ 47,60</p>
-									</div>
-								</div>
+<!-- Begin Body -->
+<div class="container">
+	<div class="no-gutter row">
+		<!-- left side column -->
+		<div class="col-md-2">
+			<div class="panel panel-default" id="sidebar">
+				<div class="panel-heading"
+					style="background-color: #888; color: #fff;">Sidebar</div>
+				<div class="panel-body">
+					<ul class="nav nav-stacked">
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+						<li><a href="#">Link</a></li>
+					</ul>
+					<div class="accordion" id="accordion2">
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion2" href="#collapseOne"> Accordion </a>
 							</div>
-						</div><!-- /col-md-4 -->
-                      	
+							<div id="collapseOne" class="accordion-body collapse in">
+								<div class="accordion-inner">Content here for links, ads,
+									etc..</div>
+							</div>
+						</div>
+						<div class="accordion-group">
+							<div class="accordion-heading">
+								<a class="accordion-toggle" data-toggle="collapse"
+									data-parent="#accordion2" href="#collapseTwo"> Accordion </a>
+							</div>
+							<div id="collapseTwo" class="accordion-body collapse">
+								<div class="accordion-inner">Another collapse panel.
+									Content here for links, ads, etc..</div>
+							</div>
+						</div>
+					</div>
+					<!--/acc-->
 
-                    </div><!-- /row -->
-                    
-                    				
+					<hr>
+
+					<div class="col col-span-12">
+						<i class="icon-2x icon-facebook"></i>&nbsp; <i
+							class="icon-2x icon-twitter"></i>&nbsp; <i
+							class="icon-2x icon-linkedin"></i>&nbsp; <i
+							class="icon-2x icon-pinterest"></i>
+					</div>
+
+				</div>
+				<!--/panel body-->
+			</div>
+			<!--/panel-->
+		</div>
+		<!--/end left column-->
+
+		<!--mid column-->
+		<div class="col-md-3">
+			<div class="panel" id="midCol">
+				<div class="panel-heading"
+					style="background-color: #555; color: #eee;">New Stories</div>
+				<div class="panel-body">
+
+					<img class="img-responsive" src="//placehold.it/300/77CCDD/66BBCC">
+
+					<div class="well">
+						<img src="http://s.bootply.com/assets/example/bg_iphone.png"
+							class="img-responsive">
+						<h3>
+							<a href="http://getbootstrap.com">Bootstrap 3 is Here.</a>
+						</h3>
+						<p>In simple terms, a responsive web design figures out what
+							resolution of device it's being served on. Flexible grids then
+							size correctly to fit the screen.</p>
+						<p>
+							<a href="http://www.bootply.com/bootstrap-3-migration-guide"
+								target="ext">Read our migration guide for help with
+								upgrading to Bootstrap 3.</a>
+						</p>
+					</div>
+
+					<hr>
+
+					<h3>Top Members</h3>
+
+					<h5>
+						<a href="#"><i class="glyphicon glyphicon-user"></i> John
+							Chapman</a>
+					</h5>
+					<h5>
+						<a href="#"><i class="glyphicon glyphicon-user"></i> Max
+							Axleton</a>
+					</h5>
+					<h5>
+						<a href="#"><i class="glyphicon glyphicon-user"></i> Devin
+							Skelly</a>
+					</h5>
+					<h5>
+						<a href="#"><i class="glyphicon glyphicon-user"></i> Katie
+							Kowalski</a>
+					</h5>
+					<h5>
+						<a href="#"><i class="glyphicon glyphicon-user"></i> Amet
+							Deberge</a>
+					</h5>
+
+					<hr>
+
+					<img class="img-responsive" src="//placehold.it/300x200/FFF">
+
+					<div class="media">
+						<a class="pull-left" href="#"> <img class="media-object"
+							src="http://placehold.it/80/F0F0F0">
+						</a>
+						<div class="media-body">
+							<h5 class="media-heading">
+								<a href="/tagged/modal" target="ext" class="pull-right"><i
+									class="glyphicon glyphicon-share"></i></a> <a href="#"><strong>Modal</strong></a>
+							</h5>
+							<small>Examples using the Bootstrap modal.</small><br> <span
+								class="badge">87</span>
+						</div>
+					</div>
+					<div class="media">
+						<a class="pull-left" href="#"> <img class="media-object"
+							src="http://placehold.it/80/F0F0F0">
+						</a>
+						<div class="media-body">
+							<h5 class="media-heading">
+								<a href="/tagged/slider" target="ext" class="pull-right"><i
+									class="glyphicon glyphicon-share"></i></a> <a href="#"><strong>Carousel</strong></a>
+							</h5>
+							<small>How to use the Bootstrap slider.</small><br> <span
+								class="badge">322</span>
+						</div>
+					</div>
+					<div class="media">
+						<a class="pull-left" href="#"> <img class="media-object"
+							src="http://placehold.it/80/F0F0F0">
+						</a>
+						<div class="media-body">
+							<h5 class="media-heading">
+								<a href="/tagged/typography" target="ext" class="pull-right"><i
+									class="glyphicon glyphicon-share"></i></a> <a href="#"><strong>Typography</strong></a>
+							</h5>
+							<small>See the various textual elements and options.</small><br>
+							<span class="badge">44</span>
+						</div>
+					</div>
+					<div class="media">
+						<a class="pull-left" href="#"> <img class="media-object"
+							src="http://placehold.it/80/F0F0F0">
+						</a>
+						<div class="media-body">
+							<h5 class="media-heading">
+								<a href="/tagged/media" target="ext" class="pull-right"><i
+									class="glyphicon glyphicon-share"></i></a> <a href="#"><strong>@Media</strong></a>
+							</h5>
+							<small>Use @media queries to get the layout you want.</small><br>
+							<span class="badge">119</span>
+						</div>
+					</div>
+
+				</div>
+			</div>
+			<!--/panel-->
+		</div>
+		<!--/end mid column-->
+
+		<!-- right content column-->
+		<div class="col-md-7" id="content">
+			<div class="panel">
+				<div class="panel-heading"
+					style="background-color: #111; color: #fff;">Top Stories</div>
+				<div class="panel-body">
+
 					<div class="row">
-						<!-- TWITTER PANEL -->
-						<div class="col-md-4 mb">
-                      		<div class="darkblue-panel pn">
-                      			<div class="darkblue-header">
-						  			<h5>DROPBOX STATICS</h5>
-                      			</div>
-								<canvas id="serverstatus02" height="120" width="120"></canvas>
-								<script>
-									var doughnutData = [
-											{
-												value: 60,
-												color:"#68dff0"
-											},
-											{
-												value : 40,
-												color : "#444c57"
-											}
-										];
-										var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-								</script>
-								<p>April 17, 2014</p>
-								<footer>
-									<div class="pull-left">
-										<h5><i class="fa fa-hdd-o"></i> 17 GB</h5>
-									</div>
-									<div class="pull-right">
-										<h5>60% Used</h5>
-									</div>
-								</footer>
-                      		</div><! -- /darkblue panel -->
-						</div><!-- /col-md-4 -->
-						
-						
-						<div class="col-md-4 mb">
-							<!-- INSTAGRAM PANEL -->
-							<div class="instagram-panel pn">
-								<i class="fa fa-instagram fa-4x"></i>
-								<p>@THISISYOU<br/>
-									5 min. ago
-								</p>
-								<p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
+						<div class="col-md-8">
+							<h2>The Year of Responsive Design.</h2>
+							2013 was marked as the year of Responsive Web Design (RWD). The
+							Web is filled with big brands, galleries and magical examples
+							that media queries demonstrate the glory of responsive design. <br>
+							<br>
+							<button class="btn btn-default">More</button>
+						</div>
+						<div class="col col-sm-4">
+							<a href="#"><img src="//placehold.it/300x120/77CCDD/66BBCC"
+								class="img-responsive"></a>
+							<div class="text-muted">
+								<small>Aug 15 / John Pierce</small>
 							</div>
-						</div><!-- /col-md-4 -->
-						
-						<div class="col-md-4 col-sm-4 mb">
-							<!-- REVENUE PANEL -->
-							<div class="darkblue-panel pn">
-								<div class="darkblue-header">
-									<h5>REVENUE</h5>
-								</div>
-								<div class="chart mt">
-									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
-								</div>
-								<p class="mt"><b>$ 17,980</b><br/>Month Income</p>
+							<p>Web design has come a long way since 1999.</p>
+							<hr>
+							<a href="#"><img src="//placehold.it/300x120/77CCDD/66BBCC"
+								class="img-responsive"></a>
+							<div class="text-muted">
+								<small>Aug 15 / Wilson Traiker</small>
 							</div>
-						</div><!-- /col-md-4 -->
-						
-					</div><!-- /row -->
-					
-					<div class="row mt">
-                      <!--CUSTOM CHART START -->
-                      <div class="border-head">
-                          <h3>VISITS</h3>
-                      </div>
-                      <div class="custom-bar-chart">
-                          <ul class="y-axis">
-                              <li><span>10.000</span></li>
-                              <li><span>8.000</span></li>
-                              <li><span>6.000</span></li>
-                              <li><span>4.000</span></li>
-                              <li><span>2.000</span></li>
-                              <li><span>0</span></li>
-                          </ul>
-                          <div class="bar">
-                              <div class="title">JAN</div>
-                              <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">FEB</div>
-                              <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">MAR</div>
-                              <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">APR</div>
-                              <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
-                          </div>
-                          <div class="bar">
-                              <div class="title">MAY</div>
-                              <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip" data-placement="top">32%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">JUN</div>
-                              <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip" data-placement="top">62%</div>
-                          </div>
-                          <div class="bar">
-                              <div class="title">JUL</div>
-                              <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
-                          </div>
-                      </div>
-                      <!--custom chart end-->
-					</div><!-- /row -->	
-					
-                  </div><!-- /col-lg-9 END SECTION MIDDLE -->
-                  
-                  
-      <!-- **********************************************************************************************************************************************************
-      RIGHT SIDEBAR CONTENT
-      *********************************************************************************************************************************************************** -->                  
-                  
-                  <div class="col-lg-3 ds">
-                    <!--COMPLETED ACTIONS DONUTS CHART-->
-						<h3>NOTIFICATIONS</h3>
-                                        
-                      <!-- First Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>2 Minutes Ago</muted><br/>
-                      		   <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Second Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>3 Hours Ago</muted><br/>
-                      		   <a href="#">Diana Kennedy</a> purchased a year subscription.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Third Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>7 Hours Ago</muted><br/>
-                      		   <a href="#">Brandon Page</a> purchased a year subscription.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fourth Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>11 Hours Ago</muted><br/>
-                      		   <a href="#">Mark Twain</a> commented your post.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fifth Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>18 Hours Ago</muted><br/>
-                      		   <a href="#">Daniel Pratt</a> purchased a wallet in your store.<br/>
-                      		</p>
-                      	</div>
-                      </div>
+							<p>The "flat" look was a big trend this year.</p>
+						</div>
+					</div>
 
-                       <!-- USERS ONLINE SECTION -->
-						<h3>TEAM MEMBERS</h3>
-                      <!-- First Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-divya.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DIVYA MANIAN</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Second Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-sherman.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DJ SHERMAN</a><br/>
-                      		   <muted>I am Busy</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Third Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-danro.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DAN ROGERS</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fourth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-zac.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Zac Sniders</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fifth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Marcel Newman</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
+					<hr>
 
-                        <!-- CALENDAR-->
-                        <div id="calendar" class="mb">
-                            <div class="panel green-panel no-margin">
-                                <div class="panel-body">
-                                    <div id="date-popover" class="popover top" style="cursor: pointer; disadding: block; margin-left: 33%; margin-top: -50px; width: 175px;">
-                                        <div class="arrow"></div>
-                                        <h3 class="popover-title" style="disadding: none;"></h3>
-                                        <div id="date-popover-content" class="popover-content"></div>
-                                    </div>
-                                    <div id="my-calendar"></div>
-                                </div>
-                            </div>
-                        </div><!-- / calendar -->
-                      
-                  </div><!-- /col-lg-3 -->
-              </div><!--/row -->
-          </section>
-      </section>
+					"Mobile first" and "unobtrusive JavaScript" (AKA: "progressive
+					enhancement") are strategies for when a new site design is being
+					considered. These are related concepts that predated RWD: browsers
+					of basic mobile phones do not understand JavaScript or media
+					queries, so the recommended practice is to create a basic web site
+					then enhance it for smart phones and PCs—rather than try "graceful
+					degradation" to make a complex, image-heavy site work on the most
+					basic mobile phones. <br> <br> Media Queries is a CSS3
+					module allowing content rendering to adapt to conditions such as
+					screen resolution (e.g. smartphone vs. high definition screen). It
+					became a W3C recommended standard in June 2012.[1] and is a
+					cornerstone technology of Responsive Web Design.
 
-      <!--main content end-->
-      
-      
-	<!-- inclue common script -->
-    <%@ include file="commonScript.jsp" %>
+					<hr>
 
-    <!--script for this page-->    
-    <script src="${pageContext.request.contextPath}/resources/assets/js/gritter/js/jquery.gritter.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/gritter-conf.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/sparkline-chart.js"></script>    
-	<script src="${pageContext.request.contextPath}/resources/assets/js/zabuto_calendar.js"></script>	
-	
-	<script type="text/javascript">
-        $(document).ready(function () {
-        var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: '환영합니다!',
-            // (string | mandatory) the text inside the notification
-            text: '마우스를 올려서 닫으시거나. <br>3초 뒤에 사라집니다.<br>(마우스를 올리시면 계속 볼 수 있습니다.)',
-            // (string | optional) the image to display on the left
-            image: '${pageContext.request.contextPath}/resources/assets/img/ui-sam.jpg',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: false,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: 3000,
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
-        });
+					<div class="well text-center">
+						<h1>Centered Text</h1>
+						This was a 2.x challenge that seems a little easier in 3. <br>
+						<br>
+						<div style="font-size: 70pt">
+							<i class="glyphicon glyphicon-4x glyphicon-camera"></i> <i
+								class="glyphicon glyphicon-4x glyphicon-camera"></i> <i
+								class="glyphicon glyphicon-4x glyphicon-camera"></i>
+						</div>
 
-        return false;
-        });
-	</script>
-	
-	<script type="text/javascript">
-        $(document).ready(function () {
-        var unique_id1 = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: 'Welcome to Dashgum!',
-            // (string | mandatory) the text inside the notification
-            text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
-            // (string | optional) the image to display on the left
-            image: '${pageContext.request.contextPath}/resources/assets/img/ui-sam.jpg',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: true,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '',
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
-        });
+					</div>
 
-        return false;
-        });
-	</script>
-	
-	<script type="application/javascript">
-        $(document).ready(function () {
-            $("#date-popover").popover({html: true, trigger: "manual"});
-            $("#date-popover").hide();
-            $("#date-popover").click(function (e) {
-                $(this).hide();
-            });
-        
-            $("#my-calendar").zabuto_calendar({
-                action: function () {
-                    return myDateFunction(this.id, false);
-                },
-                action_nav: function () {
-                    return myNavFunction(this.id);
-                },
-                ajax: {
-                    url: "show_data.php?action=1",
-                    modal: true
-                },
-                legend: [
-                    {type: "text", label: "Special event", badge: "00"},
-                    {type: "block", label: "Regular event", }
-                ]
-            });
-        });
-        
-        
-        function myNavFunction(id) {
-            $("#date-popover").hide();
-            var nav = $("#" + id).data("navigation");
-            var to = $("#" + id).data("to");
-            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-        }
-    </script>
-  
+					<hr>
+
+					<h2>CSS3</h2>
+					<img src="//placehold.it/150x100/EEEEEE"
+						class="img-responsive pull-right"> To understand the RWD
+					approach, you must first understand CSS - the basis of responsive
+					design. CSS enables the developer to use percentage-based (AKA
+					fluid or proportion-based) grids, CSS3 media queries. The web site
+					then adapts to multiple devices (desktop, laptop, tablet,
+					smartphone) and display conditions such as browser size and screen
+					resolution. <br> <br>
+					<button class="btn btn-default">More</button>
+
+					<hr>
+
+					<div class="row">
+						<div class="col-md-6">
+							<img src="/assets/example/bg_smartphones.jpg"
+								class="img-responsive">
+
+						</div>
+						<div class="col-md-6">
+							<h1>There is still a lot to be said about the Responsive
+								Web.</h1>
+						</div>
+					</div>
+
+					<hr>
+
+					<h2>Responsive Text</h2>
+					Have you ever seen large text blocks overflow their container, or
+					get cut-off? One way to handle this is to ensure the text content
+					wraps inside the container. But the more "responsive" way is to
+					scale font-sizes accordingly as the size of the viewing area
+					(viewport) changes. Creators of <a href="http://fittextjs.com/">FitText</a>
+					have mastered this in the form of a plugin.
+
+					<hr>
+
+
+					<div class="well">
+						<h1>Well..</h1>
+						Does anyone know why <a href="#">@mdo</a> or <a href="#">@fat</a>
+						would name this element a "well"?
+					</div>
+
+					<hr>
+
+					<h2>Responsive Images</h2>
+					The sizing "grid" is not the only aspect of responsive design.
+					Making images and media object scale correctly is another
+					consideration for responsive developers. <span class="hidden-sm">Go
+						ahead and shrink your browser's width to see how the HTML elements
+						and images respond as the width of the viewport changes.</span>
+
+					<h1>
+						<a href="#"><i class="glyphicon glyphicon-user"></i> <i
+							class="glyphicon glyphicon-chevron-down"></i></a>
+					</h1>
+
+					<hr>
+
+					Bootstrap 3 is the latest "Mobile-first" release of the Bootstrap
+					framework that offers a starter foundation for Web designers and
+					developers. Bootstrap consists of a CSS and JavaScript library. To
+					use Bootstrap, you simply include (reference) in the HTML of your
+					Web page. There is also a CDN for Bootstrap that serves pages
+					faster.
+
+					<hr>
+
+					This theme was made at Bootply. Bootply is a HTML, JavaScript and
+					CSS editor app built just for Bootstrap. Bootply enables developers
+					to easily apply the Bootstrap Framework to their projects using a
+					beautiful hand-coding interface. The browser-based Bootply editor
+					lets developers select and paste Bootstrap friendly code snippets.
+					Bootply can be used to test, manage and share any Bootstrap code,
+					from small snippets to entire Bootstrap-ready themes. Find it at
+					http://bootply.com
+
+					<hr>
+
+					<div class="row">
+						<div class="col-md-3 col-sm-6 col-6">
+							<a href="#"><img src="//placehold.it/600X200/EDEDED"
+								class="img-responsive"></a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-6">
+							<a href="#"><img src="//placehold.it/600X200/DDDDDD"
+								class="img-responsive"></a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-6">
+							<a href="#"><img src="//placehold.it/600X200/555555/EEE"
+								class="img-responsive"></a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-6">
+							<a href="#"><img src="//placehold.it/600X200/F3F3F3"
+								class="img-responsive"></a>
+						</div>
+					</div>
+					<br>
+					<div class="row">
+						<div class="col-md-3 col-sm-6 col-6">
+							<a href="#"><img src="//placehold.it/600X200/999999/DDD"
+								class="img-responsive"></a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-6">
+							<a href="#"><img src="//placehold.it/600X200/CCCCCC"
+								class="img-responsive"></a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-6">
+							<a href="#"><img src="//placehold.it/600X200/EDEDED"
+								class="img-responsive"></a>
+						</div>
+						<div class="col-md-3 col-sm-6 col-6">
+							<a href="#"><img src="//placehold.it/600X200/E0E0E0"
+								class="img-responsive"></a>
+						</div>
+					</div>
+
+					<hr>
+					<h4>
+						<a href="http://bootply.com/69913">Edit on Bootply</a>
+					</h4>
+					<hr>
+
+				</div>
+				<!--/panel-body-->
+			</div>
+			<!--/panel-->
+			<!--/end right column-->
+		</div>
+	</div>
+</div>
+
+<!-- script references -->
+<script src="${pageContext.request.contextPath}/resources/gazONojfL3/js/jquery.1.9.1.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
+<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/scripts.js"></script>
+
+
+<script src="//www.google-analytics.com/analytics.js"></script>
+
+<!-- JavaScript jQuery code from Bootply.com editor  -->
+<script type="text/javascript">
+	$(document).ready(function() {
+
+		$('#sidebar').affix({
+			offset : {
+				top : 230,
+				bottom : 100
+			}
+		});
+		$('#midCol').affix({
+			offset : {
+				top : 230,
+				bottom : 100
+			}
+		});
+
+	});
+</script>
+
+
+<script>
+	(function(i, s, o, g, r, a, m) {
+		i['GoogleAnalyticsObject'] = r;
+		i[r] = i[r] || function() {
+			(i[r].q = i[r].q || []).push(arguments)
+		}, i[r].l = 1 * new Date();
+		a = s.createElement(o), m = s.getElementsByTagName(o)[0];
+		a.async = 1;
+		a.src = g;
+		m.parentNode.insertBefore(a, m)
+	})(window, document, 'script', '//www.google-analytics.com/analytics.js',
+			'ga');
+	ga('create', 'UA-40413119-1', 'bootply.com');
+	ga('send', 'pageview');
+</script>
+
 
