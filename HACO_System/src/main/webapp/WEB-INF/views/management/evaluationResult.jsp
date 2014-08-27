@@ -50,49 +50,72 @@
       <!--main content end-->
      
      
- <!-- inclue common script -->
+ <!-- include common script -->
 <%@ include file="commonScript.jsp" %>
 <!--script for this page-->
 <script src="http://code.highcharts.com/highcharts.js"></script>
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
-    
-<script type="text/javascript"> 
-	$(function () {
-		var a = <%=   %>  
-		$.getJson(),function(data){}
-	    $('#je').highcharts({
-	        chart: {
-	            plotBackgroundColor: null,
-	            plotBorderWidth: 1,//null,
-	            plotShadow: false
-	        },
-	        title: {
-	            text: ''
-	        },
-	        tooltip: { //마우스 오버시 
-	            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-	        },
-	        plotOptions: {
-	            pie: {
-	                allowPointSelect: true,
-	                cursor: 'pointer',
-	                dataLabels: {
-	                    enabled: true,
-	                    format: '<b>{point.name}</b>: {point.percentage:.1f} %%',
-	                    style: {
-	                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-	                    }
-	                }
-	            }
-	        },
-	        series: [{
-	            type: 'pie',
-	            name: 'Browser shareT', //마우스오버시 
-	            data: [
-	                	
-	            	  ]
-	        }]
+<script type="text/javascript">
+	$(document).ready(function() {
+	    $.getJSON('getEvalChart?open_course_id=${param.open_course_id}', function(data) {
+	    	//alert("data.lenght:"+data.length);		
+	    			
+			var resultData = new Array();
+			
+			for(var i=0; i<data.length; i++){			
+				//var o = new Object();
+				//o['name']=data[i].example_content;
+				//o['y']=data[i].counts*1;
+				
+				/* var o = {
+					    name : data[i].example_content,
+					    y : data[i].counts*1
+					}; */
+				
+				//o.name=data[i].example_content;
+				//o.y=data[i].counts*1;
+				//alert("example_content:"+o.example_content);
+				//alert("counts:"+o.counts);
+				resultData.push([data[i].example_content,data[i].counts]);
+			}
+			
+			//highcharts함수
+			 $('#je').highcharts({
+			        chart: {
+			            plotBackgroundColor: null,
+			            plotBorderWidth: 1,//null,
+			            plotShadow: false
+			        },
+			        title: {
+			            text: ''
+			        },
+			        tooltip: {
+			            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			        },
+			        plotOptions: {
+			            pie: {
+			                allowPointSelect: true,
+			                cursor: 'pointer',
+			                dataLabels: {
+			                    enabled: true,
+			                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+			                    style: {
+			                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+			                    }
+			                }
+			            }
+			        },
+			        series: [{
+			            type: 'pie',
+			            name: 'Browser share',
+			            data: resultData
+			        }]
+			    });
+	       
+	        
 	    });
+
 	});
 </script>
+
 

@@ -7,6 +7,7 @@ public class EvalExampleResult {
 	private int account_id;
 	private String example_content;
 	private int counts;
+	private String question;
 	
 	public int getOpen_course_id() {
 		return open_course_id;
@@ -44,5 +45,12 @@ public class EvalExampleResult {
 	public void setCounts(int counts) {
 		this.counts = counts;
 	}
+	public String getQuestion() {
+		return question;
+	}
+	public void setQuestion(String question) {
+		this.question = question;
+	}
+	
 	
 }

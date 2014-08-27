@@ -192,7 +192,7 @@ $(document).ready(function() {
 		sendData['sub2']=answerData;
 		
 		var jsonData = JSON.stringify(sendData); //객체를 string화 시켜주는 것.
-		//alert("jsonData:"+jsonData);		
+		alert("jsonData:"+jsonData);		
 		console.log(jsonData);
 		
  		$.ajax({

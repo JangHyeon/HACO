@@ -1,9 +1,10 @@
 package kr.co.haco.Controller;
 
 import java.security.Principal;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,8 +23,6 @@ import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
 import kr.co.haco.VO.OpenCourse;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -165,25 +164,44 @@ public class ManagementController {
 		return "management.evaluationRegisterUpdate";	
 	}
 	
-	//강의평가 결과
+	//강의평가 결과 페이지
 	@RequestMapping(value = "evaluationResult", method = RequestMethod.GET)
-	public String lectureEvaluation(Model model, int open_course_id) {		
-		List<EvalExampleResult> resultList = evaluationRegisterService.getEvalResult(open_course_id);
-		
-		JSONArray jsonArray = new JSONArray(resultList);
-		
-		System.out.println("jsonArray:" + jsonArray);
-		  
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("resultList", jsonArray);
-		  
-		JSONObject jsonObject = new JSONObject(map);		
-		System.out.println("jsonObject:" + jsonObject);
-		
-		model.addAttribute("aa", jsonObject);
-		return "management.evaluationResult.jsp";
+	public String lectureEvaluation(Model model, int open_course_id) {
+		return "management.evaluationResult";
 	}
-	
+	//강의 평가 결과 - 차트
+	@RequestMapping("getEvalChart")
+	@ResponseBody
+	public ArrayList<ArrayList<HashMap<String, Object>>> getLecEvalChart(Model model,int open_course_id) throws ClassNotFoundException, SQLException{
+		System.out.println("ManageMentController - getLecEvalChart -open_course_id="+open_course_id);
+		List<EvalExampleResult> examResult = evaluationRegisterService.getEvalResult(open_course_id);		
+		ArrayList<ArrayList<HashMap<String, Object>>> sendEvalResultofList = new ArrayList<ArrayList<HashMap<String,Object>>>();
+		ArrayList<HashMap<String, Object>> sendEvalResult = null;
+		
+		for(int i=0; i<examResult.size();i++){
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("question", examResult.get(i).getQuestion());
+			map.put("question_id", examResult.get(i).getQuestion_id());
+			map.put("example_id", examResult.get(i).getExample_id());
+			map.put("example_content", examResult.get(i).getExample_content());
+			map.put("counts", examResult.get(i).getCounts());
+			if(i==0){
+				sendEvalResult = new ArrayList<HashMap<String,Object>>();			
+				sendEvalResult.add(map);
+			}else{
+				if(examResult.get(i-1).getQuestion_id()==examResult.get(i-1).getQuestion_id()){				
+					sendEvalResult.add(map);
+				}else{
+					sendEvalResultofList.add(sendEvalResult);
+					sendEvalResult = null;
+					sendEvalResult = new ArrayList<HashMap<String,Object>>();					
+					sendEvalResult.add(map);
+				}
+			}
+		}
+		
+		return sendEvalResultofList;
+	}
 	
 	
 	/////게시판////////////////////
