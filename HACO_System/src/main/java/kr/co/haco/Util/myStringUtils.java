@@ -61,8 +61,8 @@ public class myStringUtils {
 		}
 		return sb.toString();
 	}
-/*
-	public static void main(String[] agrs) {
+	/*
+	public static void main(String[] args) {
 		
 		System.out.println(randomPassword(10));
 		

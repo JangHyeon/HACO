@@ -98,7 +98,7 @@
 
 	<!-- 교육센터 -->
 	<select id="getCenter" parameterType="Integer"
-		resultType="kr.co.haco.VO.educationCenter">
+		resultType="kr.co.haco.VO.EducationCenter">
 		select center_id, location from education_center
 	</select>
 
