@@ -3,7 +3,6 @@ package kr.co.haco.DAO;
 import java.util.List;
 
 import kr.co.haco.VO.Employee;
-import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
 

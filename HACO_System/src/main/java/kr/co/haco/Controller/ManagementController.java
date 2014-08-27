@@ -6,41 +6,32 @@ import java.sql.SQLException;
 import java.sql.Time;
 import java.text.ParseException;
 import java.util.ArrayList;
-import java.sql.Date;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-import java.util.List;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.haco.Service.AccountService;
+import kr.co.haco.Service.AttendanceService;
 import kr.co.haco.Service.CourseService;
 import kr.co.haco.Service.EmployeeService;
 import kr.co.haco.Service.EvaluationRegisterService;
+import kr.co.haco.Service.LectureRegisterService;
 import kr.co.haco.Service.MemberService;
 import kr.co.haco.Service.SubjectService;
-import kr.co.haco.Service.AttendanceService;
-import kr.co.haco.Service.LectureRegisterService;
 import kr.co.haco.Util.ImageJ;
-import kr.co.haco.VO.AttendanceVO;
-import kr.co.haco.VO.Employee;
-import kr.co.haco.VO.LectureRegisterVO;
-import kr.co.haco.VO.Member;
-import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.Util.MultipartUploader;
+import kr.co.haco.VO.Attendance;
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvaluationRegister;
+import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
 import kr.co.haco.VO.OpenCourse;
@@ -48,10 +39,9 @@ import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
 import kr.co.haco.VO.getCourseList;
 
+import org.apache.ibatis.session.SqlSession;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
-import org.apache.catalina.Session;
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +50,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.context.request.SessionScope;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -100,7 +89,7 @@ public class ManagementController {
 	}
 	@RequestMapping(value = "employeeRegister", method = RequestMethod.POST)
 	public String employeeManagementAdd(Employee employee){		
-		
+
 		System.out.println("employ.photo:"+employee.getPhoto());
 		//System.out.println("employee.getJoin_center_id():"+employee.getJoin_center_id());
 		employeeService.addEmployee(employee);
@@ -149,7 +138,7 @@ public class ManagementController {
 		public String attendancelist(HttpSession session, HttpServletRequest req) {
 			Employee eply = (Employee) session.getAttribute("employee");
 			String seldate = req.getParameter("attendancesub");
-			HashMap map = new HashMap();
+			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("center_id", eply.getNow_center_id());
 			map.put("seldate", seldate);
 			List<OpenCourse> getattenlist = attendanceService.getattenlist(map);
@@ -189,13 +178,13 @@ public class ManagementController {
 				System.out.println("open_course_id :" + open_course_id);
 				System.out.println("attendance_code : " +attendance_code);
 				
-				AttendanceVO VO = new AttendanceVO();
+				Attendance VO = new Attendance();
 				VO.setCenter_id(Integer.parseInt(center_id));
 				VO.setAttendance_code(Integer.parseInt(attendance_code));
 				VO.setAttendance_date(attendance_date);
 				VO.setLecture_register_id(Integer.parseInt(lecture_register_id));
 				VO.setOpen_course_id(Integer.parseInt(open_course_id));
-				List<AttendanceVO> list = new ArrayList<AttendanceVO>();
+				List<Attendance> list = new ArrayList<Attendance>();
 				list.add(VO);
 				/*map.put("center_id",Integer.parseInt(center_id));
 				map.put("attendance_code",Integer.parseInt(attendance_code));
@@ -210,8 +199,8 @@ public class ManagementController {
 		}
 		@Autowired private SqlSession mapper;
 		 public void insetUser(Map<String, Object> map) {
-		        List<AttendanceVO> list = (ArrayList<AttendanceVO>)map.get("list");
-		        for(AttendanceVO dto : list) {
+		        List<Attendance> list = (ArrayList<Attendance>)map.get("list");
+		        for(Attendance dto : list) {
 		            mapper.insert("attendanceService.insertatt", dto);
 		        }
 		    }
@@ -528,7 +517,7 @@ public class ManagementController {
 		map.put("center_id", eply.getNow_center_id());
 		map.put("today", today);
 		
-		List<LectureRegisterVO> getlecturestats = lectureregisterService.getlecturestats(map);
+		List<LectureRegisterList> getlecturestats = lectureregisterService.getlecturestats(map);
 		req.setAttribute("getlecturestats", getlecturestats);
 		return "management.lectureRegister";
 	}
@@ -618,7 +607,7 @@ public class ManagementController {
 		HashMap map = new HashMap();
 		map.put("center_id", eply.getNow_center_id());
 		map.put("today", today);
-		List<LectureRegisterVO> getlecturecomplete = lectureregisterService.getlecturecomplete(map);
+		List<LectureRegisterList> getlecturecomplete = lectureregisterService.getlecturecomplete(map);
 		req.setAttribute("getlecturecomplete", getlecturecomplete);
 		return "management.lectureRegisterComplete";
 	}

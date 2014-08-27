@@ -27,7 +27,7 @@ public class AccountController {
 	AccountService accountService;
 
 	// 로그인
-	@RequestMapping(value = "login", method = RequestMethod.GET)
+	@RequestMapping(value = "login")
 	public String login() {
 		return "login";
 	}

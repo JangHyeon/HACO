@@ -5,7 +5,7 @@ import java.util.List;
 
 import kr.co.haco.DAO.AccountDAO;
 import kr.co.haco.DAO.AttendanceDAO;
-import kr.co.haco.VO.AttendanceVO;
+import kr.co.haco.VO.Attendance;
 import kr.co.haco.VO.CenterClassroom;
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
@@ -31,7 +31,7 @@ public class AttendanceServiceImpl implements AttendanceService{
 	public List<Member> getstdentlist(HashMap map) {
 		return sqlSession.getMapper(AttendanceDAO.class).getstdentlist(map);
 	}
-	public List<AttendanceVO> insertatt(HashMap map) {
+	public List<Attendance> insertatt(HashMap map) {
 		return sqlSession.getMapper(AttendanceDAO.class).insertatt(map);
 	}
 }

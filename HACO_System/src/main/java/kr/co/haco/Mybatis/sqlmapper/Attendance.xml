@@ -28,7 +28,7 @@
 			and a.open_course_id = #{open_course_id}
 			and a.lecture_register_code = '4'
 	</select>
-	<insert id="insertatt" parameterType="kr.co.haco.VO.AttendanceVO">
+	<insert id="insertatt" parameterType="kr.co.haco.VO.Attendance">
 		insert into attendance (lecture_register_id, attendance_code,attendance_date, center_id, open_course_id)
 			values 
 				(#{item.lecture_register_id},#{item.attendance_code},#{item.attendance_date},#{item.center_id},#{item.open_course_id})

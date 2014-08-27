@@ -1,8 +1,6 @@
 package kr.co.haco.Util;
 
 import ij.IJ;
-import ij.IJEventListener;
-import ij.ImageListener;
 import ij.ImagePlus;
 import ij.ImageStack;
 import ij.io.Opener;

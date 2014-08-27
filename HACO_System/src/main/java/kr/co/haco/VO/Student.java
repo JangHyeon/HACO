@@ -3,7 +3,7 @@ package kr.co.haco.VO;
 import java.sql.Date;
 import java.sql.Time;
 
-public class StudentVO {
+public class Student {
 	private int account_id;
 	private int open_course_id;
 	private String course_name;

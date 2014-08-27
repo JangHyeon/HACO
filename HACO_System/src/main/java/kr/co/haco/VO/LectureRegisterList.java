@@ -2,7 +2,7 @@ package kr.co.haco.VO;
 
 import java.sql.Date;
 
-public class LectureRegisterVO {
+public class LectureRegisterList {
 	private String location;
 	private String course_name;
 	private int classroom;
@@ -16,6 +16,7 @@ public class LectureRegisterVO {
 	private int open_course_id;
 	private int account_id;
 	private String lecture_register_name;
+	
 	public String getLocation() {
 		return location;
 	}

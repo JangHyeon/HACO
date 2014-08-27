@@ -9,9 +9,9 @@ import org.springframework.stereotype.Component;
 
 import kr.co.haco.DAO.AttendanceDAO;
 import kr.co.haco.DAO.OpenCourseDAO;
-import kr.co.haco.VO.LectureRegisterVO;
+import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.OpenCourse;
-import kr.co.haco.VO.StudentVO;
+import kr.co.haco.VO.Student;
 import kr.co.haco.VO.Subject;
 
 @Component
@@ -31,10 +31,10 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 	public Subject getCNT(HashMap map) {
 		return sqlSession.getMapper(OpenCourseDAO.class).getCNT(map);
 	}
-	public List<LectureRegisterVO> getlecturestats(HashMap map) {
+	public List<LectureRegisterList> getlecturestats(HashMap map) {
 		return sqlSession.getMapper(OpenCourseDAO.class).getlecturestats(map);
 	}
-	public List<LectureRegisterVO> getlecturecomplete(HashMap map) {
+	public List<LectureRegisterList> getlecturecomplete(HashMap map) {
 		return sqlSession.getMapper(OpenCourseDAO.class).getlecturecomplete(map);
 	}
 	public int insertlecture(HashMap map) {

@@ -26,7 +26,7 @@
 			and b.center_id = d.center_id
 			and b.open_course_id = #{course_id}
 	</select>
-	<select id="getlecturestats" parameterType="int" resultType="kr.co.haco.VO.LectureRegisterVO">
+	<select id="getlecturestats" parameterType="int" resultType="kr.co.haco.VO.LectureRegister">
 		select d.location , a.course_name , e.classroom ,  b.name_kor ,  a.course_start_date , h.lecture_register_name ,
 			a.course_end_date , c.capacity , f.lecture_register_code , g.name , a.open_course_id , f.account_id,
 			(SELECT COUNT(1) FROM lecture_register h where h.OPEN_COURSE_ID = a.open_course_id ) as CNT
@@ -44,7 +44,7 @@
 			and f.lecture_register_code != '4'
 			and STR_TO_DATE(#{today},'%Y-%m-%d') &lt; a.course_start_date
 	</select>
-	<select id="getlecturecomplete" parameterType="int" resultType="kr.co.haco.VO.LectureRegisterVO">
+	<select id="getlecturecomplete" parameterType="int" resultType="kr.co.haco.VO.LectureRegister">
 		select d.location , a.course_name , e.classroom ,  b.name_kor ,  a.course_start_date , h.lecture_register_name ,
 			a.course_end_date , c.capacity , f.lecture_register_code , g.name , a.open_course_id , f.account_id,
 			(SELECT COUNT(1) FROM lecture_register h where h.OPEN_COURSE_ID = a.open_course_id ) as CNT
@@ -62,23 +62,23 @@
 			and f.lecture_register_code = '4'
 			and STR_TO_DATE(#{today},'%Y-%m-%d') &lt; a.course_start_date
 	</select>
-	<insert id="insertlecture" parameterType="kr.co.haco.VO.StudentVO">
+	<insert id="insertlecture" parameterType="kr.co.haco.VO.Student">
 		insert into lecture_register(open_course_id,account_id,lecture_register_code,is_survey) 
 		values(#{open_course_id},#{account_id},'1','N')
 	</insert>
-	<update id="updatestudent" parameterType="kr.co.haco.VO.StudentVO">
+	<update id="updatestudent" parameterType="kr.co.haco.VO.Student">
 			update lecture_register set lecture_register_code = '2' 
                     where account_id = #{account_id} 
 					and open_course_id = #{open_course_id}
 					and lecture_register_code != '4'
 	</update>
-	<update id="cancelstudent" parameterType="kr.co.haco.VO.StudentVO">
+	<update id="cancelstudent" parameterType="kr.co.haco.VO.Student">
 		update lecture_register set lecture_register_code = '3' 
                     where account_id = #{account_id} 
 					and open_course_id = #{open_course_id}
 					and lecture_register_code != '4'
 	</update>
-	<update id="completestudent" parameterType="kr.co.haco.VO.StudentVO">
+	<update id="completestudent" parameterType="kr.co.haco.VO.Student">
 		update lecture_register set lecture_register_code = '4' 
                     where account_id = #{account_id} 
 					and open_course_id = #{open_course_id}

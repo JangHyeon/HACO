@@ -2,8 +2,16 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/Remodal/jquery.remodal.css">
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
+
+
+<link rel="stylesheet" href="${resourceUrl}/Remodal/jquery.remodal.css">
 
 <!-- myPage header column -->
 <%@ include file="inc/mypageHeader.jsp" %>

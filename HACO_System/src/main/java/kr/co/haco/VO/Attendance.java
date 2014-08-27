@@ -1,8 +1,7 @@
 package kr.co.haco.VO;
 
-import java.sql.Date;
 
-public class AttendanceVO {
+public class Attendance {
 	private int lecture_register_id;
 	private int attendance_code;
 	private String attendance_date;
