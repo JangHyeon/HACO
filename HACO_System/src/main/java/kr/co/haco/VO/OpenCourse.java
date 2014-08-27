@@ -1,6 +1,7 @@
 package kr.co.haco.VO;
 
 import java.util.Date;
+
 public class OpenCourse {
 	
 	
@@ -51,6 +52,100 @@ public class OpenCourse {
 
 
 
+	private String seldate;
+	private String name_kor;
+	public String getSeldate() {
+		return seldate;
+	}
+
+	public void setSeldate(String seldate) {
+		this.seldate = seldate;
+	}
+
+	public String getName_kor() {
+		return name_kor;
+	}
+
+	public void setName_kor(String name_kor) {
+		this.name_kor = name_kor;
+	}
+
+	public String getSubject_name() {
+		return subject_name;
+	}
+
+	public void setSubject_name(String subject_name) {
+		this.subject_name = subject_name;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public int getCNT() {
+		return CNT;
+	}
+
+	public void setCNT(int cNT) {
+		CNT = cNT;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
+	public int getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(int classroom) {
+		this.classroom = classroom;
+	}
+
+	public int getLecture_register_id() {
+		return lecture_register_id;
+	}
+
+	public void setLecture_register_id(int lecture_register_id) {
+		this.lecture_register_id = lecture_register_id;
+	}
+
+	public int getAttendance_code() {
+		return attendance_code;
+	}
+
+	public void setAttendance_code(int attendance_code) {
+		this.attendance_code = attendance_code;
+	}
+
+	public int getAttendance_date() {
+		return attendance_date;
+	}
+
+	public void setAttendance_date(int attendance_date) {
+		this.attendance_date = attendance_date;
+	}
+
+
+
+
+
+	private String subject_name;
+	private String location;
+	private int CNT;
+	private int capacity;
+	private int classroom;
+	private int lecture_register_id;
+	private int attendance_code;
+	private int attendance_date;
 
 
 

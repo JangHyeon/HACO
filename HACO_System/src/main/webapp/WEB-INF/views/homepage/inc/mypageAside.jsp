@@ -9,7 +9,8 @@
 		<div class="panel-body">
 			<ul class="nav nav-stacked">
 				<li><a href="${pageContext.request.contextPath}/memberModify">회원정보수정</a></li>
-				<li><a href="${pageContext.request.contextPath}/myLectureHistory">수강내역</a></li>
+				<li><a href="#">수강내역</a></li>
+				<li><a href="${pageContext.request.contextPath}/memberattendance">출석정보</a><li>
 				<hr>
 				<li><a href="${pageContext.request.contextPath}/memberDelete">회원탈퇴</a></li>
 			</ul>

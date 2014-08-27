@@ -3,6 +3,10 @@ package kr.co.haco.Controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -10,10 +14,13 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.haco.Service.HomepageService;
+import kr.co.haco.Service.LectureRegisterService;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.Notice;
+import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Qna;
+import kr.co.haco.VO.Subject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,16 +28,19 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class HomepageController {
+	
 	@Autowired
 	HomepageService homepageService;
-
+	
+	@Autowired
+	LectureRegisterService lectureRegisterService;
+	
 	// 에러페이지
 	@RequestMapping(value = "/error/{msg}")
 	public String error(@PathVariable String msg, Model model) {
@@ -72,6 +82,81 @@ public class HomepageController {
 		return "homepage.contectUs";
 	}	
 	
+	
+	//수강신청page
+	@RequestMapping(value = "/lectureregister", method = RequestMethod.GET)
+	public String lectureregister(HttpServletRequest req) {
+		Calendar c = Calendar.getInstance();
+		String month = ""+(c.get(Calendar.MONTH)+1);
+		if(month.length()==1) {month= "0" +month;};
+		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE)+1);
+		System.out.println(c.get(Calendar.YEAR));
+		HashMap<String,String> map = new HashMap<String,String>();
+		System.out.println(today);
+		map.put("today", today);
+		List<OpenCourse> getopencourselist = lectureRegisterService.getopencourselist(map);
+		req.setAttribute("getopencourselist", getopencourselist);
+		return "homepage.lectureregister";
+	}
+	//과정설명
+	@RequestMapping(value = "/lecture", method = RequestMethod.GET)
+	public String lecture(HttpSession session,HttpServletRequest req) {
+		Member member = (Member) session.getAttribute("member");
+		String opid = req.getParameter("opid");
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		map.put("course_id", opid);
+		map.put("account_id", member.getAccount_id());
+		Subject getCNT = lectureRegisterService.getCNT(map);
+		System.out.println("!!!!!!!!!!"+getCNT);
+		req.setAttribute("getCNT", getCNT);
+		
+		return "homepage.lecture";
+	}
+	
+	
+	//수강신청완료 page
+	@RequestMapping(value = "/lecturesuccess", method = RequestMethod.GET)
+	public String lecturesuccess(HttpSession session,HttpServletRequest req) {
+		
+		Member member = (Member) session.getAttribute("member");
+		int op = Integer.parseInt(req.getParameter("opid"));
+		
+		Subject sbj = new Subject();
+		
+		sbj.setCourse_name(req.getParameter("course_name"));
+		sbj.setName_kor(req.getParameter("name_kor"));
+		sbj.setCourse_start_date(java.sql.Date.valueOf(req.getParameter("course_start_date")));
+		sbj.setCourse_end_date(java.sql.Date.valueOf(req.getParameter("course_end_date")));
+		sbj.setLecture_time_start(Time.valueOf(req.getParameter("lecture_time_start")));
+		sbj.setLecture_time_end(Time.valueOf(req.getParameter("lecture_time_end")));
+		sbj.setTuition_fee(Integer.parseInt(req.getParameter("tuition_fee")));
+		sbj.setLocation(req.getParameter("location"));
+		sbj.setCNT(Integer.parseInt(req.getParameter("CNT")));
+		sbj.setCapacity(Integer.parseInt(req.getParameter("capacity")));
+		sbj.setLecture_content(req.getParameter("lecture_content"));
+		sbj.setName(req.getParameter("name"));
+		sbj.setAccount_id(Integer.parseInt(req.getParameter("account_id")));
+		if(sbj.getCapacity() <= sbj.getCNT())
+		{ 
+			return "homepage.lecturefailed";
+		}
+		System.out.println(member.getAccount_id());
+		System.out.println(sbj.getAccount_id());
+		if(member.getAccount_id() == sbj.getAccount_id()){
+			return "homepage.lecturefailed2";
+		}
+		req.setAttribute("sbj", sbj);
+		HashMap<String,Integer> map = new HashMap<String,Integer>();
+		System.out.println();
+		map.put("account_id", member.getAccount_id());
+		map.put("open_course_id",op);
+		
+		int insertlecture = lectureRegisterService.insertlecture(map);
+
+		req.setAttribute("insertlecture", insertlecture);
+		
+		return "homepage.lecturesuccess";
+	}
 	
 
 	// 공지사항 작성 페이지

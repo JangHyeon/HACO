@@ -2,7 +2,6 @@ package kr.co.haco.VO;
 
 import java.sql.Date;
 import java.sql.Time;
-import java.sql.Timestamp;
 
 public class Subject {
 	private int subject_id;
@@ -22,7 +21,16 @@ public class Subject {
 	//private String lecture_time;  -> lecture_time_start/lecture_time_start으로변경
 	private Time  lecture_time_start;
 	private Time  lecture_time_end;
-	
+	private String course_name;
+	private String name_kor;
+	private Date course_start_date;
+	private Date course_end_date;
+	private String course_id;
+	private String location;
+	private int CNT;
+	private String name;
+	private String open_course_id;
+	private int account_id;
 	
 	
 	
@@ -151,6 +159,86 @@ public class Subject {
 	}
 	public void setLecture_time_end(Time lecture_time_end) {
 		this.lecture_time_end = lecture_time_end;
+	}
+
+	public String getCourse_name() {
+		return course_name;
+	}
+
+	public void setCourse_name(String course_name) {
+		this.course_name = course_name;
+	}
+
+	public String getName_kor() {
+		return name_kor;
+	}
+
+	public void setName_kor(String name_kor) {
+		this.name_kor = name_kor;
+	}
+
+	public Date getCourse_start_date() {
+		return course_start_date;
+	}
+
+	public void setCourse_start_date(Date course_start_date) {
+		this.course_start_date = course_start_date;
+	}
+
+	public Date getCourse_end_date() {
+		return course_end_date;
+	}
+
+	public void setCourse_end_date(Date course_end_date) {
+		this.course_end_date = course_end_date;
+	}
+
+	public String getCourse_id() {
+		return course_id;
+	}
+
+	public void setCourse_id(String course_id) {
+		this.course_id = course_id;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
+	public int getCNT() {
+		return CNT;
+	}
+
+	public void setCNT(int cNT) {
+		CNT = cNT;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getOpen_course_id() {
+		return open_course_id;
+	}
+
+	public void setOpen_course_id(String open_course_id) {
+		this.open_course_id = open_course_id;
+	}
+
+	public int getAccount_id() {
+		return account_id;
+	}
+
+	public void setAccount_id(int account_id) {
+		this.account_id = account_id;
 	}
 	
 	

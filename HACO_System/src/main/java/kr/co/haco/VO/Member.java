@@ -1,10 +1,9 @@
 package kr.co.haco.VO;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
-
-
-public class Member{
+public class Member {
 	private int account_id;
 	private String name;
 	private String zipcode;
@@ -15,13 +14,17 @@ public class Member{
 	private String phoneNum1;
 	private String phoneNum2;
 	private String phoneNum3;
-	
+	private String location;
 	private String company;
 	private String position;
 	private String job_duty;
 	private Timestamp create_date;
-	
-	
+	private int open_course_id;
+	private String course_name;
+	private String subject_name;
+	private String classroom;
+	private int center_id;
+	private String lecture_register_id;
 	public Member() {}
 	
 	public Member(int account_id) {
@@ -69,8 +72,38 @@ public class Member{
 		this.email = email;
 	}
 	
-	
-	
+	public String getLecture_register_id() {
+		return lecture_register_id;
+	}
+
+	public void setLecture_register_id(String lecture_register_id) {
+		this.lecture_register_id = lecture_register_id;
+	}
+
+	public int getCenter_id() {
+		return center_id;
+	}
+
+	public void setCenter_id(int center_id) {
+		this.center_id = center_id;
+	}
+
+	public String getClassroom() {
+		return classroom;
+	}
+
+	public void setClassroom(String classroom) {
+		this.classroom = classroom;
+	}
+
+	public String getLocation() {
+		return location;
+	}
+
+	public void setLocation(String location) {
+		this.location = location;
+	}
+
 	public String getPhone() {
 		this.phone = getPhoneNum1()+"-"+getPhoneNum2()+"-"+getPhoneNum3();
 		return this.phone;
@@ -128,6 +161,23 @@ public class Member{
 	public void setCreate_date(Timestamp create_date) {
 		this.create_date = create_date;
 	}
-	
+	public int getOpen_course_id() {
+		return open_course_id;
+	}
+	public void setOpen_course_id(int open_course_id) {
+		this.open_course_id = open_course_id;
+	}
+	public String getCourse_name() {
+		return course_name;
+	}
+	public void setCourse_name(String course_name) {
+		this.course_name = course_name;
+	}
+	public String getSubject_name() {
+		return subject_name;
+	}
+	public void setSubject_name(String subject_name) {
+		this.subject_name = subject_name;
+	}
 	
 }

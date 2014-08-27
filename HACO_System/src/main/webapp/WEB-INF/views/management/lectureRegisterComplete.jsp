@@ -27,29 +27,6 @@
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
 <!--main content start-->
-<script>
-function lecture(open_course_id,account_id,classification){
-	document.lectureRegister.open_course_id.value = open_course_id;
-	document.lectureRegister.account_id.value = account_id;
-	document.lectureRegister.classification.value = classification;
-	document.lectureRegister.submit();
-}
-	/* function lectureupdate(open_course_id,account_id){
-		document.updatest.open_course_id.value = open_course_id;
-		document.updatest.account_id.value = account_id;
-		document.updatest.submit();
-	}
-	function lecturecancel(open_course_id,account_id){
-		document.cancelst.open_course_id.value = open_course_id;
-		document.cancelst.account_id.value = account_id;
-		document.cancelst.submit();
-	}
-	function lecturecomplete(open_course_id,account_id){
-		document.completest.open_course_id.value = open_course_id;
-		document.completest.account_id.value = account_id;
-		document.completest.submit();
-	} */
-</script>
 <section id="main-content">
 	<section class="wrapper site-min-height">
 		<div class="row mt">
@@ -57,7 +34,7 @@ function lecture(open_course_id,account_id,classification){
 				<div class="content-panel">
 					<table class="table table-striped table-advance table-hover">
 						<h4>
-							<i class="fa fa-angle-right"></i>수강신청목록
+							<i class="fa fa-angle-right"></i>수강신청완료목록
 						</h4>
 						<hr>
 						<thead>
@@ -69,13 +46,10 @@ function lecture(open_course_id,account_id,classification){
 								<th><i class="fa fa-bullhorn"></i>기간</th>
 								<th><i class="fa fa-bullhorn"></i>현재인원/정원</th>
 								<th><i class="fa fa-bullhorn"></i>성명</th>
-								<th><i class="fa fa-bullhorn"></i>수강상태</th>
-								<s:authorize ifAnyGranted="MASTER,CENTER,MANAGER">
 								<th><i class="fa fa-bullhorn"></i>수강신청상태</th>
-								</s:authorize>
 							</tr>
 						</thead>
-							<c:forEach var="b" items="${getlecturestats}">
+							<c:forEach var="b" items="${getlecturecomplete}">
 								<tr>
 									<td>${b.location}</td>
 									<td>${b.course_name}</td>
@@ -84,13 +58,6 @@ function lecture(open_course_id,account_id,classification){
 									<td>${b.course_start_date}~ ${b.course_end_date}</td>
 									<td>${b.CNT}/${b.capacity }</td>
 									<td>${b.name }</td>
-									<s:authorize ifAnyGranted="MASTER,CENTER,MANAGER">
-									<td>
-										<button class='btn btn-success btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','grant')"><i class='fa fa-check'></i></button>
-										<button class='btn btn-danger btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','cancel')"><i class='fa fa-trash-o'></i></button>
-										<button class='btn btn-danger btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','complete')"><i class='fa fa-trash-o'></i></button>
-									</td>
-									</s:authorize>
 									<td>${b.lecture_register_name}</td>
 								</tr>
 							</c:forEach>
@@ -101,23 +68,6 @@ function lecture(open_course_id,account_id,classification){
 			<!-- /col-md-12 -->
 		</div>
 		<!-- /row -->
-		<!-- <form id="updatest" name="updatest" action="updatest" method="get">
-			<input type="hidden" name="open_course_id" value="">
-			<input type="hidden" name="account_id" value="">
-		</form>
-		<form id="cancelst" name="cancelst" action="cancelst" method="get">
-			<input type="hidden" name="open_course_id" value="">
-			<input type="hidden" name="account_id" value="">
-		</form>
-		<form id="completest" name="completest" action="completest" method="get">
-			<input type="hidden" name="open_course_id" value="">
-			<input type="hidden" name="account_id" value="">
-		</form> -->
-		<form id="lectureRegister" name="lectureRegister" action="lectureRegister" method="get">
-			<input type="hidden" name="open_course_id" value="">
-			<input type="hidden" name="account_id" value="">
-			<input type="hidden" name="classification" value="">
-		</form>
 	</section>
 </section>
 

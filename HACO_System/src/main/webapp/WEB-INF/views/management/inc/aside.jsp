@@ -58,6 +58,10 @@
                           <i class="fa fa-envelope"></i>
                           <span>수강신청</span>
                       </a>
+                       <ul class="sub">
+                  		    <li name="lectureRegister"><a  href="${pageContext.request.contextPath}/management/lectureRegister">수강신청목록</a></li>
+					   		<li name="lectureRegisterComplete"><a  href="${pageContext.request.contextPath}/management/lectureRegisterComplete">수강신청완료</a></li>
+					   </ul>
                   </li>
 				
                   <li class="sub-menu" name="lectureEvaluation">

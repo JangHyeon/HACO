@@ -3,7 +3,7 @@ package kr.co.haco.VO;
 public class CenterClassroom {
 	private int center_classroom_id;
 	private int center_id;
-	private int classroom;
+	private int classroom; 
 	public int getCenter_classroom_id() {
 		return center_classroom_id;
 	}

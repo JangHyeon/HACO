@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 구현하고자하는 인터페이스 풀경로 -->
+<mapper namespace="kr.co.haco.DAO.OpenCourseDAO">
+	<select id="getopencourselist" parameterType="hashmap" resultType="kr.co.haco.VO.OpenCourse">
+			select d.location as location, course_name as course_name , c.subject_name as subject_name , b.name_kor as name_kor ,
+					a.course_start_date as course_start_date , a.course_end_date as course_end_date , a.open_course_id as open_course_id,
+					(SELECT COUNT(1) FROM lecture_register e where e.OPEN_COURSE_ID = a.open_course_id ) as CNT , c.capacity
+					from open_course a , employee b , subject c , education_center d
+					where a.account_id = b.account_id
+					and a.subject_id = c.subject_id
+					and a.center_id = d.center_id
+					and STR_TO_DATE(#{today},'%Y-%m-%d') &lt; a.course_start_date
+	</select>
+	<select id="getCNT" parameterType="int" resultType="kr.co.haco.VO.Subject">
+		select b.course_name , a.subject_name , c.name_kor, b.course_start_date, b.course_end_date , a.lecture_time_start, a.lecture_time_end,
+			a.tuition_fee, a.capacity, a.lecture_content, d.location , b.open_course_id,
+       		(SELECT COUNT(1) FROM lecture_register e where e.OPEN_COURSE_ID = b.open_course_id ) as CNT,
+       		(select z.account_id from lecture_register x, member z where x.account_id = z.account_id and x.open_course_id = #{course_id} and z.account_id = #{account_id} ) as account_id
+			from subject a , open_course b, employee c , education_center d
+			where a.subject_id = b.subject_id
+			and b.account_id = c.account_id
+			and b.center_id = d.center_id
+			and b.open_course_id = #{course_id}
+	</select>
+	<select id="getlecturestats" parameterType="int" resultType="kr.co.haco.VO.LectureRegisterVO">
+		select d.location , a.course_name , e.classroom ,  b.name_kor ,  a.course_start_date , h.lecture_register_name ,
+			a.course_end_date , c.capacity , f.lecture_register_code , g.name , a.open_course_id , f.account_id,
+			(SELECT COUNT(1) FROM lecture_register h where h.OPEN_COURSE_ID = a.open_course_id ) as CNT
+			from open_course a , employee b , subject c , education_center d , center_classroom e , lecture_register f , member g , code_lecture_register h
+    	    where a.account_id = b.account_id
+    	    and a.subject_id = c.subject_id
+	        and a.center_id = d.center_id
+	        and a.center_classroom_id = e.center_classroom_id
+			and a.open_course_id = f.open_course_id
+			and f.account_id = g.account_id
+			<if test="center_id != 1">
+				and d.center_id = #{center_id}
+			</if>
+			and f.lecture_register_code = h.lecture_register_code
+			and f.lecture_register_code != '4'
+			and STR_TO_DATE(#{today},'%Y-%m-%d') &lt; a.course_start_date
+	</select>
+	<select id="getlecturecomplete" parameterType="int" resultType="kr.co.haco.VO.LectureRegisterVO">
+		select d.location , a.course_name , e.classroom ,  b.name_kor ,  a.course_start_date , h.lecture_register_name ,
+			a.course_end_date , c.capacity , f.lecture_register_code , g.name , a.open_course_id , f.account_id,
+			(SELECT COUNT(1) FROM lecture_register h where h.OPEN_COURSE_ID = a.open_course_id ) as CNT
+			from open_course a , employee b , subject c , education_center d , center_classroom e , lecture_register f , member g , code_lecture_register h
+    	    where a.account_id = b.account_id
+    	    and a.subject_id = c.subject_id
+	        and a.center_id = d.center_id
+	        and a.center_classroom_id = e.center_classroom_id
+			and a.open_course_id = f.open_course_id
+			and f.account_id = g.account_id
+			<if test="center_id != 1">
+				and d.center_id = #{center_id}
+			</if>
+			and f.lecture_register_code = h.lecture_register_code
+			and f.lecture_register_code = '4'
+			and STR_TO_DATE(#{today},'%Y-%m-%d') &lt; a.course_start_date
+	</select>
+	<insert id="insertlecture" parameterType="kr.co.haco.VO.StudentVO">
+		insert into lecture_register(open_course_id,account_id,lecture_register_code,is_survey) 
+		values(#{open_course_id},#{account_id},'1','N')
+	</insert>
+	<update id="updatestudent" parameterType="kr.co.haco.VO.StudentVO">
+			update lecture_register set lecture_register_code = '2' 
+                    where account_id = #{account_id} 
+					and open_course_id = #{open_course_id}
+					and lecture_register_code != '4'
+	</update>
+	<update id="cancelstudent" parameterType="kr.co.haco.VO.StudentVO">
+		update lecture_register set lecture_register_code = '3' 
+                    where account_id = #{account_id} 
+					and open_course_id = #{open_course_id}
+					and lecture_register_code != '4'
+	</update>
+	<update id="completestudent" parameterType="kr.co.haco.VO.StudentVO">
+		update lecture_register set lecture_register_code = '4' 
+                    where account_id = #{account_id} 
+					and open_course_id = #{open_course_id}
+	</update>
+</mapper>

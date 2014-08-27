@@ -15,7 +15,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -208,5 +207,10 @@ public class AccountController {
 		StringBuffer contextURL = request.getRequestURL();
 		contextURL = contextURL.replace(contextURL.lastIndexOf("forgetPassword"), contextURL.length(), "");
 		return accountService.findPassword(id, email, contextURL);
+	}
+	// 출석정보
+	@RequestMapping(value="memberattendance", method=RequestMethod.GET)
+	public String memberattendance(){
+		return "homepage.memberattendance";
 	}
 }

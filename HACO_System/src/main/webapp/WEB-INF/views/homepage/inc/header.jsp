@@ -21,7 +21,12 @@
               <li><a href="${pageContext.request.contextPath}/contectUs">찾아오시는 길</a></li>
             </ul>
           </li>
-          <li><a href="#">교육과정</a></li>
+          <li class="dropdown">
+          	<a href="#" class="dropdown-toggle" data-toggle="dropdown">교육과정</a>
+          	<ul class="dropdown-menu">
+          	 <li><a href="${pageContext.request.contextPath}/lectureregister">수강신청</a></li>
+          	 </ul>
+          </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">열린마당</a>
             <ul class="dropdown-menu">
