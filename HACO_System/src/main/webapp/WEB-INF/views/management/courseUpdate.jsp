@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 
 <!DOCTYPE html>
@@ -73,9 +74,8 @@
 							</select>
 								
 						 과정명 <input type="text" name="course_name" value="${role.course_name}">
-		
-			 시작일:<input type="date" name="start" value="${role.course_start_date}"/>
-			종료일:<input type="date" name="end" value="${role.course_end_date}"/> 
+			 시작일:<input type="date" name="start" value="${role.course_start_date}" disabled="disabled"/>
+			종료일:<input type="date" name="end" value="${role.course_end_date}" disabled="disabled"/> 
 			<button class="btn btn-warning"   type="submit">등록</button>
 			</c:forEach> 
 					</form>

@@ -36,7 +36,7 @@
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i>과목등록
+			<i class="fa fa-angle-right"></i>과정
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -135,7 +135,7 @@
 							</div>
 						</c:forEach>
 						<button class="btn1" type="submit">수정</button>
-						<button class="btn2">취소</button>
+						<!-- <button class="btn2">취소</button>   -->
 					</form>
 				</div>
 			</div>

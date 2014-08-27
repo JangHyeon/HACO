@@ -12,6 +12,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.CourseService;
@@ -30,6 +31,7 @@ import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -93,131 +95,103 @@ public class ManagementController {
 		return "management.attendance";
 	} 
 
-	// //////과정//////////////////////////////////////////////////////////
+	/////////////////////////////과정//////////////////////////////////////////////////////////
 
-	// 과목 Main..
+	// 과정-과목등록-SubjectList(Basic)
 	@RequestMapping(value = "subjectRegister", method = RequestMethod.GET)
-	public String subjectRegister(Model model) {
+	public String subjectRegister(Model model,HttpServletRequest request, Subject2 subject2 ) {
 		System.out.println("************************************************");
-		System.out.println("subjectRegister//Basic");
-		model.addAttribute("roleList", subjectService.getSubjectList());
-		System.out.println("move:management.subjectRegister//att:roleList");
+		System.out.println("subjectRegister//MainList//Basic");
+		subjectService.getSubjectList(subject2, model, request.getContextPath());
+		System.out.println("Move : management.subjectRegister");
 		return "management.subjectRegister";
 	}
 	
-	/////////////////장갓.ver //////////////////////////
-	@RequestMapping(value="subjectRegister2",method = RequestMethod.GET)
-	public String subjectRegister2(Model model,HttpServletRequest request
-			, int pagenum , int pagesize,String searchtype, String searchvalue){
-		
+	// 과정-과목등록-SubjectList(PageChange)
+	@RequestMapping(value = "/subjectRegister/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}")
+	public String subjectRegister2(Model model, HttpServletRequest request, HttpSession session,
+						@PathVariable String searchType,@PathVariable String searchKey,@PathVariable int pageSize,@PathVariable int pageNum) {
 		System.out.println("************************************************");
-		
-		model.addAttribute("searchType",searchtype);
-		model.addAttribute("searchKey", searchvalue);
-		
-		
+		System.out.println("subjectRegister//MainList//PageChange");
 		Subject2 subject2 = new Subject2();
-		subject2.setPagenum(pagenum);
-		subject2.setPagesize(pagesize);
-		subject2.setSearchtype(searchtype);
-		subject2.setSearchvalue(searchvalue);
-		
-		
-		
-		
-		
-		return null;
+		subject2.setSearchType(searchType);
+		subject2.setPageSize(pageSize);
+		subject2.setPageNum(pageNum);
+		subject2.setSearchKey(searchKey);
+		if(searchKey.equals("[noKeyword]")){
+			subject2.setSearchKey("");
+		}
+		subjectService.getSubjectList(subject2, model, request.getContextPath());
+		System.out.println("Move : management.subjectRegister(PageChange)");
+		return "management.subjectRegister";
 	}
 	
 	
-	
-	
-	
-	
-	// 과목등록 insertForm..
+	// 과정-과목등록-SubjectInsert-Form
 	@RequestMapping(value = "subjectInsert", method = RequestMethod.GET)
 	public String insertForm(Model model) {
-		// 리스트.
 		System.out.println("************************************************");
-		System.out.println("subjectInsert//InsertForm1");
-		System.out.println("move:management.subjectInsert");
+		System.out.println("subjectInsert//InsertForm");
+		System.out.println("Move : management.subjectInsert");
 		model.addAttribute("Center", courseService.getCenter());
-	
 		return "management.subjectInsert";
-
 	}
 
+	//시간처리
 	public Time getTimestamp(String str) {
 		return Time.valueOf(str);
 	}
 
-	// 과목등록 insertOk..
+	// 과정-과목등록-SubjectInsert-OK
 	@RequestMapping(value = "insertOk", method = RequestMethod.GET)
 	public String insertOk(Subject subject, String start, String end)
 			throws ParseException {
 		System.out.println("************************************************");
-		System.out.println("insertOk//");
-
+		System.out.println("subjectInsert//InsertForm//insertOk");
 		Time start1 = getTimestamp(start + ":00");
-		System.out.println(start1);
 		Time end1 = getTimestamp(end + ":00");
 		long a = (end1.getTime() - start1.getTime()) / 1000;
 		int time1 = (int) (a / 3600);
 		int time2 = (int) (a % 3600 / 60);
-
-		int b = (int) (subject.getLecture_totalday() * a);
-
-		/*
-		 * SimpleDateFormat sdfCurrent = new SimpleDateFormat
-		 * ("yyyy-mm-dd hh:mm:ss"); Timestamp currentTime = new
-		 * Timestamp((start1-start2)/1000); System.out.println(currentTime);
-		 * String today = sdfCurrent.format(currentTime);
-		 * System.out.println("today==="+today);
-		 */
-
+		int time3 = (int) (subject.getLecture_totalday() * a);
 		Subject subject2 = new Subject(subject.getSubject_id() ,subject.getSubject_name(),
 				subject.getCapacity(), subject.getSubject_explanation(),
 				subject.getInstructional_objectives(),
 				subject.getSubject_point(), subject.getLecture_target(),
 				subject.getLecture_totalday(), subject.getTuition_fee(),
 				subject.getLecture_content(), subject.getCenter_id(), start1,
-				end1, b / 3600);
-
+				end1, time3 / 3600);
 		subjectService.insertSubject(subject2);
-
-		return "management.subjectInsert";
+		System.out.println("Move : management.subjectRegister");
+		//res.sendRedirect("subjectRegister"); 구방식이래..재길..
+		return "redirect:subjectRegister";
 
 	}
 
-	// 과목수정 updateForm..
+	// 과정-과목수정-updateForm-Form
 	@RequestMapping(value = "subjectUpdate", method = RequestMethod.GET)
 	public String subjectUpdate(HttpServletRequest request, Model model) {
-
 		System.out.println("************************************************");
-		System.out.println("subjectUpdate//");
-		System.out.println("move:management.subjectUpdate//Update");
+		System.out.println("subjectUpdate//UpdateForm");
 		System.out.println(request.getParameter("id"));
 		model.addAttribute("Center", courseService.getCenter());
-		model.addAttribute("roleList",
-				subjectService.getSubjectList2(request.getParameter("id")));
+		model.addAttribute("roleList",subjectService.getSubjectList2(request.getParameter("id")));
+		System.out.println("move:management.subjectUpdate");
 		return "management.subjectUpdate";
 	}
 
-	// 과목수정 UpdateOk..
+	// 과정-과목수정-updateForm-Form-OK
 	@RequestMapping(value = "UpdateOk", method = RequestMethod.GET)
-	public void UpdateOk(Model model, Subject subject, String start,
+	public String UpdateOk(Model model, Subject subject, String start,
 			String end, HttpServletResponse res) throws IOException {
 		System.out.println("************************************************");
-		System.out.println("UpdateOk//");
-		System.out.println("move:management.subjectRegister");
-		System.out.println(subject.toString());
+		System.out.println("subjectUpdate//UpdateForm//UpdateOk");
 		Time start1 = getTimestamp(start + ":00");
 		Time end1 = getTimestamp(end + ":00");
 		long a = (end1.getTime() - start1.getTime()) / 1000;
 		int time1 = (int) (a / 3600);
 		int time2 = (int) (a % 3600 / 60);
 		int b = (int) (subject.getLecture_totalday() * a);
-		
 		Subject subject2 = new Subject(subject.getSubject_id(), subject.getSubject_name(),
 				subject.getCapacity(), subject.getSubject_explanation(),
 				subject.getInstructional_objectives(),
@@ -225,38 +199,71 @@ public class ManagementController {
 				subject.getLecture_totalday(), subject.getTuition_fee(),
 				subject.getLecture_content(), subject.getCenter_id(), start1,
 				end1, b / 3600);
-		System.out.println(subjectService.updateSubject(subject2));
-		res.sendRedirect("subjectRegister");
+		System.out.println("move:management.subjectRegister");
+		return "redirect:subjectRegister";
 	}
 
-	// 과목삭제 DeleteOk..
+	// 과정-과목삭제-OK
 	@RequestMapping(value = "DeleteOk", method = RequestMethod.GET)
-	public void DeleteOk(Model model, HttpServletRequest request,
+	public String DeleteOk(Model model, HttpServletRequest request,
 			HttpServletResponse res) throws IOException {
 		System.out.println("************************************************");
-		System.out.println("DeleteOk//");
-		System.out.println("move:management.subjectRegister");
-		System.out.println("idvalue2 : " + request.getParameter("id"));
+		
+		System.out.println("id value : " + request.getParameter("id"));
 		System.out.println(subjectService.deleteSubject(request
 				.getParameter("id")));
-		res.sendRedirect("subjectRegister?id=aa");
+		System.out.println("subjectDelete//DeleteOk");
+		return "redirect:subjectRegister";
 	}
+	/////////////////////////////과정//////////////////////////////////////////////////////////
 
-	// 과정 Main..
+
+		
+	
+	
+	
+	// 과정-과정등록-CourseList(Basic)
 	@RequestMapping(value = "courseRegister", method = RequestMethod.GET)
-	public String courseRegister(Model model) {
+	public String courseRegister(Model model ,HttpServletRequest request, getCourseList courseList ) {
+	
+		
 		System.out.println("************************************************");
 		System.out.println("courseRegister//Basic");
 		System.out.println("move:management.courseRegister//att:roleList");
-		model.addAttribute("roleList", courseService.getCourseList());
-		model.addAttribute("Center", courseService.getCenter());
-		/*
-		 * System.out.println(accountService.getClassroom(4));
-		 * System.out.println(accountService.getCourseList());
-		 */
+		courseService.getCourseList(courseList, model,  request.getContextPath());
 		return "management.courseRegister";
 	}
 
+	// 과정-과목등록-SubjectList(PageChange)
+		@RequestMapping(value = "/courseRegister/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}")
+		public String courseRegister2(Model model, HttpServletRequest request, HttpSession session,
+							@PathVariable String searchType,@PathVariable String searchKey,@PathVariable int pageSize,@PathVariable int pageNum) {
+			System.out.println("************************************************");
+			System.out.println("subjectRegister//MainList//PageChange");
+			getCourseList courseList = new getCourseList();
+			courseList.setSearchType(searchType);
+			courseList.setPageSize(pageSize);
+			courseList.setPageNum(pageNum);
+			courseList.setSearchKey(searchKey);		
+			if(searchKey.equals("[noKeyword]")){
+				courseList.setSearchKey("");
+			}
+			courseService.getCourseList(courseList, model, request.getContextPath());
+			System.out.println("Move : management.subjectRegister(PageChange)");
+			return "management.courseRegister";   
+		}
+		
+	
+
+		
+		
+		
+		
+		
+	
+	
+	
+	
 	@RequestMapping(value = "courseInsert", method = RequestMethod.GET)
 	public String courseInsert(Model model) {
 		// 리스트.
@@ -264,7 +271,8 @@ public class ManagementController {
 		System.out.println("courseInsert//InsertForm");
 		System.out.println("move:management.courseInsert");
 		model.addAttribute("Center", courseService.getCenter());
-		model.addAttribute("Subject", subjectService.getSubjectList());
+		System.out.println("test");
+		model.addAttribute("Subject", subjectService.getsubjectList());
 		return "management.courseInsert";
 	}
 
@@ -313,10 +321,10 @@ public class ManagementController {
 				java.sql.Date.valueOf(course_end_date), center_id,
 				center_classroom_id);
 		System.out.println(courseService.insertCourse(course));
-		model.addAttribute("roleList", courseService.getCourseList());
 		
 		return "management.courseRegister";
 	}
+
 
 	@RequestMapping(value = "courseDeleteOk", method = RequestMethod.GET)
 	public void courseDeleteOk(Model model, HttpServletRequest request,
@@ -336,8 +344,9 @@ public class ManagementController {
 			System.out.println("move:management.subjectUpdate//Update");
 			System.out.println(request.getParameter("id"));
 			model.addAttribute("Center", courseService.getCenter());
-			model.addAttribute("Subject", subjectService.getSubjectList());
+			model.addAttribute("Subject", subjectService.getsubjectList());
 			model.addAttribute("roleList", courseService.getCourseList2(request.getParameter("id")));
+			
 		  return "management.courseUpdate"; 
 		}
 		// 과목수정 UpdateOk..

@@ -2,8 +2,8 @@
 
     <!-- DOM객체보다 나중에 로딩 되어야하는 스크립트 -->
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery-1.8.3.min.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
+    <script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/jquery.1.9.1.min.js"></script>
+	 <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.dcjqaccordion.2.7.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.scrollTo.min.js"></script>
     <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.nicescroll.js" type="text/javascript"></script>

@@ -17,15 +17,53 @@
 		a.course_end_date as course_end_date,
 		e.classroom as
 		classroom, b.subject_name as subject_name ,c.location as location
-		from open_course a , subject b ,
-		education_center c , employee d ,
+		from open_course a join subject b  join
+		education_center c join employee d join
 		center_classroom e
-		where a.subject_id = b.subject_id
+		on a.subject_id = b.subject_id
 		and a.center_id = c.center_id
 		and a.account_id = d.account_id
 		and a.center_classroom_id = e.center_classroom_id
+		
+			<where>
+			<if test="searchType == 'teacher'">
+				name_kor like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="searchType == 'teacherAndcourse'">
+				(course_name like CONCAT('%',#{searchKey},'%')  or name_kor like CONCAT('%',#{searchKey},'%')) 
+			</if>
+			<if test="searchType == 'course'">
+				course_name like CONCAT('%',#{searchKey},'%') 
+			</if>
+			</where>
+			order by open_course_id desc 
+			limit ${startNum},${pageSize}
 	</select>
 	
+	<!--과정카운트 -->
+	<select id="getCourseListCount" resultType="Integer">
+		
+		select 
+		count(open_course_id)
+		from open_course a join subject b join
+		education_center c join employee d join
+		center_classroom e
+		on a.subject_id = b.subject_id
+		and a.center_id = c.center_id
+		and a.account_id = d.account_id
+		and a.center_classroom_id = e.center_classroom_id
+			<where>
+			<if test="searchType == 'teacher'">
+				name_kor like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="searchType == 'teacherAndcourse'">
+				(course_name like CONCAT('%',#{searchKey},'%')  or name_kor like CONCAT('%',#{searchKey},'%')) 
+			</if>
+			<if test="searchType == 'course'">
+				course_name like CONCAT('%',#{searchKey},'%') 
+			</if>
+			</where>
+	</select>
 		<!-- 과정목록 -->
 	<select id="getCourseList2" parameterType="Integer" resultType="kr.co.haco.VO.getCourseList">
 		select a.open_course_id as open_course_id,
@@ -85,8 +123,6 @@
 		account_id = #{account_id},
 		subject_id = #{subject_id},
 		course_name =#{course_name},
-		course_start_date= #{course_start_date},
-		course_end_date = #{course_end_date},
 		center_id = #{center_id},
 		center_classroom_id =#{center_classroom_id}
 		where

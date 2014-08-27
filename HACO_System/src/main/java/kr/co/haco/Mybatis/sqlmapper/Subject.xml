@@ -20,8 +20,7 @@
 		)
 	</insert>
 
-	<!--과목목록 -->
-	<select id="getSubjectList" resultType="kr.co.haco.VO.Subject">
+<select id="getsubjectList" resultType="kr.co.haco.VO.Subject">
 		select
 		subject_id,subject_name,lecture_totalday,lecture_totaltime,lecture_time_start,lecture_time_end,
 		lecture_target,capacity,tuition_fee,subject_explanation,instructional_objectives,subject_point
@@ -29,6 +28,36 @@
 		from subject
 	</select>
 
+
+
+
+	<!--과목목록 -->
+	<select id="getSubjectList" resultType="kr.co.haco.VO.Subject">
+		select
+		subject_id,subject_name,lecture_totalday,lecture_totaltime,lecture_time_start,lecture_time_end,
+		lecture_target,capacity,tuition_fee,subject_explanation,instructional_objectives,subject_point
+		,lecture_content,create_date,update_date,center_id
+		from subject
+			<where>
+			<if test="searchType == 'title'">
+				subject_name like CONCAT('%',#{searchKey},'%') 
+			</if>
+			</where>
+			order by subject_id desc 
+			limit ${startNum},${pageSize}
+	</select>
+
+	<!--과목카운트 -->
+	<select id="getSubjectListCount" resultType="Integer">
+		select
+		count(subject_id) 
+		from subject
+				<where>
+			<if test="searchType == 'title'">
+				subject_name like CONCAT('%',#{searchKey},'%') 
+			</if>
+			</where>
+	</select>
 	<!--과목상세보기 -->
 	<select id="getSubjectList2" parameterType="Integer"
 		resultType="kr.co.haco.VO.Subject">

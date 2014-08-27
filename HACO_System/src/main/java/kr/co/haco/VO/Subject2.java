@@ -26,49 +26,55 @@ public class Subject2 {
 	private Time  lecture_time_start;
 	private Time  lecture_time_end;
 	//추가사항
-	private int pagenum;
-	private int pagesize;
-	private String searchtype;
-	private String searchvalue;
+	
+	private int startNum;
+
+	public int getStartNum() {
+		return startNum;
+	}
+
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+
+	public int getPageNum() {
+		return pageNum;
+	}
+
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+
+	public int getPageSize() {
+		return pageSize;
+	}
+
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
+	}
+
+	public String getSearchType() {
+		return searchType;
+	}
+
+	public void setSearchType(String searchType) {
+		this.searchType = searchType;
+	}
+
+	public String getSearchKey() {
+		return searchKey;
+	}
+
+	public void setSearchKey(String searchKey) {
+		this.searchKey = searchKey;
+	}
+	private int pageNum;
+	private int pageSize;
+	private String searchType;
+	private String searchKey;
 	
 	
 	
-	
-	
-	
-
-	
-	public int getPagenum() {
-		return pagenum;
-	}
-
-	public void setPagenum(int pagenum) {
-		this.pagenum = pagenum;
-	}
-
-	public int getPagesize() {
-		return pagesize;
-	}
-
-	public void setPagesize(int pagesize) {
-		this.pagesize = pagesize;
-	}
-
-	public String getSearchtype() {
-		return searchtype;
-	}
-
-	public void setSearchtype(String searchtype) {
-		this.searchtype = searchtype;
-	}
-
-	public String getSearchvalue() {
-		return searchvalue;
-	}
-
-	public void setSearchvalue(String searchvalue) {
-		this.searchvalue = searchvalue;
-	}
 
 	public int getSubject_id() {
 		return subject_id;

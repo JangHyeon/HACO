@@ -39,7 +39,7 @@
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i>과목등록
+			<i class="fa fa-angle-right"></i>과정
 		</h3>
 
 		<!-- BASIC FORM ELELEMNTS -->
@@ -132,10 +132,7 @@
 			<!-- col-lg-12-->
 		</div>
 		<!-- /row -->
-<div class="ui-widget">
-  <label for="tags">Tags: </label>
-	 <input id="tags">
-</div>
+
 
 	</section>
 	<!--/wrapper -->

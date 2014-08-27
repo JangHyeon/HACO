@@ -22,74 +22,7 @@
 	href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css"
 	rel="stylesheet">
 
-<script type="text/javascript">
- 
-    var nowDate = new Date();               //오늘 날짜 객체 선언  
-    var nYear = nowDate.getFullYear();      //오늘의 년도  
-    var nMonth = nowDate.getMonth() ;       //오늘의 월 ※ 0월부터 시작  
-    var nDate = nowDate.getDate();           //오늘의 날  
-    var nNumday = nowDate.getDay();         //오늘의 요일 0=일요일...6=토요일  
-    var endDay=new Array(31,28,31,30,31,30,31,31,30,31,30,31);      //각달의 마지막 날짜  
-    var dayName=new Array("일", "월", "화", "수", "목", "금", "토"); // 숫자 요일을 문자 요일 바꿀 함수  
-    var col=0;  //요일을 이용해서 나중에 앞뒤 빈 날짜칸 계산   
-    eDate= new Date(nYear,nMonth,1);       // 1일의 숫자 요일을 구하기 위해서날짜 객체 선언  
-    var fNumday=eDate.getDay();    // 이번달 1일의 숫자 요일  
-    var lastDay=endDay[nMonth]; //이번달의 마지막 날짜  
-  
-    function calendar(){  
-  
-        if ((eDate.getMonth()==1)&&(((eDate.getYear()%4==0)&&(eDate.getYear() %100 !=0))||eDate.getYear() % 400 ==0 ))  
-        {lastDay=29;} // 0월 부터 시작하므로 1는 2월임. 윤달 계산 4년마다 29일 , 100년는 28일, 400년 째는 29일  
-  
-        calendarStr  = "<TABLE>"  
-        calendarStr +="<TR align=center><TD valign=middle>"  
-  
-        calendarStr +="</TD><TD colspan=5 >"  
-        calendarStr +="<font size=3 color=black>  <b>"+eDate.getFullYear()+"년 "+(eDate.getMonth()+1)+"월</b></font> "// 해당하는 년도와 월 표시  
-        calendarStr +="</TD><TD valign=middle>"  
-  
-        calendarStr +="</TD></TR><TR>"  
-        for (i=0;i<dayName.length;i++){            
-            calendarStr +="<TD class=week>"+dayName[i] + "</TD>" // 숫자 요일을 날짜 요일로 입력  
-        }  
-  
-        calendarStr +="</TR><TR align=center>"  
-  
-        for (i=0;i<fNumday;i++){          // 첫번째 날짜의 숫자 요일을 구해서 그전까지는 빈칸 처리  
-            calendarStr +="<TD>&nbsp;</TD>"   
-            col++;                       
-        }  
-  
-        for ( i=1; i<=lastDay; i++){       // 해당 월의 달력   
-            if(eDate.getFullYear()==nYear&&eDate.getMonth()==nMonth&&i==nDate){//오늘이면 today 스타일로 표시  
-                calendarStr +="<TD class=today >"+i+"</TD>"   
-            }else{  
-                if(col==0){              //일요일이면  
-                    calendarStr +="<TD class=sunday>"+i+"</TD>"  
-                }else if(1<=col&&col<=5){//그외 평범한 날이면  
-                    calendarStr +="<TD class=workday>"+i+"</TD>"   
-                }else if(col==6){        //토요일이면  
-                    calendarStr +="<TD class=satday>"+i+"</TD>"   
-                }  
-            }             
-  
-            col++;  
-  
-            if(col==7){     //7칸을 만들면 줄 바꾸어 새 줄을 만들고 다시 첫 칸부터 시작  
-                calendarStr +="</TR><TR align=center>"  
-                col=0;  
-            }  
-        }     
-  
-        for (i=col;i<dayName.length;i++){        //마지막 날에서 남은 요일의 빈 칸 만들기  
-            calendarStr +="<TD>&nbsp;</TD>"  
-        }  
-  
-        calendarStr +="</TR></TABLE>"  
-        document.getElementById('calendarView').innerHTML = calendarStr //만든 달력 소스를 화면에 보여주기  
-    }  
-    
-</script>
+
 <input id="current-accordion" type="hidden"
 	value="course,subjectRegister" />
 
@@ -101,12 +34,9 @@
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i> 서브페이지 샘플
+			<i class="fa fa-angle-right"></i> 과정
 		</h3>
-		<h5>
-			<a href="http://fontawesome.io/icons/" target="_blank">- aside
-				아이콘 정보</a>
-		</h5>
+		
 		<div class="row">
 
 			<div class="col-md-12">
@@ -131,25 +61,24 @@
 							</tr>
 						</thead>
 						<tbody>
-						
-							<c:forEach var="role" items="${roleList}">
+							<c:forEach var="Subject2" items="${SubjectList}">
 								<tr>
-									<td>${role.subject_id}</td>
-									<td>${role.subject_name}</td>
-									<td>${role.lecture_totalday}</td>
-									<td>${role.lecture_totaltime}</td>
-									<td><fmt:formatDate type="time" value="${role.lecture_time_start}"/>~
-									<fmt:formatDate type="time" value="${role.lecture_time_end}"/></td>
-									<td>${role.lecture_target}</td>
-									<td>${role.capacity}</td>
-									<td>${role.tuition_fee}</td>
+									<td>${Subject2.subject_id}</td>
+									<td>${Subject2.subject_name}</td>
+									<td>${Subject2.lecture_totalday}</td>
+									<td>${Subject2.lecture_totaltime}</td>
+									<td><fmt:formatDate type="time" value="${Subject2.lecture_time_start}"/>~
+									<fmt:formatDate type="time" value="${Subject2.lecture_time_end}"/></td>
+									<td>${Subject2.lecture_target}</td>
+									<td>${Subject2.capacity}</td>
+									<td>${Subject2.tuition_fee}</td>
 									<td><a
-										href="${pageContext.request.contextPath}/management/subjectUpdate?id=${role.subject_id}">
+										href="${pageContext.request.contextPath}/management/subjectUpdate?id=${Subject2.subject_id}">
 											   <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
                                                
 									</a></td>
 									<td><a
-										href="${pageContext.request.contextPath}/management/DeleteOk?id=${role.subject_id}">
+										href="${pageContext.request.contextPath}/management/DeleteOk?id=${Subject2.subject_id}">
 											 <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
 									</a></td>
 								</tr>
@@ -161,10 +90,67 @@
 					<%--test:${pageContext.request.contextPath}  --%>
 					<a class="btn btn-success btn-sm pull-left"  href="${pageContext.request.contextPath}/management/subjectInsert">
 					new subject</a>	
-				</div>
-				<div id="calendarView">calendarView
-				</div>
-				
+					<div class="col-xs-12">
+										<!-- 페이징 -->
+										<ul class="pagination pagination-centered">
+											<!-- 이전 링크 -->
+											<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+												<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
+											</li>
+											
+										  	<!-- 페이지 리스트   -->
+										  	<c:if test="${beginpage!=0}">
+											<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+											
+												<c:if test="${i==pageNum}">
+													<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+												</c:if>
+												<c:if test="${i!=pageNum}">
+													<li><a href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
+												</c:if>
+											</c:forEach>
+											</c:if>
+										  	<!-- 다음링크 -->
+											<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+												<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
+											</li>
+										</ul>
+									</div>						
+										
+									<!-- 검색 -->
+									<div class="col-sm-6 col-sm-offset-3" style="clear:both">
+							          <div class="input-group">
+							            <div class="input-group-btn">
+							              <button id="searchType" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							              	<c:choose>
+							              		<c:when test="${searchType=='teacherAndcourse'}">
+							              			<span>강사+과정 </span>
+							              		</c:when>
+							              		<c:when test="${searchType=='course'}">
+							              			<span>과정명 </span>
+							              		</c:when>
+							              		<c:otherwise>
+							              			<span>강사명</span>
+							              		</c:otherwise>
+							              	</c:choose> 
+							              	<span class="caret"></span>
+							              </button>
+							              <ul id="selectType" class="dropdown-menu" role="menu">
+							                <li id=teacher value="teacher"><a>강사명</a></li>
+							                <li id="teacherAndcourse" value="teacherAndcourse"><a>강사+과정</a></li>
+							                <li id="course" value="course"><a>과정명</a></li>
+							              </ul>
+							            </div><!-- /btn-group -->
+							            <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
+							            <span class="input-group-btn">
+							              <button class="btn btn-default" id="submitBtn" type="button">검색</button>
+							            </span>
+							          </div>
+								        <input type="hidden" name="searchKey" value="${searchKey}">
+								        <input type="hidden" name="pageNum" value="${pageNum}">
+								        <input type="hidden" name="pageSize" value="${pageSize}">
+								        <input type="hidden" name="searchType" value="${searchType}">
+							        </div>
 				
 				
 				
@@ -196,11 +182,69 @@
 
 
 <!-- inclue common script -->
+
+<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
 <%@ include file="commonScript.jsp"%>
 
-<!--script for this page-->
+<script>
+$(document).ready(function(){
+	//검색 조건
+	$('#selectType>li').on('click',function(){
+		$('#searchType>span:first-child').text($('a',this).text());
+		$('input[name=searchType]').val($(this).attr('value'));
+	});
+	
+	var submit = function(){
+		if($('input[name=searchKey]').val().length==0){
+			alert('검색어를 입력해주세요.');
+			$('#inputSearchKey').focus();
+		}else{
+			location.href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/"+$('input[name=pageSize]').val()+"/pageNum/1/searchType/"+$('input[name=searchType]').val()+"/searchKey/"+$('input[name=searchKey]').val();
+		}
+	}
+	
+	$('#submitBtn').on('click',function(){
+		$('input[name=searchKey]').val($('#inputSearchKey').val());
+		submit();
+	});
+	
+	$('#inputSearchKey').on('keypress',function(e){
+		if(e.keyCode==13){
+			$('input[name=searchKey]').val($('#inputSearchKey').val());
+			submit();
+		}
+	});
+	
 
+	//공지 토글
+	var toggle = false;
+	$('#noticeToggle').on('click',function(){
+		if(!toggle){
+			$(this).button('noti');
+			toggle=true;
+			$('#topNotice').hide();
+		}else{
+			$(this).blur();
+			$(this).button('reset');
+			toggle=false;
+			$('#topNotice').show();
+		}
+	});
+	
+	//페이지 사이즈
+	$('#pageNum>li').on('click',function(){
+		$('#pageBtn>span:first-child').text($('a',this).text()+" 보기");
+		$('input[name=pageSize]').val($(this).attr('value'));
+		if($('input[name=searchKey]').val()!='[noKeyword]'){
+			$('input[name=searchKey]').val($('#inputSearchKey').val());
+		}
+		submit();
+	});
+	
+	// 글쓰기 페이지
+	/* $('#writeBtn').on('click', function() {
+		location.href='${pageContext.request.contextPath}/noticeWrite';
+	}); */
+});
 
-
-
-
+</script>

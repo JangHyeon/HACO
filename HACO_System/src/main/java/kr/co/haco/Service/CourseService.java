@@ -4,17 +4,20 @@ import java.util.List;
 
 import kr.co.haco.VO.CenterClassroom;
 import kr.co.haco.VO.OpenCourse;
+import kr.co.haco.VO.Subject2;
 import kr.co.haco.VO.educationCenter;
 import kr.co.haco.VO.getCourseList;
 
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.ui.Model;
 
 public interface CourseService {
 ///////////////////////////과정 부분///////////////////////////
-	
-// 과정:목록..
+public void getCourseList(getCourseList getCourseList, Model model, String contextPath);
+		
+/*// 과정:목록..
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
-public List<getCourseList> getCourseList();
+public List<getCourseList> getCourseList();*/
 // 과정:상세보기..
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 public List<getCourseList> getCourseList2(String open_course_id);

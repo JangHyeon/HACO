@@ -48,6 +48,11 @@ public class OpenCourse {
 
 
 
+
+
+
+
+
 	private int open_course_id;
 	private int account_id;
 	private int subject_id;
