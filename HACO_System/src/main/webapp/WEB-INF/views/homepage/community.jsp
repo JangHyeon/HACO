@@ -2,7 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
 
 
 <!-- Begin Body -->
@@ -381,9 +387,9 @@
 	src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
 
 <script
-	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.min.js"></script>
+	src="${resourceUrl}/gazONojfL3/js/bootstrap.min.js"></script>
 <script
-	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/scripts.js"></script>
+	src="${resourceUrl}/gazONojfL3/js/scripts.js"></script>
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">

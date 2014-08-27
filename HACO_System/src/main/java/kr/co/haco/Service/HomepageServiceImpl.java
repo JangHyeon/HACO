@@ -66,9 +66,12 @@ public class HomepageServiceImpl implements HomepageService {
 			
 			//학생인경우 교육센터 정보 조회
 			List<Integer> resultCenterId = sqlSession.getMapper(HomepageDAO.class).getLectureRegisterByMember(member.getAccount_id());
-			String center_list = resultCenterId.toString().substring(1, resultCenterId.toString().length()-1);
-
-			notice.setCenter_list(center_list);
+			if(resultCenterId.size()==0){
+				notice.setCenter_id(1);
+			}else{
+				String center_list = resultCenterId.toString().substring(1, resultCenterId.toString().length()-1);
+				notice.setCenter_list(center_list);
+			}
 			notice.setState_code(1); //일반글 코드
 		}else if(session.getAttribute("employee")!=null){
 			//직원(비밀공지)
@@ -168,7 +171,6 @@ public class HomepageServiceImpl implements HomepageService {
 		notice.setState_code(2);
 		notice.setSearchType(null);
 		notice.setSearchKey(null);
-		notice.setCenter_list(null);
 		notice.setStartNum(0);
 		notice.setPageNum(1);
 		notice.setPageSize(5);
@@ -234,16 +236,21 @@ public class HomepageServiceImpl implements HomepageService {
 
 		//비회원
 		if(session.getAttribute("member")==null && session.getAttribute("employee")==null){
-			if(notice.getCenter_id()!=1){ 
+			if(notice.getCenter_id()!=1 || notice.getState_code()==0 || (notice.getCenter_id()!=1&&notice.getState_code()==2)){ 
 				notice.setError("비회원이 겁도없이 접근");
 				return notice;
 			}
-		}else if(session.getAttribute("member")!=null){ 
+		}else if(session.getAttribute("member")!=null){
 			//회원
 			Member member =(Member)session.getAttribute("member");
 			
 			//학생인경우 교육센터 정보 조회
 			List<Integer> resultCenterId = sqlSession.getMapper(HomepageDAO.class).getLectureRegisterByMember(member.getAccount_id());
+
+
+			System.out.println("게시물센터-"+notice.getCenter_id());
+			System.out.println("학생센터-"+resultCenterId);
+			
 			//본점 추가
 			resultCenterId.add(1);
 
@@ -257,6 +264,7 @@ public class HomepageServiceImpl implements HomepageService {
 				notice.setError("다른센터 학생이 교묘하게 접근");
 				return notice;
 			}
+			
 		}else if(session.getAttribute("employee")!=null){
 			//직원(비밀공지)
 			Employee employee = (Employee)session.getAttribute("employee");
@@ -264,7 +272,7 @@ public class HomepageServiceImpl implements HomepageService {
 			//본점 직원이 아닌경우만
 			if(employee.getNow_center_id()!=1){ 
 				//근무센터 조회
-				if(notice.getCenter_id() != employee.getNow_center_id()){ 
+				if(notice.getCenter_id()!=1 && (notice.getCenter_id() != employee.getNow_center_id())){ 
 					notice.setError("다른센터 직원이 일안하고 접근");
 					return notice;
 				}
@@ -295,6 +303,8 @@ public class HomepageServiceImpl implements HomepageService {
 	         // 조회수 업데이트
 	         sqlSession.getMapper(HomepageDAO.class).countNotice(notice_id);
 	    }
+	    notice.setHit(notice.getHit()+1);
+	    
 		return notice;
 	}
 	

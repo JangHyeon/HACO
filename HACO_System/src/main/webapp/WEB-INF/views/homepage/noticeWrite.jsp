@@ -2,9 +2,15 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
 <link rel="stylesheet"
-	href="${pageContext.request.contextPath}/resources/Remodal/jquery.remodal.css">
+	href="${resourceUrl}/Remodal/jquery.remodal.css">
 
 <!-- myPage header column -->
 <%@ include file="inc/noticeHeader.jsp"%>
@@ -92,16 +98,16 @@
 
 <!-- script references -->
 <script
-	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/jquery.1.9.1.min.js"></script>
+	src="${resourceUrl}/gazONojfL3/js/jquery.1.9.1.min.js"></script>
 <script
-	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
+	src="${resourceUrl}/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
 <script
-	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/scripts.js"></script>
+	src="${resourceUrl}/gazONojfL3/js/scripts.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
 <script
-	src="${pageContext.request.contextPath}/resources/Remodal/jquery.remodal.min.js"></script>
+	src="${resourceUrl}/Remodal/jquery.remodal.min.js"></script>
 	
-<script src="${pageContext.request.contextPath}/resources/ckeditor/ckeditor.js"></script>
+<script src="${resourceUrl}/ckeditor/ckeditor.js"></script>
 
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
@@ -118,7 +124,7 @@ $(document).ready(function(){
 		enterMode: '2',
 		shiftEnterMode:'3',
 		
-		//filebrowserBrowseUrl : "${pageContext.request.contextPath}/resources",
+		//filebrowserBrowseUrl : "${resourceUrl}",
 		filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
         filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images' 
 	});

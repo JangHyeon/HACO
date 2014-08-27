@@ -1,5 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>    
+<%@ taglib prefix="tiles" uri="http://tiles.apache.org/tags-tiles" %>
+
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
+
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -10,7 +20,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 		
 		<!-- favicon -->
-		<link rel="icon" href="${pageContext.request.contextPath}/resources/favicon.ico" type="image/x-icon" />
+		<link rel="icon" href="${resourceUrl}/favicon.ico" type="image/x-icon" />
 		
 		<!-- title 영역 -->
 		<title><tiles:getAsString name="title"/> : HACO Academy</title>
@@ -22,7 +32,7 @@
 		<!--[if lt IE 9]>
 			<script src="//html5shim.googlecode.com/svn/trunk/html5.js"></script>
 		<![endif]-->
-		<link href="${pageContext.request.contextPath}/resources/gazONojfL3/css/styles.css" rel="stylesheet">
+		<link href="${resourceUrl}/gazONojfL3/css/styles.css" rel="stylesheet">
 	</head>
 <body>	
 	<!-- header 영역 -->

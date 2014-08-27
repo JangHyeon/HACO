@@ -2,6 +2,14 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -12,19 +20,19 @@
     <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
 
 	<!-- favicon -->
-	<link rel="icon" href="${pageContext.request.contextPath}/resources/favicon.ico" type="image/x-icon" />
+	<link rel="icon" href="${resourceUrl}/favicon.ico" type="image/x-icon" />
     
     
     <title>DASHGUM - Bootstrap Admin Template</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="${pageContext.request.contextPath}/resources/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="${resourceUrl}/assets/css/bootstrap.css" rel="stylesheet">
     <!--external css-->
-    <link href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="${resourceUrl}/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
         
     <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css" rel="stylesheet">
+    <link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
+    <link href="${resourceUrl}/assets/css/style-responsive.css" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -42,7 +50,7 @@
 	  <div id="login-page">
 	  	<div class="container">
 	  	
-		      <form class="form-login" action="${pageContext.request.contextPath}/LoginProcessing" method="post">
+		      <form class="form-login" action="LoginProcessing" method="post">
 		        <h2 class="form-login-heading">Login now</h2>
 		        <div class="login-wrap">
 		            <input name="id" type="text" class="form-control" placeholder="User ID" autofocus>
@@ -107,7 +115,7 @@
 		            
 		            <div class="registration">
 		                계정을 보유하시지 않으신가요?<br/>
-		                <a class="" href="${pageContext.request.contextPath}/joinIntro">
+		                <a class="" href="joinIntro">
 		                    계정 생성
 		                </a>
 		            </div>
@@ -216,14 +224,14 @@
 	  </div>
 
     <!-- js placed at the end of the document so the pages load faster -->
-    <script src="${pageContext.request.contextPath}/resources/assets/js/jquery.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/bootstrap.min.js"></script>
+    <script src="${resourceUrl}/assets/js/jquery.js"></script>
+    <script src="${resourceUrl}/assets/js/bootstrap.min.js"></script>
 
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-    <script type="text/javascript" src="${pageContext.request.contextPath}/resources/assets/js/jquery.backstretch.min.js"></script>
+    <script type="text/javascript" src="${resourceUrl}/assets/js/jquery.backstretch.min.js"></script>
     <script>
-    	$src = "${pageContext.request.contextPath}/resources/assets/img/login-bg.jpg";
+    	$src = "${resourceUrl}/assets/img/login-bg.jpg";
         $.backstretch($src, {speed: 800});
         
         $(document).ready(function(){

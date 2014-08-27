@@ -2,11 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
-<% response.setStatus(200); %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/demo.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/component.css" />
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
+
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/css/component.css" />
 
 
 
@@ -22,7 +28,7 @@
 				<div class="title">
 					<h1>ERROR</h1>
 					<p class="subline">
-						<img src="${pageContext.request.contextPath}/resources/images/emo_03-ac8a685c093048c167479e7b346d7f8c.gif">
+						<img src="${resourceUrl}/images/76b2b7e90210a0fe77e083ec89c56769.GIF">
 						<br>
 						${errorMsg}
 					</p>
@@ -61,16 +67,16 @@
 </div>
 
 <!-- script references -->
-<script src="${pageContext.request.contextPath}/resources/gazONojfL3/js/jquery.1.9.1.min.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/scripts.js"></script>
+<script src="${resourceUrl}/gazONojfL3/js/jquery.1.9.1.min.js"></script>
+<script	src="${resourceUrl}/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
+<script	src="${resourceUrl}/gazONojfL3/js/scripts.js"></script>
 
 <!--BACKSTRETCH-->
 <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.backstretch.min.js"></script>
+<script src="${resourceUrl}/assets/js/jquery.backstretch.min.js"></script>
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
-<script src="${pageContext.request.contextPath}/resources/js/classie.js"></script>
+<script src="${resourceUrl}/js/classie.js"></script>
 		<script>
 		$(document).ready(function(){
 			$("#container").append($("footer"));
@@ -78,7 +84,7 @@
 		});
 			(function() {
 				
-				$("#backst").backstretch("${pageContext.request.contextPath}/resources/images/wallpaper-1845631.jpg");
+				$("#backst").backstretch("${pageContext.request.contextPath}/images/wallpaper-1845631.jpg");
 				
 				/* // detect if IE : from http://stackoverflow.com/a/16657946		
 				var ie = (function(){

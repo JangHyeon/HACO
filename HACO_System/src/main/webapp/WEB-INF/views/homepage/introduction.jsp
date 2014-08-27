@@ -2,11 +2,17 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
 
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/demo.css" />
-<link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/css/component.css" />
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/css/component.css" />
 
 
 
@@ -45,16 +51,16 @@
 </div>
 
 <!-- script references -->
-<script src="${pageContext.request.contextPath}/resources/gazONojfL3/js/jquery.1.9.1.min.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
-<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/scripts.js"></script>
+<script src="${resourceUrl}/gazONojfL3/js/jquery.1.9.1.min.js"></script>
+<script	src="${resourceUrl}/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
+<script	src="${resourceUrl}/gazONojfL3/js/scripts.js"></script>
 
 <!--BACKSTRETCH-->
 <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
-<script src="${pageContext.request.contextPath}/resources/assets/js/jquery.backstretch.min.js"></script>
+<script src="${resourceUrl}/assets/js/jquery.backstretch.min.js"></script>
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
-<script src="${pageContext.request.contextPath}/resources/js/classie.js"></script>
+<script src="${resourceUrl}/js/classie.js"></script>
 		<script>
 		$(document).ready(function(){
 			$("#container").append($("footer"));
@@ -62,7 +68,7 @@
 		});
 			(function() {
 				
-				$("#backst").backstretch("${pageContext.request.contextPath}/resources/images/wallpaper-1200407.jpg");
+				$("#backst").backstretch("${resourceUrl}/images/wallpaper-1200407.jpg");
 				
 				// detect if IE : from http://stackoverflow.com/a/16657946		
 				var ie = (function(){

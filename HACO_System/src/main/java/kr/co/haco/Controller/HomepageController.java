@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -36,6 +37,11 @@ public class HomepageController {
 		model.addAttribute("errorMsg", msg);
 		return "homepage.error";
 	}
+	@RequestMapping(value = "/error")
+	public String errorGet(Model model) {
+		return "homepage.error";
+	}
+	
 
 	// 메인페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
@@ -148,8 +154,7 @@ public class HomepageController {
 		Notice notice = homepageService.getNotice(request,response,session,notice_id);
 		
 		if(notice==null){
-			redirectAttributes.addFlashAttribute("errorMsg", "존재하지 않는 페이지입니다.");
-			return "redirect:/error"; //없는 페이지
+			return "redirect:/error/PageNotFound"; //없는 페이지
 		}else if(notice.getError()!=null){
 			redirectAttributes.addFlashAttribute("errorMsg", notice.getError());
 			return "redirect:/error";
@@ -267,11 +272,9 @@ public class HomepageController {
 		Qna qna = homepageService.getQna(request,response,session,qna_id);
 		
 		if(qna==null){
-			redirectAttributes.addFlashAttribute("errorMsg", "존재하지 않는 페이지입니다.");
-			return "redirect:/error"; //없는 페이지
+			return "redirect:/error/PageNotFound"; //없는 페이지
 		}else if(qna.getError()!=null){
-			redirectAttributes.addFlashAttribute("errorMsg", qna.getError());
-			return "redirect:/error";
+			return "redirect:/error/"+qna.getError();
 		}
 		
 		
