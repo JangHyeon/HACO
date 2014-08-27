@@ -759,3 +759,11 @@ tbody > tr > td > a > span > .fa-question{
 .content > .question{
 	opacity: 0.7;
 }
+
+
+@media (min-width: 768px) {
+	.row{
+		margin-right: 0px;
+		margin-left: 0px;
+	}
+}

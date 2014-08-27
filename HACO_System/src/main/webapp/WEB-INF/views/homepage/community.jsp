@@ -11,6 +11,24 @@
 </spring:url>
 
 
+
+<header class="masthead">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1><a href="#" title="Scroll down for your viewing pleasure">Bootable Template</a>
+          <p class="lead">3-column Theme + Layout for Bootstrap 3.</p></h1>
+      </div>
+      <div class="col-md-6">
+        <div class="well pull-right">
+          <img src="//placehold.it/280x100/E7E7E7">        
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
 <!-- Begin Body -->
 <div class="container">
 	<div class="no-gutter row">
@@ -75,7 +93,7 @@
 					style="background-color: #555; color: #eee;">New Stories</div>
 				<div class="panel-body">
 
-					<img class="img-responsive" src="//placehold.it/300/77CCDD/66BBCC">
+					<img class="img-responsive" src="${resourceUrl}/images/24spin.gif">
 
 					<div class="well">
 						<img src="http://s.bootply.com/assets/example/bg_iphone.png"
