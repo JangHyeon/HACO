@@ -2,7 +2,13 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
 
 <!DOCTYPE html>
 
@@ -12,21 +18,21 @@
 <!--external css-->
 
 <link
-	href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css"
+	href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
+	href="${resourceUrl}/assets/js/gritter/css/jquery.gritter.css" />
 
 <!-- Custom styles for this template -->
 <link
-	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
+	href="${resourceUrl}/assets/css/style.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css"
+	href="${resourceUrl}/assets/css/style-responsive.css"
 	rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" media="screen"
-	href="${pageContext.request.contextPath}/resources/assets/css/bootstrap-datetimepicker.min.css 	">
+	href="${resourceUrl}/assets/css/bootstrap-datetimepicker.min.css 	">
 
 <link rel="stylesheet"
 	href="//code.jquery.com/ui/1.11.1/themes/smoothness/jquery-ui.css">

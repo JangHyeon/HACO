@@ -1,19 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
 
     <!--external css-->
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css"/>
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/css/zabuto_calendar.css">
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/lineicons/style.css">    
+    <link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"/>
+    <link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/css/zabuto_calendar.css">
+    <link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/js/gritter/css/jquery.gritter.css" />
+    <link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/lineicons/style.css">    
     
     <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css" rel="stylesheet">
+    <link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
+    <link href="${resourceUrl}/assets/css/style-responsive.css" rel="stylesheet">
 
-    <script src="${pageContext.request.contextPath}/resources/assets/js/chart-master/Chart.js"></script>
+    <script src="${resourceUrl}/assets/js/chart-master/Chart.js"></script>
 
 	<input id="current-accordion" type="hidden" value="index"/>
 
@@ -109,7 +115,7 @@
 									<div class="col-sm-6 col-xs-6"></div>
 	                      		</div>
 	                      		<div class="centered">
-										<img src="${pageContext.request.contextPath}/resources/assets/img/product.png" width="120">
+										<img src="${resourceUrl}/assets/img/product.png" width="120">
 	                      		</div>
                       		</div>
                       	</div><!-- /col-md-4 -->
@@ -120,7 +126,7 @@
 								<div class="white-header">
 									<h5>TOP USER</h5>
 								</div>
-								<p><img src="${pageContext.request.contextPath}/resources/assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
+								<p><img src="${resourceUrl}/assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
 								<p><b>Zac Snider</b></p>
 								<div class="row">
 									<div class="col-md-6">
@@ -317,7 +323,7 @@
                       <!-- First Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-divya.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-divya.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
                       		<p><a href="#">DIVYA MANIAN</a><br/>
@@ -328,7 +334,7 @@
                       <!-- Second Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-sherman.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-sherman.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
                       		<p><a href="#">DJ SHERMAN</a><br/>
@@ -339,7 +345,7 @@
                       <!-- Third Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-danro.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-danro.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
                       		<p><a href="#">DAN ROGERS</a><br/>
@@ -350,7 +356,7 @@
                       <!-- Fourth Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-zac.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-zac.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
                       		<p><a href="#">Zac Sniders</a><br/>
@@ -361,7 +367,7 @@
                       <!-- Fifth Member -->
                       <div class="desc">
                       	<div class="thumb">
-                      		<img class="img-circle" src="${pageContext.request.contextPath}/resources/assets/img/ui-sam.jpg" width="35px" height="35px" align="">
+                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-sam.jpg" width="35px" height="35px" align="">
                       	</div>
                       	<div class="details">
                       		<p><a href="#">Marcel Newman</a><br/>
@@ -396,10 +402,10 @@
     <%@ include file="commonScript.jsp" %>
 
     <!--script for this page-->    
-    <script src="${pageContext.request.contextPath}/resources/assets/js/gritter/js/jquery.gritter.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/gritter-conf.js"></script>
-    <script src="${pageContext.request.contextPath}/resources/assets/js/sparkline-chart.js"></script>    
-	<script src="${pageContext.request.contextPath}/resources/assets/js/zabuto_calendar.js"></script>	
+    <script src="${resourceUrl}/assets/js/gritter/js/jquery.gritter.js"></script>
+    <script src="${resourceUrl}/assets/js/gritter-conf.js"></script>
+    <script src="${resourceUrl}/assets/js/sparkline-chart.js"></script>    
+	<script src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>	
 	
 	<script type="text/javascript">
         $(document).ready(function () {
@@ -409,7 +415,7 @@
             // (string | mandatory) the text inside the notification
             text: '마우스를 올려서 닫으시거나. <br>3초 뒤에 사라집니다.<br>(마우스를 올리시면 계속 볼 수 있습니다.)',
             // (string | optional) the image to display on the left
-            image: '${pageContext.request.contextPath}/resources/assets/img/ui-sam.jpg',
+            image: '${resourceUrl}/assets/img/ui-sam.jpg',
             // (bool | optional) if you want it to fade out on its own or just sit there
             sticky: false,
             // (int | optional) the time you want it to be alive for before fading out
@@ -430,7 +436,7 @@
             // (string | mandatory) the text inside the notification
             text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
             // (string | optional) the image to display on the left
-            image: '${pageContext.request.contextPath}/resources/assets/img/ui-sam.jpg',
+            image: '${resourceUrl}/assets/img/ui-sam.jpg',
             // (bool | optional) if you want it to fade out on its own or just sit there
             sticky: true,
             // (int | optional) the time you want it to be alive for before fading out

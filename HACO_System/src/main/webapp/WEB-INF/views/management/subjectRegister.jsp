@@ -3,23 +3,29 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
+<!-- spEL을 활용한 리소스 버전 관리 -->
+<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:url value="/static-{applicationVersion}" var="resourceUrl">
+	<spring:param name="applicationVersion" value="${applicationVersion}" />
+</spring:url>
 <input id="current-accordion" type="hidden"
 	value="course,subjectRegister" />
 
 <!--external css-->
 <link
-	href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css"
+	href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"
 	rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
-	href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
+	href="${resourceUrl}/assets/js/gritter/css/jquery.gritter.css" />
 
 <!-- Custom styles for this template -->
 <link
-	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
+	href="${resourceUrl}/assets/css/style.css"
 	rel="stylesheet">
 <link
-	href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css"
+	href="${resourceUrl}/assets/css/style-responsive.css"
 	rel="stylesheet">
 
 
@@ -183,7 +189,7 @@
 
 <!-- inclue common script -->
 
-<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
+<script	src="${resourceUrl}/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
 <%@ include file="commonScript.jsp"%>
 
 <script>

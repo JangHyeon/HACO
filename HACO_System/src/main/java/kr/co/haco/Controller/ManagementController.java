@@ -138,7 +138,10 @@ public class ManagementController {
 		return "management.index";
 	}
 	
-	
+	@RequestMapping(value = "attendance", method = RequestMethod.GET)
+	public String attendancelist() {
+		return "management.attendance";
+	}
 	
 	/////////////////////////////과정//////////////////////////////////////////////////////////
 	//출석
