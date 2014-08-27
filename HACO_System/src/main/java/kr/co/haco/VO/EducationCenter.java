@@ -3,7 +3,6 @@ package kr.co.haco.VO;
 public class EducationCenter {
 	private int center_id;
 	private String location;
-	
 	public int getCenter_id() {
 		return center_id;
 	}
@@ -15,5 +14,6 @@ public class EducationCenter {
 	}
 	public void setLocation(String location) {
 		this.location = location;
-	}	
+	}
+	
 }

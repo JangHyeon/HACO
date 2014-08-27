@@ -172,6 +172,12 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
+	public Employee getEmployeeID(String name) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(AccountDAO.class).getEmployeeID(name);
+	}
+	
+	@Override
 	public String findPassword(String id, String email, StringBuffer contextURL) {
 		if((id!=null && !id.equals("")) || (email!=null && !email.equals(""))){
 			Account account = new Account();

@@ -29,6 +29,10 @@ public interface AccountService{
 	
 	public String checkId(String id);
 	
+	
+	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
+	public Employee getEmployeeID(String name);	
+	
 	@Transactional
 	public void joinMember(Account account, Member member, StringBuffer contextURL) throws DataIntegrityViolationException;
 	
@@ -47,4 +51,7 @@ public interface AccountService{
 	
 	public String findId(String name, String email);
 	public String findPassword(String id, String email, StringBuffer contextURL);
+	
+	
+	
 }

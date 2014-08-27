@@ -20,6 +20,11 @@
 		select account_id from account where id=#{param1}
 	</select>
 	
+	<select id="getEmployeeID" parameterType="Integer"
+		resultType="kr.co.haco.VO.Employee">
+		select account_id from employee where name_kor like
+		#{param1}
+	</select>
 	<select id="getLastInsertId" resultType="Integer">
 		SELECT LAST_INSERT_ID()
 	</select>
@@ -130,5 +135,5 @@
     
     -->
  	
- 	
+ 
 </mapper>

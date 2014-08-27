@@ -1,192 +1,250 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+
+<input id="current-accordion" type="hidden"
+	value="course,subjectRegister" />
+
+<!--external css-->
+<link
+	href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css"
+	href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
+
+<!-- Custom styles for this template -->
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/style.css"
+	rel="stylesheet">
+<link
+	href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css"
+	rel="stylesheet">
 
 
-    <!--external css-->
-    <link href="${pageContext.request.contextPath}/resources/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/resources/assets/js/gritter/css/jquery.gritter.css" />
-        
-    <!-- Custom styles for this template -->
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style.css" rel="stylesheet">
-    <link href="${pageContext.request.contextPath}/resources/assets/css/style-responsive.css" rel="stylesheet">
+<input id="current-accordion" type="hidden"
+	value="course,subjectRegister" />
 
-
-	<input id="current-accordion" type="hidden" value="course,subjectRegister"/>
-
-      <!-- **********************************************************************************************************************************************************
+<!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
-      <!--main content start-->
-      <section id="main-content">
-          <section class="wrapper">
-      		<div class="row mt">
-      			<div class="col-lg-6 col-md-6 col-sm-12">
-      				<! -- BASIC PROGRESS BARS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Basic Progress Bars</h4>
-	      				<div class="progress">
-						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-						    <span class="sr-only">40% Complete (success)</span>
-						  </div>
-						</div>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-						    <span class="sr-only">20% Complete</span>
-						  </div>
-						</div>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-						    <span class="sr-only">60% Complete (warning)</span>
-						  </div>
-						</div>
-						<div class="progress">
-						  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-						    <span class="sr-only">80% Complete</span>
-						  </div>
-						</div>
-      				</div><!--/showback -->
-      				
-      				<! -- STRIPPED PROGRESS BARS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Stripped Progress Bars</h4>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
-						    <span class="sr-only">40% Complete (success)</span>
-						  </div>
-						</div>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100" style="width: 20%">
-						    <span class="sr-only">20% Complete</span>
-						  </div>
-						</div>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100" style="width: 60%">
-						    <span class="sr-only">60% Complete (warning)</span>
-						  </div>
-						</div>
-						<div class="progress progress-striped">
-						  <div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100" style="width: 80%">
-						    <span class="sr-only">80% Complete (danger)</span>
-						  </div>
-						</div>      				
-					</div><!-- /showback -->
-					
-      				<! -- ANIMATED PROGRESS BARS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Animated Progress Bars</h4>
-	      				<div class="progress progress-striped active">
-						  <div class="progress-bar"  role="progressbar" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100" style="width: 45%">
-						    <span class="sr-only">45% Complete</span>
-						  </div>
-						</div>
-      				</div><!-- /showback -->
-      				
-      				<! -- MODALS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Modal Example</h4>
-						<!-- Button trigger modal -->
-						<button class="btn btn-success btn-lg" data-toggle="modal" data-target="#myModal">
-						  Launch Modal
-						</button>
-						
-						<!-- Modal -->
-						<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-						  <div class="modal-dialog">
-						    <div class="modal-content">
-						      <div class="modal-header">
-						        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-						        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-						      </div>
-						      <div class="modal-body">
-						        Hi there, I am a Modal Example for Dashgum Admin Panel.
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						        <button type="button" class="btn btn-primary">Save changes</button>
-						      </div>
-						    </div>
-						  </div>
-						</div>      				
-      				</div><!-- /showback -->
-      				
-      				<! -- GRITTER NOTICES -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Gritter Examples</h4>
-							<p>Click on below buttons to check it out.</p>
-							<a id="add-regular" class="btn btn-default btn-sm" href="javascript:;">Regular</a>
-							<a id="add-sticky" class="btn btn-success  btn-sm" href="javascript:;">Sticky</a>
-							<a id="add-without-image" class="btn btn-info  btn-sm" href="javascript:;">Imageless</a>
-							<a id="add-gritter-light" class="btn btn-warning  btn-sm" href="javascript:;">Light</a>
-							<a id="remove-all" class="btn btn-danger  btn-sm" href="general.html#">Remove all</a>
-      				</div><!-- /showback -->
-      				
-      			</div><! --/col-lg-6 -->
-      			
-      			
-      			<div class="col-lg-6 col-md-6 col-sm-12">
-      				<! -- ALERTS EXAMPLES -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Alerts Examples</h4>
-							<div class="alert alert-success"><b>Well done!</b> You successfully read this important alert message.</div>
-							<div class="alert alert-info"><b>Heads up!</b> This alert needs your attention, but it's not super important.</div>
-							<div class="alert alert-warning"><b>Warning!</b> Better check yourself, you're not looking too good.</div>
-							<div class="alert alert-danger"><b>Oh snap!</b> Change a few things up and try submitting again.</div>      				
-      				</div><!-- /showback -->
-      				
-      				<! -- DISMISSABLE ALERT -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Dismissable Alert</h4>
-						<div class="alert alert-warning alert-dismissable">
-						  <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
-						  <strong>Warning!</strong> Better check yourself, you're not looking too good.
-						</div>      				
-      				</div><!-- /showback -->
-      				
-      				<! -- BADGES -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Badges</h4>
-						<span class="badge">5</span>
-						<span class="badge bg-primary">10</span>
-						<span class="badge bg-success">15</span>
-						<span class="badge bg-info">20</span>
-						<span class="badge bg-inverse">25</span>
-						<span class="badge bg-warning">30</span>
-						<span class="badge bg-important">35</span>
-      				</div><!-- /showback -->
-      				
-      				<! -- LABELS -->
-      				<div class="showback">
-      					<h4><i class="fa fa-angle-right"></i> Labels</h4>
-							<span class="label label-default">label</span>
-							<span class="label label-primary">Primary</span>
-							<span class="label label-success">Success</span>
-							<span class="label label-info">Info</span>
-							<span class="label label-warning">Warning</span>
-							<span class="label label-danger">Danger</span>
-                    </div><!-- /showback -->
-      			
-      			</div><!-- /col-lg-6 -->
-      			
-      		</div><!--/ row -->
-          </section><!-- /wrapper -->
-      </section><!-- /MAIN CONTENT -->
+<!--main content start-->
 
-      <!--main content end-->
+<section id="main-content">
+	<section class="wrapper">
+		<h3>
+			<i class="fa fa-angle-right"></i> 과정
+		</h3>
+		
+		<div class="row">
 
+			<div class="col-md-12">
+				<div class="content-panel">
+					<h4>
+						<i class="fa fa-angle-right"></i> 과목등록
+					</h4>
+					<hr>
+					<table class="table">
+						<thead>
+							<tr>	
+								<th>하악</th>
+								<th>과목명</th>
+								<th>총강의일수</th>
+								<th>총강의시간</th>
+								<th>강의시간</th>
+								<th>수강대상</th>
+								<th>모집인원</th>
+								<th>수강료</th>
+								<th>수정</th>
+								<th>삭제</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:forEach var="Subject2" items="${SubjectList}">
+								<tr>
+									<td>${Subject2.subject_id}</td>
+									<td>${Subject2.subject_name}</td>
+									<td>${Subject2.lecture_totalday}</td>
+									<td>${Subject2.lecture_totaltime}</td>
+									<td><fmt:formatDate type="time" value="${Subject2.lecture_time_start}"/>~
+									<fmt:formatDate type="time" value="${Subject2.lecture_time_end}"/></td>
+									<td>${Subject2.lecture_target}</td>
+									<td>${Subject2.capacity}</td>
+									<td>${Subject2.tuition_fee}</td>
+									<td><a
+										href="${pageContext.request.contextPath}/management/subjectUpdate?id=${Subject2.subject_id}">
+											   <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
+                                               
+									</a></td>
+									<td><a
+										href="${pageContext.request.contextPath}/management/DeleteOk?id=${Subject2.subject_id}">
+											 <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
+									</a></td>
+								</tr>
+							</c:forEach>
 
+						</tbody>
+  										
+					</table>
+					<%--test:${pageContext.request.contextPath}  --%>
+					<a class="btn btn-success btn-sm pull-left"  href="${pageContext.request.contextPath}/management/subjectInsert">
+					new subject</a>	
+					<div class="col-xs-12">
+										<!-- 페이징 -->
+										<ul class="pagination pagination-centered">
+											<!-- 이전 링크 -->
+											<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+												<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
+											</li>
+											
+										  	<!-- 페이지 리스트   -->
+										  	<c:if test="${beginpage!=0}">
+											<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+											
+												<c:if test="${i==pageNum}">
+													<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+												</c:if>
+												<c:if test="${i!=pageNum}">
+													<li><a href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
+												</c:if>
+											</c:forEach>
+											</c:if>
+										  	<!-- 다음링크 -->
+											<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+												<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
+											</li>
+										</ul>
+									</div>						
+										
+									<!-- 검색 -->
+									<div class="col-sm-6 col-sm-offset-3" style="clear:both">
+							          <div class="input-group">
+							            <div class="input-group-btn">
+							              <button id="searchType" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+							              	<c:choose>
+							              		<c:when test="${searchType=='teacherAndcourse'}">
+							              			<span>강사+과정 </span>
+							              		</c:when>
+							              		<c:when test="${searchType=='course'}">
+							              			<span>과정명 </span>
+							              		</c:when>
+							              		<c:otherwise>
+							              			<span>강사명</span>
+							              		</c:otherwise>
+							              	</c:choose> 
+							              	<span class="caret"></span>
+							              </button>
+							              <ul id="selectType" class="dropdown-menu" role="menu">
+							                <li id=teacher value="teacher"><a>강사명</a></li>
+							                <li id="teacherAndcourse" value="teacherAndcourse"><a>강사+과정</a></li>
+							                <li id="course" value="course"><a>과정명</a></li>
+							              </ul>
+							            </div><!-- /btn-group -->
+							            <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
+							            <span class="input-group-btn">
+							              <button class="btn btn-default" id="submitBtn" type="button">검색</button>
+							            </span>
+							          </div>
+								        <input type="hidden" name="searchKey" value="${searchKey}">
+								        <input type="hidden" name="pageNum" value="${pageNum}">
+								        <input type="hidden" name="pageSize" value="${pageSize}">
+								        <input type="hidden" name="searchType" value="${searchType}">
+							        </div>
+				
+				
+				
+			<%-- 	<form  id="test" method="get">
+					<a href="${pageContext.request.contextPath}/management/subjectInsert"  id="test2">test</a>
+					<input type="text" name="aaa" value="ttttttttt">
+				</form> --%>
+				<!-- /content-panel -->
+			</div>
+	</section>
+</section>
 
-	<!-- inclue common script -->
-    <%@ include file="commonScript.jsp" %>
-	
-	<!--script for this page-->
+<script>
+	//custom select box
+
+	/* $(function() {
+		$("test2").click(function() {
+		 alert("D");
+			 $("test").attr("action", ($("test2"),href));
+			});
     
-  <script>
-      //custom select box
+	}); */
+</script>
 
-      $(function(){
-          
-      });
 
-  </script>
 
+
+<!--main content end-->
+
+
+<!-- inclue common script -->
+
+<script	src="${pageContext.request.contextPath}/resources/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
+<%@ include file="commonScript.jsp"%>
+
+<script>
+$(document).ready(function(){
+	//검색 조건
+	$('#selectType>li').on('click',function(){
+		$('#searchType>span:first-child').text($('a',this).text());
+		$('input[name=searchType]').val($(this).attr('value'));
+	});
+	
+	var submit = function(){
+		if($('input[name=searchKey]').val().length==0){
+			alert('검색어를 입력해주세요.');
+			$('#inputSearchKey').focus();
+		}else{
+			location.href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/"+$('input[name=pageSize]').val()+"/pageNum/1/searchType/"+$('input[name=searchType]').val()+"/searchKey/"+$('input[name=searchKey]').val();
+		}
+	}
+	
+	$('#submitBtn').on('click',function(){
+		$('input[name=searchKey]').val($('#inputSearchKey').val());
+		submit();
+	});
+	
+	$('#inputSearchKey').on('keypress',function(e){
+		if(e.keyCode==13){
+			$('input[name=searchKey]').val($('#inputSearchKey').val());
+			submit();
+		}
+	});
+	
+
+	//공지 토글
+	var toggle = false;
+	$('#noticeToggle').on('click',function(){
+		if(!toggle){
+			$(this).button('noti');
+			toggle=true;
+			$('#topNotice').hide();
+		}else{
+			$(this).blur();
+			$(this).button('reset');
+			toggle=false;
+			$('#topNotice').show();
+		}
+	});
+	
+	//페이지 사이즈
+	$('#pageNum>li').on('click',function(){
+		$('#pageBtn>span:first-child').text($('a',this).text()+" 보기");
+		$('input[name=pageSize]').val($(this).attr('value'));
+		if($('input[name=searchKey]').val()!='[noKeyword]'){
+			$('input[name=searchKey]').val($('#inputSearchKey').val());
+		}
+		submit();
+	});
+	
+	// 글쓰기 페이지
+	/* $('#writeBtn').on('click', function() {
+		location.href='${pageContext.request.contextPath}/noticeWrite';
+	}); */
+});
+
+</script>

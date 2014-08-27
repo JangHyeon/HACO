@@ -35,161 +35,11 @@
 		<h3>
 			<i class="fa fa-angle-right"></i> 서브페이지 샘플
 		</h3>
-		<h5><a href="http://fontawesome.io/icons/" target="_blank">- aside 아이콘 정보</a></h5>
-		<div class="row">
-
-			<div class="col-md-12">
-				<div class="content-panel">
-					<h4>
-						<i class="fa fa-angle-right"></i> Basic Table
-					</h4>
-					<hr>
-					<table class="table">
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>권한</th>
-								<th>설명</th>
-								<th>생성일시</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="role" items="${roleList}">
-								<tr>
-									<td>${role}</td>
-									<td>${role.role_name}</td>
-									<td>${role.role_desc}</td>
-									<td>${role.create_date}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-				<!-- /content-panel -->
-			</div>
-			<!-- /col-md-12 -->
-
-			<div class="col-md-12 mt">
-				<div class="content-panel">
-					<table class="table table-hover">
-						<h4>
-							<i class="fa fa-angle-right"></i> Hover Table
-						</h4>
-						<hr>
-						<thead>
-							<tr>
-								<th>#</th>
-								<th>권한</th>
-								<th>설명</th>
-								<th>생성일시</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="role" items="${roleList}">
-								<tr>
-									<td>${role}</td>
-									<td>${role.role_name}</td>
-									<td>${role.role_desc}</td>
-									<td>${role.create_date}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
-				</div>
-				<!--/content-panel -->
-			</div>
-			<!-- /col-md-12 -->
-		</div>
-		<!-- row -->
 		
-		<div class="row mt">
-                  <div class="col-md-12">
-                      <div class="content-panel">
-                          <table class="table table-striped table-advance table-hover">
-	                  	  	  <h4><i class="fa fa-angle-right"></i> Advanced Table</h4>
-	                  	  	  <hr>
-                              <thead>
-                              <tr>
-                                  <th><i class="fa fa-bullhorn"></i> Company</th>
-                                  <th class="hidden-phone"><i class="fa fa-question-circle"></i> Descrition</th>
-                                  <th><i class="fa fa-bookmark"></i> Profit</th>
-                                  <th><i class=" fa fa-edit"></i> Status</th>
-                                  <th></th>
-                              </tr>
-                              </thead>
-                              <tbody>
-                              <tr>
-                                  <td><a href="basic_table.html#">Company Ltd</a></td>
-                                  <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                  <td>12000.00$ </td>
-                                  <td><span class="label label-info label-mini">Due</span></td>
-                                  <td>
-                                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td>
-                                      <a href="basic_table.html#">
-                                          Dashgum co
-                                      </a>
-                                  </td>
-                                  <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                  <td>17900.00$ </td>
-                                  <td><span class="label label-warning label-mini">Due</span></td>
-                                  <td>
-                                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td>
-                                      <a href="basic_table.html#">
-                                          Another Co
-                                      </a>
-                                  </td>
-                                  <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                  <td>14400.00$ </td>
-                                  <td><span class="label label-success label-mini">Paid</span></td>
-                                  <td>
-                                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td>
-                                      <a href="basic_table.html#">
-                                          Dashgum ext
-                                      </a>
-                                  </td>
-                                  <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                  <td>22000.50$ </td>
-                                  <td><span class="label label-success label-mini">Paid</span></td>
-                                  <td>
-                                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                  </td>
-                              </tr>
-                              <tr>
-                                  <td><a href="basic_table.html#">Total Ltd</a></td>
-                                  <td class="hidden-phone">Lorem Ipsum dolor</td>
-                                  <td>12120.00$ </td>
-                                  <td><span class="label label-warning label-mini">Due</span></td>
-                                  <td>
-                                      <button class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                      <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button>
-                                      <button class="btn btn-danger btn-xs"><i class="fa fa-trash-o "></i></button>
-                                  </td>
-                              </tr>
-                              </tbody>
-                          </table>
-                      </div><!-- /content-panel -->
-                  </div><!-- /col-md-12 -->
-              </div><!-- /row -->
+		
+		
+		
+	
 		
 	</section>
 </section>
@@ -208,9 +58,21 @@
 
 
 
-<script type="application/javascript">
+<script type="text/javascript">
+$(document).ready(function () {
 	
-        $(document).ready(function () {
+	var today = new Date();
+	
+	
+	
+	
+});
+ 
+
+
+
+
+/*      $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
             $("#date-popover").click(function (e) {
@@ -242,7 +104,7 @@
             var to = $("#" + id).data("to");
             console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
         }
-    
+     */
 </script>
 
 

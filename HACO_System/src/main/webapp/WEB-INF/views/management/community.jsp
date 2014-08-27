@@ -186,7 +186,7 @@
                                   </td>
                               </tr>
                               </tbody>
-                          </table>
+                          </table>	
                       </div><!-- /content-panel -->
                   </div><!-- /col-md-12 -->
               </div><!-- /row -->

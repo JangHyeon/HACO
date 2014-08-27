@@ -28,4 +28,5 @@ public interface AccountDAO {
 	public int updateMember(Member member);
 	
 	public int disableAccount(Account account);
+	public Employee getEmployeeID(String name);
 }
