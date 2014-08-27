@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 구현하고자하는 인터페이스 풀경로 -->
+<mapper namespace="kr.co.haco.DAO.EvaluationRegisterDAO">
+	<!-- 개설과정(평가등록) 리스트 -->
+	<select id="getEvaluationRegistList" resultType="kr.co.haco.VO.EvaluationRegisterForm" parameterType="java.util.Map">
+		select ec.location , oc.center_id, oc.open_course_id ,oc.course_name , oc.course_start_date , oc.course_end_date ,ifnull(l.state_code,-1) as state_code
+		from open_course as oc
+			inner join education_center as ec
+			on oc.center_id = ec.center_id
+			LEFT OUTER JOIN lecture_evaluation l
+			ON oc.open_course_id = l.open_course_id
+		<!-- <where> -->
+			<if test="isResult == 0">
+				where l.state_code !=  9
+				OR l.state_code IS NULL 
+		    </if>
+		    <if test="isResult == 1">
+		    	where  l.state_code =  9
+		    </if>		    
+	    
+		
+	</select>	
+	
+	<!-- 평가등록 폼, 기본정보 -과정명,과목명,강사명,수강시간 -->
+	<select id="getEvaluationRegisterform"  resultType="kr.co.haco.VO.EvaluationRegisterForm">
+		select  o.course_name  ,o.course_start_date , o.course_end_date ,s.subject_name ,e.name_kor 
+		 from open_course as o inner join subject as s 
+		 on o.subject_id = s.subject_id 
+		 inner join employee as e 
+		 on e.account_id = o.account_id 
+		 where o.open_course_id=#{open_course_id};
+	</select>	
+	
+	<!-- 강의평가 등록 -->
+	<insert id="addEvaluation" parameterType="kr.co.haco.VO.EvaluationRegister">
+		INSERT INTO lecture_evaluation(open_course_id,state_code) VALUES(#{open_course_id},#{state_code});
+	</insert>
+	<!-- 평가 질문을 map에 넣어 한번에 처리하려고 했으나, 객관식 질문은 질문 하나가 insert된 후 보기가 insert되야 하기 때문에 
+		 단일 insert처리하기로 함.
+	<insert id="addQuestion" parameterType="java.util.Map">
+		INSERT INTO eval_question(open_course_id,type_code,question) VALUES
+		<foreach collection="paramList" item="item" separator=",">
+			(#{item.open_course_id},#{item.type_code},#{item.question})
+		</foreach>
+	</insert>			
+		 
+		<foreach> 태그 속성 설명
+		collection : parameterType으로 넘어온 map안에 list(map에 key값)
+		item : collection을 사용할 변수 명
+		seperator : 반복 문자열을 구분할 문자			
+		 
+	 -->	 
+	<insert id="addQuestion" parameterType="kr.co.haco.VO.EvaluationRegister">
+		INSERT INTO eval_question(open_course_id,type_code,question) VALUES
+		 (#{open_course_id},#{type_code},#{question})		
+	</insert>	
+	<insert id="addQuestionExample" parameterType="kr.co.haco.VO.EvaluationRegister">
+		INSERT INTO eval_question_example(question_id,example_content)
+		VALUES(#{question_id},#{example_content})
+	</insert>	
+	<select id="getQuestionId" resultType="Integer">
+		<!-- 마지막으로 입력된 ID -->
+		select LAST_INSERT_ID();
+	</select>
+	
+	<!-- 강의 평가 결과 -->
+	<select id="getEvalResult" resultType="kr.co.haco.VO.EvalExampleResult">		
+		SELECT exam.question_id, q.question, exam.example_id, exam.example_content,IFNULL(r.counts,0) AS counts
+		FROM (SELECT question_id, example_id, example_content FROM eval_question_example) exam
+        INNER JOIN (SELECT question_id, question FROM eval_question WHERE open_course_id=#{open_course_id}) q
+        ON exam.question_id = q.question_id
+		LEFT OUTER JOIN (SELECT question_id,example_id,COUNT(*) AS counts
+		                      FROM eval_example_result
+		                      WHERE  open_course_id =#{open_course_id}
+		                      GROUP BY example_id) r
+		 ON r.example_id = exam.example_id
+	</select>
+	
+	
+</mapper>

@@ -12,8 +12,11 @@ public class Employee{
 	private String gender;
 	private String address_registered;
 	private String address_real;
-	private int phone_home;
-	private int phone_cell;
+	private String phone_home;
+	private String phone_cell;
+	private String phone_cell1;
+	private String phone_cell2;
+	private String phone_cell3;
 	private int phone_emergency;
 	private String email;
 	private int salary;
@@ -21,10 +24,13 @@ public class Employee{
 	private String bank_account;
 	private String account_owner;
 	private Date join_date;
-	private String join_center;
-	private String photo;
+	private int join_center_id;
+	private int now_center_id;	
 	private int resident_registration_num1;
-	private int now_center_id;
+	private int resident_registration_num2;
+	private String photo;
+	
+	
 	public int getAccount_id() {
 		return account_id;
 	}
@@ -67,18 +73,40 @@ public class Employee{
 	public void setAddress_real(String address_real) {
 		this.address_real = address_real;
 	}
-	public int getPhone_home() {
+	public String getPhone_home() {
 		return phone_home;
 	}
-	public void setPhone_home(int phone_home) {
+	public void setPhone_home(String phone_home) {
 		this.phone_home = phone_home;
 	}
-	public int getPhone_cell() {
-		return phone_cell;
+	public String getPhone_cell() {
+		return phone_cell1+"-"+phone_cell2+"-"+phone_cell3;
 	}
-	public void setPhone_cell(int phone_cell) {
-		this.phone_cell = phone_cell;
+	public void setPhone_cell(String phone_cell) {		
+		String[] p = phone_cell.split("-");
+		phone_cell1 = p[0];
+		phone_cell2 = p[1];
+		phone_cell3 = p[2];
 	}
+	public String getPhone_cell1() {
+		return phone_cell1;
+	}
+	public void setPhone_cell1(String phone_cell1) {
+		this.phone_cell1 = phone_cell1;
+	}
+	public String getPhone_cell2() {
+		return phone_cell2;
+	}
+	public void setPhone_cell2(String phone_cell2) {
+		this.phone_cell2 = phone_cell2;
+	}
+	public String getPhone_cell3() {
+		return phone_cell3;
+	}
+	public void setPhone_cell3(String phone_cell3) {
+		this.phone_cell3 = phone_cell3;
+	}
+
 	public int getPhone_emergency() {
 		return phone_emergency;
 	}
@@ -121,17 +149,17 @@ public class Employee{
 	public void setJoin_date(Date join_date) {
 		this.join_date = join_date;
 	}
-	public String getJoin_center() {
-		return join_center;
+	public int getJoin_center_id() {
+		return join_center_id;
 	}
-	public void setJoin_center(String join_center) {
-		this.join_center = join_center;
+	public void setJoin_center_id(int join_center_id) {
+		this.join_center_id = join_center_id;
 	}
-	public String getPhoto() {
-		return photo;
+	public int getNow_center_id() {
+		return now_center_id;
 	}
-	public void setPhoto(String photo) {
-		this.photo = photo;
+	public void setNow_center_id(int now_center_id) {
+		this.now_center_id = now_center_id;
 	}
 	public int getResident_registration_num1() {
 		return resident_registration_num1;
@@ -139,10 +167,19 @@ public class Employee{
 	public void setResident_registration_num1(int resident_registration_num1) {
 		this.resident_registration_num1 = resident_registration_num1;
 	}
-	public int getNow_center_id() {
-		return now_center_id;
+	public int getResident_registration_num2() {
+		return resident_registration_num2;
 	}
-	public void setNow_center_id(int center_id) {
-		this.now_center_id = center_id;
+	public void setResident_registration_num2(int resident_registration_num2) {
+		this.resident_registration_num2 = resident_registration_num2;
 	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	
+	
+	
 }

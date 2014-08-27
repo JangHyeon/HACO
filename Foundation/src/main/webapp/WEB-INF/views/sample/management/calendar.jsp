@@ -49,7 +49,7 @@
                   </aside>
               </div>
               <!-- page end-->
-		</section><! --/wrapper -->
+		</section><!-- /wrapper -->
       </section><!-- /MAIN CONTENT -->
 
       <!--main content end-->

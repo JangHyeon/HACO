@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 구현하고자하는 인터페이스 풀경로 -->
+ <!-- EmployeeDAO를 구현하는 Mapper -->
+<mapper namespace="kr.co.haco.DAO.MemberDAO"> 	
+	<!-- 사이트 회원 목록 -->
+	<select id="getMemberOfSite" resultType="kr.co.haco.VO.Member">
+		SELECT *
+		FROM member
+		WHERE account_id NOT IN
+			(SELECT account_id
+			FROM lecture_register);
+	</select>
+	<!-- 수강 중인 회원 목록 -->
+	<select id="getMember" resultType="kr.co.haco.VO.MemberOfAcademy" >
+		SELECT o.center_id,o.course_name,
+			mem.open_course_id,mem.account_id,mem.lecture_register_code,mem.lecture_register_date,mem.is_survey,
+		    mem.name,mem.address, mem.email, mem.phone, mem.job_duty
+		FROM open_course o
+		INNER JOIN
+			(SELECT l.open_course_id, l.account_id, l.lecture_register_code, l.lecture_register_date,l.is_survey,
+					m.name, m.address, m.email, m.phone, m.job_duty
+			FROM lecture_register l
+			INNER JOIN member m
+			ON l.account_id = m.account_id
+			WHERE l.open_course_id IN
+				(SELECT open_course_id
+				FROM open_course
+				WHERE course_end_date > NOW()
+			    )
+			) mem
+		ON o.open_course_id = mem.open_course_id		
+		<where>
+			<if test="param1 != 0">
+				and o.center_id= ${param1}
+			</if>
+    		<if test="param2 != 0">
+				and mem.open_course_id = ${param2}
+			</if>
+		</where>
+	</select>
+	<!-- 센터별 개설과정 목록 -->
+	<select id="getCourseList" parameterType="kr.co.haco.VO.OpenCourse" resultType="kr.co.haco.VO.OpenCourse">
+		SELECT open_course_id, o.course_name, o.course_end_date, o.center_id
+		FROM open_course o
+		WHERE course_end_date > NOW()
+		<if test="center_id != 0">
+	    	AND center_id=#{center_id}	
+	    </if>
+	</select>
+</mapper>

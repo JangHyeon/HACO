@@ -39,20 +39,21 @@
 	물론 관련 라이브러리들은 클래스 패스에 존재하여야 한다. -->
 	<mvc:annotation-driven />
 	
+	
 	<!-- 
 	//MessageConverter 의 종류//
-	StringHttpMessageConverter
+	StringHttpMessageConverter - String으로 보낼런지.- 수동으로 json을 만들어줘야 함.
 	FormHttpMessageConverter
 	ByteArrayMessageConverter
 	MarshallingHttpMessageConverter
-	MappingJacksonHttpMessageConverter
+	MappingJacksonHttpMessageConverter // 맵, 리스트를 보내도. String으로 보내져
 	SourceHttpMessageConverter
 	BufferedImagedHttpMessageConverter
 	Jaxb2RootElementHttpMessageConverter
 	RssChannelHttpMessageConverter
 	 -->
 	
-	<!-- 컨트롤러/컴포넌트 스캔 -->	
+	<!-- 컨트롤러/컴포넌트 스캔 -->
 	<context:component-scan base-package="kr.co.haco.Controller  
 										kr.co.haco.Service" />
 

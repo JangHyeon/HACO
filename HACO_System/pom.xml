@@ -172,7 +172,14 @@
  		</dependency>        
         <!-- SMTP 메일 서버 설정 End -->
         
+        <!-- JSONObject from je--> 
+        <dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20090211</version>
+		</dependency>
 		
+				
 		<!-- Logging -->
 		<dependency>
 			<groupId>org.slf4j</groupId>

@@ -14,10 +14,10 @@
               
               	  <p class="centered">
               	  	<a href="${pageContext.request.contextPath}/management/profile/${sessionScope.employee.account_id}">
-              	  		<img src="${pageContext.request.contextPath}/employeePhoto/1173606.jpg" class="img-circle" width="80">
+              	  		<img src="${pageContext.request.contextPath}/employeePhoto/${sessionScope.employee.photo}" class="img-circle" width="80">
               	  	</a>
               	  </p>
-              	  <h5 class="centered">${sessionScope.employee.name_eng}<br>(${sessionScope.employee.name_kor})</h5>
+              	  <h5 class="centered">${sessionScope.employee.name_kor}<br>${sessionScope.employee.name_eng}</h5>
 
 			  	    
               	  <!-- 센터장, 본점장만 -->	
@@ -61,10 +61,14 @@
                   </li>
 				
                   <li class="sub-menu" name="lectureEvaluation">
-                      <a href="${pageContext.request.contextPath}/management/lectureEvaluation">
+                      <a href="javascript:;">
                           <i class="fa fa-tags"></i>
-                          <span>수강후기</span>
+                          <span>강의평가</span>
                       </a>
+                      <ul class="sub">
+                      		<li name="evaluationRegisterList"><a href="${pageContext.request.contextPath}/management/evaluationRegisterList">평가등록</a></li>
+                      		<li name="evaluationResultList"><a href="${pageContext.request.contextPath}/management/evaluationResultList">평가 결과</a></li>                      		
+                      </ul>
                   </li>
                   
                   <li class="sub-menu" name="board">
@@ -85,9 +89,9 @@
                           <span>원생</span>
                       </a>
                       <ul class="sub">
-                          <li name="newMemberList"><a  href="${pageContext.request.contextPath}/management/newMemberList">신규 목록</a></li>
-                          <li name="memberList"><a  href="${pageContext.request.contextPath}/management/memberList">원생 목록</a></li>
-                          <li name="leaveMemberList"><a  href="${pageContext.request.contextPath}/management/leaveMemberList">퇴교 목록</a></li>
+                          <li name="memberOfSiteList"><a  href="${pageContext.request.contextPath}/management/memberOfSiteList">회원 목록</a></li>
+                          <li name="memberOfAcademyList"><a  href="${pageContext.request.contextPath}/management/memberOfAcademyList">원생 목록</a></li>
+                          <li name="leaveMemberList"><a  href="${pageContext.request.contextPath}/management/memberOfLeaveList">퇴교 목록</a></li>
                       </ul>
                   </li>
                   
