@@ -403,7 +403,6 @@
     	  $('#lodingModal').modal({
   			backdrop:false,
   			keyboard:false
-  			
   		   });
 		});
 	});

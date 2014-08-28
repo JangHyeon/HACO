@@ -82,7 +82,7 @@
 		this.nav = document.createElement( 'nav' )
 		var inner = '';
 		for( var i = 0; i < this.itemsCount; ++i ) {
-			inner += i === 0 ? '<span class="current"></span>' : '<span></span>';
+			inner += i === 0 ? '<span class="current"><div></div></span>' : '<span><div></div></span>';
 		}
 		this.nav.innerHTML = inner;
 		this.el.appendChild( this.nav );

@@ -12,73 +12,138 @@
 
 <link rel="stylesheet" type="text/css" href="${resourceUrl}/TiltedContentSlideshow/css/component.css" />
 
-<!-- Begin Body -->
-<div class="container">
-	<div class="no-gutter row">
-		<div id="slideshow" class="slideshow panel">
+<div id="slideshow" class="slideshow panel">
 			<ol class="slides">
 				<li class="current">
 					<div class="description">
-						<h2>컨텐츠 슬라이드쇼</h2>
-						<p>This slider, 에에헤헿헤핳하하하하 <a href="http://www.thefwa.com/">FWA</a>, plays with 3D perspective and performs some interesting animations on the right-hand side images.</p>
+						<h2>Java Framework<br><strong>자바 개발자 취업반</strong></h2>
+						<p>현재 IT에서 가장 각광받는 java Technology의 기초부터 고급기술까지 학습합니다.</p>
+						<p><span><strong>전자정부 프레임워크(java opensource framework)</strong>를 이용한 Enterprise Solution 설계 및 구현과 안드로이드 및 하이브리드앱을 이용한 모바일 애플리케이션 구현을 <br>학습하고 <strong>실무 프로젝트</strong>를 통해 현업에서 필요로 하는 자바 엔지니어 양성을 목표로 합니다.</span></p>
 					</div>
 					<div class="tiltview col">
-						<a href="http://grovemade.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/1_screen.jpg"/></a>
-						<a href="https://tsovet.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/2_screen.jpg"/></a>
+						<a href="#"><img src="${resourceUrl}/TiltedContentSlideshow/img/20140828_112100.png"/></a>
+						<a href="#"><img src="${resourceUrl}/TiltedContentSlideshow/img/java-oracle.png"/></a>
 					</div>
 				</li>
 				<li>
 					<div class="description">
-						<h2>CSS Animations</h2>
-						<p>We are using 12 different animations for showing and hiding the items of a slide. The animations are defined by randomly adding data-attributes called <code>data-effect-in</code> and <code>data-effect-out</code> for every slide. </p>
-					</div>
-					<div class="tiltview row">
-						<a href="http://pexcil.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/3_mobile.jpg"/></a>
-						<a href="http://foodsense.is/"><img src="${resourceUrl}/TiltedContentSlideshow/img/4_mobile.jpg"/></a>
-					</div>
-				</li>
-				<li>
-					<div class="description">
-						<h2>Tilted Items</h2>
-						<p>The perspective view is achieved by adding a perspective value to the slide list item and tilting a division that contains the two screenshots.</p>
+						<h2>jQuery기반<br><strong>Ajax & Template</strong></h2>
+						<p><span><strong>jQuery</strong>를 이용한 다이나믹한 웹 프로그래밍을 위한 기초 과정으로, jQuery, JSON, Ajax에 초점을 맞춰 수업이 진행되며, <br>서버에서 JSON을 처리하는 <strong>JSON-LIB</strong>를 사용합니다.</span></p>
+<p><span>또한 Handlers Template 엔진을 이용하여, <strong>Template 프레임워크</strong>에 대한 개념도 익힐 수 있습니다.</span></p>
 					</div>
 					<div class="tiltview col">
-						<a href="http://minimalmonkey.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/5_screen.jpg"/></a>
-						<a href="http://www.herschelsupply.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/6_screen.jpg"/></a>
+						<a href="#"><img src="${resourceUrl}/TiltedContentSlideshow/img/jQuery-And-Ajax_01.png"/></a>
+						<a href="#"><img src="${resourceUrl}/TiltedContentSlideshow/img/jQuery-And-Ajax_02.png"/></a>
 					</div>
 				</li>
 				<li>
 					<div class="description">
-						<h2>Column or Row</h2>
-						<p>The items in the tilted container are either laid out in a column or in a row. For some directions we need to adjust the animation delays for the items, since we don't want the items to overlap each other when they move in or out.</p>
-					</div>
-					<div class="tiltview row">
-						<a href="http://grovemade.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/1_mobile.jpg"/></a>
-						<a href="https://tsovet.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/2_mobile.jpg"/></a>
-					</div>
-				</li>
-				<li>
-					<div class="description">
-						<h2>Responsiveness</h2>
-						<p>For smaller screens, the items on the right hand side will become less opaque and serve as decoration only. The focus will be on the description which will occupy all the width.</p>
+						<h2>BootStrap 기반<br><strong>반응형 웹</strong></h2>
+						<p><span><strong>Twitter Bootstrap</strong>을 이용한 반응형 웹 프로그래밍을 위한 기초 과정부터 고급과정까지 수업이 진행되며, <br>강력한 프론트엔드 프레임워크 <strong>Bootstrap 3</strong>을 사용합니다.</span></p>
+<p><span>부트스트랩의 개요, 다운받아 사용하는법, 기본 템플릿과 예제 등을 익힐 수 있습니다.</span></p>
 					</div>
 					<div class="tiltview col">
-						<a href="http://pexcil.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/3_screen.jpg"/></a>
-						<a href="http://foodsense.is/"><img src="${resourceUrl}/TiltedContentSlideshow/img/4_screen.jpg"/></a>
-					</div>
-				</li>
-				<li>
-					<div class="description">
-						<h2>Navigation</h2>
-						<p>For the "line" navigation we use a little trick to make the clickable area a bit bigger: we add a thick white border to the top and bottom of the span. Since the border is part of the element, it will be part of the clickable zone.</p>
-					</div>
-					<div class="tiltview row">
-						<a href="http://minimalmonkey.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/5_mobile.jpg"/></a>
-						<a href="http://www.herschelsupply.com/"><img src="${resourceUrl}/TiltedContentSlideshow/img/6_mobile.jpg"/></a>
+						<a href="#"><img src="${resourceUrl}/TiltedContentSlideshow/img/Bootstrap_Banner.png"/></a>
+						<a href="#"><img src="${resourceUrl}/TiltedContentSlideshow/img/featured10@wdd2x.jpg"/></a>
 					</div>
 				</li>
 			</ol>
 		</div><!-- /slideshow -->
+
+<!-- Begin Body -->
+<div class="container">
+	
+
+	<div class="no-gutter row">
+		
+	</div>	
+	<div class="row">
+		<div class="col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">공지사항<span class="pull-right"><a href="${pageContext.request.contextPath}/notice"><small><i class="fa fa-plus-square"></i>&nbsp; 더보기</small></a></span></div>
+				<div class="notice-content">
+					<!-- <h4>
+						<i class="fa fa-angle-right"></i> Hover Table
+					</h4>
+					<hr> -->
+					<table class="table table-hover index-notice">
+						<tbody>
+							<c:forEach var="notice" items="${noticeList}">
+								<tr>
+									<td>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${notice.title}</a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-5">
+			<div class="panel panel-default edu">
+				<div class="panel-heading">교육과정<span class="pull-right"><a href="${pageContext.request.contextPath}/lectureregister"><small><i class="fa fa-plus-square"></i>&nbsp; 더보기</small></a></span></div>
+				<div class="notice-content">
+					<!-- <h4>
+						<i class="fa fa-angle-right"></i> Hover Table
+					</h4>
+					<hr> -->
+					<table class="table table-hover index-notice">
+						<tbody>
+							<c:forEach var="lectureRegister" items="${lectureRegisterList}">
+								<tr>
+									<td>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${lectureRegister.course_name}</a></td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-6 col-md-3">
+			<div class="panel panel-default">
+				<div id="carousel-example-generic" class="carousel slide bs-docs-carousel-example">
+			        <ol class="carousel-indicators">
+			          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+			          <li data-target="#carousel-example-generic" data-slide-to="1" class=""></li>
+			          <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+			          <li data-target="#carousel-example-generic" data-slide-to="3" class=""></li>
+			          <li data-target="#carousel-example-generic" data-slide-to="4" class=""></li>
+			        </ol>
+			        <div class="carousel-inner">
+			          <div class="item active">
+			          	<a href="http://getbootstrap.com" target="_blank">
+			            <img src="${resourceUrl}/images/index/bootstrap.png" data-src="holder.js/900x500/auto/#777:#555/text:First slide" alt="First slide">
+			            </a>
+			          </div>
+			          <div class="item">
+			          	<a href="https://evernote.com" target="_blank">
+			            <img src="${resourceUrl}/images/index/evernote.png" data-src="holder.js/900x500/auto/#666:#444/text:Second slide" alt="Second slide">
+			            </a>
+			          </div>
+			          <div class="item">
+			          	<a href="https://mail.google.com" target="_blank">
+			            <img src="${resourceUrl}/images/index/gmail.png" data-src="holder.js/900x500/auto/#666:#444/text:Second slide" alt="Second slide">
+			            </a>
+			          </div>
+			          <div class="item">
+			          	<a href="http://jquery.com" target="_blank">
+			            <img src="${resourceUrl}/images/index/jquery.png" data-src="holder.js/900x500/auto/#666:#444/text:Second slide" alt="Second slide">
+			            </a>
+			          </div>
+			          <div class="item">
+			          	<a href="http://spring.io" target="_blank">
+			            <img src="${resourceUrl}/images/index/spring.png" data-src="holder.js/900x500/auto/#666:#444/text:Second slide" alt="Second slide">
+			            </a>
+			          </div>
+			        </div>
+			        <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+			          <span class="icon-prev"></span>
+			        </a>
+			        <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+			          <span class="icon-next"></span>
+			        </a>
+			      </div>
+			</div>
+		</div>
 	</div>
 </div>
 
@@ -96,8 +161,9 @@ $(document).ready(function(){
 	new TiltSlider( document.getElementById( 'slideshow' ) );
 
 	var el=2;
+	var maxSilde=$('.slides>li').length;
 	setInterval(function(){
-		if(el==7){
+		if(el==maxSilde){
 		$('#slideshow nav span:nth-child(1)').click();
 		el=2;
 		}
@@ -105,7 +171,11 @@ $(document).ready(function(){
 		$('#slideshow nav span:nth-child('+el+')').click();
 		el=el+1;
 		}
-	},6000);
+	},8000);
+	
+	$('.carousel').carousel({
+		  interval: 5000
+	})
 });
 </script>
 

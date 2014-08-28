@@ -68,7 +68,7 @@
 		});
 			(function() {
 				
-				$("#backst").backstretch("${resourceUrl}/images/wallpaper-1200407.jpg");
+				$("#backst").backstretch("${resourceUrl}/images/wallpaper-1200407.jpg", {speed: 800});
 				
 				// detect if IE : from http://stackoverflow.com/a/16657946		
 				var ie = (function(){

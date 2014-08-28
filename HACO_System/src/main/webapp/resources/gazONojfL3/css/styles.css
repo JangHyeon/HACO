@@ -73,7 +73,6 @@ body{
 body{
     color: #595959;
 	background: #f9f9f9;
-	font-family: ;
 	font-family: 'Ruda','Nanum Gothic',Dotum, serif;
 	padding: 0px !important;
     margin: 0px !important;
@@ -204,8 +203,8 @@ h3.highlight  {
 .panel,.panel-heading {
   	border-radius:0;
   	border-width:0;
-  	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.09);
-	box-shadow: 0 3px 3px  rgba(0, 0, 0, 0.09);
+  	-webkit-box-shadow: 0 3px 3px rgba(0, 0, 0, 0.19);
+	box-shadow: 0 3px 3px  rgba(0, 0, 0, 0.19);
 }
 
 .thumbnail {
@@ -551,6 +550,7 @@ margin: 3px 3px 3px 4px;
 .panel-default>.panel-heading{
 	background-color: #424a5d; 
 	color: #fff;
+	margin-bottom: 5px;
 }
 .breadcrumb{
 	padding:10px 15px;
@@ -766,4 +766,35 @@ tbody > tr > td > a > span > .fa-question{
 		margin-right: 0px;
 		margin-left: 0px;
 	}
+}
+
+.table.index-notice>tbody>tr>td{
+	border-top:0px;
+	padding-top: 3px;
+	padding-bottom: 3px;
+	text-overflow: ellipsis;
+}
+
+.notice-content{
+	padding: 1px 0px;
+}
+
+.carousel-control.right{
+	background-image: none;
+}
+.carousel-control.left{
+	background-image: none;
+}
+
+.carousel-indicators {
+	bottom: 0;
+}
+
+
+.edu > .panel-heading{
+	background: #77C9FF;
+}
+
+.panel-heading > span > a {
+	color : #fff;
 }

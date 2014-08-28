@@ -11,20 +11,31 @@
 	<spring:param name="applicationVersion" value="${applicationVersion}" />
 </spring:url>
 
-<link rel="stylesheet"
-	href="${resourceUrl}/Remodal/jquery.remodal.css">
+<!--external css-->
+<link href="${resourceUrl}/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/css/zabuto_calendar.css">
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/js/gritter/css/jquery.gritter.css" />
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/lineicons/style.css">
 
-<!-- myPage header column -->
-<%@ include file="inc/noticeHeader.jsp"%>
+<!-- Custom styles for this template -->
+<link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
+<link href="${resourceUrl}/assets/css/style-responsive.css" rel="stylesheet">
 
+<input id="current-accordion" type="hidden" value="board,notice" />
 
-<!-- Begin Body -->
-<div class="container">
-	<div class="no-gutter row">
-		<div class="col-xs-12 col-sm-12 col-md-12">
-			<div class="panel panel-default">
+<!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+<!--main content start-->
+<section id="main-content">
+	<section class="wrapper">
+		<h3>
+			<i class="fa fa-angle-right"></i> 공지사항
+		</h3>
+		<div class="row">
+			<div class="col-md-12 mt">
 				<!-- <div class="panel-heading">공지사항</div> -->
-				<div class="panel-body">
+				<div class="content-panel panel-body">
 					<!-- 뷰 -->
 					<div class="view_head">
 						<div class="subject">${notice.title}</div>
@@ -59,14 +70,14 @@
 						<button id="deleteBtn" class="btn btn-default" type="button">삭제</button>
 						</s:authorize>
 					</div>
-					<hr style="display: block; clear: both;">
-
 				</div>
 			</div>
-			<!--/panel-->
 		</div>
-	</div>
-</div>
+		<!-- row -->
+	</section>
+</section>
+<!--main content end-->
+
 
 <!-- idModal2 -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="deleteModal" class="modal fade">
@@ -92,17 +103,11 @@
 
 
 
-<!-- script references -->
-<script
-	src="${resourceUrl}/gazONojfL3/js/jquery.1.9.1.min.js"></script>
-<script
-	src="${resourceUrl}/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
-<script
-	src="${resourceUrl}/gazONojfL3/js/scripts.js"></script>
-<script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
-<script
-	src="${resourceUrl}/Remodal/jquery.remodal.min.js"></script>
-	
+
+<!-- inclue common script -->
+<%@ include file="commonScript.jsp"%>
+
+<!--script for this page-->
 <script src="${resourceUrl}/ckeditor/ckeditor.js"></script>
 
 
@@ -111,11 +116,11 @@
 $(document).ready(function(){		
 	
 	$('#listBtn').on('click', function() {
-		location.href='${pageContext.request.contextPath}/notice/pageSize/${notice.pageSize}/pageNum/${notice.pageNum}/searchType/${notice.searchType}/searchKey/${notice.searchKey}';
+		location.href='${pageContext.request.contextPath}/management/notice/pageSize/${notice.pageSize}/pageNum/${notice.pageNum}/searchType/${notice.searchType}/searchKey/${notice.searchKey}';
 	});
 	
 	$('#modifyBtn').on('click', function() {
-		location.href='${pageContext.request.contextPath}/noticeModify/pageSize/${notice.pageSize}/pageNum/${notice.pageNum}/searchType/${notice.searchType}/searchKey/${notice.searchKey}/noticeId/${notice.notice_id}';
+		location.href='${pageContext.request.contextPath}/management/noticeModify/pageSize/${notice.pageSize}/pageNum/${notice.pageNum}/searchType/${notice.searchType}/searchKey/${notice.searchKey}/noticeId/${notice.notice_id}';
 	});
 
 	$('#deleteBtn').on('click', function() {
@@ -123,11 +128,8 @@ $(document).ready(function(){
 	});
 	
 	$('#deleteModalDeleteBtn').on('click',function(){
-		location.href='${pageContext.request.contextPath}/noticeDelete/${notice.notice_id}';
+		location.href='${pageContext.request.contextPath}/management/noticeDelete/${notice.notice_id}';
 	});
 
 });
 </script>
-
-
-

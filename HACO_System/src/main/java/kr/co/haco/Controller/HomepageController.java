@@ -3,6 +3,7 @@ package kr.co.haco.Controller;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.sql.Time;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -41,6 +42,7 @@ public class HomepageController {
 	@Autowired
 	LectureRegisterService lectureRegisterService;
 	
+	
 	// 에러페이지
 	@RequestMapping(value = "/error/{msg}")
 	public String error(@PathVariable String msg, Model model) {
@@ -55,8 +57,16 @@ public class HomepageController {
 
 	// 메인페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(Model model, HttpServletRequest request, HttpSession session, Notice notice) {
+		homepageService.getNoticeList(notice, session, model, request.getContextPath());
 		
+		HashMap<String,Object> map = new HashMap<String,Object>();
+		Calendar c = Calendar.getInstance();
+		String month = ""+(c.get(Calendar.MONTH)+1);
+		if(month.length()==1) {month= "0" +month;};
+		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE)+1);
+		map.put("today", today);
+		model.addAttribute("lectureRegisterList", lectureRegisterService.getopencourselist(map));
 		return "homepage.index";
 	}
 	
@@ -277,6 +287,14 @@ public class HomepageController {
 	@RequestMapping(value = "/noticeModifyProcess",method = RequestMethod.POST)
 	public String noticeModifyProcess(Notice notice) {
 		homepageService.updateNotice(notice);
+		
+		//Redirect시 UTF-8 > ISO8859로 인코딩 변환해야함
+		try {
+			notice.setSearchKey(new String(notice.getSearchKey().getBytes("UTF-8"),"8859_1"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "redirect:/noticeView/pageSize/"+notice.getPageSize()+"/pageNum/"+notice.getPageNum()+"/searchType/"+notice.getSearchType()+"/searchKey/"+notice.getSearchKey()+"/noticeId/"+notice.getNotice_id();
 	}
 	
@@ -395,6 +413,14 @@ public class HomepageController {
 	@RequestMapping(value = "/qnaModifyProcess",method = RequestMethod.POST)
 	public String qnaModifyProcess(Qna qna) {
 		homepageService.updateQna(qna);
+		
+		//Redirect시 UTF-8 > ISO8859로 인코딩 변환해야함
+		try {
+			qna.setSearchKey(new String(qna.getSearchKey().getBytes("UTF-8"),"8859_1"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return "redirect:/qnaView/pageSize/"+qna.getPageSize()+"/pageNum/"+qna.getPageNum()+"/searchType/"+qna.getSearchType()+"/searchKey/"+qna.getSearchKey()+"/qnaId/"+qna.getQna_id();
 	}
 	

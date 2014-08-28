@@ -69,7 +69,7 @@
 			});
 			(function() {
 				
-				$("#backst").backstretch("${resourceUrl}/images/Bill-Gates-1.jpg");
+				$("#backst").backstretch("${resourceUrl}/images/Bill-Gates-1.jpg", {speed: 800});
 				
 				// detect if IE : from http://stackoverflow.com/a/16657946		
 				var ie = (function(){

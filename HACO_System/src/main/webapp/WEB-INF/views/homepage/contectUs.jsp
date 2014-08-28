@@ -72,7 +72,7 @@
 			});
 			(function() {
 				
-				$("#backst").backstretch("${resourceUrl}/images/20140819_005048.png");
+				$("#backst").backstretch("${resourceUrl}/images/20140819_005048.png", {speed: 800});
 				
 				// detect if IE : from http://stackoverflow.com/a/16657946		
 				var ie = (function(){

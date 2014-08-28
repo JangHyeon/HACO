@@ -302,9 +302,8 @@ public class HomepageServiceImpl implements HomepageService {
 	         response.addCookie(cookie);
 	         // 조회수 업데이트
 	         sqlSession.getMapper(HomepageDAO.class).countNotice(notice_id);
+	         notice.setHit(notice.getHit()+1);
 	    }
-	    notice.setHit(notice.getHit()+1);
-	    
 		return notice;
 	}
 	
@@ -539,6 +538,7 @@ public class HomepageServiceImpl implements HomepageService {
 	         response.addCookie(cookie);
 	         // 조회수 업데이트
 	         sqlSession.getMapper(HomepageDAO.class).countQna(qna_id);
+	         qna.setHit(qna.getHit()+1);
 	    }
 		return qna;
 	}

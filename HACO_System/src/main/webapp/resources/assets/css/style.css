@@ -1179,7 +1179,7 @@ PANELS CONFIGURATIONS
 	background: #ffffff;
 	box-shadow: 0px 3px 2px #aab2bd;
 	padding-top: 15px;
-	padding-bottom: 5px;
+	padding-bottom: 15px;
 }
 .content-panel h4 {
 	margin-left: 10px;
@@ -2298,4 +2298,178 @@ label {
 .employeePhoto-img{
 	top: -15px;
 	position: relative;
+}
+
+
+.topToggle{
+	margin-right: 15px;
+}
+
+.table-footer{
+	display: table;
+}
+
+.pagination-centered {
+	display: table;
+	text-align: center;
+	margin: 15px auto;
+}
+
+.form-panel > hr{
+	margin: 20px -10px;
+}
+.panel-body > hr{
+	border-top: 1px solid #eee;
+	margin: 20px -15px;
+}
+
+
+
+
+/* Borad_view---------------------*/
+.view_head{
+	float: left;
+	width: 100%;
+	padding-bottom: 11px;
+	border-bottom: 1px solid #efefef;
+}
+.view_head .subject{
+	display:block;
+	text-align: left;
+	font-size: 1.5em;
+    font-weight: bold;
+    color: #444;
+   
+	margin-top: 15px;
+	margin-bottom: 15px;
+}
+.view_head .readcount_text{
+	display:inline;
+	font-size: 0.9em;
+    color: #999;
+	text-align: left;
+}
+.view_head .readcount{
+	padding-left: 3px;
+	display:inline;
+	font-size: 11px;
+    font-weight: bold;
+    color: #666;
+	text-align: left;
+}
+.view_head .txt_bar {
+padding: 0 1px 0 2px;
+font: normal 10px/10px dotum;
+}
+
+.view_head .writer{
+	display:inline;
+	font-size: 0.9em;
+    color: #999;
+	text-align: left;
+}
+.view_head .reg_date{
+	display:inline;
+	font-size: 0.9em;
+    color: #999;
+	text-align: left;
+	
+	position: relative;
+	top: -1px;
+	font: 10px/10px tahoma;
+}
+.view_head .state{
+	display:inline;
+}
+
+
+.view_head > .state > span.label{
+	padding: .4em .6em .3em;
+	margin-left: 5px;
+}
+
+
+
+/* view_body */ 
+.view_body{
+	float: left;
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	padding: 2px 0 15px;
+	margin-bottom: 50px;
+	clear: both;
+}
+
+.view_body .content{
+	font-size: 14px;
+	line-height: 1.5em;
+	padding-top: 24px;
+	display: block;
+	
+	overflow: auto;
+	width: 100%;
+	
+	word-break:keep-all; 
+	word-wrap:break-word;
+}
+.view_body .content img{
+	max-width: 100%;
+}
+
+tbody > tr> td> a {
+	color: #595959;
+}
+
+#deleteModal .modal-dialog{
+	max-width:400px;
+}
+
+#deleteModal .modal-dialog .modal-content .modal-header{
+	background: #d9534f;
+} 
+
+#deleteModal .modal-dialog .modal-content .modal-header .modal-title{
+	color: #fff;
+}
+
+.topNotice {
+background-color: #f5f5f5;
+}
+.table>tbody+tbody {
+border-top: 1px solid #ddd;
+}
+
+tbody > tr > td > a > span.label{
+	padding: .4em .6em .3em;
+	margin-right: 5px;
+	width:43px;
+}
+
+
+tbody > tr > td > a > i{
+	margin-right: 5px;
+}
+tbody > tr > td > a > span > .fa-question{
+	width:9px;
+}
+
+.content > .question{
+	opacity: 0.7;
+}
+
+.mypageBtn, .joinBtn, .submitBtn {
+	display: block;
+	margin: 30px auto 50px;
+	width: 150px;
+}
+.joinbtn {
+	height: 50px;
+	font-size: 15px;
+	font-weight: 600;
+	margin-bottom: 50px;
+}
+.submitBtn{
+	display: table;
+	margin-bottom: 0;
 }
