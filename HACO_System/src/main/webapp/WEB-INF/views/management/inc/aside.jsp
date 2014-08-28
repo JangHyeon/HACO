@@ -12,11 +12,11 @@
               <!-- sidebar menu start-->
               <ul class="sidebar-menu" id="nav-accordion">
               
-              	  <p class="centered">
+              	  <div class="centered employeePhoto">
               	  	<a href="${pageContext.request.contextPath}/management/profile/${sessionScope.employee.account_id}">
-              	  		<img src="${pageContext.request.contextPath}/employeePhoto/${sessionScope.employee.photo}" class="img-circle" width="80">
+              	  		<img src="${pageContext.request.contextPath}/employeePhoto/${sessionScope.employee.photo}" class="employeePhoto-img" width="80" onerror="this.src='${pageContext.request.contextPath}/images/gray-ori-User-Role-Guest-icon.png'">
               	  	</a>
-              	  </p>
+              	  </div>
               	  <h5 class="centered">${sessionScope.employee.name_kor}<br>${sessionScope.employee.name_eng}</h5>
 
 			  	    

@@ -11,20 +11,17 @@
 </spring:url>
 <link rel="stylesheet" href="${resourceUrl}/Remodal/jquery.remodal.css">
 
+
 <!-- myPage header column -->
-<%@ include file="inc/mypageHeader.jsp" %>
+<%@ include file="inc/myLectureHistoryHeader.jsp" %>
+
 
 <!-- Begin Body -->
 <div class="container">
 	<div class="no-gutter row">
-		
-		<!-- left side column -->
-		<%@ include file="inc/mypageAside.jsp" %>
-		<!-- END/left side column -->
-
 
 		<!-- right content column-->
-		<div class="col-md-10" id="content">
+		<div class="col-md-12" id="content">
 			<div class="panel">
 				<ol class="breadcrumb">
 				  <li class="active">수강 내역</li>

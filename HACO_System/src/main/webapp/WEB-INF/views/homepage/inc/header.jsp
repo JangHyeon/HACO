@@ -22,10 +22,7 @@
             </ul>
           </li>
           <li class="dropdown">
-          	<a href="#" class="dropdown-toggle" data-toggle="dropdown">교육과정</a>
-          	<ul class="dropdown-menu">
-          	 <li><a href="${pageContext.request.contextPath}/lectureregister">수강신청</a></li>
-          	 </ul>
+          	<a href="${pageContext.request.contextPath}/lectureregister">교육과정</a>
           </li>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">열린마당</a>
@@ -35,13 +32,19 @@
               <li><a href="${pageContext.request.contextPath}/community">모임방</a></li>
             </ul>
           </li>
+          
+          <li class="dropdown">
+          	<a href="${pageContext.request.contextPath}/myLectureHistory">수강내역</a>
+          </li>
+          
+          <!-- 
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">강의평가</a>
             <ul class="dropdown-menu">
               <li><a href="#">강의평가</a></li>
               <li><a href="#">평가결과</a></li>
             </ul>
-          </li>
+          </li> -->
         </ul>
         <ul class="nav navbar-right navbar-nav">
           <!-- 검색 레이어 
@@ -63,7 +66,8 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
             <ul class="dropdown-menu">
               <s:authorize ifAnyGranted="GUEST,STUDENT">
-              	<li><a href="${pageContext.request.contextPath}/myPage">마이 페이지</a></li>
+              	<li role="presentation" class="dropdown-header">MyPage</li>
+              	<li><a href="${pageContext.request.contextPath}/memberModify">회원정보 수정</a></li>
               </s:authorize>
               <s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
               	<li><a href="${pageContext.request.contextPath}/management/">관리자 페이지</a></li>

@@ -2287,3 +2287,15 @@ label {
 #lodingModal{
 	margin-top: 50px;
 }
+
+.employeePhoto{
+	width: 80px;
+	margin: 0 auto;
+	height: 80px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+.employeePhoto-img{
+	top: -15px;
+	position: relative;
+}

@@ -406,9 +406,9 @@
     <script src="${resourceUrl}/assets/js/gritter-conf.js"></script>
     <script src="${resourceUrl}/assets/js/sparkline-chart.js"></script>    
 	<script src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>	
-	
+	<%-- 
 	<script type="text/javascript">
-        $(document).ready(function () {
+    $(document).ready(function () {
         var unique_id = $.gritter.add({
             // (string | mandatory) the heading of the notification
             title: '환영합니다!',
@@ -429,7 +429,7 @@
 	</script>
 	
 	<script type="text/javascript">
-        $(document).ready(function () {
+    $(document).ready(function () {
         var unique_id1 = $.gritter.add({
             // (string | mandatory) the heading of the notification
             title: 'Welcome to Dashgum!',
@@ -448,7 +448,7 @@
         return false;
         });
 	</script>
-	
+	 --%>
 	<script type="application/javascript">
         $(document).ready(function () {
             $("#date-popover").popover({html: true, trigger: "manual"});
