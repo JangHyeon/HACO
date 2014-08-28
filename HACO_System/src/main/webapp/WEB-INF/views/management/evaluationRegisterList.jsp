@@ -56,8 +56,16 @@
 	                                <td class="numeric">
 	                                	<c:choose>
 											<c:when test="${uri=='evaluationRegisterList'}">
-												<a href="${pageContext.request.contextPath}/management/evaluationRegisterform?open_course_id=${erl.open_course_id}">
-													${erl.course_name}</a>
+												<c:choose>
+													<c:when test="${erl.state_code==-1}">
+														<a href="${pageContext.request.contextPath}/management/evaluationRegisterform?open_course_id=${erl.open_course_id}">
+														${erl.course_name}</a>
+													</c:when>
+													<c:otherwise>
+														<a href="${pageContext.request.contextPath}/management/evaluationRegisterDetail?open_course_id=${erl.open_course_id}">
+														${erl.course_name}</a>
+													</c:otherwise>
+												</c:choose>
 											</c:when>
 											<c:when test="${uri=='evaluationResultList'}">
 												<a href="${pageContext.request.contextPath}/management/evaluationResult?open_course_id=${erl.open_course_id}">
@@ -69,7 +77,8 @@
 	                                <td class="numeric">	 
 	                                	<%-- ${erl.state_code}   --%>                             
 		                                <c:choose>
-											<c:when test="${erl.state_code==1}">설문중</c:when>
+											<c:when test="${erl.state_code==1}">
+												<a href="${pageContext.request.contextPath}/management/evaluationResult?open_course_id=${erl.open_course_id}">설문중</a></c:when>
 											<c:when test="${erl.state_code==0}">비활성</c:when>
 											<c:when test="${erl.state_code==9}">설문 완료 </c:when>
 											<c:when test="${erl.state_code==-1}">미등록</c:when>																								

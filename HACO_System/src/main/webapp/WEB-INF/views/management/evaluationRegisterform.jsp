@@ -138,7 +138,7 @@
 								<label class="col-sm-2 col-sm-2 control-label" id="essay_question_label" >Q_주관식</label>
 								<input type="hidden" name="type_code" value="2">
 								<div class="col-sm-8 input-group">
-									<input type="text" class="form-control" id="essay_question_input" name="question">
+									<input type="text" class="form-control noInput" id="essay_question_input" name="question">
 								</div>
 							</div>	
 							<!-- 객관식 질문 틀 -->
@@ -146,7 +146,7 @@
 								<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label">Q_객관식</label>
 								<input type="hidden" name="type_code" value="1">
 								<div class="col-sm-8 input-group" >
-									<input type="text" class="form-control" id="multiple_choice_input" name="question">
+									<input type="text" class="form-control noInput" id="multiple_choice_input" name="question">
 								</div>	
 								<!-- 보기 --> 
 								<div id="multiple_choice_items_place">
@@ -156,7 +156,7 @@
 										    <div>							    							     
 												<label> 
 													<input type="hidden" id="example_content_delimiter" name="example_content" value="0">
-													<input type="text" class="form-control" id="example_content" name="example_content">
+													<input type="text" class="form-control noInput" id="example_content" name="example_content">
 												</label>								     												     	  
 										     	<button type="button" class="btn btn-default items_btn" id="multiple_choice_items_btn" >+</button>							    						  
 										    </div>
@@ -185,7 +185,15 @@
     <!--script for this page-->
   <script type="text/javascript">
   	$(function(){   
-  		
+  		$(".noInput").keyup(function (event) {
+            regexp =  /[,]/g;
+            v = $(this).val();
+            if (regexp.test(v)) {
+                //alert("실명을 입력하여 주세요\n한글만 입력가능 합니다.");
+                $(this).val(v.replace(regexp, ''));
+            }
+        });
+
   		//객관식,주관식 질문 선택
   		var cnt=0;
     	$("#select_question_btn").click(function(){    		

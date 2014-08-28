@@ -27,9 +27,9 @@
           <section class="wrapper site-min-height">
           	<h3><i class="fa fa-angle-right"></i> 강의평가 결과</h3>
           	<div class="row mt">
-          		<div class="col-lg-12">
           		
-          			<!-- START CHART - 4TH ROW OF PANELS -->                      
+          		<div class="col-lg-12">         		
+          			  <!-- Exam -->                      
                       <div class="row" id="examResultPlace">
                       	
                       	<div class="col-md-4 col-sm-4 mb" id="examQuest" style="display:none">
@@ -40,10 +40,9 @@
 								<div id="evalChart">		                      			
 		                      	</div>
 	                      	</div><! --/grey-panel -->
-                      	</div><!-- /col-md-4-->                      	
-                      
-                    </div><!-- /END CHART - 4TH ROW OF PANELS -->                  
-                    
+                      	</div><!-- /col-md-4-->                     
+                    </div>
+                    <!-- /END Exam -->          
           		</div>
           	</div>
           	
@@ -97,11 +96,12 @@
 	    	//alert("dataList.lenght:"+dataList.length);	    	
 	    		
 	    	
-	    	for(var i=0; i<dataList.length; i++){	
+	    	for(var i=0; i<dataList.length; i++){	    		
 	    		//alert("i:"+i);
 	    		var newDiv = $("#examQuest").clone(true).css("display","block");
 	    		$(newDiv).attr("id", "examQuest"+i);
 	    		$(newDiv).find("#evalChart").attr("id", "evalChart"+i); 
+	    		$(newDiv).find("h5").text(dataList[i][0].question);
 	    		$("#examResultPlace").append(newDiv);   
 	    		
 	    	}    	

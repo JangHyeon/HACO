@@ -87,25 +87,25 @@
 									</c:when>
 									<c:when test="${question.type_code=='1'}"> <!-- 객관식일때 -->
 										<div class="form-group" id="multiple_choice" >
-											<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label">Q_객관식</label>								
+											<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label">질문<%=idx_question%></label>								
 											<div class="col-sm-8 input-group" >
 												<input type="text" class="form-control" readonly="readonly" value="ㅋㅋㅋ" style="border:0px;background-color:white">
 											</div>	
-											<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_items_label">보기<%=idx_examListofList%></label>
+											<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_items_label">&nbsp;보기</label>
 											<div class="col-sm-10">		
 												<%													    	
 													List<ArrayList<EvaluationRegister>> examListofList= (List<ArrayList<EvaluationRegister>>)request.getAttribute("examListofList");
 													ArrayList<EvaluationRegister> examList = examListofList.get(idx_examListofList);											    	
-													for(int i=0;i<examList.size();i++){ %>																							
-														
-													 <%= examList.get(i).getExample_content()%>
+													for(int i=0;i<examList.size();i++){ %>					
+													 <%=i+1%>.<%= examList.get(i).getExample_content()%>&nbsp;&nbsp;&nbsp;
 							  					
-							  					<%} 
+							  					<%} 											  
 												  idx_examListofList++;%>
 											 </div> 			
 				  						</div>				
 									</c:when>	
 								</c:choose>
+								<%idx_question++; %>
 							</c:forEach>
 														
 						    </form>
