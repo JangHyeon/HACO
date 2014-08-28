@@ -48,35 +48,21 @@ public class HomepageMyPageServiceImpl implements HomepageMyPageService {
 		System.out.println("HomepageMyPageServiceImpl :uploadEval");
 		MypageDAO mypageDAO = sqlsession.getMapper(MypageDAO.class); 
 		int result=0;
-		System.out.println("account_id:"+account_id);
-		System.out.println("open_course_id:"+open_course_id);
+		
 		result += mypageDAO.setIsSurvey(account_id, open_course_id);
 		System.out.println("setIsSurvey result:"+result);
-		for(int i=0; i<answerAndExam.size(); i++){
-			 for(String s : answerAndExam.keySet()){
-				 System.out.println(i+":"+s);
-				 if(answerAndExam.get(s).equals("EvalQuestionAnswer")) { //주관식 일때					 
-					 result += mypageDAO.uploadEvalAnswer((EvalQuestionAnswer)answerAndExam.get(i));
-					 System.out.println("EvalQuestionAnswer result:"+result);
-					 
-					 EvalQuestionAnswer e = (EvalQuestionAnswer)answerAndExam.get(i);
-					 System.out.println("getAccount_id:"+e.getAccount_id());
-					 System.out.println("getAnswer:"+e.getAnswer());
-					 System.out.println("getOpen_course_id:"+e.getOpen_course_id());
-					 System.out.println("getQuestion:"+e.getQuestion());
-					 System.out.println("getQuestion_id:"+e.getQuestion_id());
-					 System.out.println("EvalQuestionAnswer result:"+result);
-			     }else{ //객관식 일때
-			    	 result += mypageDAO.uploadEvalExam((EvalExampleResult)answerAndExam.get(i));
-			    	 System.out.println("EvalExampleResult result:"+result);
-			    	 
-			    	 EvalExampleResult e = (EvalExampleResult)answerAndExam.get(i);			    	 
-			    	 System.out.println("getAccount_id:"+e.getAccount_id());					 
-					 System.out.println("getOpen_course_id:"+e.getOpen_course_id());
-					 System.out.println("getQuestion:"+e.getQuestion());
-					 System.out.println("getQuestion_id:"+e.getQuestion_id());					 
-			     }
-			 }
+		
+		System.out.println("answerAndExam.size():"+answerAndExam.size());
+		for(int i=0; i<answerAndExam.size(); i++){			
+			if(answerAndExam.get("EvalExampleResult") != null){ //객관식일 때
+				System.out.println("EvalExampleResult null아님 -객관식");
+				result += mypageDAO.uploadEvalExam((EvalExampleResult)answerAndExam.get(i));
+		    	System.out.println("EvalExampleResult result:"+result);
+			}else{ //주관식일 때
+				System.out.println("EvalQuestionAnswer null임-주관식");
+				result += mypageDAO.uploadEvalAnswer((EvalQuestionAnswer)answerAndExam.get(i));
+				System.out.println("EvalQuestionAnswer result:"+result);
+			}	
 		}
 		
 		return result;
