@@ -19,37 +19,67 @@
     
 	<input id="current-accordion" type="hidden" value="lectureEvaluation,evaluationResultList"/>
 
-     <!-- **********************************************************************************************************************************************************
+      <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper site-min-height">
-          	<h3><i class="fa fa-angle-right"></i> 강의평가 결과 - Java 제 123123기수 과정 </h3>
+          	<h3><i class="fa fa-angle-right"></i> 강의평가 결과</h3>
           	<div class="row mt">
           		<div class="col-lg-12">
-     
-                      <!-- CHART PANELS -->
-                      <div class="row">                     
-                      
-                      	<div class="col-md-4 col-sm-4 mb">
+          		
+          			<!-- START CHART - 4TH ROW OF PANELS -->                      
+                      <div class="row" id="examResultPlace">
+                      	
+                      	<div class="col-md-4 col-sm-4 mb" id="examQuest" style="display:none">
                       		<div class="grey-panel pn donut-chart">
                       			<div class="grey-header">
 						  			<h5>질문1</h5>
                       			</div>
-                      			<div id="je">
-                      			
-                      			</div>								
+								<div id="evalChart">		                      			
+		                      	</div>
 	                      	</div><! --/grey-panel -->
-                      	</div><!-- /col-md-4-->
-                      	
-
+                      	</div><!-- /col-md-4-->                      	
                       
-                    </div><!-- /END CHART - 4TH ROW OF PANELS -->      
-           
+                    </div><!-- /END CHART - 4TH ROW OF PANELS -->                  
+                    
           		</div>
           	</div>
-			
+          	
+          	<!-- 주관식 -->          	
+          	<div class="bs-example">
+			    <div class="panel-group" id="accordion">
+			    	<%-- <c:forEach var="essay" items="${essayResult}"> --%>
+			        <div class="panel panel-default">
+			            <div class="panel-heading">
+			                <h4 class="panel-title">
+			                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">ㅎㅎㅎ</a>
+			                </h4>
+			            </div>
+			            <div id="collapseOne" class="panel-collapse collapse in">
+			                <div class="panel-body">
+			                    <p>하하하</p>
+			                </div>
+			            </div>
+			        </div>
+			       <%--  </c:forEach> --%>
+			        <div class="panel panel-default">
+			            <div class="panel-heading">
+			                <h4 class="panel-title">
+			                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. 샘플?</a>
+			                </h4>
+			            </div>
+			            <div id="collapseTwo" class="panel-collapse collapse in">
+			                <div class="panel-body">
+			                    <p>Twitter Bootstrap is a powerful front-end framework for faster and easier web development. It is a collection of CSS and 
+			                    HTML conventions. <a href="http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
+			                </div>
+			            </div>
+			        </div>
+			      
+			    </div>
+			</div>
 		</section><! --/wrapper -->
       </section><!-- /MAIN CONTENT -->
 
@@ -63,40 +93,40 @@
 <script src="http://code.highcharts.com/modules/exporting.js"></script>
 <script type="text/javascript">
 	$(document).ready(function() {
-	    $.getJSON('getEvalChart?open_course_id=${param.open_course_id}', function(data) {
-	    	//alert("data.lenght:"+data.length);		
-	    			
-			var resultData = new Array();
-			
-			for(var i=0; i<data.length; i++){			
-				//var o = new Object();
-				//o['name']=data[i].example_content;
-				//o['y']=data[i].counts*1;
-				
-				/* var o = {
-					    name : data[i].example_content,
-					    y : data[i].counts*1
-					}; */
-				
-				//o.name=data[i].example_content;
-				//o.y=data[i].counts*1;
-				//alert("example_content:"+o.example_content);
-				//alert("counts:"+o.counts);
-				resultData.push([data[i].example_content,data[i].counts]);
-			}
-			
-			//highcharts함수
-			 $('#je').highcharts({
+			    $.getJSON('getEvalChart?open_course_id=${param.open_course_id}', function(dataList) {
+	    	//alert("dataList.lenght:"+dataList.length);	    	
+	    		
+	    	
+	    	for(var i=0; i<dataList.length; i++){	
+	    		//alert("i:"+i);
+	    		var newDiv = $("#examQuest").clone(true).css("display","block");
+	    		$(newDiv).attr("id", "examQuest"+i);
+	    		$(newDiv).find("#evalChart").attr("id", "evalChart"+i); 
+	    		$("#examResultPlace").append(newDiv);   
+	    		
+	    	}    	
+	    	
+			for(var x=0; x<dataList.length; x++){				
+				var data = dataList[x];
+				var resultData = new Array();
+				for(var i=0; i<data.length; i++){			
+					//alert("data[i].example_content:"+data[i].example_content);
+					//alert("data[i].counts:"+data[i].counts);
+					resultData.push([data[i].example_content,data[i].counts]);
+				}
+				//highcharts함수						 		
+				$("#examQuest"+x).find("#evalChart"+x).highcharts({
 			        chart: {
-			            plotBackgroundColor: null,
-			            plotBorderWidth: 1,//null,
+			            plotBackgroundColor: null, //'#dfdfe1',
+			            plotBorderWidth: null,
 			            plotShadow: false
 			        },
 			        title: {
 			            text: ''
 			        },
 			        tooltip: {
-			            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+			            pointFormat: '{series.name}: <b>{point.percentage:.1f}</b>'
+			            /* pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>' */
 			        },
 			        plotOptions: {
 			            pie: {
@@ -118,10 +148,12 @@
 			        }]
 			    });
 	       
-	        
+	    	} //for문
 	    });
 
+	   
 	});
+	
 </script>
 
 

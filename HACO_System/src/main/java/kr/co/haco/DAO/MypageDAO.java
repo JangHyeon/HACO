@@ -7,6 +7,7 @@ import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.MyLectureHistory;
 
+
 public interface MypageDAO {
 	//수강내역
 	public List<MyLectureHistory> getMyLecture(int account_id);	
