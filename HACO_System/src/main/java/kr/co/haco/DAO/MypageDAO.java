@@ -14,7 +14,10 @@ public interface MypageDAO {
 	//강의평가 - 설문내용 불러오기 : 질문, 보기		
 	public List<EvaluationRegister> getEvaluationQuestion(int open_course_id);
 	public List<EvaluationRegister> getEvaluationExample(int open_course_id);
+	
 	//강의평가 하기
+	 //is_survey='Y'처리 - 설문 완료 flag처리
+	public int setIsSurvey(int account_id, int open_course_id);
 	 //주관식 답변
 	public int uploadEvalAnswer(EvalQuestionAnswer evalQuestAnswer);
 	 //객관식 답변

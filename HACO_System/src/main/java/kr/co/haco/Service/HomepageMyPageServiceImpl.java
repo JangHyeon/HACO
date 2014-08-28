@@ -42,19 +42,43 @@ public class HomepageMyPageServiceImpl implements HomepageMyPageService {
 		return evaluation;
 	}	
 	
-	//강의평가 하기
-	//주관식 일때
+	//강의평가 하기	
 	@Override
-	public int uploadEvalAnswerResult(EvalQuestionAnswer evalQuestionAnswer) {
+	public int uploadEval(int account_id, int open_course_id,Map<String, Object> answerAndExam) {
+		System.out.println("HomepageMyPageServiceImpl :uploadEval");
 		MypageDAO mypageDAO = sqlsession.getMapper(MypageDAO.class); 
-		int result = mypageDAO.uploadEvalAnswer(evalQuestionAnswer);
-		return result;
-	}
-	//객관식 일때
-	@Override
-	public int uploadEvalExamResult(EvalExampleResult evalExampleResult) {
-		MypageDAO mypageDAO = sqlsession.getMapper(MypageDAO.class); 
-		int result = mypageDAO.uploadEvalExam(evalExampleResult);
+		int result=0;
+		System.out.println("account_id:"+account_id);
+		System.out.println("open_course_id:"+open_course_id);
+		result += mypageDAO.setIsSurvey(account_id, open_course_id);
+		System.out.println("setIsSurvey result:"+result);
+		for(int i=0; i<answerAndExam.size(); i++){
+			 for(String s : answerAndExam.keySet()){
+				 System.out.println(i+":"+s);
+				 if(answerAndExam.get(s).equals("EvalQuestionAnswer")) { //주관식 일때					 
+					 result += mypageDAO.uploadEvalAnswer((EvalQuestionAnswer)answerAndExam.get(i));
+					 System.out.println("EvalQuestionAnswer result:"+result);
+					 
+					 EvalQuestionAnswer e = (EvalQuestionAnswer)answerAndExam.get(i);
+					 System.out.println("getAccount_id:"+e.getAccount_id());
+					 System.out.println("getAnswer:"+e.getAnswer());
+					 System.out.println("getOpen_course_id:"+e.getOpen_course_id());
+					 System.out.println("getQuestion:"+e.getQuestion());
+					 System.out.println("getQuestion_id:"+e.getQuestion_id());
+					 System.out.println("EvalQuestionAnswer result:"+result);
+			     }else{ //객관식 일때
+			    	 result += mypageDAO.uploadEvalExam((EvalExampleResult)answerAndExam.get(i));
+			    	 System.out.println("EvalExampleResult result:"+result);
+			    	 
+			    	 EvalExampleResult e = (EvalExampleResult)answerAndExam.get(i);			    	 
+			    	 System.out.println("getAccount_id:"+e.getAccount_id());					 
+					 System.out.println("getOpen_course_id:"+e.getOpen_course_id());
+					 System.out.println("getQuestion:"+e.getQuestion());
+					 System.out.println("getQuestion_id:"+e.getQuestion_id());					 
+			     }
+			 }
+		}
+		
 		return result;
 	}
 	

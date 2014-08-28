@@ -36,7 +36,12 @@
 			ON q.question_id = e.question_id
 		WHERE q.open_course_id=#{open_course_id}
 	</select>
-	<!-- 강의평가 - 설문내용 저장하기 -->
+	<!-- 강의평가 - 설문내용 저장하기 -->	
+	<!-- 설문 완료 flag처리 -->
+	<update id="setIsSurvey" parameterType="Integer">
+		update lecture_register set is_survey='Y' 
+		where account_id=${param1} and open_course_id=${param2}
+	</update>
 	<!-- 주관식 일때 -->
 	<insert id="uploadEvalAnswer" parameterType="kr.co.haco.VO.EvalQuestionAnswer">
 		INSERT INTO eval_question_answer(question_id,answer,account_id) 

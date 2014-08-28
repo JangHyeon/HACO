@@ -53,8 +53,8 @@
 									<td><a href="#"><b>${myLecture.now_study}</b></a></td>			
 									<td>							
 										<c:choose>
-											<c:when test="${myLecture.is_survey=='N'}"><a href="myLectureEvaluation?open_course_id=${myLecture.open_course_id}"><b>강의평가 하기</b></a></c:when>
-											<c:when test="${myLecture.is_survey=='Y'}"><a href="#"><b>수료증 발급</b></a></c:when>
+											<c:when test="${myLecture.is_survey=='N'}"><a href="myLectureEvaluation?open_course_id=${myLecture.open_course_id}"><b>${myLecture.is_survey}강의평가 하기</b></a></c:when>
+											<c:when test="${myLecture.is_survey=='Y'}"><a href="#"><b>${myLecture.is_survey}수료증 발급</b></a></c:when>
 										</c:choose>
 									</td>				
 								</tr>
