@@ -17,11 +17,14 @@ import javax.servlet.http.HttpSession;
 import kr.co.haco.Service.HomepageService;
 import kr.co.haco.Service.LectureRegisterService;
 import kr.co.haco.VO.Employee;
+import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.OpenCourse;
+import kr.co.haco.VO.OpenCourseList;
 import kr.co.haco.VO.Qna;
 import kr.co.haco.VO.Subject;
+import kr.co.haco.VO.Teacher;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -99,13 +102,16 @@ public class HomepageController {
 		Calendar c = Calendar.getInstance();
 		String month = ""+(c.get(Calendar.MONTH)+1);
 		if(month.length()==1) {month= "0" +month;};
-		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE)+1);
+		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE));
 		System.out.println(c.get(Calendar.YEAR));
-		HashMap<String,String> map = new HashMap<String,String>();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		System.out.println(today);
 		map.put("today", today);
-		List<OpenCourse> getopencourselist = lectureRegisterService.getopencourselist(map);
+		String proid = req.getParameter("proid");
+		map.put("proid", proid);
+		List<OpenCourseList> getopencourselist = lectureRegisterService.getopencourselist(map);
 		req.setAttribute("getopencourselist", getopencourselist);
+		
 		return "homepage.lectureregister";
 	}
 	//과정설명
@@ -115,9 +121,19 @@ public class HomepageController {
 		String opid = req.getParameter("opid");
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("course_id", opid);
-		map.put("account_id", member.getAccount_id());
+		
+		if(member!=null){
+			System.out.println("member.getAccount_id() : " +member.getAccount_id());
+			map.put("account_id", member.getAccount_id());
+			map.put("open_course_id", opid);
+			LectureRegisterList lecturemember = lectureRegisterService.lecturemember(map);
+			req.setAttribute("lecturemember", lecturemember);
+			map.put("member_check", 1); // 회원일때
+		} else {
+			map.put("member_check", 0); // 비회원일때
+		}
 		Subject getCNT = lectureRegisterService.getCNT(map);
-		System.out.println("!!!!!!!!!!"+getCNT);
+		req.setAttribute("member", member);
 		req.setAttribute("getCNT", getCNT);
 		
 		return "homepage.lecture";
@@ -146,24 +162,23 @@ public class HomepageController {
 		sbj.setLecture_content(req.getParameter("lecture_content"));
 		sbj.setName(req.getParameter("name"));
 		sbj.setAccount_id(Integer.parseInt(req.getParameter("account_id")));
-		if(sbj.getCapacity() <= sbj.getCNT())
+		/*if(sbj.getCapacity() <= sbj.getCNT())
 		{ 
 			return "homepage.lecturefailed";
-		}
+		}*/
 		System.out.println(member.getAccount_id());
 		System.out.println(sbj.getAccount_id());
-		if(member.getAccount_id() == sbj.getAccount_id()){
+		/*if(member.getAccount_id() == sbj.getAccount_id()){
 			return "homepage.lecturefailed2";
-		}
+		}*/
 		req.setAttribute("sbj", sbj);
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		System.out.println();
 		map.put("account_id", member.getAccount_id());
 		map.put("open_course_id",op);
 		
-		int insertlecture = lectureRegisterService.insertlecture(map);
+		lectureRegisterService.insertlecture(map);
 
-		req.setAttribute("insertlecture", insertlecture);
 		
 		return "homepage.lecturesuccess";
 	}

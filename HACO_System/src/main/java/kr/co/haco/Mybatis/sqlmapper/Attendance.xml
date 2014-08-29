@@ -5,7 +5,7 @@
 
 <!-- 구현하고자하는 인터페이스 풀경로 -->
 <mapper namespace="kr.co.haco.DAO.AttendanceDAO">
-	<select id="getattenlist" parameterType="hashmap" resultType="kr.co.haco.VO.OpenCourse">
+	<select id="getattenlist" parameterType="hashmap" resultType="kr.co.haco.VO.AttendanceOpenCourse">
 		select d.location, a.course_name, b.classroom, a.course_start_date, a.course_end_date, 
 			c.name_kor ,a.open_course_id , d.center_id
 			from open_course a , center_classroom b, employee c , education_center d
@@ -17,7 +17,7 @@
 			</if>
 			and STR_TO_DATE(#{seldate},'%Y-%m-%d') BETWEEN course_start_date and course_end_date
 	</select>
-	<select id="getstdentlist" parameterType="hashmap" resultType="kr.co.haco.VO.Member">
+	<select id="getstdentlist" parameterType="hashmap" resultType="kr.co.haco.VO.AttendanceMember">
 		select b.name, b.phone, b.account_id , a.lecture_register_id ,c.center_id
 			from lecture_register a, member b, open_course c, subject d , education_center e , center_classroom f
 			where a.account_id = b.account_id
@@ -28,11 +28,18 @@
 			and a.open_course_id = #{open_course_id}
 			and a.lecture_register_code = '4'
 	</select>
-	<insert id="insertatt" parameterType="kr.co.haco.VO.Attendance">
+	<insert id="insertatt" parameterType="java.util.Map">
 		insert into attendance (lecture_register_id, attendance_code,attendance_date, center_id, open_course_id)
 			values 
+				(#{lecture_register_id},#{attendance_code},#{attendance_date},#{center_id},#{open_course_id})
+				on DUPLICATE KEY UPDATE lecture_register_id = #{lecture_register_id} , attendance_code=#{attendance_code}, 
+				attendance_date=#{attendance_date},center_id=#{center_id},open_course_id=#{open_course_id}
+				<!-- <foreach collection="list" item="item" separator=",">
 				(#{item.lecture_register_id},#{item.attendance_code},#{item.attendance_date},#{item.center_id},#{item.open_course_id})
-				on DUPLICATE KEY UPDATE lecture_register_id = #{item.lecture_register_id} , attendance_code=#{item.attendance_code}, 
+				on DUPLICATE KEY UPDATE 
+				lecture_register_id = #{item.lecture_register_id} , attendance_code=#{item.attendance_code}, 
 				attendance_date=#{item.attendance_date},center_id=#{item.center_id},open_course_id=#{item.open_course_id}
+				
+				 </foreach> -->
 	</insert>
 </mapper>

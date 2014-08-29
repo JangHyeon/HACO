@@ -110,8 +110,10 @@
                               <tr>
                                   <th><i class="fa fa-bullhorn"></i>이름</th>
                                   <th class="hidden-phone"><i class="fa fa-question-circle"></i>전화번호</th>
-                                  <th><i class="fa fa-bookmark"></i>출결체크</th>
-                                  <th>출결상태</th>
+                                  <th><i class="fa fa-bookmark"></i>출석</th>
+                                  <th><i class="fa fa-bookmark"></i>지각</th>
+                                  <th><i class="fa fa-bookmark"></i>조퇴</th>
+                                  <th><i class="fa fa-bookmark"></i>결석</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -127,10 +129,17 @@
                                     	<input name="lecture_register_id" type="hidden" value="${b.lecture_register_id}"/>
                                     	<input name="attendance_code" type="hidden" value="1"/>
                                       	<button id='check_a' name='check_a' style="width:24px;height:22px;" type="button" onclick="check_click(this, ${b.account_id})" value="1" class="btn btn-success btn-xs"><i class="fa fa-check"></i></button>
-                                     	<button id='check_b' name='check_b' style="width:24px;height:22px;" type="button" onclick="check_click(this, ${b.account_id})" value="2" class="btn btn-success btn-xs"></i></button>
-                                      	<button id='check_c' name='check_c' style="width:24px;height:22px;" type="button" onclick="check_click(this, ${b.account_id})" value="3" class="btn btn-success btn-xs"></i></button>
-                                   	  	<button id='check_d' name='check_d' style="width:24px;height:22px;" type="button" onclick="check_click(this, ${b.account_id})" value="4" class="btn btn-success btn-xs"></i></button>
                                     </td>
+                                    <td>
+                                     	<button id='check_b' name='check_b' style="width:24px;height:22px;" type="button" onclick="check_click(this, ${b.account_id})" value="2" class="btn btn-success btn-xs"></i></button>
+                                    </td>
+                                    <td>
+                                      	<button id='check_c' name='check_c' style="width:24px;height:22px;" type="button" onclick="check_click(this, ${b.account_id})" value="3" class="btn btn-success btn-xs"></i></button>
+                                   	</td>
+                                    <td>
+                                   	  	<button id='check_d' name='check_d' style="width:24px;height:22px;" type="button" onclick="check_click(this, ${b.account_id})" value="4" class="btn btn-success btn-xs"></i></button>
+                                   	</td>
+                                   
                                     </s:authorize>
                                     <td></td>
                              	</tr>

@@ -5,10 +5,14 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.haco.DAO.MypageDAO;
+import kr.co.haco.DAO.OpenCourseDAO;
+import kr.co.haco.VO.Attenlist;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
+import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.MyLectureHistory;
+import kr.co.haco.VO.OpenCourseList;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,8 +44,10 @@ public class HomepageMyPageServiceImpl implements HomepageMyPageService {
 		evaluation.put("questionList", questionList);
 		evaluation.put("examList", examList);		
 		return evaluation;
-	}	
-	
+	}
+	public List<Attenlist> getattenlist(HashMap map){
+		return sqlsession.getMapper(MypageDAO.class).getattenlist(map);
+	}
 	//강의평가 하기	
 	@Override
 	public int uploadEval(int account_id, int open_course_id,Map<String, Object> answerAndExam) {
