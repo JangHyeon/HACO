@@ -130,7 +130,7 @@
   	$(function(){   
   		//목록 버튼
   		$('#listBtn').on('click',function(){
-  			location.href="${pageContext.request.contextPath}/evaluationRegisterList";		  
+  			location.href="${pageContext.request.contextPath}/management/evaluationRegisterList";		  
 		});  		
   		
   		//객관식,주관식 질문 선택

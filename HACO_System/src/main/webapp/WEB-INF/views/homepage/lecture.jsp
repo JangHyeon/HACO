@@ -19,7 +19,6 @@
 		var capacity = document.lecturesuccess.capacity.value;
 		var CNT = document.lecturesuccess.CNT.value;
 		var account_id = document.lecturesuccess.account_id.value;
-		alert("account_id : " + account_id);
 		
 		if(account_id==""){
 			$(document).ready(function(){
@@ -28,7 +27,6 @@
 		}
 		else if(account_id!=null){
 			var id = document.lecturesuccess.id.value;
-			alert("id : " + id);
 			if(account_id == id){
 				$(document).ready(function(){
 					$('#fail').modal('show');
