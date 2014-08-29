@@ -1,8 +1,10 @@
 package kr.co.haco.Service;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.haco.VO.Attenlist;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
@@ -24,4 +26,5 @@ public interface HomepageMyPageService {
 	public int uploadEvalAnswerResult(EvalQuestionAnswer evalQuestionAnswer);
 		//객관식일 때
 	public int uploadEvalExamResult(EvalExampleResult evalExampleResult);
+	public List<Attenlist> getattenlist(HashMap map);
 }

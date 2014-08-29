@@ -39,6 +39,8 @@
 <section id="main-content">
 	<section class="wrapper">
 		<style type="text/css">
+.calendar { color:#f0f0f0; font:bold 14px Tahoma; margin-top:4px; text-align:center; width:35px; } //calendarOut과 같으니 그냥 calendar로 했습니다.
+.calendarOver {color:#FFFFFF; font:9px Tahoma; margin-top:4px; text-align:center; width:35px;} 
         #tbl
         {
             background-color:#FFF;
@@ -191,7 +193,6 @@
                 	if (i == 0 && k < mod ) {
                			lmlistday = listmonth.getDate();
                			listmonth.setDate(listmonth.getDate() + 1);
-               			
                    		msg += "<td id='lmonth'>" + lmlistday;
                     } else if (7 * i + k + 1 - mod > lastday) {
                 		msg += "<td id='lmonth'>" + ((7 * i + k + 1 - mod) - lastday);
@@ -241,9 +242,9 @@
 					msg= 7 * i + k + 1 - mod;
 				}
 			}
-			return msg + ")'" + ">" + msg;
+			return msg + ")'" +" onMouseOver="+"this.style.backgroundColor='lightgreen'"+" onMouseOut="+"this.style.backgroundColor=''"+ ">" + msg;
         }
-        
+         
         function list(year, month, day) {
         	if((''+month).length==1) month= "0" +month;
         	if((''+day).length==1) day= "0" +day;
@@ -270,7 +271,6 @@
 </section>
 
 <!--main content end-->
-
 
 <!-- inclue common script -->
 <%@ include file="commonScript.jsp"%>

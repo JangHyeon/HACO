@@ -2,14 +2,21 @@ package kr.co.haco.Controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import kr.co.haco.Service.HomepageMyPageService;
+import kr.co.haco.VO.Attenlist;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
+import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MyLectureHistory;
+import kr.co.haco.VO.OpenCourseList;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -30,13 +37,25 @@ public class HomepageJeController {
 	
 	//수강 내역
 	@RequestMapping(value = "/myLectureHistory", method = RequestMethod.GET)
-	public String myLecture(Model model,Principal principal) {		
+	public String myLecture(Model model,Principal principal,HttpServletRequest req,HttpSession session) {		
 		int account_id = Integer.parseInt(principal.getName());
-		System.out.println("account_id:"+account_id);
 		List<MyLectureHistory> myLectureList = homepageMyPageService.getMyLecture(account_id);
 		model.addAttribute("myLectureList", myLectureList);
 		return "homepage.myLectureHistory";
 	}
+	//출석정보
+		@RequestMapping(value = "/attenlist", method = RequestMethod.GET)
+		public String attenlist(HttpServletRequest req,Principal principal,int open_course_id) {
+			
+			int account_id = Integer.parseInt(principal.getName());
+			HashMap map = new HashMap();
+			map.put("account_id", account_id);
+			map.put("open_course_id", open_course_id);
+			System.out.println("account_id : " + account_id);
+			List<Attenlist> getattenlist = homepageMyPageService.getattenlist(map);
+			req.setAttribute("getattenlist", getattenlist);
+			return "homepage.myattenlist";
+		}
 	//강의평가 하기 - 평가 내용 가져오기
 	@RequestMapping(value = "/myLectureEvaluation", method = RequestMethod.GET)
 	public String myLectureEval(Model model,Principal principal,int open_course_id) {		

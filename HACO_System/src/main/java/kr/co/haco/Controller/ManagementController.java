@@ -1,6 +1,7 @@
 package kr.co.haco.Controller;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -26,6 +27,8 @@ import kr.co.haco.Service.SubjectService;
 import kr.co.haco.Util.ImageJ;
 import kr.co.haco.Util.MultipartUploader;
 import kr.co.haco.VO.Attendance;
+import kr.co.haco.VO.AttendanceMember;
+import kr.co.haco.VO.AttendanceOpenCourse;
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
@@ -37,6 +40,7 @@ import kr.co.haco.VO.MemberOfAcademy;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
+import kr.co.haco.VO.Teacher;
 import kr.co.haco.VO.getCourseList;
 
 import org.apache.ibatis.session.SqlSession;
@@ -141,7 +145,7 @@ public class ManagementController {
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("center_id", eply.getNow_center_id());
 			map.put("seldate", seldate);
-			List<OpenCourse> getattenlist = attendanceService.getattenlist(map);
+			List<AttendanceOpenCourse> getattenlist = attendanceService.getattenlist(map);
 			OpenCourse attendance_date = new OpenCourse();
 			attendance_date.setSeldate(req.getParameter("attendancesub"));
 			req.setAttribute("attendance_date", attendance_date);
@@ -151,7 +155,7 @@ public class ManagementController {
 		//출석
 		@RequestMapping(value = "studentlist", method = RequestMethod.GET)
 		public String stdentlist(HttpSession session,HttpServletRequest req) {
-			OpenCourse date = new OpenCourse();
+			AttendanceOpenCourse date = new AttendanceOpenCourse();
 			date.setSeldate(req.getParameter("attendance_date"));
 			System.out.println("attendance_date : " +date);
 			String center_id = req.getParameter("center_id");
@@ -159,51 +163,73 @@ public class ManagementController {
 			String open_course_id = req.getParameter("open_course_id");
 			System.out.println("open_course_id :" + open_course_id);
 			
-			HashMap map = new HashMap();
+			HashMap<String, Object> map = new HashMap<String, Object>();
 			
 			map.put("center_id", center_id);
 			map.put("open_course_id", open_course_id);
-			List<Member> getstdentlist = attendanceService.getstdentlist(map);
+			
 			req.setAttribute("date", date);
-			req.setAttribute("getstdentlist", getstdentlist);
+			
 			req.setAttribute("open_course_id", open_course_id);
-			String attendance_code = req.getParameter("attendance_code");
-			System.out.println("attendance_code : " +attendance_code);
-			if(attendance_code!=null){
+			/*String attendance_code = req.getParameter("attendance_code");*/
+			/*System.out.println("attendance_code : " +attendance_code);*/
+			String[] account_id= req.getParameterValues("account_id");
+			if(account_id!=null){
+				String[] attendance_code = req.getParameterValues("attendance_code");
 				String attendance_date = req.getParameter("attendance_date");
-				String lecture_register_id = req.getParameter("lecture_register_id");
-				System.out.println("lecture_register_id : " + lecture_register_id);
+				String[] lecture_register_id = req.getParameterValues("lecture_register_id");
+				System.out.println("attendance_code : " +attendance_code);
 				System.out.println("attendance_date : " +attendance_date);
 				System.out.println("center_id : " + center_id);
 				System.out.println("open_course_id :" + open_course_id);
 				System.out.println("attendance_code : " +attendance_code);
+				System.out.println(account_id.length);
+				for(int i = 0; i < account_id.length; i++){
+					
+					System.out.println("lecture_register_id : " + lecture_register_id[i]);
+					
+					/*Attendance VO = new Attendance();
+					VO.setCenter_id(Integer.parseInt(center_id));
+					VO.setAttendance_code(Integer.parseInt(attendance_code[i]));
+					VO.setAttendance_date(attendance_date);
+					VO.setLecture_register_id(Integer.parseInt(lecture_register_id[i]));
+					VO.setOpen_course_id(Integer.parseInt(open_course_id));*/
+				/*	map.put("center_id", center_id);
+					map.put("attendance_code", attendance_code[i]);
+					map.put("attendance_date", attendance_date);
+					map.put("lecture_register_id", lecture_register_id[i]);
+					map.put("open_course_id", open_course_id);*/
+					/*HashMap<String,Object> att = new HashMap<String , Object>();*/
+					map.put("center_id",Integer.parseInt(center_id));
+					map.put("attendance_code",Integer.parseInt(attendance_code[i]));
+					map.put("lecture_register_id",Integer.parseInt(lecture_register_id[i]));
+					map.put("open_course_id", Integer.parseInt(open_course_id));
+					map.put("attendance_date",attendance_date);
+					
+				/*	map.put("list", list);*/
+					attendanceService.insertatt(map);
+				}
 				
-				Attendance VO = new Attendance();
-				VO.setCenter_id(Integer.parseInt(center_id));
-				VO.setAttendance_code(Integer.parseInt(attendance_code));
-				VO.setAttendance_date(attendance_date);
-				VO.setLecture_register_id(Integer.parseInt(lecture_register_id));
-				VO.setOpen_course_id(Integer.parseInt(open_course_id));
-				List<Attendance> list = new ArrayList<Attendance>();
-				list.add(VO);
-				/*map.put("center_id",Integer.parseInt(center_id));
+			/*	list.add(center_id);
+				list.add(attendance_code);
+				list.add(lecture_register_id);
+				list.add(lecture_register_id);
+				list.add(attendance_date);*/
+				System.out.println(1);
+			/*	map.put("center_id",Integer.parseInt(center_id));
 				map.put("attendance_code",Integer.parseInt(attendance_code));
 				map.put("lecture_register_id",Integer.parseInt(lecture_register_id));
 				map.put("open_course_id", Integer.parseInt(open_course_id));
 				map.put("attendance_date",attendance_date);*/
-				Map<String, Object> mm = new HashMap<String, Object>();
-				mm.put("list", list);
-				/*attendanceService.insertatt(map);*/
+				
+				
+					
+				
 			}
+			List<AttendanceMember> getstdentlist = attendanceService.getstdentlist(map);
+			req.setAttribute("getstdentlist", getstdentlist);
 			return "management.studentlist";
 		}
-		@Autowired private SqlSession mapper;
-		 public void insetUser(Map<String, Object> map) {
-		        List<Attendance> list = (ArrayList<Attendance>)map.get("list");
-		        for(Attendance dto : list) {
-		            mapper.insert("attendanceService.insertatt", dto);
-		        }
-		    }
 	// 과정-과목등록-SubjectList(Basic)
 	@RequestMapping(value = "subjectRegister", method = RequestMethod.GET)
 	public String subjectRegister(Model model,HttpServletRequest request, Subject2 subject2 ) {
@@ -497,7 +523,7 @@ public class ManagementController {
 		String open_course_id = req.getParameter("open_course_id")==null?"":req.getParameter("open_course_id");
 		String account_id = req.getParameter("account_id")==null?"":req.getParameter("account_id");
 		System.out.println(classification);
-		HashMap map = new HashMap();
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("open_course_id", open_course_id);
 		map.put("account_id", account_id);
 		
@@ -521,7 +547,60 @@ public class ManagementController {
 		req.setAttribute("getlecturestats", getlecturestats);
 		return "management.lectureRegister";
 	}
-	
+	//수강신청완료page
+		@RequestMapping(value = "lectureRegisterComplete", method = RequestMethod.GET)
+		public String lectureRegisterComplete(HttpSession session, HttpServletRequest req) {	
+			Employee eply = (Employee) session.getAttribute("employee");
+			Calendar c = Calendar.getInstance();
+			String month = ""+(c.get(Calendar.MONTH)+1);
+			if(month.length()==1) {month= "0" +month;};
+			String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE)+1);
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("center_id", eply.getNow_center_id());
+			map.put("today", today);
+			List<LectureRegisterList> getlecturecomplete = lectureregisterService.getlecturecomplete(map);
+			req.setAttribute("getlecturecomplete", getlecturecomplete);
+			return "management.lectureRegisterComplete";
+		}
+		/*//수강신청허가
+		@RequestMapping(value = "updatest", method = RequestMethod.GET)
+		public String updatest(HttpServletRequest req) {
+			String open_course_id = req.getParameter("open_course_id");
+			String account_id = req.getParameter("account_id");
+			HashMap map = new HashMap();
+			map.put("open_course_id", open_course_id);
+			map.put("account_id", account_id);
+			int updatestudent = lectureregisterService.updatestudent(map);
+			req.setAttribute("updatestudent", updatestudent);
+			String res = "redirect:/management/lectureRegister";
+			return res;
+		}
+		//수강신청취소
+		@RequestMapping(value = "cancelst", method = RequestMethod.GET)
+		public String canslest(HttpServletRequest req) {
+			String open_course_id = req.getParameter("open_course_id");
+			String account_id = req.getParameter("account_id");
+			HashMap map = new HashMap();
+			map.put("open_course_id", open_course_id);
+			map.put("account_id", account_id);
+			int cancelstudent = lectureregisterService.cancelstudent(map);
+			req.setAttribute("canslestudent", cancelstudent);
+			String res = "redirect:/management/lectureRegister";
+			return res;
+		}
+		//수강신청완료
+		@RequestMapping(value = "completest", method = RequestMethod.GET)
+		public String deletest(HttpServletRequest req) {
+			String open_course_id = req.getParameter("open_course_id");
+			String account_id = req.getParameter("account_id");
+			HashMap map = new HashMap();
+			map.put("open_course_id", open_course_id);
+			map.put("account_id", account_id);
+			int completestudent = lectureregisterService.completestudent(map);
+			req.setAttribute("completestudent", completestudent);
+			String res = "redirect:/management/lectureRegister";
+			return res;
+		}*/
 	//평가 등록, 평가 결과 리스트
 	@RequestMapping(value = {"evaluationRegisterList", "evaluationResultList"}, method=RequestMethod.GET)
 	public String evaluationRegister(Model model,HttpServletRequest request){
@@ -596,60 +675,7 @@ public class ManagementController {
 		
 		return sendEvalResultofList;
 	}
-	//수강신청완료page
-	@RequestMapping(value = "lectureRegisterComplete", method = RequestMethod.GET)
-	public String lectureRegisterComplete(HttpSession session, HttpServletRequest req) {	
-		Employee eply = (Employee) session.getAttribute("employee");
-		Calendar c = Calendar.getInstance();
-		String month = ""+(c.get(Calendar.MONTH)+1);
-		if(month.length()==1) {month= "0" +month;};
-		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE)+1);
-		HashMap map = new HashMap();
-		map.put("center_id", eply.getNow_center_id());
-		map.put("today", today);
-		List<LectureRegisterList> getlecturecomplete = lectureregisterService.getlecturecomplete(map);
-		req.setAttribute("getlecturecomplete", getlecturecomplete);
-		return "management.lectureRegisterComplete";
-	}
-	/*//수강신청허가
-	@RequestMapping(value = "updatest", method = RequestMethod.GET)
-	public String updatest(HttpServletRequest req) {
-		String open_course_id = req.getParameter("open_course_id");
-		String account_id = req.getParameter("account_id");
-		HashMap map = new HashMap();
-		map.put("open_course_id", open_course_id);
-		map.put("account_id", account_id);
-		int updatestudent = lectureregisterService.updatestudent(map);
-		req.setAttribute("updatestudent", updatestudent);
-		String res = "redirect:/management/lectureRegister";
-		return res;
-	}
-	//수강신청취소
-	@RequestMapping(value = "cancelst", method = RequestMethod.GET)
-	public String canslest(HttpServletRequest req) {
-		String open_course_id = req.getParameter("open_course_id");
-		String account_id = req.getParameter("account_id");
-		HashMap map = new HashMap();
-		map.put("open_course_id", open_course_id);
-		map.put("account_id", account_id);
-		int cancelstudent = lectureregisterService.cancelstudent(map);
-		req.setAttribute("canslestudent", cancelstudent);
-		String res = "redirect:/management/lectureRegister";
-		return res;
-	}
-	//수강신청완료
-	@RequestMapping(value = "completest", method = RequestMethod.GET)
-	public String deletest(HttpServletRequest req) {
-		String open_course_id = req.getParameter("open_course_id");
-		String account_id = req.getParameter("account_id");
-		HashMap map = new HashMap();
-		map.put("open_course_id", open_course_id);
-		map.put("account_id", account_id);
-		int completestudent = lectureregisterService.completestudent(map);
-		req.setAttribute("completestudent", completestudent);
-		String res = "redirect:/management/lectureRegister";
-		return res;
-	}*/
+	
 	//강의평가
 	@RequestMapping(value = "lectureEvaluation", method = RequestMethod.GET)
 	public String lectureEvaluation() {		
@@ -801,4 +827,5 @@ public class ManagementController {
 		System.out.println("mapJson_value: "+mapJson);
 		return mapJson;
 	}
+	
 }
