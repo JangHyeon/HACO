@@ -13,7 +13,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
               
               	  <div class="centered employeePhoto">
-              	  	<a href="${pageContext.request.contextPath}/management/profile/${sessionScope.employee.account_id}">
+              	  	<a href="${pageContext.request.contextPath}/management/employeeDetail?account_id=<s:authentication property="name"/>">
               	  		<img src="${pageContext.request.contextPath}/employeePhoto/${sessionScope.employee.photo}" class="employeePhoto-img" width="80" onerror="this.src='${pageContext.request.contextPath}/images/gray-ori-User-Role-Guest-icon.png'">
               	  	</a>
               	  </div>

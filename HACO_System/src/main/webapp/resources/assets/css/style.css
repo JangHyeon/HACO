@@ -2273,8 +2273,8 @@ label {
 
 #loadingIcon{
 	position:absolute;
-	margin: 30px;
-	margin-top: 45px; 
+	margin: 45px;
+	margin-top: 65px;
 	color: #fff;
 	opacity: 0.6;
 }
@@ -2514,4 +2514,24 @@ border-color: #324A5D;
   border-color: #4F5460;
 }
 
+#employeePhoto .photo {
+	width: 100%;
+}
 
+.pull-right.employeeDetail{
+	letter-spacing: 5px;
+}
+
+.writeBtn{
+	height: 50px;
+	width: 150px;
+	font-size: 15px;
+	font-weight: 600;
+	margin: 20px auto 40px;
+	display: block;
+}
+
+#registerFrm > div > label {
+	font-size: 14px;
+	font-weight: bold;
+}
