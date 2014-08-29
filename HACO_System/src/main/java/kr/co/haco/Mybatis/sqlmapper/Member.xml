@@ -8,11 +8,12 @@
 <mapper namespace="kr.co.haco.DAO.MemberDAO"> 	
 	<!-- 사이트 회원 목록 -->
 	<select id="getMemberOfSite" resultType="kr.co.haco.VO.Member">
-		SELECT *
-		FROM member
-		WHERE account_id NOT IN
-			(SELECT account_id
-			FROM lecture_register);
+		SELECT m.*
+		FROM member m
+		LEFT OUTER JOIN 
+			(SELECT DISTINCT(account_id) AS account_id FROM lecture_register) l
+		ON m.account_id = l.account_id
+		WHERE  l.account_id  IS NULL;
 	</select>
 	<!-- 수강 중인 회원 목록 -->
 	<select id="getMember" resultType="kr.co.haco.VO.MemberOfAcademy" >

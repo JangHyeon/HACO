@@ -1,3 +1,6 @@
+<%@page import="kr.co.haco.VO.EvaluationRegister"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
@@ -25,7 +28,7 @@
       <!--main content start-->
       <section id="main-content">
           <section class="wrapper">
-          	<h3><i class="fa fa-angle-right"></i> 강의평가 등록</h3>
+          	<h3><i class="fa fa-angle-right"></i> 강의평가 항목 조회</h3>
 				<div class="row">		
 						  	
 					<div class="col-lg-12">
@@ -33,9 +36,7 @@
 							<h4 class="mb">
 								<i class="fa fa-angle-right"></i> 과정 정보
 							</h4>
-							<form class="form-horizontal style-form" action="employeeRegister" method="post">
-								
-		
+							<form class="form-horizontal style-form">	
 								<div class="form-group">
 									<label class="col-sm-2 col-sm-2 control-label">과정명</label>
 									<div class="col-sm-10">
@@ -47,16 +48,13 @@
 									<div class="col-sm-10">
 										${evalForm.subject_name}
 									</div>
-								</div>					
-								
-								
+								</div>							
 								<div class="form-group">
 									<label class="col-sm-2 col-sm-2 control-label">담당강사</label>
 									<div class="col-sm-10">
 										${evalForm.name_kor}
 									</div>
-								</div>	
-							
+								</div>						
 								<div class="form-group">
 									<label class="col-sm-2 col-sm-2 control-label">강의 기간</label>
 									<div class="col-sm-10">
@@ -72,101 +70,46 @@
 					<div class="col-lg-12 mt">
 						<div class="form-panel">
 							<h4 class="mb">
-								<i class="fa fa-angle-right"></i> 평가 질문 등록
+								<i class="fa fa-angle-right"></i> 평가 질문 조회
 							</h4>							
-							
-							<form class="form-horizontal style-form" id="evaluationForm" action="evaluationRegisterform" method="post">
-							<input type="hidden" name="open_course_id" value="${param.open_course_id}">
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">강의평가 활성여부</label>
-								<div class="col-lg-6">
-								    <div class="input-group">	
-								    	&nbsp;&nbsp;&nbsp;							     
-										<label> <input type="radio" name="state_code"
-											 value="1" checked> 활성
-										</label>
-								     	&nbsp;&nbsp;&nbsp;								 
-										<label> <input type="radio" name="state_code"
-											 value="0"> 비활성
-										</label>																    						  
-								    </div>
-	  						  </div>
-							</div>	
-							<div class="form-group">
-								<label class="col-sm-2 col-sm-2 control-label">질문 유형</label>
-								<div class="col-lg-6">
-								    <div class="input-group">	
-								    	&nbsp;&nbsp;&nbsp;							     
-										<label> <input type="radio" name="type"
-											id="essay_question_type" value="1"> 객관식
-										</label>
-								     	&nbsp;&nbsp;&nbsp;								 
-										<label> <input type="radio" name="type"
-											id="multiple_choice_type" value="2"> 주관식
-										</label>		
-										&nbsp;&nbsp;											     	  
-								     	<button type="button" class="btn btn-default" id="select_question_btn">+</button>							    						  
-								    </div>
-	  						  </div>
-							</div>							
-							<!-- 질문 생성 위치 -->
-							<div id="question_place" >
-																
-							</div>					
-							
-							
-	  						<div id="multiple_choice_items_tool" style="display:none">							
-								<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_items_label">A1</label>
-								<div class="col-sm-10">								
-								    <div>							    							     
-										<label> 
-											<input type="text" class="form-control" id="example_content" name="example_content">
-										</label>   												     	  
-									    						    						  
-									</div>
-		  						</div>
-	  						</div>  			
-	  						<!--  ----------------------------------------------------------------- -->					
-							
-							<button type="button" class="btn btn-success" id="submit_btn">등록</button>
-							<button type="button" class="btn btn-danger" id="cancle_btn">취소</button>
-						</form>			
-						
-						<!--  ----------------------------------------------------------------- -->
-							<!-- 주관식 질문 틀 -->
-							<div class="form-group" id="essay_question" style="display:none">
-								<label class="col-sm-2 col-sm-2 control-label" id="essay_question_label" >Q_주관식</label>
-								<input type="hidden" name="type_code" value="2">
-								<div class="col-sm-8 input-group">
-									<input type="text" class="form-control noInput" id="essay_question_input" name="question">
-								</div>
-							</div>	
-							<!-- 객관식 질문 틀 -->
-							<div class="form-group" id="multiple_choice" style="display:none">
-								<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label">Q_객관식</label>
-								<input type="hidden" name="type_code" value="1">
-								<div class="col-sm-8 input-group" >
-									<input type="text" class="form-control noInput" id="multiple_choice_input" name="question">
-								</div>	
-								<!-- 보기 --> 
-								<div id="multiple_choice_items_place">
-									<div id="multiple_choice_items">							
-										<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_items_label">&nbsp;A1</label>
-										<div class="col-sm-10">								
-										    <div>							    							     
-												<label> 
-													<input type="hidden" id="example_content_delimiter" name="example_content" value="0">
-													<input type="text" class="form-control noInput" id="example_content" name="example_content">
-												</label>								     												     	  
-										     	<button type="button" class="btn btn-default items_btn" id="multiple_choice_items_btn" >+</button>							    						  
-										    </div>
-			  						  	</div>
-		  						  	</div> 
-		  						  	
-		  						</div>	  										
-	  						  	
-	  						</div>		
-	  						<!-- 객관식 보기 틀 -->	
+							<form class="form-horizontal style-form">	
+							<%int idx_examListofList=0; 
+							  int idx_question=1;%>																		
+							<c:forEach var="question" items="${questionList}"> <!-- 질문리스트 -->		
+								<c:choose>
+									<c:when test="${question.type_code=='2'}"> <!-- 주관식일때 -->				
+										<div class="form-group">
+											<label class="col-sm-2 col-sm-2 control-label">질문<%=idx_question%></label>
+											<div class="col-sm-10">
+												${question.question}
+											</div>
+										</div>	
+									</c:when>
+									<c:when test="${question.type_code=='1'}"> <!-- 객관식일때 -->
+										<div class="form-group" id="multiple_choice" >
+											<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label">질문<%=idx_question%></label>								
+											<div class="col-sm-8 input-group" >
+												<input type="text" class="form-control" readonly="readonly" value="ㅋㅋㅋ" style="border:0px;background-color:white">
+											</div>	
+											<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_items_label">&nbsp;보기</label>
+											<div class="col-sm-10">		
+												<%													    	
+													List<ArrayList<EvaluationRegister>> examListofList= (List<ArrayList<EvaluationRegister>>)request.getAttribute("examListofList");
+													ArrayList<EvaluationRegister> examList = examListofList.get(idx_examListofList);											    	
+													for(int i=0;i<examList.size();i++){ %>					
+													 <%=i+1%>.<%= examList.get(i).getExample_content()%>&nbsp;&nbsp;&nbsp;
+							  					
+							  					<%} 											  
+												  idx_examListofList++;%>
+											 </div> 			
+				  						</div>				
+									</c:when>	
+								</c:choose>
+								<%idx_question++; %>
+							</c:forEach>
+														
+						    </form>
+							<button type="button" class="btn btn-default items_btn" id="listBtn" >목록</button>
 						</div>
 					</div>
 					<!-- col-lg-12--> 
@@ -185,15 +128,11 @@
     <!--script for this page-->
   <script type="text/javascript">
   	$(function(){   
-  		$(".noInput").keyup(function (event) {
-            regexp =  /[,]/g;
-            v = $(this).val();
-            if (regexp.test(v)) {
-                //alert("실명을 입력하여 주세요\n한글만 입력가능 합니다.");
-                $(this).val(v.replace(regexp, ''));
-            }
-        });
-
+  		//목록 버튼
+  		$('#listBtn').on('click',function(){
+  			location.href="${pageContext.request.contextPath}/evaluationRegisterList";		  
+		});  		
+  		
   		//객관식,주관식 질문 선택
   		var cnt=0;
     	$("#select_question_btn").click(function(){    		

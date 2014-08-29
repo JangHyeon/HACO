@@ -57,7 +57,7 @@
 					<h4 class="mb">
 						<i class="fa fa-angle-right"></i> 계정 등록
 					</h4>
-					<form class="form-horizontal style-form" method="post">
+					<form id="registerFrm" class="form-horizontal style-form" method="post">
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">사진</label>
 							<div class="col-sm-10">
@@ -88,13 +88,13 @@
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">한글 이름</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control onlyAlphanum" name="name_kor">
+								<input type="text" class="form-control onlyAlphanum" name="name_kor" id="name_kor">
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">영문 이름</label>
 							<div class="col-sm-10">
-								<input type="text" class="form-control onlyAlphanum" name="name_eng">
+								<input type="text" class="form-control onlyAlphanum" name="name_eng" id="name_eng">
 							</div>
 						</div>					
 						<div class="form-group">
@@ -136,9 +136,9 @@
 							<label class="col-sm-2 col-sm-2 control-label">주민등록번호</label>
 							<div class="col-sm-10">
 								<input type="text" class="form-control-je onlyNumber" 
-								name="resident_registration_num1" maxlength="6"> -
+								id="resident_registration_num1" name="resident_registration_num1" maxlength="6"> -
 								<input type="text" class="form-control-je onlyNumber" 
-								name="resident_registration_num2" maxlength="7">
+								id="resident_registration_num2" name="resident_registration_num2" maxlength="7">
 							</div>
 						</div>	
 						<div class="form-group">
@@ -208,16 +208,13 @@
 							<div class="col-sm-2">		
 								<div id="datapickerBox">
 									<input class="form-control" type="text" id="wrtDtReg" name="join_date" placeholder="">
-								</div>					
-								<!-- <div class="col-xs-1" id="datapickerBox">
-									<input class="form-control input-sm" type="text" id="wrtDtReg" name="join_date" placeholder="1980-11-09">
-								</div> -->
+								</div>
 							</div>							
 						</div>												
-						<input type="hidden" name="join_center_id">
-						<input type="hidden" name="now_center_id">
+						<input type="hidden" name="join_center_id" id="join_center_id" value="0">
+						<input type="hidden" name="now_center_id" id="now_center_id" value="0">
 						
-						<button type="submit" class="btn btn-theme">등록</button>						
+						<button id="registerBtn" type="button" class="btn btn-theme">등록</button>						
 					</form>
 				</div>
 			</div>
@@ -230,6 +227,13 @@
 
 <!--main content end-->
 
+<!-- lodingmodel -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="lodingModal" class="modal fade">
+	<div class="modal-dialog">
+		<div id="loaderImage"></div>
+	</div>
+</div>
+<!-- modal -->
 
 <!-- inclue common script -->
 <%@ include file="commonScript.jsp"%>
@@ -279,8 +283,68 @@
 			  autoclose: true,
 			  todayHighlight: true
 			 });
+		
+		//submit, 유효성 검사
+		$('#registerBtn').on('click',function(){
+    	   $('#registerFrm').submit();
+       	});
+		$('#registerFrm').submit(function(){    
+		   //alert($('#joinCenterBtn>span:first-child').text);
+           if($('#name_kor').val() == ""){
+                alert("한글 이름을 입력하세요");
+                //$('#name_kor').addClass('alertFocus');
+                $('#name_kor').focus();
+                return false;           
+           }
+           if($('#name_eng').val() == ""){
+               alert("영어 이름을 입력하세요");
+               $('#name_eng').focus();
+               return false;
+           }       
+           if(!$("input:radio[name='gender']").is(":checked")){
+               alert("성별을 선택해주세요");              
+               return false;
+           }
+           if(!$("input:radio[name='job_code']").is(":checked")){
+               alert("직무를 선택해주세요.");
+               $('#job_code').focus();
+               return false;
+           }
+           if($('#resident_registration_num1').val() == ""){
+               alert("주민번호를 입력하세요");
+               $('#resident_registration_num1').focus();
+               return false;
+           }
+           if($('#resident_registration_num2').val() == ""){
+               alert("주민번호를 입력하세요");
+               $('#resident_registration_num2').focus();
+               return false;
+           }    
+           if($('#join_center_id').val() =='0'){
+               alert("채용센터를 선택하세요");              
+               return false;
+           }
+           if($('#now_center_id').val() =='0'){
+               alert("현재센터를 선택하세요");              
+               return false;
+           }
+           if($('#wrtDtReg').val() == ""){
+               alert("입사 날짜를 입력하세요");
+           
+               return false;
+           }
+           
+           $(window).off('beforeunload');
+           $('#registerBtn').off('click');
+           $("#registerBtn").attr("disabled", true);
+           $('#registerBtn').text('처리중');
+           $('#lodingModal').modal({
+   			backdrop:false,
+   			keyboard:false
+   			
+   		   });
+		});
 	
 	});	
 </script>
-
 

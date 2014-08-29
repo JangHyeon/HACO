@@ -19,9 +19,9 @@ public interface HomepageMyPageService {
 	@Transactional
 	public Map<String,List<EvaluationRegister>> getEvaluation(int open_course_id);
 	
-	//강의평가 하기
-		//주관식일 때
-	public int uploadEvalAnswerResult(EvalQuestionAnswer evalQuestionAnswer);
-		//객관식일 때
-	public int uploadEvalExamResult(EvalExampleResult evalExampleResult);
+		
+	//강의평가 하기	
+	@Transactional
+	public int uploadEval(int account_id, int open_course_id,Map<String,Object> answerAndExam);
+	
 }

@@ -33,6 +33,7 @@ import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.EmployeeList;
 import kr.co.haco.VO.EvalExampleResult;
+import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.Member;
@@ -572,12 +573,95 @@ public class ManagementController {
 		}else{
 			System.out.println("평가 등록 실패");
 		}
-		return "management.evaluationRegisterUpdate";	
+		
+		model.addAttribute("open_course_id", evalRegister.getOpen_course_id());
+		return "redirect:evaluationRegisterDetail";	
+	}	
+	//평가 항목 조회
+	@RequestMapping(value="evaluationRegisterDetail" , method=RequestMethod.GET)
+	public String evaluationRegistertDetail(Model model ,int open_course_id){
+		
+		System.out.println("open_course_id:"+open_course_id);
+		//강좌 기본 정보
+		model.addAttribute("evalForm",evaluationRegisterService.getEvaluationRegisterform(open_course_id));	
+		//질문,보기 리스트
+		Map<String, List<EvaluationRegister>> evaluation = evaluationRegisterService.getEvaluation(open_course_id);
+		
+		List<EvaluationRegister> questionList = (List<EvaluationRegister>) evaluation.get("questionList");
+		List<EvaluationRegister> examList = (List<EvaluationRegister>) evaluation.get("examList");
+		
+		//보기를 질문별로 List에 담기
+		List<List<EvaluationRegister>> examListofList = new ArrayList<List<EvaluationRegister>>();
+		List<EvaluationRegister> exam = null;
+		for(int i=0; i<examList.size();i++){
+			if(i==0){
+				exam = new ArrayList<EvaluationRegister>();
+				exam.add(examList.get(i));
+			}else{
+				if(examList.get(i-1).getQuestion_id()==examList.get(i).getQuestion_id()){ //같은 문제의 보기일 때
+					exam.add(examList.get(i));					
+				}else{
+					examListofList.add(exam);
+					exam = null;
+					exam = new ArrayList<EvaluationRegister>();
+					exam.add(examList.get(i));
+				}
+			}
+			
+			if(i==examList.size()-1){
+				examListofList.add(exam);
+			}			
+			
+		}		
+		
+		model.addAttribute("questionList", questionList);		
+		model.addAttribute("examListofList", examListofList);
+		
+		System.out.println("questionList.size():"+questionList.size());
+		System.out.println("examListofList.size()"+examListofList.size());
+		/*for(int i=0;i<examListofList.size();i++){
+			System.out.println("examListofList.get("+i+").size:"+examListofList.get(i).size());
+		}*/
+		return "management.evaluationRegisterDetail";
 	}
 	
 	//강의평가 결과 페이지
 	@RequestMapping(value = "evaluationResult", method = RequestMethod.GET)
 	public String lectureEvaluation(Model model, int open_course_id) {
+		//주관식 결과
+		System.out.println("Controller : evaluationResult");
+		List<EvalQuestionAnswer> essayResult =  evaluationRegisterService.getEvalEssayResult(open_course_id);
+		
+		//a.question_id, q.question ,a.answer , q.open_course_id
+		//ArrayList<ArrayList<String>> questionList = new ArrayList<ArrayList<String>>(); 
+		ArrayList<String> question = new ArrayList<String>();		
+		
+		ArrayList<ArrayList<String>> answerList = new ArrayList<ArrayList<String>>();		
+		ArrayList<String> answer = null;
+		for(int i=0; i<essayResult.size(); i++){
+			if(i==0){				
+				answer = new ArrayList<String>();
+				question.add(essayResult.get(i).getQuestion());				
+				answer.add(essayResult.get(i).getAnswer());
+			}else{
+				if(essayResult.get(i-1).getQuestion_id()==essayResult.get(i).getQuestion_id()){ //같은 질문이면
+					answer.add(essayResult.get(i).getAnswer());
+				}else{ //다른 질문이면					
+					answerList.add(answer);					
+					answer  = null;					
+					answer = new ArrayList<String>();
+					question.add(essayResult.get(i).getQuestion());
+					answer.add(essayResult.get(i).getAnswer());
+				}
+				if(i==essayResult.size()-1){					
+					answerList.add(answer);
+				}
+			}
+			
+		}
+		
+		model.addAttribute("question", question);
+		model.addAttribute("answerList", answerList);	
 		return "management.evaluationResult";
 	}
 	//강의 평가 결과 - 차트
@@ -585,9 +669,12 @@ public class ManagementController {
 	@ResponseBody
 	public ArrayList<ArrayList<HashMap<String, Object>>> getLecEvalChart(Model model,int open_course_id) throws ClassNotFoundException, SQLException{
 		System.out.println("ManageMentController - getLecEvalChart -open_course_id="+open_course_id);
-		List<EvalExampleResult> examResult = evaluationRegisterService.getEvalResult(open_course_id);		
-		ArrayList<ArrayList<HashMap<String, Object>>> sendEvalResultofList = new ArrayList<ArrayList<HashMap<String,Object>>>();
-		ArrayList<HashMap<String, Object>> sendEvalResult = null;
+		//객관식 결과
+		List<EvalExampleResult> examResult = evaluationRegisterService.getEvalExamResult(open_course_id);
+		System.out.println("examResult.size():"+examResult.size());				
+		
+		ArrayList<ArrayList<HashMap<String, Object>>> sendEvalResultListofList = new ArrayList<ArrayList<HashMap<String,Object>>>();
+		ArrayList<HashMap<String, Object>> evalResultList = null;
 		
 		for(int i=0; i<examResult.size();i++){
 			HashMap<String, Object> map = new HashMap<String, Object>();
@@ -597,22 +684,37 @@ public class ManagementController {
 			map.put("example_content", examResult.get(i).getExample_content());
 			map.put("counts", examResult.get(i).getCounts());
 			if(i==0){
-				sendEvalResult = new ArrayList<HashMap<String,Object>>();			
-				sendEvalResult.add(map);
+				evalResultList = new ArrayList<HashMap<String,Object>>();			
+				evalResultList.add(map);				
 			}else{
-				if(examResult.get(i-1).getQuestion_id()==examResult.get(i-1).getQuestion_id()){				
-					sendEvalResult.add(map);
+				if(examResult.get(i-1).getQuestion_id()==examResult.get(i).getQuestion_id()){				
+					evalResultList.add(map);					
+					
 				}else{
-					sendEvalResultofList.add(sendEvalResult);
-					sendEvalResult = null;
-					sendEvalResult = new ArrayList<HashMap<String,Object>>();					
-					sendEvalResult.add(map);
+					sendEvalResultListofList.add(evalResultList);							
+					
+					evalResultList = null;
+					evalResultList = new ArrayList<HashMap<String,Object>>();					
+					evalResultList.add(map);
+				}
+				if(i==examResult.size()-1){
+					sendEvalResultListofList.add(evalResultList);											
 				}
 			}
 		}
+		System.out.println("sendEvalResultofList.size:"+sendEvalResultListofList.size());
 		
-		return sendEvalResultofList;
+		
+		return sendEvalResultListofList;
+	}	
+	//차트 샘플
+	@RequestMapping(value="evaluationResultList_sample" , method=RequestMethod.GET)
+	public String chartSample(){
+		return "management.evaluationResult_sample";
 	}
+	
+	
+	
 	//수강신청완료page
 	@RequestMapping(value = "lectureRegisterComplete", method = RequestMethod.GET)
 	public String lectureRegisterComplete(HttpSession session, HttpServletRequest req) {	

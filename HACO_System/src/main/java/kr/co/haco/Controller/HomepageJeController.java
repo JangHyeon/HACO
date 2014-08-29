@@ -2,6 +2,7 @@ package kr.co.haco.Controller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -69,12 +70,12 @@ public class HomepageJeController {
 				examListofList.add(exam);
 			}			
 			
-		}
+		}		
 		
-		
-		model.addAttribute("questionList", questionList);
-		System.out.println("questionList.size():"+questionList.size());
+		model.addAttribute("questionList", questionList);		
 		model.addAttribute("examListofList", examListofList);
+		
+		System.out.println("questionList.size():"+questionList.size());
 		System.out.println("examListofList.size()"+examListofList.size());
 		/*for(int i=0;i<examListofList.size();i++){
 			System.out.println("examListofList.get("+i+").size:"+examListofList.get(i).size());
@@ -86,7 +87,7 @@ public class HomepageJeController {
 	@ResponseBody
 	public int doEvaluation(Model model,String answerList, Principal principal) throws JSONException{
 		System.out.println("Controller : myLectureEvaluation");		
-		
+		//System.out.println("answerList:"+answerList);
 		int result =0;
 		int account_id = Integer.parseInt(principal.getName());		
 		
@@ -96,6 +97,7 @@ public class HomepageJeController {
 		{"question_id":"157","type_code":"2","answer":"ㅎㅎㅎ"},
 		{"question_id":"158","type_code":"1","example_id":"3"}] 
 		
+		=>공통 데이터 때문에 아래와 같이 변경
 		
 		{
 		"sub1":{"course_id":"26"},
@@ -124,34 +126,34 @@ public class HomepageJeController {
 			JSONObject answerJson = answerJsonArray.getJSONObject(i);
 			
 			int question_id=Integer.parseInt((String)answerJson.get("question_id"));
+			System.out.println("question_id:"+question_id);
 			String type_code = (String)answerJson.get("type_code");
+			System.out.println("type_code:"+type_code);
 			String answer="";
 			int example_id=0;						
 			
 			if(type_code.equals("1")){           //객관식일 때
 				example_id = Integer.parseInt((String)answerJson.get("example_id"));
+				
 				EvalExampleResult evalExampleResult = new EvalExampleResult();
 				evalExampleResult.setAccount_id(account_id);
 				evalExampleResult.setExample_id(example_id);
 				evalExampleResult.setOpen_course_id(open_course_id); //Test data
 				evalExampleResult.setQuestion_id(question_id);
+				Map<String, Object> answerAndExam = new HashMap<String, Object>();
+				answerAndExam.put("EvalExampleResult", evalExampleResult);				
 				
-				System.out.println("account_id:"+account_id);
-				System.out.println("example_id:"+example_id);
-				System.out.println("open_course_id:"+open_course_id);
-				System.out.println("question_id:"+question_id);
-				result += homepageMyPageService.uploadEvalExamResult(evalExampleResult);
+				result += homepageMyPageService.uploadEval(account_id,open_course_id,answerAndExam);
 			}else if(type_code.equals("2")){     //주관식일 때
 				answer = (String)answerJson.get("answer");
 				EvalQuestionAnswer evalQuestionAnswer = new EvalQuestionAnswer();
 				evalQuestionAnswer.setAccount_id(account_id);
 				evalQuestionAnswer.setQuestion_id(question_id);
 				evalQuestionAnswer.setAnswer(answer);
+				Map<String, Object> answerAndExam = new HashMap<String, Object>();
+				answerAndExam.put("EvalQuestionAnswer", evalQuestionAnswer);
 				
-				System.out.println("account_id:"+account_id);
-				System.out.println("question_id:"+question_id);
-				System.out.println("answer:"+answer);
-				result += homepageMyPageService.uploadEvalAnswerResult(evalQuestionAnswer);	
+				result += homepageMyPageService.uploadEval(account_id,open_course_id,answerAndExam);
 			}			
 		}
 		System.out.println("result:"+result);		

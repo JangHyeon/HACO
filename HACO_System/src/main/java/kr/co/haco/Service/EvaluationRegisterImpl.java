@@ -6,9 +6,11 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.haco.DAO.EvaluationRegisterDAO;
+import kr.co.haco.DAO.MypageDAO;
 import kr.co.haco.VO.EvalExample;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestion;
+import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.EvaluationRegisterForm;
 
@@ -175,12 +177,32 @@ public class EvaluationRegisterImpl implements EvaluationRegisterService {
 
 		return result;	
 	}
-	//강의 평가 결과
+	//강의평가 - 설문내용 불러오기
 	@Override
-	public List<EvalExampleResult> getEvalResult(int open_course_id) {
+	public Map<String, List<EvaluationRegister>> getEvaluation(int open_course_id) {
 		EvaluationRegisterDAO evalDAO = sqlsession.getMapper(EvaluationRegisterDAO.class);
-		List<EvalExampleResult> resultList = evalDAO.getEvalResult(open_course_id);	
+		List<EvaluationRegister> questionList = evalDAO.getEvaluationQuestion(open_course_id);
+		List<EvaluationRegister> examList = evalDAO.getEvaluationExample(open_course_id);
+		Map<String,List<EvaluationRegister>> evaluation = new HashMap<String,List<EvaluationRegister>>();
+		evaluation.put("questionList", questionList);
+		evaluation.put("examList", examList);		
+		return evaluation;		
+	}
+	
+	//강의 평가 결과 - 차트(객관식)	
+	@Override
+	public List<EvalExampleResult> getEvalExamResult(int open_course_id) {
+		EvaluationRegisterDAO evalDAO = sqlsession.getMapper(EvaluationRegisterDAO.class);
+		List<EvalExampleResult> resultList = evalDAO.getEvalExamResult(open_course_id);	
 		return resultList;
+	}
+	//강의 평가 결과 - 주관식 
+
+	@Override
+	public List<EvalQuestionAnswer> getEvalEssayResult(int open_course_id) {
+		EvaluationRegisterDAO evalDAO = sqlsession.getMapper(EvaluationRegisterDAO.class);
+		List<EvalQuestionAnswer> answerList = evalDAO.getEvalEssayResult(open_course_id);
+		return answerList;
 	}
 	
 	

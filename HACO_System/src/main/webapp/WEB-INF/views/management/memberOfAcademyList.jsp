@@ -82,6 +82,7 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 					<table class="table">
 						<thead>
 							<tr>
+								<th>번호</th>
 								<th>센터명</th>	
 								<th>과정명</th>
 								<th>이름</th>	
@@ -95,8 +96,9 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="member" items="${memberList}">
+							<c:forEach var="member" items="${memberList}" varStatus="seq">
 								<tr>
+									<td>${seq.index+1}</td>
 									<td>${member.center_id}</a></td>
 									<td>${member.course_name}</a></td>
 									<td>${member.name}</td>									

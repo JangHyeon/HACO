@@ -14,6 +14,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
+
 @Component
 public class HomepageMyPageServiceImpl implements HomepageMyPageService {
 	@Autowired
@@ -40,19 +42,30 @@ public class HomepageMyPageServiceImpl implements HomepageMyPageService {
 		return evaluation;
 	}	
 	
-	//강의평가 하기
-	//주관식 일때
+	//강의평가 하기	
 	@Override
-	public int uploadEvalAnswerResult(EvalQuestionAnswer evalQuestionAnswer) {
+	public int uploadEval(int account_id, int open_course_id,Map<String, Object> answerAndExam) {
+		System.out.println("HomepageMyPageServiceImpl :uploadEval");
 		MypageDAO mypageDAO = sqlsession.getMapper(MypageDAO.class); 
-		int result = mypageDAO.uploadEvalAnswer(evalQuestionAnswer);
-		return result;
-	}
-	//객관식 일때
-	@Override
-	public int uploadEvalExamResult(EvalExampleResult evalExampleResult) {
-		MypageDAO mypageDAO = sqlsession.getMapper(MypageDAO.class); 
-		int result = mypageDAO.uploadEvalExam(evalExampleResult);
+		int result=0;
+		
+		result += mypageDAO.setIsSurvey(account_id, open_course_id);
+		System.out.println("setIsSurvey result:"+result);
+		
+		System.out.println("answerAndExam.size():"+answerAndExam.size());
+		for(int i=0; i<answerAndExam.size(); i++){			
+			if(answerAndExam.get("EvalExampleResult") != null){ //객관식일 때
+				System.out.println("EvalExampleResult null아님 -객관식");
+				EvalExampleResult evalexample = (EvalExampleResult)answerAndExam.get("EvalExampleResult");				
+				result += mypageDAO.uploadEvalExam(evalexample);
+		    	System.out.println("EvalExampleResult result:"+result);
+			}else{ //주관식일 때
+				System.out.println("EvalQuestionAnswer null임-주관식");
+				result += mypageDAO.uploadEvalAnswer((EvalQuestionAnswer)answerAndExam.get("EvalQuestionAnswer"));
+				System.out.println("EvalQuestionAnswer result:"+result);
+			}	
+		}
+		
 		return result;
 	}
 	
