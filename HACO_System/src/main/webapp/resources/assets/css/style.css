@@ -2299,3 +2299,28 @@ label {
 	top: -15px;
 	position: relative;
 }
+
+
+/*앞단에서 가져온거 중앙정렬!  */
+.pagination-centered{
+	display: table;
+	text-align: center;
+	margin: 15px auto;
+}
+
+.searchbar{
+	clear:inherit;
+	float: inherit;
+	margin-bottom: 30px;
+}
+
+.oKbutton{
+	
+	margin-right: 10px;
+	margin-top: 20px;
+	
+}
+
+
+
+

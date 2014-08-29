@@ -13,6 +13,7 @@ public interface CourceDAO {
 	public List<getCourseList> getCourseList2(String open_course_id);
 	public List<CenterClassroom> getClassroom(int center_id);
 	public List<EducationCenter> getCenter();
+	public List<EducationCenter> getCenter2(int center_id);
 	public int insertCourse(OpenCourse course);
 	public int deleteCourse(String open_course_id);
 	public int updateCourse(OpenCourse course);
