@@ -111,7 +111,7 @@
 									<td>
 										<c:if test="${qna.divide_code_toString == 'Q'}">
 									<a href="${pageContext.request.contextPath}/management/answerWrite/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">
-											   <button class="btn btn-primary btn-xs"><i class="fa fa-pencil"></i></button></a>
+											   <button class="btn btn-default btn-xs"><i class="fa fa-pencil"></i></button></a>
 										</c:if>
 									</td>
 								</tr>

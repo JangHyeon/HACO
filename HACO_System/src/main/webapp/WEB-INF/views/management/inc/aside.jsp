@@ -49,7 +49,6 @@
                       <ul class="sub">
                           <li name="subjectRegister"><a  href="${pageContext.request.contextPath}/management/subjectRegister">과목등록</a></li>
                           <li name="courseRegister"><a  href="${pageContext.request.contextPath}/management/courseRegister">과정등록</a></li>
-                          <li name="educationCenter"><a  href="${pageContext.request.contextPath}/management/educationCenter">교육센터</a></li>
                       </ul>
                   </li>
 				

@@ -80,26 +80,7 @@
 										</c:if>
 									</td>
 									<td>
-										<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
-											<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
-										</s:authorize>
-										<s:authorize ifNotGranted="TEACHER,MANAGER,CENTER,MASTER">
-											<c:choose>
-												<c:when test="${sessionScope.member.account_id==qna.account_id}">
-													<c:set var="group_id" value="${qna.group_no}" scope="page" />
-													<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
-												</c:when>
-												<c:when test="${qna.state_code!=0}">
-													<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
-												</c:when>
-												<c:when test="${group_id==qna.group_no}">
-													<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
-												</c:when>
-												<c:otherwise>
-													<a class="lock">${qna.title}</a>
-												</c:otherwise>
-											</c:choose>
-										</s:authorize>
+										<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
 									</td>
 									<td>${qna.name_kor}${qna.name}</td>
 									<td>${qna.register_date_string}</td>
@@ -108,11 +89,11 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					
-					<c:if test="${empty qnaList || empty qnaList[0]}">
-						<h3 style="margin: 80px auto; text-align: center;">아직 답변이 없습니다...</h3>
+					<c:if test="${qna.divide_code_toString == 'Q'}">
+						<c:if test="${empty qnaList || empty qnaList[0]}">
+							<h3 style="margin: 80px auto; text-align: center;">아직 답변이 없습니다...</h3>
+						</c:if>			
 					</c:if>
-								
 				</div>
 			</div>
 			<!--/panel-->

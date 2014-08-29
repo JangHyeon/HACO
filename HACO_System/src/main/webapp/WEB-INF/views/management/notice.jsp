@@ -34,6 +34,13 @@
 		<div class="row">
 			<div class="col-md-12 mt">
 				<div class="content-panel">
+				
+					<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
+						<div class="pull-right topToggle">
+							<button id="writeBtn" class="btn btn-success" type="button">공지사항 작성하기</button>
+						</div>
+					</s:authorize>
+				
 					<div class="pull-right topToggle">
 						<div class="btn-group">
 						  <button type="button" class="btn btn-default" id="noticeToggle" data-toggle="button" data-noti-text="공지 보이기">공지 숨기기</button>										 
@@ -64,7 +71,6 @@
 						  </div>
 						</div>
 					</div>
-				
 					<h4>
 						<i class="fa fa-angle-right"></i> Notice
 					</h4>
@@ -107,12 +113,7 @@
 						<h3 style="margin: 80px auto; text-align: center;">결과가 없습니다...</h3>
 					</c:if>
 					<div class="table-footer">
-			            <s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
-							<div class="pull-right topToggle">
-								<button id="writeBtn" class="btn btn-default" type="button">공지사항 작성하기</button>
-							</div>
-						</s:authorize>
-						<div class="col-xs-12">
+						<div class="col-sm-12 col-md-12">
 							<!-- 페이징 -->
 							<ul class="pagination pagination-centered">
 								<!-- 이전 링크 -->

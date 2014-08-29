@@ -12,9 +12,6 @@
 </spring:url>
 
 
-<input id="current-accordion" type="hidden"
-	value="course,subjectRegister" />
-
 <!--external css-->
 <link
 	href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"
@@ -32,7 +29,7 @@
 
 
 <input id="current-accordion" type="hidden"
-	value="course,subjectRegister" />
+	value="course,courseRegister" />
 
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -42,18 +39,14 @@
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i> 서브페이지 샘플
+			<i class="fa fa-angle-right"></i> 과정
 		</h3>
-		<h5>
-			<a href="http://fontawesome.io/icons/" target="_blank">- aside
-				아이콘 정보</a>
-		</h5>
 		<div class="row">
 
 			<div class="col-md-12">
 				<div class="content-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i> 과목등록
+						<i class="fa fa-angle-right"></i> 과정등록
 					</h4>
 					<hr>
 					<table class="table">
@@ -72,102 +65,107 @@
 						</thead>
 						<tbody>
 							<c:forEach var="role" items="${CourseList}">
-								<tr>
-									<td>${role.open_course_id}</td>
-									<td>${role.name_kor}</td>
-									<td>${role.subject_name}</td>
-									<td>${role.course_name}</td>
-									<td>${role.classroom}</td> 
-									<td><fmt:formatDate value="${role.course_start_date}"
-											pattern="yyyy-MM-dd" />~
-									<fmt:formatDate value="${role.course_end_date}"
-											pattern="yyyy-MM-dd" /></td>
-									<td>${role.location}</td>
-									<td><a
-										href="${pageContext.request.contextPath}/management/courseUpdate?id=${role.open_course_id}">
-											<p>수정</p>
-									</a></td>
-									<td><a
-										href="${pageContext.request.contextPath}/management/courseDeleteOk?id=${role.open_course_id}">
-											<p>삭제</p>
-									</a></td> 	
-								</tr>
-							</c:forEach>
-
+			                     <tr>
+			                        <td>${role.open_course_id}</td>
+			                        <td>${role.name_kor}</td>
+			                        <td>${role.subject_name}</td>
+			                        <td>${role.course_name}</td>
+			                        <td>${role.classroom}</td>
+			                        <td><fmt:formatDate value="${role.course_start_date}"
+			                              pattern="yyyy-MM-dd" />~ <fmt:formatDate
+			                              value="${role.course_end_date}" pattern="yyyy-MM-dd" /></td>
+			                        <td>${role.location}</td>
+			                        <td><a
+			                           href="${pageContext.request.contextPath}/management/courseUpdate?id=${role.open_course_id}">
+			                              <button class="btn btn-primary btn-xs">
+			
+			                                 <i class="fa fa-pencil"></i>
+			                              </button>
+			
+			                        </a></td>
+			                        <td><a
+			                           href="${pageContext.request.contextPath}/management/courseDeleteOk?id=${role.open_course_id}">
+			                              <button class="btn btn-danger btn-xs">
+			                                 <i class="fa fa-trash-o "></i>
+			                              </button>
+			                        </a></td>
+			                     </tr>
+			                  </c:forEach>
 						</tbody>
 
 					</table>
-
-					<%--test:${pageContext.request.contextPath}  --%>
-					<a
-						href="${pageContext.request.contextPath}/management/courseInsert">
-						<p>등록</p>
-					</a>
+					
+					<div class="table-footer">
+			            <s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
+							<div class="pull-right topToggle">
+								<button id="writeBtn" class="btn btn-primary" type="button">과목 등록하기</button>
+							</div>
+						</s:authorize>
+						<div class="col-xs-12">
+							<!-- 페이징 -->
+							<ul class="pagination pagination-centered">
+								<!-- 이전 링크 -->
+								<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+									<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
+								</li>
+								
+							  	<!-- 페이지 리스트   -->
+							  	<c:if test="${beginpage!=0}">
+								<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+								
+									<c:if test="${i==pageNum}">
+										<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+									</c:if>
+									<c:if test="${i!=pageNum}">
+										<li><a href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
+									</c:if>
+								</c:forEach>
+								</c:if>
+							  	<!-- 다음링크 -->
+								<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+									<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
+								</li>
+							</ul>
+						</div>						
+							
+						<!-- 검색 -->
+						<div class="col-sm-6 col-sm-offset-3" style="clear:both">
+				          <div class="input-group">
+				            <div class="input-group-btn">
+				              <button id="searchType" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				              	<c:choose>
+				              		<c:when test="${searchType=='titleAndContent'}">
+				              			<span>제목+내용 </span>
+				              		</c:when>
+				              		<c:when test="${searchType=='writer'}">
+				              			<span>작성자 </span>
+				              		</c:when>
+				              		<c:otherwise>
+				              			<span>제목 </span>
+				              		</c:otherwise>
+				              	</c:choose> 
+				              	<span class="caret"></span>
+				              </button>
+				              <ul id="selectType" class="dropdown-menu" role="menu">
+				                <li id="typeTitle" value="title"><a>제목</a></li>
+				                <li id="typeTitleAndContent" value="titleAndContent"><a>제목+내용</a></li>
+				                <li id="writer" value="writer"><a>작성자</a></li>
+				              </ul>
+				            </div><!-- /btn-group -->
+				            <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
+				            <span class="input-group-btn">
+				              <button class="btn btn-default" id="submitBtn" type="button">검색</button>
+				            </span>
+				          </div>
+					        <input type="hidden" name="searchKey" value="${searchKey}">
+					        <input type="hidden" name="pageNum" value="${pageNum}">
+					        <input type="hidden" name="pageSize" value="${pageSize}">
+					        <input type="hidden" name="searchType" value="${searchType}">
+				        </div>
+					</div>
 				</div>
-				<!-- 페이징 -->
-										<ul class="pagination pagination-centered">
-											<!-- 이전 링크 -->
-											<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
-												<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
-											</li>
-											
-										  	<!-- 페이지 리스트   -->
-										  	<c:if test="${beginpage!=0}">
-											<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
-											
-												<c:if test="${i==pageNum}">
-													<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
-												</c:if>
-												
-												<c:if test="${i!=pageNum}">
-													<li><a href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
-												</c:if>
-											</c:forEach>
-											</c:if>
-										  	<!-- 다음링크 -->
-											<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
-												<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
-											</li>
-										</ul>
-									</div>						
-										
-									<!-- 검색 -->
-									<div class="col-sm-6 col-sm-offset-3" style="clear:both">
-							          <div class="input-group">
-							            <div class="input-group-btn">
-							              <button id="searchType" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-							              	<c:choose>
-							              		<c:when test="${searchType=='teacherAndcourse'}">
-							              			<span>강사+과정 </span>
-							              		</c:when>
-							              		<c:when test="${searchType=='course'}">
-							              			<span>과정명 </span>
-							              		</c:when>
-							              		<c:otherwise>
-							              			<span>강사명</span>
-							              		</c:otherwise>
-							              	</c:choose> 
-							              	<span class="caret"></span>
-							              </button>
-							              <ul id="selectType" class="dropdown-menu" role="menu">
-							                <li id=teacher value="teacher"><a>강사명</a></li>
-							                <li id="teacherAndcourse" value="teacherAndcourse"><a>강사+과정</a></li>
-							                <li id="course" value="course"><a>과정명</a></li>
-							              </ul>
-							            </div><!-- /btn-group -->
-							            <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
-							            <span class="input-group-btn">
-							              <button class="btn btn-default" id="submitBtn" type="button">검색</button>
-							            </span>
-							          </div>
-								        <input type="hidden" name="searchKey" value="${searchKey}">
-								        <input type="hidden" name="pageNum" value="${pageNum}">
-								        <input type="hidden" name="pageSize" value="${pageSize}">
-								        <input type="hidden" name="searchType" value="${searchType}">
-							        </div>
-				<!-- /content-panel -->
-			</div>
-			
+	        </div>
+			<!-- /content-panel -->
 		</div>
 	</section>
 </section>
@@ -236,9 +234,9 @@ $(document).ready(function(){
 	});
 	
 	// 글쓰기 페이지
-	/* $('#writeBtn').on('click', function() {
-		location.href='${pageContext.request.contextPath}/noticeWrite';
-	}); */
+	$('#writeBtn').on('click', function() {
+		location.href='${pageContext.request.contextPath}/management/courseInsert';
+	});
 });
 
 </script>

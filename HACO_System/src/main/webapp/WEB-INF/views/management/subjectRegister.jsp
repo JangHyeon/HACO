@@ -43,12 +43,13 @@
 		<div class="row">
 
 			<div class="col-md-12">
-				<div class="pull-right">
-					<a class="btn btn-success btn-sm pull-left oKbutton"
-						href="${pageContext.request.contextPath}/management/subjectInsert">
-						new subject</a>
-				</div>
 				<div class="content-panel">
+				
+				<div class="pull-right topToggle">
+					<a class="btn btn-success"
+						href="${pageContext.request.contextPath}/management/subjectInsert">
+						과목 등록</a>
+				</div>
 					<h4>
 						<i class="fa fa-angle-right"></i> 과목등록
 					</h4>
@@ -86,7 +87,7 @@
 									<td>${Subject2.tuition_fee}</td>
 									<td><a
 										href="${pageContext.request.contextPath}/management/subjectUpdate?id=${Subject2.subject_id}">
-											<button class="btn btn-primary btn-xs">
+											<button class="btn btn-default btn-xs">
 												<i class="fa fa-pencil"></i>
 											</button>
 
@@ -106,40 +107,39 @@
 					<%--test:${pageContext.request.contextPath}  --%>
 
 
-
-					<!-- 페이징 -->
-					<ul class="pagination pagination-centered">
-						<!-- 이전 링크 -->
-						<li <c:if test="${beginpage<10}"> class="disabled"</c:if>><a
-							<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
-						</li>
-						<c:if test="${beginpage!=0}">
-							<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
-
-								<c:if test="${i==pageNum}">
-									<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
-								</c:if>
-								<c:if test="${i!=pageNum}">
-									<li><a
-										href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
-								</c:if>
-							</c:forEach>
-						</c:if>
-						<li <c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
-							<a
-							<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
-						</li>
-					</ul>
-
-
-					<!-- 검색 -->
-					<div class="col-sm-6 col-sm-offset-3 searchbar" style="clear: both">
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button id="searchType" type="button"
+					<div class="table-footer">
+						<!-- 페이징 -->
+						<ul class="pagination pagination-centered">
+							<!-- 이전 링크 -->
+							<li <c:if test="${beginpage<10}"> class="disabled"</c:if>><a
+								<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
+							</li>
+							<c:if test="${beginpage!=0}">
+								<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+	
+									<c:if test="${i==pageNum}">
+										<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+									</c:if>
+									<c:if test="${i!=pageNum}">
+										<li><a
+											href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
+									</c:if>
+								</c:forEach>
+							</c:if>
+							<li <c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+								<a
+								<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
+							</li>
+						</ul>
+	
+	
+						<!-- 검색 -->
+						<div class="col-sm-6 col-sm-offset-3" style="clear:both">
+				          <div class="input-group">
+				            <div class="input-group-btn">
+				              <button id="searchType" type="button"
 									class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 									<c:choose>
-		
 										<c:when test="${searchType=='center'}">
 											<span>센터명 </span>
 										</c:when>
@@ -153,20 +153,17 @@
 									<li id=center value="center"><a>센터명</a></li>
 									<li id="course" value="course"><a>과목명</a></li>
 								</ul>
-							</div>
-							<!-- /btn-group -->
-							<input type="text" class="form-control" id="inputSearchKey"
-								value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
-							<span class="input-group-btn">
-								<button class="btn btn-default" id="submitBtn" type="button">검색</button>
-							</span>
-						</div>
-
-
-						<input type="hidden" name="searchKey" value="${searchKey}">
-						<input type="hidden" name="pageNum" value="${pageNum}"> <input
-							type="hidden" name="pageSize" value="${pageSize}"> <input
-							type="hidden" name="searchType" value="${searchType}">
+				            </div><!-- /btn-group -->
+				            <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
+				            <span class="input-group-btn">
+				              <button class="btn btn-default" id="submitBtn" type="button">검색</button>
+				            </span>
+				          </div>
+					        <input type="hidden" name="searchKey" value="${searchKey}">
+					        <input type="hidden" name="pageNum" value="${pageNum}">
+					        <input type="hidden" name="pageSize" value="${pageSize}">
+					        <input type="hidden" name="searchType" value="${searchType}">
+				        </div>
 					</div>
 				</div>
 			</div>

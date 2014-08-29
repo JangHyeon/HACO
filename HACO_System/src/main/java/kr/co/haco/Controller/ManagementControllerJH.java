@@ -194,7 +194,8 @@ public class ManagementControllerJH {
 		if (qna == null) {
 			return "redirect:/error/PageNotFound"; // 없는 페이지
 		} else if (qna.getError() != null) {
-			return "redirect:/error/" + qna.getError();
+			redirectAttributes.addFlashAttribute("errorMsg", qna.getError());
+			return "redirect:/error";
 		}
 
 		qna.setGroup_no(qna.getQna_id());
