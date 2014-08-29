@@ -46,37 +46,26 @@
           		</div>
           	</div>
           	
-          	<!-- 주관식 -->          	
+          	<!-- 주관식 -->          	 
           	<div class="bs-example">
 			    <div class="panel-group" id="accordion">
-			    	<%-- <c:forEach var="essay" items="${essayResult}"> --%>
+			    	<c:forEach var="quest" items="${question}" varStatus="seq">			    	
 			        <div class="panel panel-default">
 			            <div class="panel-heading">
 			                <h4 class="panel-title">
-			                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">ㅎㅎㅎ</a>
+			                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne${seq.index}">${quest}</a>
 			                </h4>
 			            </div>
-			            <div id="collapseOne" class="panel-collapse collapse in">
+			            <div id="collapseOne${seq.index}" class="panel-collapse collapse in">
 			                <div class="panel-body">
-			                    <p>하하하</p>
+			                <%-- 	<c:forEach var="answer" items="answerList">
+			                    <p>${answer.answer}</p>
+			                    </c:forEach> --%>
 			                </div>
 			            </div>
 			        </div>
-			       <%--  </c:forEach> --%>
-			        <div class="panel panel-default">
-			            <div class="panel-heading">
-			                <h4 class="panel-title">
-			                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">2. 샘플?</a>
-			                </h4>
-			            </div>
-			            <div id="collapseTwo" class="panel-collapse collapse in">
-			                <div class="panel-body">
-			                    <p>Twitter Bootstrap is a powerful front-end framework for faster and easier web development. It is a collection of CSS and 
-			                    HTML conventions. <a href="http://www.tutorialrepublic.com/twitter-bootstrap-tutorial/" target="_blank">Learn more.</a></p>
-			                </div>
-			            </div>
-			        </div>
-			      
+			        </c:forEach>
+			        		      
 			    </div>
 			</div>
 		</section><! --/wrapper -->

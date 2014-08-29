@@ -105,9 +105,9 @@
                           <span>직원</span>
                       </a>
                       <ul class="sub">
-                          <li name="center"><a  href="${pageContext.request.contextPath}/management/center">센터장</a></li>
-                          <li name="manager"><a  href="${pageContext.request.contextPath}/management/manager">관리직원</a></li>
+                          <li name="center"><a  href="${pageContext.request.contextPath}/management/center">센터장</a></li>                          
                           <li name="teacher"><a  href="${pageContext.request.contextPath}/management/teacher">강사</a></li>
+                          <li name="manager"><a  href="${pageContext.request.contextPath}/management/manager">관리직원</a></li>
                       </ul>
                   </li>
               </ul>

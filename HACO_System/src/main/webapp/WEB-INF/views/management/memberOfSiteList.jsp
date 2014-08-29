@@ -55,6 +55,7 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 					<table class="table">
 						<thead>
 							<tr>
+								<th>번호</th>
 								<th>이름</th>	
 								<th>직무</th>			
 								<th>전화번호</th>								
@@ -64,10 +65,11 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="member" items="${memberList}">
+							<c:forEach var="member" items="${memberList}" varStatus="seq">
 								<tr>
-									<td><a href="employeeDetail?account_id=${member.account_id}">${member.name}</td>									
-									<td>${member.job_duty}</a></td>
+									<td>${seq.index+1}</td>
+									<td>${member.name}</td>									
+									<td>${member.job_duty}</td>
 									<td>${member.phone}</td>
 									<td>${member.address}</td>
 									<td>${member.email}</td>

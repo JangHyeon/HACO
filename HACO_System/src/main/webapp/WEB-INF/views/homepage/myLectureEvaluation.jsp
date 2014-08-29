@@ -17,19 +17,15 @@
 <link rel="stylesheet" href="${resourceUrl}/Remodal/jquery.remodal.css">
 
 <!-- myPage header column -->
-<%@ include file="inc/mypageHeader.jsp" %>
+<%@ include file="inc/myLectureHistoryHeader.jsp" %>
 
 <!-- Begin Body -->
 <div class="container">
 	<div class="no-gutter row">
-		
-		<!-- left side column -->
-		<%@ include file="inc/mypageAside.jsp" %>
-		<!-- END/left side column -->
 
 
 		<!-- right content column-->
-		<div class="col-md-10" id="content">
+		<div class="col-md-12" id="content">
 			<div class="panel">
 				<ol class="breadcrumb">
 				  <li class="active">강의평가</li>
@@ -121,15 +117,6 @@
 	</div>
 </div>
 
-<div id="zipcodeModal" class="remodal" data-remodal-id="modal"></div>
-
-<!-- lodingmodel -->
-<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="lodingModal" class="modal fade">
-	<div class="modal-dialog">
-		<div id="loaderImage"></div>
-	</div>
-</div>
-<!-- modal -->
 
 
 
@@ -150,7 +137,7 @@
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
 $(document).ready(function() {
-	//?
+ 	//?
 	$('#sidebar').affix({
 		offset : {
 			top : 230,
@@ -211,12 +198,12 @@ $(document).ready(function() {
             success : function(result) {               
                  if(result>0){
                 	 //console.log(jsonData);
-                	 //console.log("result:"+result);
+                	 console.log("result:"+result);
                 	 alert("설문이 등록되었습니다. 감사합니다.^^");
                 	 location.href="myLectureHistory";
                  }
             },error : function(xhr, status, error) {
-	             alert("이미 등록한 설문입니다.");	             
+	             alert("에러가 발생했습니다.");	             
 	        }           
     	});
 		

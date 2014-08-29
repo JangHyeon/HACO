@@ -615,9 +615,36 @@ public class ManagementController {
 		System.out.println("Controller : evaluationResult");
 		List<EvalQuestionAnswer> essayResult =  evaluationRegisterService.getEvalEssayResult(open_course_id);
 		
-		//essayResult.get(0).getAccount_id();
-		//System.out.println("essayResult.size():"+essayResult.size());
-		model.addAttribute("essayResult", essayResult);			
+		//a.question_id, q.question ,a.answer , q.open_course_id
+		//ArrayList<ArrayList<String>> questionList = new ArrayList<ArrayList<String>>(); 
+		ArrayList<String> question = new ArrayList<String>();		
+		
+		ArrayList<ArrayList<String>> answerList = new ArrayList<ArrayList<String>>();		
+		ArrayList<String> answer = null;
+		for(int i=0; i<essayResult.size(); i++){
+			if(i==0){				
+				answer = new ArrayList<String>();
+				question.add(essayResult.get(i).getQuestion());				
+				answer.add(essayResult.get(i).getAnswer());
+			}else{
+				if(essayResult.get(i-1).getQuestion_id()==essayResult.get(i).getQuestion_id()){ //같은 질문이면
+					answer.add(essayResult.get(i).getAnswer());
+				}else{ //다른 질문이면					
+					answerList.add(answer);					
+					answer  = null;					
+					answer = new ArrayList<String>();
+					question.add(essayResult.get(i).getQuestion());
+					answer.add(essayResult.get(i).getAnswer());
+				}
+				if(i==essayResult.size()-1){					
+					answerList.add(answer);
+				}
+			}
+			
+		}
+		
+		model.addAttribute("question", question);
+		model.addAttribute("answerList", answerList);	
 		return "management.evaluationResult";
 	}
 	//강의 평가 결과 - 차트

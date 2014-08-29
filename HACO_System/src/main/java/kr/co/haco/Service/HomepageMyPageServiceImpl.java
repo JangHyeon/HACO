@@ -56,11 +56,12 @@ public class HomepageMyPageServiceImpl implements HomepageMyPageService {
 		for(int i=0; i<answerAndExam.size(); i++){			
 			if(answerAndExam.get("EvalExampleResult") != null){ //객관식일 때
 				System.out.println("EvalExampleResult null아님 -객관식");
-				result += mypageDAO.uploadEvalExam((EvalExampleResult)answerAndExam.get(i));
+				EvalExampleResult evalexample = (EvalExampleResult)answerAndExam.get("EvalExampleResult");				
+				result += mypageDAO.uploadEvalExam(evalexample);
 		    	System.out.println("EvalExampleResult result:"+result);
 			}else{ //주관식일 때
 				System.out.println("EvalQuestionAnswer null임-주관식");
-				result += mypageDAO.uploadEvalAnswer((EvalQuestionAnswer)answerAndExam.get(i));
+				result += mypageDAO.uploadEvalAnswer((EvalQuestionAnswer)answerAndExam.get("EvalQuestionAnswer"));
 				System.out.println("EvalQuestionAnswer result:"+result);
 			}	
 		}

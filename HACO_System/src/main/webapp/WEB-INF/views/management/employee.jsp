@@ -75,6 +75,7 @@
 					<table class="table">
 						<thead>
 							<tr>
+								<th>번호</th>
 								<th>현 센터</th>
 								<th>계정 번호</th>
 								<th>이름</th>
@@ -85,8 +86,9 @@
 							</tr>
 						</thead>
 						<tbody>
-							<c:forEach var="emp" items="${emplist}">
+							<c:forEach var="emp" items="${emplist}" varStatus="seq">
 								<tr>
+									<td>${seq.index+1}</td>
 									<td>${emp.now_center_name}</td>
 									<td>${emp.account_id}</td>
 									<td><a href="employeeDetail?account_id=${emp.account_id}">${emp.name_kor}</a></td>

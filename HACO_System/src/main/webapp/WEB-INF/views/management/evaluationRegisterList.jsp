@@ -43,15 +43,13 @@
                                  <th class="numeric">센터명</th>
                                  <th class="numeric">과정명</th>
                                  <th class="numeric">수강일자</th>
-                                 <th class="numeric">평가 등록</th>               
+                                 <th class="numeric">평가 상태</th>               
                               </tr>
                               </thead>
-                              <tbody>
-                              <%int idx=0; %>
-                              <c:forEach var="erl" items="${evalRegList}">
-                              	<%idx++; %>
+                              <tbody>                             
+                              <c:forEach var="erl" items="${evalRegList}" varStatus="seq">                              	
 	                          	<tr>	             
-	                          		<td class="numeric"><%=idx %></td>               	
+	                          		<td class="numeric">${seq.index+1}</td>               	
 	                            	<td class="numeric">${erl.location}</td>
 	                                <td class="numeric">
 	                                	<c:choose>

@@ -201,8 +201,8 @@ public class EvaluationRegisterImpl implements EvaluationRegisterService {
 	@Override
 	public List<EvalQuestionAnswer> getEvalEssayResult(int open_course_id) {
 		EvaluationRegisterDAO evalDAO = sqlsession.getMapper(EvaluationRegisterDAO.class);
-		evalDAO.getEvalEssayResult(open_course_id);
-		return null;
+		List<EvalQuestionAnswer> answerList = evalDAO.getEvalEssayResult(open_course_id);
+		return answerList;
 	}
 	
 	

@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-xs-6">
         <h1><strong><a href="${pageContext.request.contextPath}/notice">수강내역</a></strong>
-          <p class="lead">myLectureHistory</p></h1>
+          <p class="lead">${sessionScope.member.name}님의 HACO Academy</p></h1>
       </div>
       <div class="col-xs-6">
         <div class="pull-right headerImg">

@@ -109,7 +109,7 @@
 							</c:forEach>
 														
 						    </form>
-							<button type="button" class="btn btn-default items_btn" id="multiple_choice_items_btn" >목록</button>
+							<button type="button" class="btn btn-default items_btn" id="listBtn" >목록</button>
 						</div>
 					</div>
 					<!-- col-lg-12--> 
@@ -128,6 +128,10 @@
     <!--script for this page-->
   <script type="text/javascript">
   	$(function(){   
+  		//목록 버튼
+  		$('#listBtn').on('click',function(){
+  			location.href="${pageContext.request.contextPath}/evaluationRegisterList";		  
+		});  		
   		
   		//객관식,주관식 질문 선택
   		var cnt=0;
