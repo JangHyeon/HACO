@@ -42,7 +42,11 @@ public class CourseServiceImpl implements CourseService {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(CourceDAO.class).getCenter();
 	}
-
+	@Override
+	public List<EducationCenter> getCenter2(int center_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(CourceDAO.class).getCenter2(center_id);
+	}
 	
 	@Override
 	public int insertCourse(OpenCourse course) {
@@ -70,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
 		//기본값 설정
 		if(getCourseList.getPageNum()==0) getCourseList.setPageNum(1);
 		if(getCourseList.getPageSize()==0) getCourseList.setPageSize(10);
-		if(getCourseList.getSearchType()==null || getCourseList.getSearchType().equals("")) getCourseList.setSearchType("teacher");
+		if(getCourseList.getSearchType()==null || getCourseList.getSearchType().equals("")) getCourseList.setSearchType("subject");
 		if(getCourseList.getSearchKey()==null || getCourseList.getSearchKey().equals("")) getCourseList.setSearchKey("");
 
 		System.out.println("getSearchType : "+getCourseList.getSearchType());
@@ -126,4 +130,6 @@ public class CourseServiceImpl implements CourseService {
 		
 		
 	}
+
+	
 }

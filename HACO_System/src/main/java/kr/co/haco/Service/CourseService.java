@@ -19,11 +19,16 @@ public void getCourseList(getCourseList getCourseList, Model model, String conte
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 public List<getCourseList> getCourseList();*/
 // 과정:상세보기..
+
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 public List<getCourseList> getCourseList2(String open_course_id);
 // 과정:교육장검색..
+
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 public List<EducationCenter> getCenter();
+
+@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
+public List<EducationCenter> getCenter2(int center_id);
 
 // 과정:강의실검색..
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")

@@ -96,12 +96,19 @@
 		center_id=#{center_id}
 	</select>
 
-	<!-- 교육센터 -->
+	<!-- 교육센터 목록-->
 	<select id="getCenter" parameterType="Integer"
 		resultType="kr.co.haco.VO.EducationCenter">
 		select center_id, location from education_center
 	</select>
 
+	<!--교육센타 검색  -->
+	<select id="getCenter2" parameterType="Integer"
+		resultType="kr.co.haco.VO.EducationCenter">
+		select center_id, location from education_center
+	 where
+		center_id=#{center_id}
+	</select>
 	<!-- 과정등록 -->
 	<insert id="insertCourse" parameterType="kr.co.haco.VO.OpenCourse">
 		insert into

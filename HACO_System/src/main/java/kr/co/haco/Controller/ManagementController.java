@@ -261,11 +261,11 @@ public class ManagementController {
 			throws ParseException {
 		System.out.println("************************************************");
 		System.out.println("subjectInsert//InsertForm//insertOk");
-		Time start1 = getTimestamp(start + ":00");
-		Time end1 = getTimestamp(end + ":00");
+		System.out.println("getSubject_id::"+subject.getSubject_id());
+		System.out.println("getSubject_name::"+subject.getSubject_name());
+		Time start1 = getTimestamp(start+":00");
+		Time end1 = getTimestamp(end+":00");
 		long a = (end1.getTime() - start1.getTime()) / 1000;
-		int time1 = (int) (a / 3600);
-		int time2 = (int) (a % 3600 / 60);
 		int time3 = (int) (subject.getLecture_totalday() * a);
 		Subject subject2 = new Subject(subject.getSubject_id() ,subject.getSubject_name(),
 				subject.getCapacity(), subject.getSubject_explanation(),
@@ -299,11 +299,19 @@ public class ManagementController {
 			String end, HttpServletResponse res) throws IOException {
 		System.out.println("************************************************");
 		System.out.println("subjectUpdate//UpdateForm//UpdateOk");
-		Time start1 = getTimestamp(start + ":00");
-		Time end1 = getTimestamp(end + ":00");
+		Time start1 = null ;
+		Time end1  = null ;
+		if(start.length()<7){
+			start1 = getTimestamp(start+":00");
+		}else{
+			start1 = getTimestamp(start);
+		}
+		 if(end.length()<7){
+			 end1 = getTimestamp(end+":00");
+		}else{
+			end1 = getTimestamp(end);
+		}		 
 		long a = (end1.getTime() - start1.getTime()) / 1000;
-		int time1 = (int) (a / 3600);
-		int time2 = (int) (a % 3600 / 60);
 		int b = (int) (subject.getLecture_totalday() * a);
 		Subject subject2 = new Subject(subject.getSubject_id(), subject.getSubject_name(),
 				subject.getCapacity(), subject.getSubject_explanation(),
@@ -312,6 +320,8 @@ public class ManagementController {
 				subject.getLecture_totalday(), subject.getTuition_fee(),
 				subject.getLecture_content(), subject.getCenter_id(), start1,
 				end1, b / 3600);
+		
+		subjectService.updateSubject(subject2);
 		System.out.println("move:management.subjectRegister");
 		return "redirect:subjectRegister";
 	}
@@ -347,7 +357,7 @@ public class ManagementController {
 		return "management.courseRegister";
 	}
 
-	// 과정-과목등록-SubjectList(PageChange)
+	// 과정-과목등록-CourseList(PageChange)
 		@RequestMapping(value = "/courseRegister/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}")
 		public String courseRegister2(Model model, HttpServletRequest request, HttpSession session,
 							@PathVariable String searchType,@PathVariable String searchKey,@PathVariable int pageSize,@PathVariable int pageNum) {
@@ -457,7 +467,9 @@ public class ManagementController {
 			System.out.println("move:management.subjectUpdate//Update");
 			System.out.println(request.getParameter("id"));
 			model.addAttribute("Center", courseService.getCenter());
+			System.out.println("test1: "+ courseService.getCenter());
 			model.addAttribute("Subject", subjectService.getsubjectList());
+			System.out.println("test2: "+ subjectService.getsubjectList());
 			model.addAttribute("roleList", courseService.getCourseList2(request.getParameter("id")));
 			
 		  return "management.courseUpdate"; 
@@ -477,8 +489,7 @@ public class ManagementController {
 			
 			System.out.println("accountID:"+getList.getAccount_id());
 			OpenCourse course = new OpenCourse(getList.getOpen_course_id(),getList.getAccount_id(), getList.getSubject_id(),
-					getList.getCourse_name(), java.sql.Date.valueOf(start),
-					java.sql.Date.valueOf(end), Integer.parseInt(center_id),
+					getList.getCourse_name(), Integer.parseInt(center_id),
 					Integer.parseInt(center_classroom_id));
 			
 			System.out.println(course.toString());
@@ -790,7 +801,7 @@ public class ManagementController {
 	
 	
 	
-	/////test//////////
+	/////자동완성//////////
 	@RequestMapping(value = "test", method = RequestMethod.POST)
 	@ResponseBody
 	public HashMap<String, Object> key(String json_data, Model model,
@@ -802,6 +813,21 @@ public class ManagementController {
 		subjectService.getName(json_data);
 		
 		
+		HashMap<String, Object> mapJson = new HashMap<String, Object>();
+		mapJson.put("t",subjectService.getName(json_data));
+		System.out.println("mapJson_value: "+mapJson);
+		return mapJson;
+	}
+/////자동완성->프로필검색//////////
+	@RequestMapping(value = "test2", method = RequestMethod.POST)
+	@ResponseBody
+	public HashMap<String, Object> search(String json_data, Model model,
+			HttpServletResponse rs) throws JsonGenerationException,
+			JsonMappingException, IOException {
+		
+		System.out.println("************************************************");
+		System.out.println("json_data_value: "+json_data);
+		subjectService.getName(json_data);
 		HashMap<String, Object> mapJson = new HashMap<String, Object>();
 		mapJson.put("t",subjectService.getName(json_data));
 		System.out.println("mapJson_value: "+mapJson);

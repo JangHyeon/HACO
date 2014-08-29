@@ -24,8 +24,11 @@
 		select
 		subject_id,subject_name,lecture_totalday,lecture_totaltime,lecture_time_start,lecture_time_end,
 		lecture_target,capacity,tuition_fee,subject_explanation,instructional_objectives,subject_point
-		,lecture_content,create_date,update_date,center_id
-		from subject
+		,lecture_content,create_date,update_date, e.location
+		from subject s 
+        join education_center e
+        on s.center_id = e.center_id
+        
 	</select>
 
 
@@ -36,11 +39,16 @@
 		select
 		subject_id,subject_name,lecture_totalday,lecture_totaltime,lecture_time_start,lecture_time_end,
 		lecture_target,capacity,tuition_fee,subject_explanation,instructional_objectives,subject_point
-		,lecture_content,create_date,update_date,center_id
-		from subject
+		,lecture_content,create_date,update_date, location 
+		from subject s  
+        join education_center e
+        on s.center_id = e.center_id
 			<where>
-			<if test="searchType == 'title'">
-				subject_name like CONCAT('%',#{searchKey},'%') 
+			<if test="searchType == 'center'">
+				and location like CONCAT('%',#{searchKey},'%')
+			</if>	
+			<if test="searchType == 'subject'">
+			    and subject_name like CONCAT('%',#{searchKey},'%') 
 			</if>
 			</where>
 			order by subject_id desc 
@@ -51,10 +59,15 @@
 	<select id="getSubjectListCount" resultType="Integer">
 		select
 		count(subject_id) 
-		from subject
+		from subject s  
+        join education_center e
+        on s.center_id = e.center_id
 				<where>
-			<if test="searchType == 'title'">
-				subject_name like CONCAT('%',#{searchKey},'%') 
+			<if test="searchType == 'center'">
+				and location like CONCAT('%',#{searchKey},'%')
+			</if>	
+			<if test="searchType == 'subject'">
+			    and subject_name like CONCAT('%',#{searchKey},'%') 
 			</if>
 			</where>
 	</select>
@@ -73,7 +86,7 @@
 
 	<!--과목수정 -->
 	<update id="updateSubject" parameterType="kr.co.haco.VO.Subject">
-		update subject set
+		update subject set 
 		subject_name = #{subject_name},
 		capacity = #{capacity},
 		subject_explanation = #{subject_explanation},
@@ -86,9 +99,9 @@
 		lecture_totalday =#{lecture_totalday},
 		lecture_time_start= #{lecture_time_start},
 		lecture_time_end= #{lecture_time_end},
-		tuition_fee = #{tuition_fee}
-		where
-		subject_id=#{subject_id}
+		tuition_fee = #{tuition_fee},
+		center_id = #{center_id}
+		where subject_id= #{subject_id}
 	</update>
 
 	<!--과목삭제 -->

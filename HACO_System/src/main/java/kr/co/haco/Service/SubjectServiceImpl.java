@@ -74,7 +74,7 @@ public class SubjectServiceImpl implements SubjectService {
 		//기본값 설정
 		if(subject2.getPageNum()==0) subject2.setPageNum(1);
 		if(subject2.getPageSize()==0) subject2.setPageSize(5);
-		if(subject2.getSearchType()==null || subject2.getSearchType().equals("")) subject2.setSearchType("title");
+		if(subject2.getSearchType()==null || subject2.getSearchType().equals("")) subject2.setSearchType("subject");
 		if(subject2.getSearchKey()==null || subject2.getSearchKey().equals("")) subject2.setSearchKey("");
 		
 		

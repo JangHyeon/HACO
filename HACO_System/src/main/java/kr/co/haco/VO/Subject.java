@@ -37,7 +37,6 @@ public class Subject {
 	
 	
 	
-	
 	public Subject(){}
 	
 	public Subject(int subject_id, String subject_name, int capacity,
@@ -60,6 +59,7 @@ public class Subject {
 		this.lecture_time_start = lecture_time_start;
 		this.lecture_time_end = lecture_time_end;
 		this.lecture_totaltime = lecture_totaltime;
+		
 	}
 
 
