@@ -4,8 +4,13 @@ import java.util.List;
 
 import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.Qna;
+import kr.co.haco.VO.UploadFile;
 
 public interface HomepageDAO {
+	//파일 업로드
+	public int insertuploadFile(UploadFile uploadFile);
+	public long getUploadFileSumFilesize();
+	
 	//공지사항
 	public int getNoticeListCount(Notice notice);
 	public List<Notice> getNoticeList(Notice notice);

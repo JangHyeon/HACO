@@ -377,14 +377,18 @@ public class HomepageController {
 		if(qna==null){
 			return "redirect:/error/PageNotFound"; //없는 페이지
 		}else if(qna.getError()!=null){
-			return "redirect:/error/"+qna.getError();
+			redirectAttributes.addFlashAttribute("errorMsg", qna.getError());
+			return "redirect:/error";
 		}
-		
+
+		qna.setGroup_no(qna.getQna_id());
+		homepageService.getQnaList(qna, session, model, request.getContextPath());
 		
 		qna.setSearchKey(searchKey);
 		qna.setSearchType(searchType);
 		qna.setPageNum(pageNum);
 		qna.setPageSize(pageSize);
+
 		
 		model.addAttribute("qna",qna);
 		return "homepage.qnaView";
@@ -460,7 +464,7 @@ public class HomepageController {
 		Employee employee = (Employee)session.getAttribute("employee");
 		answer.setAccount_id(employee.getAccount_id());
 		answer.setDivide_code('A');
-		homepageService.insertAnser(answer);
+		homepageService.insertAnswer(answer);
 		
 		return "redirect:/qna";
 	}

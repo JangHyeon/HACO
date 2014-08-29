@@ -162,8 +162,11 @@
 			<if test="searchType == 'writer'">
 				name like CONCAT('%',#{searchKey},'%') 
 			</if>
-			<if test="hit > 0">
-				name &gt; #{hit}
+			<if test="qna_id != 0">
+				and qna_id != ${qna_id}
+			</if>
+			<if test="group_no != 0">
+				and group_no = #{group_no}
 			</if>
 			and state_code!=9
 		</where>
@@ -188,12 +191,15 @@
 			<if test="searchType == 'writer'">
 				name like CONCAT('%',#{searchKey},'%') 
 			</if>
-			<if test="hit > 0">
-				name &gt; #{hit}
+			<if test="qna_id != 0">
+				and qna_id != ${qna_id}
+			</if>
+			<if test="group_no != 0">
+				and group_no = ${group_no}
 			</if>
 			and state_code!=9
 		</where>
-		order by  group_no desc, qna_id asc
+		order by group_no desc, qna_id asc
 		limit ${startNum},${pageSize}
 	</select>
 	
@@ -233,4 +239,14 @@
 		set state_code=9    
 		where qna_id=#{qna_id}
 	</update>
+	
+	<!-- 파일 업로드 -->
+	<insert id="insertuploadFile">
+		insert into upload_file(file_id,file_type,board_name,orign_file,save_file,filesize) 
+		values(#{file_id},#{file_type},#{board_name},#{orign_file},#{save_file},#{filesize})
+	</insert>
+	<!-- 총 파일 용량 -->
+	<select id="getUploadFileSumFilesize" resultType="Long">
+		select IFNULL(sum(filesize)/1024,0) from upload_file
+	</select>
 </mapper>

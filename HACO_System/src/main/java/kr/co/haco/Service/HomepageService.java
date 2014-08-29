@@ -1,5 +1,7 @@
 package kr.co.haco.Service;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -30,7 +32,9 @@ public interface HomepageService {
 	public Qna getQna(int qna_id);
 	public int updateQna(Qna qna);
 	public int deleteQna(int qna_id);
-	public int insertAnser(Qna answer);
+	public int insertAnswer(Qna answer);
 	
+	public Map<String, String> photoUpload(MultipartHttpServletRequest req);
 	
+	public long getUploadFileSumFilesize();
 }

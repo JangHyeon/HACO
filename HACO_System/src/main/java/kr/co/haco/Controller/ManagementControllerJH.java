@@ -8,7 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.haco.Service.HomepageService;
 import kr.co.haco.VO.Employee;
-import kr.co.haco.VO.Member;
 import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.Qna;
 
@@ -18,8 +17,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -200,6 +197,9 @@ public class ManagementControllerJH {
 			return "redirect:/error/" + qna.getError();
 		}
 
+		qna.setGroup_no(qna.getQna_id());
+		homepageService.getQnaList(qna, session, model, request.getContextPath());
+		
 		qna.setSearchKey(searchKey);
 		qna.setSearchType(searchType);
 		qna.setPageNum(pageNum);
@@ -279,7 +279,7 @@ public class ManagementControllerJH {
 		Employee employee = (Employee) session.getAttribute("employee");
 		answer.setAccount_id(employee.getAccount_id());
 		answer.setDivide_code('A');
-		homepageService.insertAnser(answer);
+		homepageService.insertAnswer(answer);
 
 		return "redirect:/management/qna";
 	}

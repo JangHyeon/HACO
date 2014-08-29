@@ -11,8 +11,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.velocity.VelocityEngineUtils;
 import org.springframework.web.servlet.view.velocity.VelocityConfig;
@@ -26,6 +26,7 @@ public class EmailSender {
 	@Autowired
 	private VelocityConfig velocityConfig;
 
+	@Async
 	public void SendEmail(String from, String to, String subject, String text, Map<String, Object> model, String formUrl)
 			throws FileNotFoundException, URISyntaxException {
 
@@ -59,7 +60,7 @@ public class EmailSender {
 
 	}
 	
-	
+	@Async
 	public void SendEmail(String from, String to, String subject, Map<String, Object> model, String formUrl)
 			throws FileNotFoundException, URISyntaxException {
 

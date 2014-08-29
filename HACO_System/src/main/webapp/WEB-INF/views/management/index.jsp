@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
@@ -36,40 +37,39 @@
                   	<div class="row mtbox">
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
-					  			<span class="li_heart"></span>
+					  			<i class="fa fa-database fa-4x"></i>
 					  			<h3>933</h3>
                   			</div>
-					  			<p>933 People liked your page the last 24hs. Whoohoo!</p>
+					  			<p>HACO Academy<br> 총 학원생 수 !<br>1612명</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_cloud"></span>
+					  			<i class="fa fa-user fa-4x"></i>
 					  			<h3>+48</h3>
                   			</div>
-					  			<p>48 New files were added in your cloud storage.</p>
+					  			<p>???센터<br> 학원생 수 !<br> 128명</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_stack"></span>
+					  			<i class="fa fa-child fa-4x"></i>
+					  			<h3>+48</h3>
+                  			</div>
+					  			<p>이번 달의<br> 신규 학원생 수 !<br> +48명</p>
+                  		</div>
+                  		<div class="col-md-2 col-sm-2 box0">
+                  			<div class="box1">
+					  			<i class="fa fa-sign-in fa-4x"></i>
 					  			<h3>23</h3>
                   			</div>
-					  			<p>You have 23 unread messages in your inbox.</p>
+					  			<p>파릇파릇 !<br>이번달에 입사한<br>신규 직원 수 !<br> +24명</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
-					  			<span class="li_news"></span>
-					  			<h3>+10</h3>
+					  			<i class="fa fa-upload fa-4x"></i>
+					  			<h3>+21</h3>
                   			</div>
-					  			<p>More than 10 news were added in your reader.</p>
+					  			<p>오늘 새로 올라온 글<br>+21건</p>
                   		</div>
-                  		<div class="col-md-2 col-sm-2 box0">
-                  			<div class="box1">
-					  			<span class="li_data"></span>
-					  			<h3>OK!</h3>
-                  			</div>
-					  			<p>Your server is working perfectly. Relax & enjoy.</p>
-                  		</div>
-                  	
                   	</div><!-- /row mt -->	
                   
                       
@@ -99,23 +99,31 @@
 										];
 										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
 								</script>
-	                      	</div><! --/grey-panel -->
+	                      	</div><!--/grey-panel -->
                       	</div><!-- /col-md-4-->
                       	
 
                       	<div class="col-md-4 col-sm-4 mb">
                       		<div class="white-panel pn">
                       			<div class="white-header">
-						  			<h5>TOP PRODUCT</h5>
+						  			<h5>답변을 기다리는 질문</h5>
                       			</div>
 								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-heart"></i> 122</p>
-									</div>
-									<div class="col-sm-6 col-xs-6"></div>
+									
 	                      		</div>
 	                      		<div class="centered">
-										<img src="${resourceUrl}/assets/img/product.png" width="120">
+									<table class="table table-hover index-notice">
+										<tbody>
+										<tr>
+													<td>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${lectureRegister.course_name}</a></td>
+												</tr>
+											<c:forEach var="lectureRegister" items="${lectureRegisterList}">
+												<tr>
+													<td>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${lectureRegister.course_name}</a></td>
+												</tr>
+											</c:forEach>
+										</tbody>
+									</table>
 	                      		</div>
                       		</div>
                       	</div><!-- /col-md-4 -->
@@ -124,7 +132,7 @@
 							<!-- WHITE PANEL - TOP USER -->
 							<div class="white-panel pn">
 								<div class="white-header">
-									<h5>TOP USER</h5>
+									<h5>이 달의 우수강사</h5>
 								</div>
 								<p><img src="${resourceUrl}/assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
 								<p><b>Zac Snider</b></p>
@@ -134,8 +142,8 @@
 										<p>2012</p>
 									</div>
 									<div class="col-md-6">
-										<p class="small mt">TOTAL SPEND</p>
-										<p>$ 47,60</p>
+										<p class="small mt">INCENTIVE</p>
+										<p>￦ 447,650</p>
 									</div>
 								</div>
 							</div>
@@ -150,32 +158,38 @@
 						<div class="col-md-4 mb">
                       		<div class="darkblue-panel pn">
                       			<div class="darkblue-header">
-						  			<h5>DROPBOX STATICS</h5>
+						  			<h5>파일 서버 사용량</h5>
                       			</div>
-								<canvas id="serverstatus02" height="120" width="120"></canvas>
+								<canvas id="serverstatus02" height="125" width="125"></canvas>
+								<input id="usePercent" type="hidden" value="${usePercent}"/>
 								<script>
+									var usePercent = document.getElementById("usePercent").value;
 									var doughnutData = [
 											{
-												value: 60,
-												color:"#68dff0"
+												value: usePercent*1,
+												color:"#68dff0",
+												highlight: "#2daebf",
+										        label: "사용량"
 											},
 											{
-												value : 40,
-												color : "#444c57"
+												value : 100-usePercent*1,
+												color : "#444c57",
+												highlight: "#485360",
+												label: "남은 공간"
 											}
 										];
 										var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
 								</script>
-								<p>April 17, 2014</p>
+								<p data-name="now">April 17, 2014 </p>
 								<footer>
 									<div class="pull-left">
-										<h5><i class="fa fa-hdd-o"></i> 17 GB</h5>
+										<h5><i class="fa fa-hdd-o"></i> ${maxStorage/1024/1024} GB</h5>
 									</div>
 									<div class="pull-right">
-										<h5>60% Used</h5>
+										<h5>${usePercent}% 사용</h5>
 									</div>
 								</footer>
-                      		</div><! -- /darkblue panel -->
+                      		</div><!-- /darkblue panel -->
 						</div><!-- /col-md-4 -->
 						
 						
@@ -194,7 +208,7 @@
 							<!-- REVENUE PANEL -->
 							<div class="darkblue-panel pn">
 								<div class="darkblue-header">
-									<h5>REVENUE</h5>
+									<h5>이 달의 우수강사<br>인센티브</h5>
 								</div>
 								<div class="chart mt">
 									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
@@ -406,51 +420,16 @@
     <script src="${resourceUrl}/assets/js/gritter-conf.js"></script>
     <script src="${resourceUrl}/assets/js/sparkline-chart.js"></script>    
 	<script src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>	
-	<%-- 
-	<script type="text/javascript">
-    $(document).ready(function () {
-        var unique_id = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: '환영합니다!',
-            // (string | mandatory) the text inside the notification
-            text: '마우스를 올려서 닫으시거나. <br>3초 뒤에 사라집니다.<br>(마우스를 올리시면 계속 볼 수 있습니다.)',
-            // (string | optional) the image to display on the left
-            image: '${resourceUrl}/assets/img/ui-sam.jpg',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: false,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: 3000,
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
-        });
-
-        return false;
-        });
-	</script>
 	
-	<script type="text/javascript">
-    $(document).ready(function () {
-        var unique_id1 = $.gritter.add({
-            // (string | mandatory) the heading of the notification
-            title: 'Welcome to Dashgum!',
-            // (string | mandatory) the text inside the notification
-            text: 'Hover me to enable the Close Button. You can hide the left sidebar clicking on the button next to the logo. Free version for <a href="http://blacktie.co" target="_blank" style="color:#ffd777">BlackTie.co</a>.',
-            // (string | optional) the image to display on the left
-            image: '${resourceUrl}/assets/img/ui-sam.jpg',
-            // (bool | optional) if you want it to fade out on its own or just sit there
-            sticky: true,
-            // (int | optional) the time you want it to be alive for before fading out
-            time: '',
-            // (string | optional) the class name you want to apply to that specific message
-            class_name: 'my-sticky-class'
-        });
-
-        return false;
-        });
-	</script>
-	 --%>
 	<script type="application/javascript">
         $(document).ready(function () {
+        	
+			var today = new Date();
+        	
+        	$('[data-name="now"]').text(today.toDateString());
+        	
+        	
+        	
             $("#date-popover").popover({html: true, trigger: "manual"});
             $("#date-popover").hide();
             $("#date-popover").click(function (e) {

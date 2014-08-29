@@ -7,6 +7,7 @@ import java.sql.Time;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,8 @@ import kr.co.haco.Service.AttendanceService;
 import kr.co.haco.Service.CourseService;
 import kr.co.haco.Service.EmployeeService;
 import kr.co.haco.Service.EvaluationRegisterService;
+import kr.co.haco.Service.HomepageService;
+import kr.co.haco.Service.HomepageServiceImpl;
 import kr.co.haco.Service.LectureRegisterService;
 import kr.co.haco.Service.MemberService;
 import kr.co.haco.Service.SubjectService;
@@ -76,6 +79,8 @@ public class ManagementController {
 	@Autowired
 	SubjectService subjectService;
 
+	@Autowired
+	HomepageService homepageService;
 
 	@Autowired
 	CourseService courseService;
@@ -101,29 +106,30 @@ public class ManagementController {
 	//직원정보 사진 업로드
 	@RequestMapping(value = "photoUpload", method = RequestMethod.POST)
 	@ResponseBody
-	public HashMap<String, String> photoUpload(MultipartHttpServletRequest req){
-		
-	    MultipartFile multipartFile = req.getFile("file");
-	    String usrUploadDir = "/resources/upload/employeePhoto"; //저장 폴더명
-
-	    MultipartUploader mu = new MultipartUploader(req, usrUploadDir, multipartFile,false);
-	    
-	    String result = ImageJ.photoCropAndResize(mu.getFilePath(),177, 236);
-	    System.out.println("result-"+result);
-	    
-	    HashMap<String, String> map = new HashMap<String, String>();
-	    map.put("originalFileName", multipartFile.getOriginalFilename());
-	    map.put("renameFileName", mu.getFileName());
-	    map.put("fileUrl", mu.getFileUrl());
-	     
-	    return map;
+	public Map<String, String> photoUpload(MultipartHttpServletRequest req){
+	    return homepageService.photoUpload(req);
 	}
 	
 	
 	//대쉬보드
 	@RequestMapping(value = {"index",""}, method = RequestMethod.GET)
-	public String index() {
-		System.out.println("index");
+	public String index(Model model) {
+		
+		// 저장공간 사용량
+		long MaxStorage = 1024*1024*50; //50GB
+		long UseStorage = homepageService.getUploadFileSumFilesize();
+
+		int UsePercent = (int) (UseStorage/(MaxStorage/100));
+		
+		model.addAttribute("maxStorage",MaxStorage);
+		model.addAttribute("usePercent",UsePercent);
+		
+		Date date = new Date();
+		
+		
+		
+		model.addAttribute("now",date);
+		
 		return "management.index";
 	}
 	

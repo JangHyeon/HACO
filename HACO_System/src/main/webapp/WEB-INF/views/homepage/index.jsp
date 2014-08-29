@@ -98,7 +98,7 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-sm-6 col-md-3">
+		<div class="col-xs-6 col-sm-6 col-md-3">
 			<div class="panel panel-default">
 				<div id="carousel-example-generic" class="carousel slide bs-docs-carousel-example">
 			        <ol class="carousel-indicators">

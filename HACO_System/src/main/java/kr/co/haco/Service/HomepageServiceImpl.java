@@ -13,12 +13,14 @@ import javax.servlet.http.HttpSession;
 
 import kr.co.haco.DAO.HomepageDAO;
 import kr.co.haco.Util.DateUtil;
+import kr.co.haco.Util.ImageJ;
 import kr.co.haco.Util.MultipartUploader;
 import kr.co.haco.Util.myStringUtils;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.Qna;
+import kr.co.haco.VO.UploadFile;
 
 import org.apache.ibatis.session.SqlSession;
 import org.slf4j.Logger;
@@ -26,6 +28,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.mysql.jdbc.StringUtils;
@@ -37,7 +40,34 @@ public class HomepageServiceImpl implements HomepageService {
 	SqlSession sqlSession;
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomepageServiceImpl.class);
+	
+	@Override
+	public Map<String, String> photoUpload(MultipartHttpServletRequest req){
 
+	    MultipartFile multipartFile = req.getFile("file");
+	    String usrUploadDir = "/resources/upload/employeePhoto"; //저장 폴더명
+
+	    MultipartUploader mu = new MultipartUploader(req, usrUploadDir, multipartFile,true);
+	    
+	    String result = ImageJ.photoCropAndResize(mu.getFilePath(),177, 236);
+	    System.out.println("result-"+result);
+	    
+		UploadFile uploadFile = new UploadFile();
+		uploadFile.setBoard_name("/employeePhoto");
+		uploadFile.setFile_type("images");
+		uploadFile.setFilesize(mu.getFileSize());
+		uploadFile.setOrign_file(mu.getOriginalFileName());
+		uploadFile.setSave_file(mu.getFileName());
+				
+		sqlSession.getMapper(HomepageDAO.class).insertuploadFile(uploadFile);
+	    
+	    HashMap<String, String> map = new HashMap<String, String>();
+	    map.put("originalFileName", multipartFile.getOriginalFilename());
+	    map.put("renameFileName", mu.getFileName());
+	    map.put("fileUrl", mu.getFileUrl());
+		
+		return map;
+	}
 
 	@Override
 	public void getNoticeList(Notice notice, HttpSession session, Model model, String contextPath) {
@@ -200,14 +230,25 @@ public class HomepageServiceImpl implements HomepageService {
 
 		MultipartUploader mu = null;
 		
+		String type = request.getParameter("type");
+		
 		String usrUploadDir = "/resources/upload"+target;
-		if(request.getParameter("type").equals("Images")){
+		if(type.equals("Images")){
 			usrUploadDir += "/images";
 			mu = new MultipartUploader(request, usrUploadDir, request.getFile("upload"),true);
-		}else if(request.getParameter("type").equals("File")){
+		}else if(type.equals("File")){
 			usrUploadDir += "/file";
 			mu = new MultipartUploader(request, usrUploadDir, request.getFile("upload"),false);
 		}
+		
+		UploadFile uploadFile = new UploadFile();
+		uploadFile.setBoard_name(target);
+		uploadFile.setFile_type(type);
+		uploadFile.setFilesize(mu.getFileSize());
+		uploadFile.setOrign_file(mu.getOriginalFileName());
+		uploadFile.setSave_file(mu.getFileName());
+				
+		sqlSession.getMapper(HomepageDAO.class).insertuploadFile(uploadFile);
 		
 		String fileUrl = mu.getFileUrl();
 		
@@ -336,8 +377,7 @@ public class HomepageServiceImpl implements HomepageService {
 	}
 
 	@Override
-	public void getQnaList(Qna qna, HttpSession session, Model model,
-			String contextPath) {
+	public void getQnaList(Qna qna, HttpSession session, Model model, String contextPath) {
 		
 		if(qna.getSearchKey()!=null && !qna.getSearchKey().equals(""))
 			logger.info("[getQnaList] - SearchType:["+qna.getSearchType()+"] SearchKey:["+qna.getSearchKey()+"] / 검색");
@@ -442,7 +482,7 @@ public class HomepageServiceImpl implements HomepageService {
 		}
 		model.addAttribute("qnaList",qnaList);
 		
-		
+		/*
 
 		//상단 고정 자주 묻는 질문
 		qna.setState_code(1);
@@ -470,7 +510,7 @@ public class HomepageServiceImpl implements HomepageService {
 			}
 			DTO.setTitle(title);
 		}
-		model.addAttribute("topQnaList",topQnaList);
+		model.addAttribute("topQnaList",topQnaList);*/
 	}
 
 	@Override
@@ -565,11 +605,16 @@ public class HomepageServiceImpl implements HomepageService {
 	}
 
 	@Override
-	public int insertAnser(Qna answer) {
+	public int insertAnswer(Qna answer) {
 		//제목 HTML태그 삭제
 		String title = answer.getTitle();
 		answer.setTitle(title.replaceAll("<(/)?([a-zA-Z0-9]*)(\\s[a-zA-Z0-9]*=[^>]*)?(\\s)*(/)?>", ""));
 		return sqlSession.getMapper(HomepageDAO.class).insertQna(answer);
+	}
+
+	@Override
+	public long getUploadFileSumFilesize() {
+		return sqlSession.getMapper(HomepageDAO.class).getUploadFileSumFilesize();
 	}
 	
 }

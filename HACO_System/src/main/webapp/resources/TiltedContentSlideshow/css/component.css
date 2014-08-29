@@ -78,7 +78,7 @@
  */
 .description {
 	width: 42%;
-	padding: 9em 1em 0;
+	padding: 7em 1em 0;
 	font-size: 10pt;
 	position: relative;
 	z-index: 1000;
@@ -686,10 +686,11 @@
 	font-size: 350%;
 	font-family: 'Nanum Gothic','Ruda',Dotum, serif;
 	font-weight: lighter;
+	color: #444;
 }
 .description h2 Strong{
 	font-weight: 800;
-	color: #77CCDD;
+	/* color: #77CCDD; */
 }
 .description > p > span{
 	background: #fff;
