@@ -25,6 +25,7 @@ public class Member {
 	private String classroom;
 	private int center_id;
 	private String lecture_register_id;
+	private int state_code;
 	public Member() {}
 	
 	public Member(int account_id) {
@@ -178,6 +179,14 @@ public class Member {
 	}
 	public void setSubject_name(String subject_name) {
 		this.subject_name = subject_name;
+	}
+
+	public int getState_code() {
+		return state_code;
+	}
+
+	public void setState_code(int state_code) {
+		this.state_code = state_code;
 	}
 	
 }

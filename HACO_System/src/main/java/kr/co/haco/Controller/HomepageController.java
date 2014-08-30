@@ -13,8 +13,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.HomepageService;
 import kr.co.haco.Service.LectureRegisterService;
+import kr.co.haco.VO.Account;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.Member;
@@ -41,6 +43,8 @@ public class HomepageController {
 	@Autowired
 	HomepageService homepageService;
 	
+	@Autowired
+	AccountService accountService;
 	@Autowired
 	LectureRegisterService lectureRegisterService;
 	
@@ -111,21 +115,22 @@ public class HomepageController {
 		String opid = req.getParameter("opid");
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		map.put("course_id", opid);
-		
 		if(member!=null){
-			System.out.println("member.getAccount_id() : " +member.getAccount_id());
-			map.put("account_id", member.getAccount_id());
+			int account_id = member.getAccount_id();
+			System.out.println("account_id : " + account_id);
+			map.put("account_id", account_id);
 			map.put("open_course_id", opid);
 			LectureRegisterList lecturemember = lectureRegisterService.lecturemember(map);
+			Account a = accountService.getAccountToAccount_id((account_id+""));
 			req.setAttribute("lecturemember", lecturemember);
+			req.setAttribute("a", a);
 			map.put("member_check", 1); // 회원일때
 		} else {
 			map.put("member_check", 0); // 비회원일때
 		}
-		Subject getCNT = lectureRegisterService.getCNT(map);
 		req.setAttribute("member", member);
+		Subject getCNT = lectureRegisterService.getCNT(map);
 		req.setAttribute("getCNT", getCNT);
-		
 		return "homepage.lecture";
 	}
 	
@@ -134,7 +139,7 @@ public class HomepageController {
 	@RequestMapping(value = "/lecturesuccess", method = RequestMethod.GET)
 	public String lecturesuccess(HttpSession session,HttpServletRequest req) {
 		
-		Member member = (Member) session.getAttribute("member");
+		int account_id = Integer.parseInt(req.getParameter("account_id"));
 		int op = Integer.parseInt(req.getParameter("opid"));
 		
 		Subject sbj = new Subject();
@@ -156,7 +161,7 @@ public class HomepageController {
 		{ 
 			return "homepage.lecturefailed";
 		}*/
-		System.out.println(member.getAccount_id());
+		System.out.println(req.getParameter("account_id"));
 		System.out.println(sbj.getAccount_id());
 		/*if(member.getAccount_id() == sbj.getAccount_id()){
 			return "homepage.lecturefailed2";
@@ -164,7 +169,7 @@ public class HomepageController {
 		req.setAttribute("sbj", sbj);
 		HashMap<String,Integer> map = new HashMap<String,Integer>();
 		System.out.println();
-		map.put("account_id", member.getAccount_id());
+		map.put("account_id", account_id);
 		map.put("open_course_id",op);
 		
 		lectureRegisterService.insertlecture(map);

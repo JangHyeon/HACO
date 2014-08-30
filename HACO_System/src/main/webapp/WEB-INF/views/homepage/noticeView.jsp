@@ -108,7 +108,7 @@
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
-$(document).ready(function(){		
+	
 	
 	$('#listBtn').on('click', function() {
 		location.href='${pageContext.request.contextPath}/notice/pageSize/${notice.pageSize}/pageNum/${notice.pageNum}/searchType/${notice.searchType}/searchKey/${notice.searchKey}';
