@@ -32,11 +32,11 @@
               <li><a href="${pageContext.request.contextPath}/community">모임방</a></li>
             </ul>
           </li>
-          
+          <s:authorize ifAnyGranted="GUEST,STUDENT">
           <li class="dropdown">
           	<a href="${pageContext.request.contextPath}/myLectureHistory">수강내역</a>
           </li>
-          
+          </s:authorize>
           <!-- 
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">강의평가</a>

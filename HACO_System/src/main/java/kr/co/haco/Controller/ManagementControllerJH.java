@@ -266,7 +266,7 @@ public class ManagementControllerJH {
 		qna.setGroup_no(qna_id);
 
 		qna.setTitle(qna.getTitle() + " - 답변");
-		qna.setContent(qna.getContent() + "</div><br/>&nbsp;<hr/><br/>&nbsp;");
+		qna.setContent("<well>"+qna.getContent() + "</well><hr/><br/>&nbsp;");
 
 		model.addAttribute("qna", qna);
 

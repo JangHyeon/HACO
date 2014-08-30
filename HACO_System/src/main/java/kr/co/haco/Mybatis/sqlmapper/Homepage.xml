@@ -245,8 +245,14 @@
 		insert into upload_file(file_id,file_type,board_name,orign_file,save_file,filesize) 
 		values(#{file_id},#{file_type},#{board_name},#{orign_file},#{save_file},#{filesize})
 	</insert>
+	
 	<!-- 총 파일 용량 -->
-	<select id="getUploadFileSumFilesize" resultType="Long">
-		select IFNULL(sum(filesize)/1024,0) from upload_file
+	<select id="getTotalFileSize" resultType="Long">
+		select IFNULL(sum(filesize)/1024,0) from upload_file where file_type='File'
+	</select>
+	
+	<!-- 총 이미지 용량 -->
+	<select id="getTotalImageSize" resultType="Long">
+		select IFNULL(sum(filesize)/1024,0) from upload_file where file_type='images'
 	</select>
 </mapper>

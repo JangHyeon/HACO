@@ -9,7 +9,8 @@ import kr.co.haco.VO.UploadFile;
 public interface HomepageDAO {
 	//파일 업로드
 	public int insertuploadFile(UploadFile uploadFile);
-	public long getUploadFileSumFilesize();
+	public long getTotalFileSize();
+	public long getTotalImageSize();
 	
 	//공지사항
 	public int getNoticeListCount(Notice notice);

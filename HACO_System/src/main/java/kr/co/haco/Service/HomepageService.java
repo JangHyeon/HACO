@@ -36,5 +36,5 @@ public interface HomepageService {
 	
 	public Map<String, String> photoUpload(MultipartHttpServletRequest req);
 	
-	public long getUploadFileSumFilesize();
+	public Map<String, Number> getUploadFileSumFilesize();
 }

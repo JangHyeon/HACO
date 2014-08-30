@@ -128,18 +128,21 @@ public class ManagementController {
 	public String index(Model model) {
 		
 		// 저장공간 사용량
-		long MaxStorage = 1024*1024*50; //50GB
-		long UseStorage = homepageService.getUploadFileSumFilesize();
+		long MaxStorage = 1024*50; //50GB
+		Map<String, Number> map = homepageService.getUploadFileSumFilesize();
 
-		int UsePercent = (int) (UseStorage/(MaxStorage/100));
-		
+		long totalFileSize = (long) map.get("totalFileSize");
+		long totalImageSize = (long) map.get("totalImageSize");
+
+		long totalFileSizePercent = totalFileSize/(MaxStorage/100);
+		long totalImageSizePercent = totalImageSize/(MaxStorage/100);
+
 		model.addAttribute("maxStorage",MaxStorage);
-		model.addAttribute("usePercent",UsePercent);
+		model.addAttribute("totalFileSizePercent",totalFileSizePercent);
+		model.addAttribute("totalImageSizePercent",totalImageSizePercent);
 		
+		// 오늘 날짜
 		Date date = new Date();
-		
-		
-		
 		model.addAttribute("now",date);
 		
 		return "management.index";

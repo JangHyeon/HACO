@@ -1008,7 +1008,8 @@ PANELS CONFIGURATIONS
 /*Panel Size*/
 
 .pn {
-	height: 443px;
+	height: 250px;
+	/* height: 443px; */
 	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
 }
 
@@ -1026,7 +1027,8 @@ PANELS CONFIGURATIONS
 .grey-panel .grey-header {
 	background: #ccd1d9;
 	padding: 3px;
-	margin-bottom: 1px;
+	margin-bottom: 15px;
+	/* margin-bottom: 1px; */
 }
 .grey-panel h5 {
 	font-weight: 200;
@@ -2534,4 +2536,9 @@ border-color: #324A5D;
 #registerFrm > div > label {
 	font-size: 14px;
 	font-weight: bold;
+}
+
+
+well{
+	
 }

@@ -613,8 +613,11 @@ public class HomepageServiceImpl implements HomepageService {
 	}
 
 	@Override
-	public long getUploadFileSumFilesize() {
-		return sqlSession.getMapper(HomepageDAO.class).getUploadFileSumFilesize();
+	public Map<String,Number> getUploadFileSumFilesize() {
+		HashMap<String,Number> map = new HashMap<String, Number>();
+		map.put("totalFileSize", sqlSession.getMapper(HomepageDAO.class).getTotalFileSize());
+		map.put("totalImageSize", sqlSession.getMapper(HomepageDAO.class).getTotalImageSize());
+		return map;
 	}
 	
 }

@@ -161,18 +161,24 @@
 						  			<h5>파일 서버 사용량</h5>
                       			</div>
 								<canvas id="serverstatus02" height="125" width="125"></canvas>
-								<input id="usePercent" type="hidden" value="${usePercent}"/>
+								<input id="totalFileSizePercent" type="hidden" value="${totalFileSizePercent}"/>
+								<input id="totalImageSizePercent" type="hidden" value="${totalImageSizePercent}"/>
 								<script>
-									var usePercent = document.getElementById("usePercent").value;
+								var totalFileSizePercent = document.getElementById("totalFileSizePercent").value;
+								var totalImageSizePercent = document.getElementById("totalImageSizePercent").value;
 									var doughnutData = [
 											{
-												value: usePercent*1,
+												value: totalFileSizePercent*10,
+												color:"#FF865C",
+												highlight: "#dF764C",
+										        label: "File"
+											},{
+												value: totalImageSizePercent*10,
 												color:"#68dff0",
 												highlight: "#2daebf",
-										        label: "사용량"
-											},
-											{
-												value : 100-usePercent*1,
+										        label: "Image"
+											},{
+												value : 100-(totalFileSizePercent+totalImageSizePercent)*1,
 												color : "#444c57",
 												highlight: "#485360",
 												label: "남은 공간"
@@ -183,10 +189,10 @@
 								<p data-name="now">April 17, 2014 </p>
 								<footer>
 									<div class="pull-left">
-										<h5><i class="fa fa-hdd-o"></i> ${maxStorage/1024/1024} GB</h5>
+										<h5><i class="fa fa-hdd-o"></i> ${maxStorage/1024} GB</h5>
 									</div>
 									<div class="pull-right">
-										<h5>${usePercent}% 사용</h5>
+										<h5>${totalFileSizePercent+totalImageSizePercent}% 사용</h5>
 									</div>
 								</footer>
                       		</div><!-- /darkblue panel -->

@@ -90,7 +90,7 @@
 							<c:forEach var="top" items="${topNoticeList}">
 								<tr class="topNotice">
 									<td><i class='fa fa-bullhorn'></i></td>
-									<td><a data-name="title" data-content='${fn:substring(notice.content,0,100)}..' href="${pageContext.request.contextPath}/management/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/<c:if test="${searchKey==''}">[emptySearchKey]</c:if><c:if test="${searchKey!=''}">${searchKey}</c:if>/noticeId/${top.notice_id}">${top.title}</a></td>
+									<td><a data-name="title" data-content='${fn:substring(top.content,0,100)}..' href="${pageContext.request.contextPath}/management/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${top.notice_id}">${top.title}</a></td>
 									<td>${top.name_kor}</td>
 									<td>${top.register_date_string}</td>
 									<td>${top.hit}</td>
