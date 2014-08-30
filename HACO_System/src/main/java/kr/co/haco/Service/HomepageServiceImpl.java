@@ -223,16 +223,14 @@ public class HomepageServiceImpl implements HomepageService {
 	}
 	
 	@Override
-	public String CkeditorUpload(MultipartHttpServletRequest request, String target) {
+	public String CkeditorUpload(MultipartHttpServletRequest request, String board, String command, String type) {
 		String callback = request.getParameter ("CKEditorFuncNum");
 		//업로드 성공시 alert창으로 띄울 메시지 "" 이면 안뜸
 		String msg = "";
 
 		MultipartUploader mu = null;
 		
-		String type = request.getParameter("type");
-		
-		String usrUploadDir = "/resources/upload"+target;
+		String usrUploadDir = "/resources/upload/board/"+board;
 		if(type.equals("Images")){
 			usrUploadDir += "/images";
 			mu = new MultipartUploader(request, usrUploadDir, request.getFile("upload"),true);
@@ -242,7 +240,7 @@ public class HomepageServiceImpl implements HomepageService {
 		}
 		
 		UploadFile uploadFile = new UploadFile();
-		uploadFile.setBoard_name(target);
+		uploadFile.setBoard_name(board);
 		uploadFile.setFile_type(type);
 		uploadFile.setFilesize(mu.getFileSize());
 		uploadFile.setOrign_file(mu.getOriginalFileName());

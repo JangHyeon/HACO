@@ -48,7 +48,19 @@
 		<div class="row">
 
 			<div class="col-md-12">
-				<div class="content-panel">
+				<div class="content-panel">						
+					<!-- 단버튼 -->
+					<div class="btn-group pull-right topToggle">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					    센터목록 <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu">
+					  		<li><a href="${uri}?now_center_id=0">전체 센터</a></li>
+					  	<c:forEach var="edu" items="${eduCenterList}">
+					   		<li><a href="${uri}?now_center_id=${edu.center_id}">${edu.location}</a></li>
+					    </c:forEach>					    
+					  </ul>
+					</div>
 					<h4>
 						<i class="fa fa-angle-right"></i> 
 						<c:choose>
@@ -56,20 +68,6 @@
 							<c:when test="${job_code==2}">관리 직원</c:when>
 							<c:when test="${job_code==3}">센터장</c:when>							
 						</c:choose>					
-					
-						<!-- 단버튼 -->
-						<div class="btn-group pull-right">
-						  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-						    센터목록 <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu" role="menu">
-						  		<li><a href="${uri}?now_center_id=0">전체 센터</a></li>
-						  	<c:forEach var="edu" items="${eduCenterList}">
-						   		<li><a href="${uri}?now_center_id=${edu.center_id}">${edu.location}</a></li>
-						    </c:forEach>					    
-						  </ul>
-						</div>
-									
 					</h4>
 					<hr>			
 					<table class="table">

@@ -14,38 +14,7 @@
 
 <!-- Begin Body -->
 <form id="lecturesuccess" name="lecturesuccess" action="lecturesuccess" method="get">
-<script type="text/javascript">
-	function course_write(opid){
-		var capacity = document.lecturesuccess.capacity.value;
-		var CNT = document.lecturesuccess.CNT.value;
-		var account_id = document.lecturesuccess.account_id.value;
-		
-		if(account_id==""){
-			$(document).ready(function(){
-				$('#empty').modal('show');
-				});
-		}
-		else if(account_id!=null){
-			var id = document.lecturesuccess.id.value;
-			if(account_id == id){
-				$(document).ready(function(){
-					$('#fail').modal('show');
-					});
-			}else if(CNT>=capacity){
-				$(document).ready(function(){
-					$('#over').modal('show');
-					});
-			}else if(capacity>CNT){
-				document.lecturesuccess.opid.value =opid;
-				document.lecturesuccess.submit();
-				}
-			
-		}
-		
-		
-		
-}
-</script>
+
 <div class="container">
 	<div class="no-gutter row">
 		<!-- right content column-->
@@ -115,9 +84,42 @@
 </div>
 			<input type="hidden" name="opid" id="opid" value=""/>
 			<input type="hidden" name="name" id="name" value="${getCNT.name}"/>
+			<input type="hidden" name="state_code" id="state_code" value="${a.state_code}"/>
 			<input type="hidden" name="account_id" id="account_id" value="${member.account_id}"/>
 			<input type="hidden" name="id" id="id" value="${lecturemember.account_id}"/>
+<script type="text/javascript">
+	function course_write(opid){
+		var capacity = document.lecturesuccess.capacity.value;
+		var CNT = document.lecturesuccess.CNT.value;
+		var account_id = document.lecturesuccess.account_id.value;
+		var state_code = document.lecturesuccess.state_code.value;
+		alert("state_code : " + state_code);
+		alert("CNT : " + CNT);
+		alert("capacity : " + capacity);
+		if(account_id==""){
+				$('#empty').modal('show'); 
+		}
+		else if(account_id!=null){
+			var id = document.lecturesuccess.id.value;
+			if(account_id == id){
+					$('#fail').modal('show');
+			}else if(state_code == 0){
+				$(document).ready(function(){
+					$('#mail').modal('show');
+					});
+			}else if(CNT>=capacity){
+					$('#over').modal('show');
+			}else if(capacity>CNT){
+				document.lecturesuccess.opid.value =opid;
+				document.lecturesuccess.account_id.value;
+				document.lecturesuccess.submit();
+				}
+		}
+}
+
+</script>			
 </form>
+
 <!-- idModal2 -->
 <div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="over" class="modal fade">
     <div class="modal-dialog">
@@ -162,6 +164,23 @@
             </div>
             <div class="modal-body">
                 <h3><Strong id="resultID">수강신청은 로그인이 필요합니다.</Strong></h3>
+            </div>
+            <div class="modal-footer">
+            	<button id="deleteModalCloseBtn" data-dismiss="modal" class="btn btn-default" type="button">확인</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- modal -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog" tabindex="-1" id="mail" class="modal fade">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title">수강신청실패</h4>
+            </div>
+            <div class="modal-body">
+                <h3><Strong id="resultID">수강신청은 이메일인증을 하신 회원만 가능합니다</Strong></h3>
             </div>
             <div class="modal-footer">
             	<button id="deleteModalCloseBtn" data-dismiss="modal" class="btn btn-default" type="button">확인</button>

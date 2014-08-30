@@ -16,7 +16,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 public interface HomepageService {
 	public void getNoticeList(Notice notice, HttpSession session, Model model, String contextPath);
-	public String CkeditorUpload(MultipartHttpServletRequest request, String target);
+	public String CkeditorUpload(MultipartHttpServletRequest request, String board, String command, String type);
 	public int insertNotice(Notice notice);
 	
 	@Transactional

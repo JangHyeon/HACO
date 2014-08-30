@@ -43,7 +43,7 @@ public class MultipartUploader {
 			MultipartFile multipartFile, boolean Rename) {
 		
 		// 저장 경로
-				String targetPath = request.getSession().getServletContext().getRealPath("")
+		String targetPath = request.getSession().getServletContext().getRealPath("")
 						+ usrUploadDir.replace("/", File.separator);
 
 		// 저장 경로 폴더 생성
@@ -119,7 +119,7 @@ public class MultipartUploader {
 		usrUploadDir = usrUploadDir.replaceAll("/resources", "");
 
 		//리턴 파라메터 설정
-		this.fileUrl = contextURL + usrUploadDir + "/" + targetFileName;
+		this.fileUrl = "/haco"+usrUploadDir + "/" + targetFileName;
 		this.filePath = savedFilePath;
 		this.fileName = targetFileName;
 		this.fileSize = multipartFile.getSize();

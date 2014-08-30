@@ -85,7 +85,7 @@
                       <ul class="sub">
                           <li name="notice"><a  href="${pageContext.request.contextPath}/management/notice">공지사항</a></li>
                           <li name="qna"><a  href="${pageContext.request.contextPath}/management/qna">질문과답변</a></li>
-                          <li name="community"><a  href="${pageContext.request.contextPath}/management/community">모임방</a></li>
+                          <%-- <li name="community"><a  href="${pageContext.request.contextPath}/management/community">모임방</a></li> --%>
                       </ul>
                   </li>
                   

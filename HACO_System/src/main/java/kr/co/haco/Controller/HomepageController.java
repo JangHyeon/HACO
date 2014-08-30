@@ -14,8 +14,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.HomepageService;
 import kr.co.haco.Service.LectureRegisterService;
+import kr.co.haco.VO.Account;
 import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.Member;
@@ -41,6 +43,9 @@ public class HomepageController {
 	
 	@Autowired
 	HomepageService homepageService;
+	
+	@Autowired
+	AccountService accountService;
 	
 	@Autowired
 	LectureRegisterService lectureRegisterService;
@@ -96,6 +101,23 @@ public class HomepageController {
 	}	
 	
 	
+	// 이미지 첨부
+	/*
+	스프링에서 @ResponseBody로 문자열을 반환 시 디폴트로 ISO-8859-1를 사용한다.
+	이를 변경하기 위해 @RequestMapping의 produces 속성을 다음과 같이 설정할 수 있다.
+	Response 사용시 returnString 값이 script라면 text/html를 사용하고 단순 text라면 text/plain을 사용한다.
+	*/
+	@RequestMapping(value = "/ckUpload/board/{board}/command/{command}/type/{type}", produces="text/html;charset=UTF-8")
+	@ResponseBody
+	public String ckUpload(MultipartHttpServletRequest request,
+			@PathVariable String board,
+			@PathVariable String command,
+			@PathVariable String type) {
+		return homepageService.CkeditorUpload(request,board,command,type);
+	}
+	
+	
+	
 	//수강신청page
 	@RequestMapping(value = "/lectureregister", method = RequestMethod.GET)
 	public String lectureregister(HttpServletRequest req) {
@@ -115,74 +137,74 @@ public class HomepageController {
 		return "homepage.lectureregister";
 	}
 	//과정설명
-	@RequestMapping(value = "/lecture", method = RequestMethod.GET)
-	public String lecture(HttpSession session,HttpServletRequest req) {
-		Member member = (Member) session.getAttribute("member");
-		String opid = req.getParameter("opid");
-		HashMap<String,Object> map = new HashMap<String,Object>();
-		map.put("course_id", opid);
-		
-		if(member!=null){
-			System.out.println("member.getAccount_id() : " +member.getAccount_id());
-			map.put("account_id", member.getAccount_id());
-			map.put("open_course_id", opid);
-			LectureRegisterList lecturemember = lectureRegisterService.lecturemember(map);
-			req.setAttribute("lecturemember", lecturemember);
-			map.put("member_check", 1); // 회원일때
-		} else {
-			map.put("member_check", 0); // 비회원일때
-		}
-		Subject getCNT = lectureRegisterService.getCNT(map);
-		req.setAttribute("member", member);
-		req.setAttribute("getCNT", getCNT);
-		
-		return "homepage.lecture";
-	}
-	
-	
-	//수강신청완료 page
-	@RequestMapping(value = "/lecturesuccess", method = RequestMethod.GET)
-	public String lecturesuccess(HttpSession session,HttpServletRequest req) {
-		
-		Member member = (Member) session.getAttribute("member");
-		int op = Integer.parseInt(req.getParameter("opid"));
-		
-		Subject sbj = new Subject();
-		
-		sbj.setCourse_name(req.getParameter("course_name"));
-		sbj.setName_kor(req.getParameter("name_kor"));
-		sbj.setCourse_start_date(java.sql.Date.valueOf(req.getParameter("course_start_date")));
-		sbj.setCourse_end_date(java.sql.Date.valueOf(req.getParameter("course_end_date")));
-		sbj.setLecture_time_start(Time.valueOf(req.getParameter("lecture_time_start")));
-		sbj.setLecture_time_end(Time.valueOf(req.getParameter("lecture_time_end")));
-		sbj.setTuition_fee(Integer.parseInt(req.getParameter("tuition_fee")));
-		sbj.setLocation(req.getParameter("location"));
-		sbj.setCNT(Integer.parseInt(req.getParameter("CNT")));
-		sbj.setCapacity(Integer.parseInt(req.getParameter("capacity")));
-		sbj.setLecture_content(req.getParameter("lecture_content"));
-		sbj.setName(req.getParameter("name"));
-		sbj.setAccount_id(Integer.parseInt(req.getParameter("account_id")));
-		/*if(sbj.getCapacity() <= sbj.getCNT())
-		{ 
-			return "homepage.lecturefailed";
-		}*/
-		System.out.println(member.getAccount_id());
-		System.out.println(sbj.getAccount_id());
-		/*if(member.getAccount_id() == sbj.getAccount_id()){
-			return "homepage.lecturefailed2";
-		}*/
-		req.setAttribute("sbj", sbj);
-		HashMap<String,Integer> map = new HashMap<String,Integer>();
-		System.out.println();
-		map.put("account_id", member.getAccount_id());
-		map.put("open_course_id",op);
-		
-		lectureRegisterService.insertlecture(map);
+   @RequestMapping(value = "/lecture", method = RequestMethod.GET)
+   public String lecture(HttpSession session,HttpServletRequest req) {
+      Member member = (Member) session.getAttribute("member");
+      String opid = req.getParameter("opid");
+      HashMap<String,Object> map = new HashMap<String,Object>();
+      map.put("course_id", opid);
+      if(member!=null){
+         int account_id = member.getAccount_id();
+         System.out.println("account_id : " + account_id);
+         map.put("account_id", account_id);
+         map.put("open_course_id", opid);
+         LectureRegisterList lecturemember = lectureRegisterService.lecturemember(map);
+         Account a = accountService.getAccountToAccount_id((account_id+""));
+         req.setAttribute("lecturemember", lecturemember);
+         req.setAttribute("a", a);
+         map.put("member_check", 1); // 회원일때
+      } else {
+         map.put("member_check", 0); // 비회원일때
+      }
+      req.setAttribute("member", member);
+      Subject getCNT = lectureRegisterService.getCNT(map);
+      req.setAttribute("getCNT", getCNT);
+      return "homepage.lecture";
+   }
+   
+   
+   //수강신청완료 page
+   @RequestMapping(value = "/lecturesuccess", method = RequestMethod.GET)
+   public String lecturesuccess(HttpSession session,HttpServletRequest req) {
+      
+      int account_id = Integer.parseInt(req.getParameter("account_id"));
+      int op = Integer.parseInt(req.getParameter("opid"));
+      
+      Subject sbj = new Subject();
+      
+      sbj.setCourse_name(req.getParameter("course_name"));
+      sbj.setName_kor(req.getParameter("name_kor"));
+      sbj.setCourse_start_date(java.sql.Date.valueOf(req.getParameter("course_start_date")));
+      sbj.setCourse_end_date(java.sql.Date.valueOf(req.getParameter("course_end_date")));
+      sbj.setLecture_time_start(Time.valueOf(req.getParameter("lecture_time_start")));
+      sbj.setLecture_time_end(Time.valueOf(req.getParameter("lecture_time_end")));
+      sbj.setTuition_fee(Integer.parseInt(req.getParameter("tuition_fee")));
+      sbj.setLocation(req.getParameter("location"));
+      sbj.setCNT(Integer.parseInt(req.getParameter("CNT")));
+      sbj.setCapacity(Integer.parseInt(req.getParameter("capacity")));
+      sbj.setLecture_content(req.getParameter("lecture_content"));
+      sbj.setName(req.getParameter("name"));
+      sbj.setAccount_id(Integer.parseInt(req.getParameter("account_id")));
+      /*if(sbj.getCapacity() <= sbj.getCNT())
+      { 
+         return "homepage.lecturefailed";
+      }*/
+      System.out.println(req.getParameter("account_id"));
+      System.out.println(sbj.getAccount_id());
+      /*if(member.getAccount_id() == sbj.getAccount_id()){
+         return "homepage.lecturefailed2";
+      }*/
+      req.setAttribute("sbj", sbj);
+      HashMap<String,Integer> map = new HashMap<String,Integer>();
+      System.out.println();
+      map.put("account_id", account_id);
+      map.put("open_course_id",op);
+      
+      lectureRegisterService.insertlecture(map);
 
-		
-		return "homepage.lecturesuccess";
-	}
-	
+      
+      return "homepage.lecturesuccess";
+   }
 
 	// 공지사항 작성 페이지
 	@RequestMapping(value = "/noticeWrite", method = RequestMethod.GET)
@@ -199,18 +221,6 @@ public class HomepageController {
 		homepageService.insertNotice(notice);
 		
 		return "redirect:notice";
-	}
-	
-	// 공지사항 이미지 첨부
-	/*
-	스프링에서 @ResponseBody로 문자열을 반환 시 디폴트로 ISO-8859-1를 사용한다.
-	이를 변경하기 위해 @RequestMapping의 produces 속성을 다음과 같이 설정할 수 있다.
-	Response 사용시 returnString 값이 script라면 text/html를 사용하고 단순 text라면 text/plain을 사용한다.
-	*/
-	@RequestMapping(value = "/noticeUpload", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
-	@ResponseBody
-	public String noticeUpload(MultipartHttpServletRequest request) {
-		return homepageService.CkeditorUpload(request,"/board/notice");
 	}
 	
 	// 공지사항(페이지 정보가 없는경우) 
@@ -338,13 +348,6 @@ public class HomepageController {
 		homepageService.insertQuestion(question);
 		
 		return "redirect:qna";
-	}
-	
-	// 질문과 답변 업로드
-	@RequestMapping(value = "/qnaUpload", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
-	@ResponseBody
-	public String qnaUpload(MultipartHttpServletRequest request) {
-		return homepageService.CkeditorUpload(request,"/board/qna");
 	}
 	
 

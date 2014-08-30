@@ -113,8 +113,8 @@ $(document).ready(function(){
 		shiftEnterMode:'3',
 		
 		//filebrowserBrowseUrl : "${resourceUrl}",
-		filebrowserUploadUrl : '${pageContext.request.contextPath}/qnaUpload?command=QuickUpload&type=File',
-        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/qnaUpload?command=QuickUpload&type=Images' 
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/qna/command/QuickUpload/type/File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/qna/command/QuickUpload/type/Images'
 	});
 	ckeditor = CKEDITOR.instances['content'];
 

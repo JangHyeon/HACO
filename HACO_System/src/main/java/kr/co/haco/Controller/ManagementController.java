@@ -116,13 +116,6 @@ public class ManagementController {
 	}
 	
 
-	@RequestMapping(value = "/subjectUpload", method = RequestMethod.POST, produces="text/html;charset=UTF-8")
-	@ResponseBody
-	public String noticeUpload(MultipartHttpServletRequest request) {
-		return homepageService.CkeditorUpload(request,"/board/subject");
-	}
-	
-	
 	//대쉬보드
 	@RequestMapping(value = {"index",""}, method = RequestMethod.GET)
 	public String index(Model model) {

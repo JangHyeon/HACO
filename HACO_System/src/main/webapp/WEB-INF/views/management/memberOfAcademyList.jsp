@@ -48,35 +48,38 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 
 			<div class="col-md-12">
 				<div class="content-panel">
+				
+					<!-- 강좌목록 -->
+					<div class="btn-group pull-right topToggle">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					    강좌 목록 <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu">
+					  		<li><a href="memberOfAcademyList?center_id=0&open_course_id=0">전체 강좌</a></li>
+					  	<c:forEach var="course" items="${courseList}">
+					   		<li><a href="memberOfAcademyList?center_id=${course.center_id}&open_course_id=${course.open_course_id}">${course.course_name}</a></li>
+					    </c:forEach>					    
+					  </ul>
+					</div>	
+					
+					<!-- 센터목록 -->
+					<div class="btn-group pull-right topToggle">
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					    센터목록 <span class="caret"></span>
+					  </button>
+					  <ul class="dropdown-menu" role="menu">
+					  		<li><a href="memberOfAcademyList?center_id=0">전체 센터</a></li>
+					  	<c:forEach var="edu" items="${eduCenterList}">
+					   		<li><a href="memberOfAcademyList?c_id=${edu.center_id}">${edu.location}</a></li>
+					    </c:forEach>					    
+					  </ul>
+					</div>	
+							
+				
+				
+				
 					<h4>
 						<i class="fa fa-angle-right"></i> 원생 		
-												
-						<!-- 강좌목록 -->
-						<div class="btn-group pull-right">
-						  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-						    강좌 목록 <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu" role="menu">
-						  		<li><a href="memberOfAcademyList?center_id=0&open_course_id=0">전체 강좌</a></li>
-						  	<c:forEach var="course" items="${courseList}">
-						   		<li><a href="memberOfAcademyList?center_id=${course.center_id}&open_course_id=${course.open_course_id}">${course.course_name}</a></li>
-						    </c:forEach>					    
-						  </ul>
-						</div>	
-						
-						<!-- 센터목록 -->
-						<div class="btn-group pull-right">
-						  <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
-						    센터목록 <span class="caret"></span>
-						  </button>
-						  <ul class="dropdown-menu" role="menu">
-						  		<li><a href="memberOfAcademyList?center_id=0">전체 센터</a></li>
-						  	<c:forEach var="edu" items="${eduCenterList}">
-						   		<li><a href="memberOfAcademyList?c_id=${edu.center_id}">${edu.location}</a></li>
-						    </c:forEach>					    
-						  </ul>
-						</div>	
-								
 					</h4>
 					<hr>			
 					<table class="table">

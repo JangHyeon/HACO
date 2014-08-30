@@ -127,8 +127,8 @@ $(document).ready(function(){
 		shiftEnterMode:'3',
 		
 		//filebrowserBrowseUrl : "${resourceUrl}",
-		filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
-        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images' 
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/notice/command/QuickUpload/type/File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/notice/command/QuickUpload/type/Images'
 	});
 	ckeditor = CKEDITOR.instances['content'];
 
