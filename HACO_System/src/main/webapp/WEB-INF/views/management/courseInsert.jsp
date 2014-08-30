@@ -72,7 +72,7 @@
                      <input type="date" name="course_end_date" id="course_end_date" class="form-control"/>
                      </div>
                   </div>
-                  <div class="form-group">
+                  <d	iv class="form-group">
                      <label class="col-md-2 col-sm-2 control-label">센터명/강의실</label>
                      <div class="col-md-2 col-sm-2">
                         <select class="form-control" id="selectCenter" name="center_id">

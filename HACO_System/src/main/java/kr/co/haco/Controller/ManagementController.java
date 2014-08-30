@@ -105,7 +105,7 @@ public class ManagementController {
 		employeeService.addEmployee(employee);
 		return "management.index";
 	}
-	
+	 
 
 
 	//직원정보 사진 업로드
