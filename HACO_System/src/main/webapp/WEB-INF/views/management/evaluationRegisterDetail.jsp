@@ -89,7 +89,7 @@
 										<div class="form-group" id="multiple_choice" >
 											<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_label">질문<%=idx_question%></label>								
 											<div class="col-sm-8 input-group" >
-												<input type="text" class="form-control" readonly="readonly" value="ㅋㅋㅋ" style="border:0px;background-color:white">
+												<input type="text" class="form-control" readonly="readonly" style="border:0px;background-color:white" value="${question.question}">
 											</div>	
 											<label class="col-sm-2 col-sm-2 control-label" id="multiple_choice_items_label">&nbsp;보기</label>
 											<div class="col-sm-10">		

@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
@@ -33,8 +34,8 @@
                       <div class="row" id="examResultPlace">
                       	
                       	<div class="col-md-4 col-sm-4 mb" id="examQuest" style="display:none">
-                      		<div class="grey-panel pn donut-chart">
-                      			<div class="grey-header">
+                      		<div class="grey-panel pn_eval donut-chart">
+                      			<div class="grey-header_eval">
 						  			<h5>질문1</h5>
                       			</div>
 								<div id="evalChart">		                      			
@@ -49,6 +50,8 @@
           	<!-- 주관식 -->          	 
           	<div class="bs-example">
 			    <div class="panel-group" id="accordion">
+			    	<%int idx_answerList=0;
+			    	  ArrayList<ArrayList<String>> answerList = (ArrayList<ArrayList<String>>)request.getAttribute("answerList"); %>
 			    	<c:forEach var="quest" items="${question}" varStatus="seq">			    	
 			        <div class="panel panel-default">
 			            <div class="panel-heading">
@@ -58,9 +61,14 @@
 			            </div>
 			            <div id="collapseOne${seq.index}" class="panel-collapse collapse in">
 			                <div class="panel-body">
-			                <%-- 	<c:forEach var="answer" items="answerList">
-			                    <p>${answer.answer}</p>
-			                    </c:forEach> --%>
+			               <%
+			                						
+			                ArrayList<String> answers = answerList.get(idx_answerList);												    	
+										    	
+							for(int i=0; i<answers.size(); i++){ %>		
+			                    <p><%=i+1%>.<%=answers.get(i)%></p>
+			                <%} 
+							idx_answerList++;%>			   
 			                </div>
 			            </div>
 			        </div>

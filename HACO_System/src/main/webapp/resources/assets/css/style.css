@@ -1013,7 +1013,10 @@ PANELS CONFIGURATIONS
 *************************************************************************************** */
 
 /*Panel Size*/
-
+.pn_eval {	
+	height: 443px;
+	box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
 .pn {
 	height: 250px;
 	/* height: 443px; */
@@ -1037,6 +1040,14 @@ PANELS CONFIGURATIONS
 	margin-bottom: 15px;
 	/* margin-bottom: 1px; */
 }
+
+.grey-panel .grey-header_eval {
+	background: #ccd1d9;
+	padding: 3px;
+	margin-bottom: 1px;
+}
+
+
 .grey-panel h5 {
 	font-weight: 200;
 	margin-top: 10px;
