@@ -175,6 +175,10 @@ hr {
 .centered {
 	text-align: center;
 }
+.centered > small{
+	display: inline-block;
+	margin-top: 5px;
+}
 
 .goleft {
 	text-align: left;

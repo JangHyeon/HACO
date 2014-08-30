@@ -29,8 +29,15 @@ public class Employee{
 	private int resident_registration_num1;
 	private int resident_registration_num2;
 	private String photo;
+	private String location;
 	
 	
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
 	public int getAccount_id() {
 		return account_id;
 	}

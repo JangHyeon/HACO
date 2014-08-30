@@ -12,7 +12,15 @@
 	</select>
 		
 	<select id="getEmployee" parameterType="Integer" resultType="kr.co.haco.VO.Employee">
-		select * from employee where account_id=#{param1}
+		select 
+		account_id,job_code,name_kor,name_eng,gender,address_registered,address_real,phone_home,phone_cell,
+		phone_emergency,email,salary,bank,bank_account,account_owner,join_date,join_center_id,photo,
+		resident_registration_num1,resident_registration_num2,now_center_id,location 
+		from 
+		employee as e 
+		join education_center as ec 
+		on e.now_center_id = ec.center_id 
+		where account_id=#{param1}
 	</select>
 	
 	<!-- 아이디 중복 체크 -->

@@ -17,7 +17,10 @@
               	  		<img src="${pageContext.request.contextPath}/employeePhoto/${sessionScope.employee.photo}" class="employeePhoto-img" width="80" onerror="this.src='${pageContext.request.contextPath}/images/gray-ori-User-Role-Guest-icon.png'">
               	  	</a>
               	  </div>
-              	  <h5 class="centered">${sessionScope.employee.name_kor}<br>${sessionScope.employee.name_eng}</h5>
+              	  <h5 class="centered">
+              	  ${sessionScope.employee.name_kor}
+              	  <br>${sessionScope.employee.name_eng}
+              	  <br><small>${sessionScope.employee.location}</small></h5>
 
 			  	    
               	  <!-- 센터장, 본점장만 -->	

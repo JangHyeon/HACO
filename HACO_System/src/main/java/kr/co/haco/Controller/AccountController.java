@@ -46,8 +46,7 @@ public class AccountController {
 	// 직원 로그인 처리
 	@RequestMapping(value = "employeeLogin", method = RequestMethod.GET)
 	public String employeeLogin(HttpSession session, Principal principal) {
-		session.setAttribute("employee",
-				accountService.getEmployee(principal.getName()));
+		session.setAttribute("employee",accountService.getEmployee(principal.getName()));
 		return "redirect:/management/index";
 	}
 
