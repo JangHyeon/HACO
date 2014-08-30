@@ -7,17 +7,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import kr.co.haco.DAO.AccountDAO;
 import kr.co.haco.DAO.AttendanceDAO;
 import kr.co.haco.DAO.OpenCourseDAO;
-import kr.co.haco.VO.Account;
 import kr.co.haco.VO.LectureRegisterList;
-import kr.co.haco.VO.Member;
 import kr.co.haco.VO.OpenCourse;
-import kr.co.haco.VO.OpenCourseList;
 import kr.co.haco.VO.Student;
 import kr.co.haco.VO.Subject;
-import kr.co.haco.VO.Teacher;
 
 @Component
 public class LectureRegisterServiceImpl implements LectureRegisterService{
@@ -25,14 +20,16 @@ public class LectureRegisterServiceImpl implements LectureRegisterService{
 	@Autowired
 	SqlSession sqlSession;
 	
-	public List<OpenCourseList> getopencourselist(HashMap map) {
+	public List<OpenCourse> getopencourselist(HashMap map) {
 		return sqlSession.getMapper(OpenCourseDAO.class).getopencourselist(map);
 	}
+	
+/*	public Subject getsubject(HashMap map) {
+		return sqlSession.getMapper(OpenCourseDAO.class).getsubject(map);
+	}
+*/
 	public Subject getCNT(HashMap map) {
 		return sqlSession.getMapper(OpenCourseDAO.class).getCNT(map);
-	}
-	public LectureRegisterList lecturemember(HashMap map) {
-		return sqlSession.getMapper(OpenCourseDAO.class).lecturemember(map);
 	}
 	public List<LectureRegisterList> getlecturestats(HashMap map) {
 		return sqlSession.getMapper(OpenCourseDAO.class).getlecturestats(map);

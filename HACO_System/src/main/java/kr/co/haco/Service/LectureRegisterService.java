@@ -5,20 +5,17 @@ import java.util.List;
 
 import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.OpenCourse;
-import kr.co.haco.VO.OpenCourseList;
 import kr.co.haco.VO.Student;
 import kr.co.haco.VO.Subject;
-import kr.co.haco.VO.Teacher;
 
 public interface LectureRegisterService {
-	public List<OpenCourseList> getopencourselist(HashMap<String, Object> map);
+	public List<OpenCourse> getopencourselist(HashMap map);
 	/*public Subject getsubject(HashMap map);*/
-	public Subject getCNT(HashMap<String, Object> map);
-	public LectureRegisterList lecturemember(HashMap map);
-	public List<LectureRegisterList> getlecturestats(HashMap<String, Object> map);
-	public List<LectureRegisterList> getlecturecomplete(HashMap<String, Object> map);
+	public Subject getCNT(HashMap map);
+	public List<LectureRegisterList> getlecturestats(HashMap map);
+	public List<LectureRegisterList> getlecturecomplete(HashMap map);
 	public int insertlecture(HashMap map);
-	public int updatestudent(HashMap<String, Object> map);
-	public int cancelstudent(HashMap<String, Object> map);
-	public int completestudent(HashMap<String, Object> map);
+	public int updatestudent(HashMap map);
+	public int cancelstudent(HashMap map);
+	public int completestudent(HashMap map);
 }

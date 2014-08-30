@@ -1,13 +1,18 @@
 package kr.co.haco.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import kr.co.haco.DAO.AccountDAO;
 import kr.co.haco.DAO.AttendanceDAO;
 import kr.co.haco.VO.Attendance;
-import kr.co.haco.VO.AttendanceMember;
-import kr.co.haco.VO.AttendanceOpenCourse;
+import kr.co.haco.VO.CenterClassroom;
+import kr.co.haco.VO.EducationCenter;
+import kr.co.haco.VO.Employee;
+import kr.co.haco.VO.LectureRegister;
+import kr.co.haco.VO.Member;
+import kr.co.haco.VO.OpenCourse;
+import kr.co.haco.VO.Roles;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,14 +24,14 @@ public class AttendanceServiceImpl implements AttendanceService{
 	@Autowired
 	SqlSession sqlSession;
 	
-	public List<AttendanceOpenCourse> getattenlist(HashMap<String, Object> map) {
+	public List<OpenCourse> getattenlist(HashMap map) {
 		return sqlSession.getMapper(AttendanceDAO.class).getattenlist(map);
 	}
 
-	public List<AttendanceMember> getstdentlist(HashMap<String, Object> map) {
+	public List<Member> getstdentlist(HashMap map) {
 		return sqlSession.getMapper(AttendanceDAO.class).getstdentlist(map);
 	}
-	public int insertatt(HashMap<String, Object> att) {
-		return sqlSession.getMapper(AttendanceDAO.class).insertatt(att);
+	public List<Attendance> insertatt(HashMap map) {
+		return sqlSession.getMapper(AttendanceDAO.class).insertatt(map);
 	}
 }

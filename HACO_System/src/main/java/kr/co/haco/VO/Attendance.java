@@ -1,7 +1,5 @@
 package kr.co.haco.VO;
 
-import java.util.List;
-
 
 public class Attendance {
 	private int lecture_register_id;
@@ -9,9 +7,6 @@ public class Attendance {
 	private String attendance_date;
 	private int center_id;
 	private int open_course_id;
-	
-	public Attendance(){
-	}
 	public int getLecture_register_id() {
 		return lecture_register_id;
 	}

@@ -1,9 +1,7 @@
 package kr.co.haco.DAO;
 
-import java.util.HashMap;
 import java.util.List;
 
-import kr.co.haco.VO.Attenlist;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
@@ -20,5 +18,4 @@ public interface MypageDAO {
 	public int uploadEvalAnswer(EvalQuestionAnswer evalQuestAnswer);
 	 //객관식 답변
 	public int uploadEvalExam(EvalExampleResult evalExampleResult);
-	public List<Attenlist> getattenlist(HashMap map);
 }

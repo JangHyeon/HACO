@@ -7,7 +7,7 @@
 <mapper namespace="kr.co.haco.DAO.MypageDAO">
 	<!-- 수강내역 -->
 	<select id="getMyLecture" resultType="kr.co.haco.VO.MyLectureHistory">
-		SELECT l.account_id as account_id,l.open_course_id, o.course_name,
+		SELECT l.account_id,l.open_course_id, o.course_name,
 			o.center_id, e.location,  o.course_start_date, o.course_end_date,
 		    IF(o.course_end_date>NOW(),'수강중','수강완료')  AS now_study,
 		    l.is_survey
@@ -16,7 +16,7 @@
 		ON l.open_course_id = o.open_course_id
 		INNER JOIN education_center e
 		ON o.center_id = e.center_id
-		WHERE l.account_id=#{accountid}
+		WHERE l.account_id=#{account_id}
 	</select>
 	
 	<!-- 강의평가 - 설문내용 불러오기 -->
@@ -35,19 +35,6 @@
 			INNER JOIN eval_question_example e
 			ON q.question_id = e.question_id
 		WHERE q.open_course_id=#{open_course_id}
-	</select>
-	<!-- 나의 출석정보 -->
-	<select id="getattenlist" resultType="kr.co.haco.VO.Attenlist">
-	 select c.name, d.attendance_date, e.attendance_state_name
-            from open_course a, lecture_register b, member c, attendance d, code_attendance e , account f
-            where a.open_course_id = b.open_course_id
-            and a.open_course_id = d.open_course_id
-            and b.account_id = c.account_id
-            and b.lecture_register_id = d.lecture_register_id
-            and d.attendance_code = e.attendance_code
-            and b.account_id = f.account_id
-            and f.account_id = #{account_id}
-            and a.open_course_id = #{open_course_id}
 	</select>
 	<!-- 강의평가 - 설문내용 저장하기 -->
 	<!-- 주관식 일때 -->

@@ -5,8 +5,8 @@
 
 <!-- 구현하고자하는 인터페이스 풀경로 -->
 <mapper namespace="kr.co.haco.DAO.OpenCourseDAO">
-	<select id="getopencourselist" parameterType="hashmap" resultType="kr.co.haco.VO.OpenCourseList">
-			select d.location as location, course_name as course_name , c.subject_name as subject_name , b.name_kor as name_kor , b.account_id,
+	<select id="getopencourselist" parameterType="hashmap" resultType="kr.co.haco.VO.OpenCourse">
+			select d.location as location, course_name as course_name , c.subject_name as subject_name , b.name_kor as name_kor ,
 					a.course_start_date as course_start_date , a.course_end_date as course_end_date , a.open_course_id as open_course_id,
 					(SELECT COUNT(1) FROM lecture_register e where e.OPEN_COURSE_ID = a.open_course_id ) as CNT , c.capacity
 					from open_course a , employee b , subject c , education_center d
@@ -15,32 +15,18 @@
 					and a.center_id = d.center_id
 					and STR_TO_DATE(#{today},'%Y-%m-%d') &lt; a.course_start_date
 	</select>
-	<select id="getteachers" parameterType="hashmap" resultType="kr.co.haco.VO.OpenCourseList">
-		select a.name_kor, b.career_desc, c.certificate, d.profile_photo, d.profile_content, d.introduction
-                    from employee a, teacher_career b, teacher_certificate c, teacher_profile d
-                    where a.account_id = b.account_id
-                    and a.account_id = c.account_id
-                    and a.account_id = d.account_id
-                    and a.account_id = #{account_id}
-	</select>
 	<select id="getCNT" parameterType="int" resultType="kr.co.haco.VO.Subject">
 		select b.course_name , a.subject_name , c.name_kor, b.course_start_date, b.course_end_date , a.lecture_time_start, a.lecture_time_end,
 			a.tuition_fee, a.capacity, a.lecture_content, d.location , b.open_course_id,
-       		(SELECT COUNT(1) FROM lecture_register e where e.OPEN_COURSE_ID = b.open_course_id ) as CNT
-       		<choose>
-       			<when test="member_check==1">
-       				,(select z.account_id from lecture_register x, member z where x.account_id = z.account_id 
-       				and x.open_course_id = #{course_id} and z.account_id = #{account_id} ) AS account_id
-       			</when>
-       			<otherwise>,'' AS account_id</otherwise>
-       		</choose>
+       		(SELECT COUNT(1) FROM lecture_register e where e.OPEN_COURSE_ID = b.open_course_id ) as CNT,
+       		(select z.account_id from lecture_register x, member z where x.account_id = z.account_id and x.open_course_id = #{course_id} and z.account_id = #{account_id} ) as account_id
 			from subject a , open_course b, employee c , education_center d
 			where a.subject_id = b.subject_id
 			and b.account_id = c.account_id
 			and b.center_id = d.center_id
 			and b.open_course_id = #{course_id}
 	</select>
-	<select id="getlecturestats" parameterType="int" resultType="kr.co.haco.VO.LectureRegisterList">
+	<select id="getlecturestats" parameterType="int" resultType="kr.co.haco.VO.LectureRegister">
 		select d.location , a.course_name , e.classroom ,  b.name_kor ,  a.course_start_date , h.lecture_register_name ,
 			a.course_end_date , c.capacity , f.lecture_register_code , g.name , a.open_course_id , f.account_id,
 			(SELECT COUNT(1) FROM lecture_register h where h.OPEN_COURSE_ID = a.open_course_id ) as CNT
@@ -58,16 +44,7 @@
 			and f.lecture_register_code != '4'
 			and STR_TO_DATE(#{today},'%Y-%m-%d') &lt; a.course_start_date
 	</select>
-	<select id="lecturemember" parameterType="int" resultType="kr.co.haco.VO.LectureRegisterList">
-		select d.account_id
-   			from open_course a , lecture_register b , member d
- 		    where a.open_course_id = b.open_course_id
-  		    and b.account_id = d.account_id
-  		    and b.account_id = #{account_id}
- 		    and a.open_course_id = #{open_course_id}
-	</select>
-		
-	<select id="getlecturecomplete" parameterType="int" resultType="kr.co.haco.VO.LectureRegisterList">
+	<select id="getlecturecomplete" parameterType="int" resultType="kr.co.haco.VO.LectureRegister">
 		select d.location , a.course_name , e.classroom ,  b.name_kor ,  a.course_start_date , h.lecture_register_name ,
 			a.course_end_date , c.capacity , f.lecture_register_code , g.name , a.open_course_id , f.account_id,
 			(SELECT COUNT(1) FROM lecture_register h where h.OPEN_COURSE_ID = a.open_course_id ) as CNT
