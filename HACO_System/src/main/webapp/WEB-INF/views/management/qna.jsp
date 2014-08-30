@@ -101,7 +101,7 @@
 											<span class='label label-default'><i class='fa fa-question-circle'></i> 질문 </span>
 										</c:if>
 										<c:if test="${qna.divide_code_toString == 'A'}">
-											<span class='label label-primary'><i class='fa fa-tag'></i> 답변 </span>
+											<span class='label label-primary'><i class='fa fa-tag'></i> 수정 </span>
 										</c:if>
 									</td>
 									<td><a data-name="title" data-content='${fn:substring(qna.content,0,100)}..' href="${pageContext.request.contextPath}/management/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a></td>
