@@ -94,9 +94,9 @@ function lecture(open_course_id,account_id,classification){
 									<td>${b.name }</td>
 									<s:authorize ifAnyGranted="MASTER,CENTER,MANAGER">
 									<td>
-										<button class='btn btn-success btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','grant')"><i class='fa fa-check'></i></button>
-										<button class='btn btn-danger btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','cancel')"><i class='fa fa-trash-o'></i></button>
-										<button class='btn btn-danger btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','complete')"><i class='fa fa-trash-o'></i></button>
+										<button class='btn btn-default btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','grant')"><i class='fa fa-check'></i></button>
+										<button class='btn btn-warning btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','cancel')"><i class='fa fa-trash-o'></i></button>
+										<button class='btn btn-primary btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','complete')"><i class="fa fa-circle-thin"></i></button>
 									</td>
 									</s:authorize>
 									<td>${b.lecture_register_name}</td>

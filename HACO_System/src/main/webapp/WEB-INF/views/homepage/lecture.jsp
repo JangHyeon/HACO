@@ -93,9 +93,8 @@
 		var CNT = document.lecturesuccess.CNT.value;
 		var account_id = document.lecturesuccess.account_id.value;
 		var state_code = document.lecturesuccess.state_code.value;
-		alert("state_code : " + state_code);
-		alert("CNT : " + CNT);
 		alert("capacity : " + capacity);
+		alert("CNT : " + CNT);
 		if(account_id==""){
 				$('#empty').modal('show'); 
 		}
@@ -108,6 +107,8 @@
 					$('#mail').modal('show');
 					});
 			}else if(CNT>=capacity){
+				alert("capacity : " + capacity);
+				alert("CNT : " + CNT);
 					$('#over').modal('show');
 			}else if(capacity>CNT){
 				document.lecturesuccess.opid.value =opid;

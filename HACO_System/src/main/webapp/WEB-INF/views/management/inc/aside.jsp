@@ -52,6 +52,7 @@
                       <ul class="sub">
                           <li name="subjectRegister"><a  href="${pageContext.request.contextPath}/management/subjectRegister">과목등록</a></li>
                           <li name="courseRegister"><a  href="${pageContext.request.contextPath}/management/courseRegister">과정등록</a></li>
+                          <%-- <li name="courseRegister"><a  href="${pageContext.request.contextPath}/management/courseRegister">교육센터</a></li> --%>
                       </ul>
                   </li>
 				
@@ -97,7 +98,7 @@
                       <ul class="sub">
                           <li name="memberOfSiteList"><a  href="${pageContext.request.contextPath}/management/memberOfSiteList">회원 목록</a></li>
                           <li name="memberOfAcademyList"><a  href="${pageContext.request.contextPath}/management/memberOfAcademyList">원생 목록</a></li>
-                          <li name="leaveMemberList"><a  href="${pageContext.request.contextPath}/management/memberOfLeaveList">퇴교 목록</a></li>
+                          <%-- <li name="leaveMemberList"><a  href="${pageContext.request.contextPath}/management/memberOfLeaveList">퇴교 목록</a></li> --%>
                       </ul>
                   </li>
                   

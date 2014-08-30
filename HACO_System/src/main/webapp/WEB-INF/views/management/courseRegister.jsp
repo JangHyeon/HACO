@@ -1,5 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
+   pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -8,28 +8,28 @@
 <!-- spEL을 활용한 리소스 버전 관리 -->
 <spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
 <spring:url value="/static-{applicationVersion}" var="resourceUrl">
-	<spring:param name="applicationVersion" value="${applicationVersion}" />
+   <spring:param name="applicationVersion" value="${applicationVersion}" />
 </spring:url>
 
 
 <!--external css-->
 <link
-	href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"
-	rel="stylesheet" />
+   href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"
+   rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
-	href="${resourceUrl}/assets/js/gritter/css/jquery.gritter.css" />
+   href="${resourceUrl}/assets/js/gritter/css/jquery.gritter.css" />
 
 <!-- Custom styles for this template -->
 <link
-	href="${resourceUrl}/assets/css/style.css"
-	rel="stylesheet">
+   href="${resourceUrl}/assets/css/style.css"
+   rel="stylesheet">
 <link
-	href="${resourceUrl}/assets/css/style-responsive.css"
-	rel="stylesheet">
+   href="${resourceUrl}/assets/css/style-responsive.css"
+   rel="stylesheet">
 
 
 <input id="current-accordion" type="hidden"
-	value="course,courseRegister" />
+   value="course,courseRegister" />
 
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -37,137 +37,140 @@
 <!--main content start-->
 
 <section id="main-content">
-	<section class="wrapper">
-		<h3>
-			<i class="fa fa-angle-right"></i> 과정
-		</h3>
-		<div class="row">
+   <section class="wrapper">
+      <h3>
+         <i class="fa fa-angle-right"></i> 과정
+      </h3>
+      <div class="row">
+         <div class="col-md-12">
+            <div class="content-panel">
+               
+                  <div class="pull-right topToggle">
+               <a class="btn btn-success"
+                  href="${pageContext.request.contextPath}/management/courseInsert">
+                  과정 등록</a>
+            </div>
+            
+               
+               <h4>
+                  <i class="fa fa-angle-right"></i> 과정등록
+               </h4>
+               <hr>
+               <table class="table">
+                  <thead>
+                     <tr>
+                        <th>#</th>
+                        <th>강사명</th>
+                        <th>과목명</th>
+                        <th>과정명</th>
+                        <th>강의실</th>
+                        <th>과정시작일자/과정종료일자</th>
+                        <th>교육센터</th>
+                        <th>수정</th>
+                        <th>삭제</th>
+                     </tr>
+                  </thead>
+                  <tbody>
+                     <c:forEach var="role" items="${CourseList}">
+                              <tr>
+                                 <td>${role.open_course_id}</td>
+                                 <td>${role.name_kor}</td>
+                                 <td>${role.subject_name}</td>
+                                 <td>${role.course_name}</td>
+                                 <td>${role.classroom}</td>
+                                 <td><fmt:formatDate value="${role.course_start_date}"
+                                       pattern="yyyy-MM-dd" />~ <fmt:formatDate
+                                       value="${role.course_end_date}" pattern="yyyy-MM-dd" /></td>
+                                 <td>${role.location}</td>
+                                 <td><a
+                                    href="${pageContext.request.contextPath}/management/courseUpdate?id=${role.open_course_id}">
+                                       <button class="btn btn-default btn-xs">
+         
+                                          <i class="fa fa-pencil"></i>
+                                       </button>
+         
+                                 </a></td>
+                                 <td><a
+                                    href="${pageContext.request.contextPath}/management/courseDeleteOk?id=${role.open_course_id}">
+                                       <button class="btn btn-danger btn-xs">
+                                          <i class="fa fa-trash-o "></i>
+                                       </button>
+                                 </a></td>
+                              </tr>
+                           </c:forEach>
+                  </tbody>
 
-			<div class="col-md-12">
-				<div class="content-panel">
-					<h4>
-						<i class="fa fa-angle-right"></i> 과정등록
-					</h4>
-					<hr>
-					<table class="table">
-						<thead>
-							<tr>
-								<th>seq</th>
-								<th>강사명</th>
-								<th>과목명</th>
-								<th>과정명</th>
-								<th>강의실</th>
-								<th>과정시작일자/과정종료일자</th>
-								<th>교육센터</th>
-								<th>수정</th>
-								<th>삭제</th>
-							</tr>
-						</thead>
-						<tbody>
-							<c:forEach var="role" items="${CourseList}">
-			                     <tr>
-			                        <td>${role.open_course_id}</td>
-			                        <td>${role.name_kor}</td>
-			                        <td>${role.subject_name}</td>
-			                        <td>${role.course_name}</td>
-			                        <td>${role.classroom}</td>
-			                        <td><fmt:formatDate value="${role.course_start_date}"
-			                              pattern="yyyy-MM-dd" />~ <fmt:formatDate
-			                              value="${role.course_end_date}" pattern="yyyy-MM-dd" /></td>
-			                        <td>${role.location}</td>
-			                        <td><a
-			                           href="${pageContext.request.contextPath}/management/courseUpdate?id=${role.open_course_id}">
-			                              <button class="btn btn-primary btn-xs">
-			
-			                                 <i class="fa fa-pencil"></i>
-			                              </button>
-			
-			                        </a></td>
-			                        <td><a
-			                           href="${pageContext.request.contextPath}/management/courseDeleteOk?id=${role.open_course_id}">
-			                              <button class="btn btn-danger btn-xs">
-			                                 <i class="fa fa-trash-o "></i>
-			                              </button>
-			                        </a></td>
-			                     </tr>
-			                  </c:forEach>
-						</tbody>
-
-					</table>
-					
-					<div class="table-footer">
-			            <s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
-							<div class="pull-right topToggle">
-								<button id="writeBtn" class="btn btn-primary" type="button">과목 등록하기</button>
-							</div>
-						</s:authorize>
-						<div class="col-xs-12">
-							<!-- 페이징 -->
-							<ul class="pagination pagination-centered">
-								<!-- 이전 링크 -->
-								<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
-									<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
-								</li>
-								
-							  	<!-- 페이지 리스트   -->
-							  	<c:if test="${beginpage!=0}">
-								<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
-								
-									<c:if test="${i==pageNum}">
-										<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
-									</c:if>
-									<c:if test="${i!=pageNum}">
-										<li><a href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
-									</c:if>
-								</c:forEach>
-								</c:if>
-							  	<!-- 다음링크 -->
-								<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
-									<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
-								</li>
-							</ul>
-						</div>						
-							
-						<!-- 검색 -->
-						<div class="col-sm-6 col-sm-offset-3" style="clear:both">
-				          <div class="input-group">
-				            <div class="input-group-btn">
-				              <button id="searchType" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-				              	<c:choose>
-				              		<c:when test="${searchType=='titleAndContent'}">
-				              			<span>제목+내용 </span>
-				              		</c:when>
-				              		<c:when test="${searchType=='writer'}">
-				              			<span>작성자 </span>
-				              		</c:when>
-				              		<c:otherwise>
-				              			<span>제목 </span>
-				              		</c:otherwise>
-				              	</c:choose> 
-				              	<span class="caret"></span>
-				              </button>
-				              <ul id="selectType" class="dropdown-menu" role="menu">
-				                <li id="typeTitle" value="title"><a>제목</a></li>
-				                <li id="typeTitleAndContent" value="titleAndContent"><a>제목+내용</a></li>
-				                <li id="writer" value="writer"><a>작성자</a></li>
-				              </ul>
-				            </div><!-- /btn-group -->
-				            <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
-				            <span class="input-group-btn">
-				              <button class="btn btn-default" id="submitBtn" type="button">검색</button>
-				            </span>
-				          </div>
-					        <input type="hidden" name="searchKey" value="${searchKey}">
-					        <input type="hidden" name="pageNum" value="${pageNum}">
-					        <input type="hidden" name="pageSize" value="${pageSize}">
-					        <input type="hidden" name="searchType" value="${searchType}">
-				        </div>
-					</div>
-				</div>
-	        </div>
-			<!-- /content-panel -->
-		</div>
-	</section>
+               </table>
+               
+               <div class="table-footer">
+                     
+                  <div class="col-xs-12">
+                     <!-- 페이징 -->
+                     <ul class="pagination pagination-centered">
+                        <!-- 이전 링크 -->
+                        <li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+                           <a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
+                        </li>
+                        
+                          <!-- 페이지 리스트   -->
+                          <c:if test="${beginpage!=0}">
+                        <c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+                        
+                           <c:if test="${i==pageNum}">
+                              <li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+                           </c:if>
+                           <c:if test="${i!=pageNum}">
+                              <li><a href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${i}/searchType/${searchType}/searchKey/${searchKey}">${i}</a></li>
+                           </c:if>
+                        </c:forEach>
+                        </c:if>
+                          <!-- 다음링크 -->
+                        <li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+                           <a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/courseRegister/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
+                        </li>
+                     </ul>
+                  </div>                  
+                     
+                  <!-- 검색 -->
+                  <div class="col-sm-6 col-sm-offset-3" style="clear:both">
+                      <div class="input-group">
+                        <div class="input-group-btn">
+                          <button id="searchType" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                             <c:choose>
+                                <c:when test="${searchType=='titleAndContent'}">
+                                   <span>제목+내용 </span>
+                                </c:when>
+                                <c:when test="${searchType=='writer'}">
+                                   <span>작성자 </span>
+                                </c:when>
+                                <c:otherwise>
+                                   <span>제목 </span>
+                                </c:otherwise>
+                             </c:choose> 
+                             <span class="caret"></span>
+                          </button>
+                          <ul id="selectType" class="dropdown-menu" role="menu">
+                            <li id="typeTitle" value="title"><a>제목</a></li>
+                            <li id="typeTitleAndContent" value="titleAndContent"><a>제목+내용</a></li>
+                            <li id="writer" value="writer"><a>작성자</a></li>
+                          </ul>
+                        </div><!-- /btn-group -->
+                        <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
+                        <span class="input-group-btn">
+                          <button class="btn btn-default" id="submitBtn" type="button">검색</button>
+                        </span>
+                      </div>
+                       <input type="hidden" name="searchKey" value="${searchKey}">
+                       <input type="hidden" name="pageNum" value="${pageNum}">
+                       <input type="hidden" name="pageSize" value="${pageSize}">
+                       <input type="hidden" name="searchType" value="${searchType}">
+                    </div>
+               </div>
+            </div>
+           </div>
+         <!-- /content-panel -->
+      </div>
+   </section>
 </section>
 <!--main content end-->
 
@@ -175,72 +178,71 @@
 
 <!-- inclue common script -->
 
-<script	src="${resourceUrl}/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
+<script   src="${resourceUrl}/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
 <%@ include file="commonScript.jsp"%>
 
 <script>
 $(document).ready(function(){
-	//검색 조건
-	$('#selectType>li').on('click',function(){
-		$('#searchType>span:first-child').text($('a',this).text());
-		$('input[name=searchType]').val($(this).attr('value'));
-	});
-	
-	var submit = function(){
-		if($('input[name=searchKey]').val().length==0){
-			alert('검색어를 입력해주세요.');
-			$('#inputSearchKey').focus();
-		}else{
-			location.href="${pageContext.request.contextPath}/management/courseRegister/pageSize/"+$('input[name=pageSize]').val()+"/pageNum/1/searchType/"+$('input[name=searchType]').val()+"/searchKey/"+$('input[name=searchKey]').val();
-		}
-	}
-	
-	$('#submitBtn').on('click',function(){
-		$('input[name=searchKey]').val($('#inputSearchKey').val());
-		submit();
-	});
-	
-	$('#inputSearchKey').on('keypress',function(e){
-		if(e.keyCode==13){
-			$('input[name=searchKey]').val($('#inputSearchKey').val());
-			submit();
-		}
-	});
-	
+   //검색 조건
+   $('#selectType>li').on('click',function(){
+      $('#searchType>span:first-child').text($('a',this).text());
+      $('input[name=searchType]').val($(this).attr('value'));
+   });
+   
+   var submit = function(){
+      if($('input[name=searchKey]').val().length==0){
+         alert('검색어를 입력해주세요.');
+         $('#inputSearchKey').focus();
+      }else{
+         location.href="${pageContext.request.contextPath}/management/courseRegister/pageSize/"+$('input[name=pageSize]').val()+"/pageNum/1/searchType/"+$('input[name=searchType]').val()+"/searchKey/"+$('input[name=searchKey]').val();
+      }
+   }
+   
+   $('#submitBtn').on('click',function(){
+      $('input[name=searchKey]').val($('#inputSearchKey').val());
+      submit();
+   });
+   
+   $('#inputSearchKey').on('keypress',function(e){
+      if(e.keyCode==13){
+         $('input[name=searchKey]').val($('#inputSearchKey').val());
+         submit();
+      }
+   });
+   
 
-	//공지 토글
-	var toggle = false;
-	$('#noticeToggle').on('click',function(){
-		if(!toggle){
-			$(this).button('noti');
-			toggle=true;
-			$('#topNotice').hide();
-		}else{
-			$(this).blur();
-			$(this).button('reset');
-			toggle=false;
-			$('#topNotice').show();
-		}
-	});
-	
-	//페이지 사이즈
-	$('#pageNum>li').on('click',function(){
-		$('#pageBtn>span:first-child').text($('a',this).text()+" 보기");
-		$('input[name=pageSize]').val($(this).attr('value'));
-		if($('input[name=searchKey]').val()!='[noKeyword]'){
-			$('input[name=searchKey]').val($('#inputSearchKey').val());
-		}
-		submit();
-	});
-	
-	// 글쓰기 페이지
-	$('#writeBtn').on('click', function() {
-		location.href='${pageContext.request.contextPath}/management/courseInsert';
-	});
+   //공지 토글
+   var toggle = false;
+   $('#noticeToggle').on('click',function(){
+      if(!toggle){
+         $(this).button('noti');
+         toggle=true;
+         $('#topNotice').hide();
+      }else{
+         $(this).blur();
+         $(this).button('reset');
+         toggle=false;
+         $('#topNotice').show();
+      }
+   });
+   
+   //페이지 사이즈
+   $('#pageNum>li').on('click',function(){
+      $('#pageBtn>span:first-child').text($('a',this).text()+" 보기");
+      $('input[name=pageSize]').val($(this).attr('value'));
+      if($('input[name=searchKey]').val()!='[noKeyword]'){
+         $('input[name=searchKey]').val($('#inputSearchKey').val());
+      }
+      submit();
+   });
+   
+   // 글쓰기 페이지
+   $('#writeBtn').on('click', function() {
+      location.href='${pageContext.request.contextPath}/management/courseInsert';
+   });
 });
 
 </script>
-
 
 
 

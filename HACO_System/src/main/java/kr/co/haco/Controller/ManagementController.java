@@ -451,33 +451,32 @@ public class ManagementController {
 	}
 
 	@RequestMapping(value = "courseInsertOk", method = RequestMethod.GET)
-	public String courseInsertOk(String name, int center_id,
-			int center_classroom_id, String course_name,int subject_id, String course_start_date,
-			String course_end_date, Model model) throws ParseException {
-		// 리스트.
-		System.out.println("************************************************");
-		System.out.println("courseInsertOk//InsertForm");
-		System.out.println(name);
-		Employee e = accountService.getEmployeeID(name);
+	   public String courseInsertOk(String name2, int center_id,
+	         int center_classroom_id, String course_name,int subject_id, String course_start_date,
+	         String course_end_date, Model model) throws ParseException {
+	      // 리스트.
+	      System.out.println("************************************************");
+	      System.out.println("courseInsertOk//InsertForm");
+	      System.out.println(name2);
+	      /*Employee e = accountService.getEmployeeID(name);
+	*/
+	      // 개설과정ID 자동 increment
+	      /*System.out.println(e.getAccount_id()); // 강사ID
+	*/      System.out.println(subject_id);// 과목ID
+	      System.out.println(course_name); //과정명   
+	      System.out.println(java.sql.Date.valueOf(course_start_date));
+	      System.out.println(java.sql.Date.valueOf(course_end_date));
+	      System.out.println(center_id); // 센터ID
+	      System.out.println(center_classroom_id);// 강의실
 
-		// 개설과정ID 자동 increment
-		System.out.println(e.getAccount_id()); // 강사ID
-		System.out.println(subject_id);// 과목ID
-		System.out.println(course_name); //과정명	
-		System.out.println(java.sql.Date.valueOf(course_start_date));
-		System.out.println(java.sql.Date.valueOf(course_end_date));
-		System.out.println(center_id); // 센터ID
-		System.out.println(center_classroom_id);// 강의실
-
-		OpenCourse course = new OpenCourse(e.getAccount_id(), subject_id,
-				course_name, java.sql.Date.valueOf(course_start_date),
-				java.sql.Date.valueOf(course_end_date), center_id,
-				center_classroom_id);
-		System.out.println(courseService.insertCourse(course));
-		
-		return "management.courseRegister";
-	}
-
+	      OpenCourse course = new OpenCourse(Integer.parseInt(name2), subject_id,
+	            course_name, java.sql.Date.valueOf(course_start_date),
+	            java.sql.Date.valueOf(course_end_date), center_id,
+	            center_classroom_id);
+	      System.out.println(courseService.insertCourse(course));
+	      
+	      return "management.courseRegister";
+	   }
 
 	@RequestMapping(value = "courseDeleteOk", method = RequestMethod.GET)
 	public void courseDeleteOk(Model model, HttpServletRequest request,

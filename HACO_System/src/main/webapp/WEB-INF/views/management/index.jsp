@@ -168,12 +168,12 @@
 								var totalImageSizePercent = document.getElementById("totalImageSizePercent").value;
 									var doughnutData = [
 											{
-												value: totalFileSizePercent*10,
+												value: totalFileSizePercent*1,
 												color:"#FF865C",
 												highlight: "#dF764C",
 										        label: "File"
 											},{
-												value: totalImageSizePercent*10,
+												value: totalImageSizePercent*1,
 												color:"#68dff0",
 												highlight: "#2daebf",
 										        label: "Image"
@@ -189,7 +189,7 @@
 								<p data-name="now">April 17, 2014 </p>
 								<footer>
 									<div class="pull-left">
-										<h5><i class="fa fa-hdd-o"></i> ${maxStorage/1024} GB</h5>
+										<h5><i class="fa fa-hdd-o"></i> ${maxStorage/1024/1024} GB</h5>
 									</div>
 									<div class="pull-right">
 										<h5>${totalFileSizePercent+totalImageSizePercent}% 사용</h5>
