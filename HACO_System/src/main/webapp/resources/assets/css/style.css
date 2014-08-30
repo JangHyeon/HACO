@@ -427,6 +427,9 @@ ul.sidebar-menu li a.active i {
     margin-left: 210px;
 }
 
+#main-content > .wrapper{
+    min-height: 560px;
+}
 .header, .footer {
     min-height: 60px;
     padding: 0 15px;

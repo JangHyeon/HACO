@@ -47,7 +47,7 @@
 								<h2 class="title"><i class="fa fa-check-square-o fa-2x"></i> </h2>
 								<h5><a>${data.member.name}</a>님 이미 인증된 이메일 입니다.</h5>
 								<p>가입 절차가 모두 완료되어 다시 인증 하실필요가 없습니다.</p>
-								<div class="btn-group">
+								<div class="btn-group joinBtn">
 									<button id="nextBtn" class="btn btn-large btn-block btn-primary joinbtn" type="button">메인으로</button>
 								</div>
 							</div>
@@ -57,7 +57,7 @@
 								<h2 class="title"><i class="fa fa-child fa-2x"></i> 환영합니다.</h2>
 								<h5><a>${data.member.name}</a>님 계정 만들기의 모든 과정이 처리 되었습니다.</h5>
 								HACO의 회원이 되신것을 진심으로 환영합니다.
-								<div class="btn-group">
+								<div class="btn-group joinBtn">
 									<button id="nextBtn" class="btn btn-large btn-block btn-primary joinbtn" type="button">메인으로</button>
 								</div>
 							</div>

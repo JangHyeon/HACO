@@ -78,7 +78,8 @@
 						</s:authorize>
 					</div>
 					
-					<hr style="display: block; clear: both; visibility: hidden;">
+					<hr style="margin-top:0px;display: block; clear: both; visibility: hidden;">
+					<c:if test="${!empty qnaList}">
 					<table class="table table-hover">
 						<tbody>
 							<c:forEach var="qna" items="${qnaList}">
@@ -120,9 +121,13 @@
 							</c:forEach>
 						</tbody>
 					</table>
-					
-					<c:if test="${empty qnaList || empty qnaList[0]}">
-						<h3 style="margin: 80px auto; text-align: center;">아직 답변이 없습니다...</h3>
+					</c:if>
+					<c:if test="${qna.divide_code_toString == 'Q'}">
+						<c:if test="${empty qnaList || empty qnaList[0]}">
+							<div class="alert alert-warning">
+								<i class="fa fa-spinner fa-spin"></i> 아직 답변이 없습니다...
+							</div>
+						</c:if>	
 					</c:if>
 					
 				</div>

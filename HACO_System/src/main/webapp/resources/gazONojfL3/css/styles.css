@@ -721,7 +721,7 @@ font: normal 10px/10px dotum;
 	word-wrap:break-word;
 }
 .view_body .content img{
-	max-width: 100%;
+	/* max-width: 100%; */
 }
 
 tbody > tr> td> a {

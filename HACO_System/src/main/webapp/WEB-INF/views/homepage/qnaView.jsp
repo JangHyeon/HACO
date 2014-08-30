@@ -66,32 +66,37 @@
 							</c:if>
 						</s:authorize>
 					</div>
-					<hr style="display: block; clear: both; visibility: hidden;">
-					<table class="table table-hover">
-						<tbody>
-							<c:forEach var="qna" items="${qnaList}">
-								<tr>
-									<td>
-										<c:if test="${qna.divide_code_toString == 'Q'}">
-											<span class='label label-default'><i class='fa fa-question-circle'></i> 질문 </span>
-										</c:if>
-										<c:if test="${qna.divide_code_toString == 'A'}">
-											<span class='label label-primary'><i class='fa fa-tag'></i> 답변 </span>
-										</c:if>
-									</td>
-									<td>
-										<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
-									</td>
-									<td>${qna.name_kor}${qna.name}</td>
-									<td>${qna.register_date_string}</td>
-									<td>${qna.hit}</td>
-								</tr>
-							</c:forEach>
-						</tbody>
-					</table>
+					<hr style="margin-top:0px;display: block; clear: both; visibility: hidden;">
+					
+					<c:if test="${!empty qnaList}">
+						<table class="table table-hover">
+							<tbody>
+								<c:forEach var="qna" items="${qnaList}">
+									<tr>
+										<td>
+											<c:if test="${qna.divide_code_toString == 'Q'}">
+												<span class='label label-default'><i class='fa fa-question-circle'></i> 질문 </span>
+											</c:if>
+											<c:if test="${qna.divide_code_toString == 'A'}">
+												<span class='label label-primary'><i class='fa fa-tag'></i> 답변 </span>
+											</c:if>
+										</td>
+										<td>
+											<a href="${pageContext.request.contextPath}/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a>
+										</td>
+										<td>${qna.name_kor}${qna.name}</td>
+										<td>${qna.register_date_string}</td>
+										<td>${qna.hit}</td>
+									</tr>
+								</c:forEach>
+							</tbody>
+						</table>
+					</c:if>
 					<c:if test="${qna.divide_code_toString == 'Q'}">
 						<c:if test="${empty qnaList || empty qnaList[0]}">
-							<h3 style="margin: 80px auto; text-align: center;">아직 답변이 없습니다...</h3>
+							<div class="alert alert-warning">
+								<i class="fa fa-spinner fa-spin"></i> 아직 답변이 없습니다...
+							</div>
 						</c:if>			
 					</c:if>
 				</div>
