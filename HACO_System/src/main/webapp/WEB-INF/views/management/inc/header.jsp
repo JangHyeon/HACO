@@ -20,7 +20,7 @@
 					<a href="#" id="drop3" role="button" class="mypage dropdown-toggle" data-toggle="dropdown">MyPage<b class="caret"></b>					</a>
 					<ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
 						<li role="presentation" class="dropdown-header">MyPage</li>
-						<li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/management/employeeDetail?account_id=<s:authentication property="name"/>">프로필</a></li>
+						<li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/management/employeeDetail">프로필</a></li>
 						<li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/management/employeeUpdate">회원정보 수정</a></li>
 						<%-- <li role="presentation"><a role="menuitem" tabindex="-1" href="${pageContext.request.contextPath}/logout">비밀번호 수정</a></li> --%>
 						<li role="presentation" class="divider"></li>

@@ -1,5 +1,6 @@
 package kr.co.haco.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import kr.co.haco.VO.EducationCenter;
@@ -14,7 +15,7 @@ public interface EmployeeService{
 	//직원 등록
 	@Transactional
 	@PreAuthorize("hasRole('MASTER')")
-	public void addEmployee(Employee employee);
+	public HashMap<String, Integer> addEmployee(Employee employee);
 	
 	//직원 목록 조회
 	public List<EmployeeList> getEmplList(int job_code, int now_center_id);

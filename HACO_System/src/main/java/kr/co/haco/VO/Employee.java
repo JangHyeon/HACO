@@ -2,8 +2,6 @@ package kr.co.haco.VO;
 
 import java.sql.Date;
 
-
-
 public class Employee{
 	private int account_id;
 	private int job_code;
@@ -13,6 +11,9 @@ public class Employee{
 	private String address_registered;
 	private String address_real;
 	private String phone_home;
+	private String phone_home1;
+	private String phone_home2;
+	private String phone_home3;
 	private String phone_cell;
 	private String phone_cell1;
 	private String phone_cell2;
@@ -30,6 +31,8 @@ public class Employee{
 	private int resident_registration_num2;
 	private String photo;
 	private String location;
+	//추가
+	private String user_id;
 	
 	
 	public String getLocation() {
@@ -80,12 +83,36 @@ public class Employee{
 	public void setAddress_real(String address_real) {
 		this.address_real = address_real;
 	}
+	
 	public String getPhone_home() {
-		return phone_home;
+		return phone_home1+"-"+phone_home2+"-"+phone_home3;
 	}
-	public void setPhone_home(String phone_home) {
-		this.phone_home = phone_home;
+	public void setPhone_home(String phone_home) {		
+		String[] p = phone_home.split("-");
+		phone_home1 = p[0];
+		phone_home2 = p[1];
+		phone_home3 = p[2];
 	}
+	public String getPhone_home1() {
+		return phone_home1;
+	}
+	public void setPhone_home1(String phone_home1) {
+		this.phone_home1 = phone_home1;
+	}
+	public String getPhone_home2() {
+		return phone_home2;
+	}
+	public void setPhone_home2(String phone_home2) {
+		this.phone_home2 = phone_home2;
+	}
+	public String getPhone_home3() {
+		return phone_home3;
+	}
+	public void setPhone_home3(String phone_home3) {
+		this.phone_home3 = phone_home3;
+	}
+	
+	
 	public String getPhone_cell() {
 		return phone_cell1+"-"+phone_cell2+"-"+phone_cell3;
 	}
@@ -186,7 +213,11 @@ public class Employee{
 	public void setPhoto(String photo) {
 		this.photo = photo;
 	}
-	
-	
+	public String getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(String user_id) {
+		this.user_id = user_id.toLowerCase();
+	}	
 	
 }

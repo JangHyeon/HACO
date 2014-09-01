@@ -458,6 +458,14 @@
                     {type: "block", label: "Regular event", }
                 ]
             });
+            
+            //직원등록 후 
+            var result = ${param.result};
+            var user_id = ${param.user_id};
+            if(result==4){
+            	alert("직원 등록을 하였습니다.\n 생성 아이디: "+user_id+ "\n 패스워드: 1004");	
+            }
+            
         });
         
         

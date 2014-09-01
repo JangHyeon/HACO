@@ -102,7 +102,7 @@
                      <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">영문 이름</label>
                         <div class="col-sm-10">
-                           <input type="text" class="form-control onlyAlphanum"
+                           <input type="text" class="form-control onlyAlphabet"
                               name="name_eng" id="name_eng">
                         </div>
                      </div>
@@ -190,12 +190,9 @@
                      <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">휴대폰번호</label>
                         <div class="col-sm-10">
-                           <input type="text" class="form-control-je onlyNumber"
-                              name="phone_cell1" maxlength="3"> - <input type="text"
-                              class="form-control-je onlyNumber" name="phone_cell2"
-                              maxlength="4"> - <input type="text"
-                              class="form-control-je onlyNumber" name="phone_cell3"
-                              maxlength="4">
+                           <input type="text" class="form-control-je onlyNumber" name="phone_cell1" id="phone_cell1" maxlength="3"> - 
+                           <input type="text" class="form-control-je onlyNumber" name="phone_cell2" id="phone_cell2" maxlength="4"> - 
+                           <input type="text" class="form-control-je onlyNumber" name="phone_cell3" id="phone_cell3" maxlength="4">
                         </div>
                      </div>
                      <div class="form-group">
@@ -271,6 +268,14 @@
         $(".onlyNumber").numeric();       
         //문자,숫자만 입력- 특수문자입력 불가
         $(".onlyAlphanum").alphanum();       
+        //알파벳만 입력
+        $(".onlyAlphabet").keyup(function (event) {
+            regexp = /[^a-z]/gi;
+            v = $(this).val();
+            if (regexp.test(v)) {            
+                $(this).val(v.replace(regexp, ''));
+            }
+        });
         
       //채용센터 선택
       $('#joinCenter>li').on('click',function(){

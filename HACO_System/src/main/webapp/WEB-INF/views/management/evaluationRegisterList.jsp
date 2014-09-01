@@ -35,8 +35,8 @@
 			  		<div class="col-lg-12">
                       <div class="content-panel">
                       <h4><i class="fa fa-angle-right"></i> 개설 과정 목록</h4>
-                          <section id="unseen">
-                            <table class="table table-bordered table-striped table-condensed">
+                          <section id="unseen">      
+                            <table class="table table-hover">
                               <thead>
                               <tr>                              
                                  <th class="numeric">번호</th>
@@ -74,13 +74,19 @@
 	                                <td class="numeric">${erl.course_start_date}~ ${erl.course_end_date}</td>
 	                                <td class="numeric">	 
 	                                	<%-- ${erl.state_code}   --%>                             
-		                                <c:choose>
+		                                <c:choose>		                                
 											<c:when test="${erl.state_code==1}">
-												<a href="${pageContext.request.contextPath}/management/evaluationResult?open_course_id=${erl.open_course_id}">설문중</a></c:when>
+												<button type="button" class="btn btn-default btn-sm evalBtn" style="width:100px;" 
+												value="${erl.open_course_id}">설문중</button>												
+											</c:when>
 											<c:when test="${erl.state_code==0}">비활성</c:when>
-											<c:when test="${erl.state_code==9}">설문 완료 </c:when>
+											<c:when test="${erl.state_code==9}">
+												<button type="button" class="btn btn-default btn-sm evalBtn" style="width:100px" 
+												value="${erl.open_course_id}">설문완료</button>		
+											</c:when>
 											<c:when test="${erl.state_code==-1}">미등록</c:when>																								
-										</c:choose>		
+										</c:choose>	
+										
 	                                </td>	     	                        
 	                          	</tr>
                               </c:forEach>   
@@ -103,12 +109,20 @@
 
     <!--script for this page-->
     
-  <script>
-      //custom select box
-
-      $(function(){
-          $('select.styled').customSelect();
-      });
-  </script>
+<script type="text/javascript">
+$(document).ready(function() {
+	/* //custom select box
+    $('select.styled').customSelect(); */
+    
+	//평가 상태 버튼
+	//설문중
+    $('.evalBtn').on('click',function(){
+    	var course_id = $(this).attr("value");
+        location.href="${pageContext.request.contextPath}/management/evaluationResult?open_course_id="+course_id;     
+    });
+	
+	
+});      
+</script>
   
 

@@ -1,5 +1,6 @@
 package kr.co.haco.Service;
 
+import java.util.HashMap;
 import java.util.List;
 
 import kr.co.haco.DAO.EmployeeDAO;
@@ -27,15 +28,15 @@ public class EmployeeServiceImpl implements EmployeeService {
 	
 	//직원 등록
 	@Override	
-	public void addEmployee(Employee employee) {		
+	public HashMap<String, Integer> addEmployee(Employee employee) {		
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
-		
+		int result=0;
 		//1.account테이블에 추가
-		employeeDAO.addAccount();
+		result += employeeDAO.addAccount();
 		//2. 1번에서 추가된 account_id 조회
 		int account_id = employeeDAO.getAccountId();
 		//3. account의 id컬럼에 account_id값 넣어주기 
-		employeeDAO.setUserId(account_id);
+		result += employeeDAO.setUserId(account_id);
 		//4. 계정권한 등록
 		String role_name="";
 		if(employee.getJob_code()==1){ //강사
@@ -46,10 +47,16 @@ public class EmployeeServiceImpl implements EmployeeService {
 			role_name="CENTER";
 		}
 		Authority authority = new Authority(account_id,role_name);
-		employeeDAO.setAuthority(authority);
+		result += employeeDAO.setAuthority(authority);
 		//5. employee테이블에 추가
 		employee.setAccount_id(account_id);
-		employeeDAO.addEmployee(employee);		
+		result += employeeDAO.addEmployee(employee);		
+		
+		//return값 생성
+		HashMap<String, Integer> resultMap = new HashMap<String, Integer>();
+		resultMap.put("result", result);
+		resultMap.put("account_id", account_id);
+		return resultMap;
 	}
 	
 	//직원 목록 조회
@@ -81,7 +88,9 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public Employee getEmp(int account_id) {
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
+		String user_id = employeeDAO.getUserId(account_id);		
 		Employee emp = employeeDAO.getEmp(account_id);
+		emp.setUser_id(user_id);
 		
 		return emp;
 	}
@@ -90,7 +99,8 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Override
 	public int updateEmp(Employee emp) {
 		EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
-		int result = employeeDAO.updateEmp(emp);
+		int result = 0;		
+		result += employeeDAO.updateEmp(emp);
 		
 		return result;
 	}

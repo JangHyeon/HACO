@@ -14,6 +14,10 @@ public class EvaluationRegisterForm {
 	private int center_id;
 	private int open_course_id;	
 	private int state_code;
+	//추가
+	private int startNum;	
+	private int pageNum;
+	private int pageSize;
 	
 	public String getCourse_name() {
 		return course_name;
@@ -68,6 +72,25 @@ public class EvaluationRegisterForm {
 	}
 	public void setState_code(int state_code) {
 		this.state_code = state_code;
+	}
+	//추가
+	public int getStartNum() {
+		return startNum;
+	}
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+	public int getPageNum() {
+		return pageNum;
+	}
+	public void setPageNum(int pageNum) {
+		this.pageNum = pageNum;
+	}
+	public int getPageSize() {
+		return pageSize;
+	}
+	public void setPageSize(int pageSize) {
+		this.pageSize = pageSize;
 	}
 	
 

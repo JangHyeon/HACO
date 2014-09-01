@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.haco.DAO.EvaluationRegisterDAO;
+import kr.co.haco.DAO.HomepageDAO;
 import kr.co.haco.DAO.MypageDAO;
 import kr.co.haco.VO.EvalExample;
 import kr.co.haco.VO.EvalExampleResult;
@@ -27,12 +28,43 @@ public class EvaluationRegisterImpl implements EvaluationRegisterService {
 	
 	//개설과정 목록
 	@Override
-	public List<EvaluationRegisterForm> getEvaluationRegistList(int isResult) {		
+	public List<EvaluationRegisterForm> getEvaluationRegistList(int isResult,int pageSize,int pageNum) {		
 		EvaluationRegisterDAO evalRegistDAO = sqlsession.getMapper(EvaluationRegisterDAO.class);
 		System.out.println("EvaluationRegisterImpl의 isResult:"+isResult);
-		
 		Map<String, Integer> isResultMap = new HashMap<String, Integer>();
 		isResultMap.put("isResult", isResult);
+		//For 페이징 
+				
+		//기본값 설정
+			//if(qna.getPageNum()==0) qna.setPageNum(1);
+			//if(qna.getPageSize()==0) qna.setPageSize(10);
+		//총 게시물 건수
+		int evalCourseListCount = evalRegistDAO.getEvaluationRegistListCount(isResultMap);
+
+		// 페이징 처리
+		int visiblePageNum = 10;
+		int pagecount = 0;
+		int beginPage = 0;
+		int endPage = 0;
+		if (evalCourseListCount != 0) {// 게시물이 없는 경우
+			pagecount = evalCourseListCount / pageSize;// 115건 = 11page
+			if (evalCourseListCount % pageSize > 0) {// 115건 = 나머지 5 true
+				pagecount++;// 11page++ = 12page
+			}
+			beginPage = (pageNum - 1) / visiblePageNum * visiblePageNum + 1;// 10단위
+																			// 계산
+			endPage = beginPage + (visiblePageNum - 1);
+			if (endPage > pagecount) {
+				endPage = pagecount;
+			}
+		}
+
+				
+				
+		
+		
+		//
+		
 		List<EvaluationRegisterForm> evalRegisList =  evalRegistDAO.getEvaluationRegistList(isResultMap);
 		
 		return evalRegisList;

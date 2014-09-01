@@ -1,7 +1,6 @@
 package kr.co.haco.Controller;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -17,19 +16,17 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.haco.DAO.EmployeeDAO;
+import kr.co.haco.DAO.HomepageDAO;
 import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.AttendanceService;
 import kr.co.haco.Service.CourseService;
 import kr.co.haco.Service.EmployeeService;
 import kr.co.haco.Service.EvaluationRegisterService;
 import kr.co.haco.Service.HomepageService;
-import kr.co.haco.Service.HomepageServiceImpl;
 import kr.co.haco.Service.LectureRegisterService;
 import kr.co.haco.Service.MemberService;
 import kr.co.haco.Service.SubjectService;
-import kr.co.haco.Util.ImageJ;
-import kr.co.haco.Util.MultipartUploader;
-import kr.co.haco.VO.Attendance;
 import kr.co.haco.VO.AttendanceMember;
 import kr.co.haco.VO.AttendanceOpenCourse;
 import kr.co.haco.VO.EducationCenter;
@@ -38,13 +35,14 @@ import kr.co.haco.VO.EmployeeList;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
+import kr.co.haco.VO.EvaluationRegisterForm;
 import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
+import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
-import kr.co.haco.VO.Teacher;
 import kr.co.haco.VO.getCourseList;
 
 import org.apache.ibatis.session.SqlSession;
@@ -58,8 +56,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
@@ -72,6 +70,8 @@ public class ManagementController {
 	AttendanceService attendanceService;
 	@Autowired
 	EmployeeService employeeService; 
+	@Autowired
+	SqlSession sqlSession;
 	@Autowired
 	MemberService memberService;
 	
@@ -98,12 +98,14 @@ public class ManagementController {
 		return "management.employeeRegister";
 	}
 	@RequestMapping(value = "employeeRegister", method = RequestMethod.POST)
-	public String employeeManagementAdd(Employee employee){		
-
-		System.out.println("employ.photo:"+employee.getPhoto());
-		//System.out.println("employee.getJoin_center_id():"+employee.getJoin_center_id());
-		employeeService.addEmployee(employee);
-		return "management.index";
+	public String employeeManagementAdd(Employee employee,RedirectAttributes redirectAttributes){	
+		HashMap<String, Integer> resultMap =  employeeService.addEmployee(employee);
+		int result = resultMap.get("result");
+		int account_id = resultMap.get("account_id");
+				
+		redirectAttributes.addAttribute("result",result);
+		redirectAttributes.addAttribute("user_id",account_id);
+		return "redirect:index";
 	}
 	 
 
@@ -637,6 +639,28 @@ public class ManagementController {
 		model.addAttribute("evalRegList",evaluationRegisterService.getEvaluationRegistList(isResult));
 		return "management.evaluationRegisterList";		
 	}	
+	//평가 등록,평가 결과 - 페이지 리스트
+	@RequestMapping(value = "/evaluationRegisterList/pageSize/{pageSize}/pageNum/{pageNum}" ,method=RequestMethod.GET)
+	public String notice(Model model, HttpServletRequest request,
+			HttpSession session, 
+			@PathVariable int pageSize,
+			@PathVariable int pageNum) {
+		
+		//평가등록 리스트: isResult=0, 평가결과 리스트:isResult=1 구분 
+		int isResult=0;
+		String myuri = request.getRequestURI();
+			System.out.println("myurl:"+myuri);				
+		String uri = myuri.substring(myuri.lastIndexOf("/")+1);
+			System.out.println("uri:"+uri);
+		if(uri.equals("evaluationResultList")){
+			isResult =1;
+		}	
+		
+		List<EvaluationRegisterForm> evalList =  evaluationRegisterService.getEvaluationRegistList(isResult,pageSize,pageNum);
+		model.addAttribute("evalRegList",evalList);
+		return "management.evaluationRegisterList";
+	}
+	
 	
 	//평가 등록 폼
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
@@ -939,29 +963,52 @@ public class ManagementController {
 	}	
 	//직원 상세정보 조회
 	@RequestMapping(value = {"employeeDetail"}, method = RequestMethod.GET)
-	public String employeeDetail(Model model, int account_id) {	
+	public String employeeDetail(Model model, Principal principal) {	
+		int account_id = Integer.parseInt(principal.getName());
 		Employee emp = employeeService.getEmp(account_id);
 		model.addAttribute("emp", emp);
 		return "management.employeeDetail";	
 	}
 	//직원 정보 수정
 	@RequestMapping(value = {"employeeUpdate"}, method = RequestMethod.GET)
-	public String employeeUpdate(Model model,Principal principal) {		
+	public String employeeUpdate(Model model, 
+			Principal principal,
+			@RequestParam(value="result",defaultValue="0") int result) {		
 		int account_id = Integer.parseInt(principal.getName());
 		
 		Employee emp = employeeService.getEmp(account_id);
 		model.addAttribute("emp", emp);
+		model.addAttribute("result", result);
 		return "management.employeeUpdate";
 	}
 	//직원 정보 수정 로직
 	@RequestMapping(value = {"employeeUpdate"}, method = RequestMethod.POST)
-	public String employeeUpdatePro(Model model,Employee emp) {
-		int result = employeeService.updateEmp(emp);
+	public String employeeUpdatePro(Model model,Employee emp,Principal principal,RedirectAttributes redirectAttributes) {
+		System.out.println("ManagementController- employeeUpdate");
+		int account_id = Integer.parseInt(principal.getName());
+		emp.setAccount_id(account_id);
 		
+		int result=0;
+		
+		System.out.println("user_id:"+emp.getUser_id());
+		//id를 변경할 경우
+		if(emp.getUser_id() != null){
+			EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
+			result += employeeDAO.setUserIdWithId(emp.getAccount_id(),emp.getUser_id());
+			
+			if(result>0){
+				result += employeeService.updateEmp(emp);
+			}
+		}else{ //id를 변경하지 않은 경우
+			result += employeeService.updateEmp(emp);
+		}		
+		
+		System.out.println("photo:"+emp.getPhoto());
+		System.out.println("account_id:" +emp.getAccount_id()); 		
 		System.out.println("employeeUpdate result:"+result);		
-		model.addAttribute("result", result);
-		model.addAttribute("emp", emp);
-		return "management.employeeUpdate";
+		
+		redirectAttributes.addAttribute("result", result);
+		return "redirect:employeeUpdate";		
 	}
 	
 	

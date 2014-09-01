@@ -48,17 +48,23 @@
 	</select>
 	
 	<!-- 직원 상세정보 조회 -->
+	<select id="getUserId" resultType="String">
+		select id from account where account_id=#{account_id}
+	</select>
 	<select id="getEmp" resultType="kr.co.haco.VO.Employee">
-		SELECT account_id,job_code,name_kor,name_eng,gender,address_registered,address_real,phone_home,phone_cell,phone_emergency,
-				email,salary,bank,bank_account,account_owner,join_date,join_center_id,photo,resident_registration_num1,resident_registration_num2,now_center_id
+		SELECT *
 		FROM employee
 		where account_id = #{account_id}
 	</select>
 	
-	<!-- 직원 상세정보 수정 -->
+	<!-- 직원 상세정보 수정 -->	
+	<update id="setUserIdWithId">
+		update account SET id= '${param2}' WHERE account_id=${param1}
+	</update>
 	<update id="updateEmp" parameterType="kr.co.haco.VO.Employee">
 		UPDATE employee SET address_registered=#{address_registered},address_real=#{address_real},phone_home=#{phone_home},
-			phone_cell=#{phone_cell},email=#{email},bank=#{bank},bank_account=#{bank_account},account_owner=#{account_owner}
+			phone_cell=#{phone_cell},email=#{email},bank=#{bank},bank_account=#{bank_account},account_owner=#{account_owner},
+			photo=#{photo}			
 		WHERE account_id=#{account_id}
 	</update>
 </mapper>

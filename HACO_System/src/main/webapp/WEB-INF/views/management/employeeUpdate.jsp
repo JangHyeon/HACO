@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
@@ -34,13 +36,11 @@
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i> 직원 상세 정보
+			<i class="fa fa-angle-right"></i> 프로필 수정
 		</h3>
 
-		<form id="employeeUpdate" action="employeeUpdate" method="post">
-			<!-- BASIC FORM ELELEMNTS -->
-			<input type="hidden" name="account_id"
-				value="<s:authentication property="name"/>">
+		<form id="employeeUpdateFrm" action="employeeUpdate" method="post">
+			<!-- BASIC FORM ELELEMNTS -->			
 			<div class="row mt">
 				<div class="col-lg-12">
 					<div class="content-panel panel-body">
@@ -48,34 +48,52 @@
 							HACO SYSTEM
 						</div>
 						<br>
-						<br>
-						<div class="form-group">
-							<!-- <label class="col-sm-2 col-sm-2 control-label">사진</label> -->
-							<div class="col-md-12">
-								<div class="cover">
-									<!-- 업로드된 파일 -->
-									<div id="img-preview"><i id="loadingIcon" class="fa fa-spinner fa-spin fa-5x"></i><img
-									class="photo"
-									src="${pageContext.request.contextPath}/employeePhoto/${emp.photo}"
-									onerror="this.src='${pageContext.request.contextPath}/images/User-Role-Guest-icon.png'"></div>
-									<!-- 부트 스트랩 적용 input버튼 -->
-									<!-- The fileinput-button span is used to style the file input field as button -->
-									<span class="btn btn-success fileinput-button"> 
-										<i class="glyphicon glyphicon-plus"></i> <span>사진 선택</span> <!-- The file input field used as target for the file upload widget -->
-										<input id="photoUpFile" type="file" name="file" multiple />										
-									</span>
-									<!-- 업로드 프로그래스바 -->
-									<div id="progress_thumbnail" class="progress">
-										<div class="progress-bar progress-bar-success"></div>
-									</div>
-	
-									<p class="dsc">
-										사진 크기는 <em>177X236</em> 사이즈에 최적화 되어있습니다.
-									</p>
+						<br>						
+							<div class="form-group">
+		                        <!-- <label class="col-sm-2 col-sm-2 control-label">사진</label> -->
+		                        <div class="col-md-12">
+		                           <div class="cover">
+		                              <!-- 업로드된 파일 -->
+		                              <div id="img-preview">
+		                                 <i id="loadingIcon" class="fa fa-spinner fa-spin fa-5x"></i><img
+		                           class="photo"
+		                           src="${pageContext.request.contextPath}/employeePhoto/${emp.photo}"
+		                           onerror="this.src='${pageContext.request.contextPath}/images/User-Role-Guest-icon.png'">
+		                              </div>
+		                              <!-- 부트 스트랩 적용 input버튼 -->
+		                              <!-- The fileinput-button span is used to style the file input field as button -->
+		                              <span class="btn btn-success fileinput-button"> <i
+		                                 class="glyphicon glyphicon-plus"></i> <span>사진 선택</span> <!-- The file input field used as target for the file upload widget -->
+		                                 <input id="photoUpFile" type="file" name="file" multiple />
+		                              </span>
+		                              <!-- 업로드 프로그래스바 -->
+		                              <div id="progress_thumbnail" class="progress">
+		                                 <div class="progress-bar progress-bar-success"></div>
+		                              </div>
+		
+		                              <p class="dsc">
+		                                 사진 크기는 <em>177X236</em> 사이즈에 최적화 되어있습니다.
+		                              </p>
+		
+		                           </div>
+		                           <input type="hidden" id="photo" name="photo" value="${emp.photo}">
+		                    	</div>
+		                    </div>
+						
+							<br>	
+							<fmt:formatNumber var="account_id" value="${emp.account_id}" type="number" />
+							<c:if test="${emp.user_id == account_id}">						
+								<div class="col-md-12">
+									<h4>아이디</h4>
+									<table class="table">
+										<tr>
+											<td><b>ID</b></td>
+											<td><input type="text" 
+												name="user_id" id="user_id" maxlength="20" class="onlyId"></td>									
+										</tr>											
+									</table>
 								</div>
-							</div>
-							<br>
-
+							</c:if>							
 							<div class="col-md-12">
 								<h4>기본 정보</h4>
 								<table class="table">
@@ -93,27 +111,28 @@
 									</tr>
 									<tr>
 										<td><b>실 거주지</b></td>
-										<td><input type="text" style="border: 0px"
-											name="address_real" value="${emp.address_real}"
-											maxlength="50"></td>
+										<td><input type="text" 
+											name="address_real" id="address_real" value="${emp.address_real}" maxlength="49" class="onlyAlphanum"></td>
 										<td><b>주민등록 상 주소</b></td>
-										<td><input type="text" style="border: 0px"
-											name="address_registered" value="${emp.address_registered}"
-											maxlength="50"></td>
+										<td><input type="text" name="address_registered" id="address_registered" value="${emp.address_registered}"
+											maxlength="49" class="onlyAlphanum"></td>
 									</tr>
 									<tr>
 										<td><b>핸드폰 번호</b></td>
-										<td><input type="text" style="border: 0px"
-											name="phone_cell" value="${emp.phone_cell}"></td>
+										<td><input type="text" style="width:40px" name="phone_cell1" id="phone_cell1" value="${emp.phone_cell1}" maxlength="3" class="onlyNumber">-
+											<input type="text" style="width:40px" name="phone_cell2" id="phone_cell2" value="${emp.phone_cell2}" maxlength="4" class="onlyNumber">-
+											<input type="text" style="width:40px" name="phone_cell3" id="phone_cell3" value="${emp.phone_cell3}" maxlength="4" class="onlyNumber">
+										</td>
 										<td><b>집전화 번호</b></td>
-										<td><input type="text" style="border: 0px"
-											name="phone_home" value="${emp.phone_home}"></td>
-
+										<td>
+											<input type="text" style="width:40px" name="phone_home1" id="phone_home1" value="${emp.phone_home1}" maxlength="3" class="onlyNumber">-
+											<input type="text" style="width:40px" name="phone_home2" id="phone_home2" value="${emp.phone_home2}" maxlength="4" class="onlyNumber">-
+											<input type="text" style="width:40px" name="phone_home3" id="phone_home3" value="${emp.phone_home3}" maxlength="4" class="onlyNumber">
+										</td>										
 									</tr>
 									<tr>
 										<td><b>이메일</b></td>
-										<td><input type="text" style="border: 0px" name="email"
-											value="${emp.email}"></td>
+										<td><input type="text" name="email" id="email" value="${emp.email}" maxlength="50"></td>
 										<td><b>입사일</b></td>
 										<td>${emp.join_date}</td>
 									</tr>
@@ -126,18 +145,15 @@
 								<table class="table">
 									<tr>
 										<td><b>은행</b></td>
-										<td><input type="text" style="border: 0px" name="bank"
-											value="${emp.bank}"></td>
+										<td><input type="text" name="bank" id="bank" value="${emp.bank}" maxlength="24" class="onlyAlphanum"></td>
 										<td><b>계좌 번호</b></td>
-										<td><input type="text" style="border: 0px"
-											name="bank_account" value="${emp.bank_account}"></td>
+										<td><input type="text" name="bank_account" id="bank_account" value="${emp.bank_account}" maxlength="20" class="onlyNumber"></td>
 									</tr>
 									<tr>
 										<td><b>급여</b></td>
 										<td>${emp.salary}원</td>
 										<td><b>예금주</b></td>
-										<td><input type="text" style="border: 0px"
-											name="account_owner" value="${emp.account_owner}"></td>
+										<td><input type="text" name="account_owner" id="account_owner" value="${emp.account_owner}" maxlength="5" class="onlyAlphanum"></td>
 									</tr>
 								</table>
 							</div>
@@ -156,6 +172,14 @@
 
 <!--main content end-->
 
+<!-- lodingmodel -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+   tabindex="-1" id="lodingModal" class="modal fade">
+   <div class="modal-dialog">
+      <div id="loaderImage"></div>
+   </div>
+</div>
+<!-- modal -->
 
 <!-- inclue common script -->
 <%@ include file="commonScript.jsp"%>
@@ -166,58 +190,101 @@
 <script type="text/javascript"
 	src="${resourceUrl}/js/jquery.fileupload.js"></script>
 <script type="text/javascript" src="${resourceUrl}/js/upload.js"></script>
-<script type="application/javascript">
-		
+<script type="text/javascript"
+   src="${resourceUrl}/js/jquery.alphanum.js"></script>
+
+<script type="application/javascript">		
 $(document).ready(function(){
-	/* //유효성 검사 
-	//숫자만 입력 가능하도록 처리 하는 부분
-    $(".onlyNumber").numeric();       
-    //문자,숫자만 입력- 특수문자입력 불가
-    $(".onlyAlphanum").alphanum();       
-    
-	//채용센터 선택
-	$('#joinCenter>li').on('click',function(){
-		$('#joinCenterBtn>span:first-child').text($('a',this).text());		
-		$('input[name=join_center_id]').val($(this).attr('value'));			
-	});
-	//현재 센터 선택
-	$('#nowCenter>li').on('click',function(){
-		$('#nowCenterBtn>span:first-child').text($('a',this).text());		
-		$('input[name=now_center_id]').val($(this).attr('value'));			
-	});
+	//프로필 정보 수정 완료 시
+ 	 var result = ${result};
+	 if(result>0){
+		 alert("프로필 정보가 정상적으로 수정되었습니다.");	 
+	 }
 	
-	$('#datapickerBox input').datepicker({
-		  format: "yyyy-mm-dd",
-		  startView: 3,
-		  todayBtn:"linked",
-		  language: "kr",
-		  orientation: "top auto",
-		  keyboardNavigation: false,
-		  forceParse: false,
-		  autoclose: true,
-		  todayHighlight: true
-		 });
-	 */
+	//유효성 검사 
+	//숫자만 입력 가능하도록 처리 하는 부분
+	$(".onlyNumber").numeric();       
+    //문자,숫자만 입력- 특수문자입력 불가
+    $(".onlyAlphanum").alphanum();
+    //알파벳과 숫자만 입력  
+    $(".onlyId").keyup(function (event) {
+        regexp = /[^a-z0-9]/gi;
+        v = $(this).val();
+        if (regexp.test(v)) {            
+            $(this).val(v.replace(regexp, ''));
+        }
+    });
+
+	 
+    
 	//submit, 유효성 검사
 	$('#registerBtn').on('click',function(){
-	   $('#employeeUpdate').submit();
+	   $('#employeeUpdateFrm').submit();
    	});
-	$('#employeeUpdate').submit(function(){    
-	   //alert($('#joinCenterBtn>span:first-child').text);
-       if($('#name_kor').val() == ""){
-            alert("한글 이름을 입력하세요");
-            //$('#name_kor').addClass('alertFocus');
-            $('#name_kor').focus();
-            return false;           
-       }
-       if($('#name_eng').val() == ""){
-           alert("영어 이름을 입력하세요");
-           $('#name_eng').focus();
+	$('#employeeUpdateFrm').submit(function(){ 
+       if($('#user_id').val() == ""){
+           alert("ID를 입력하세요. ID는 추후 변경이 불가능합니다.");
+           $('#user_id').focus();
            return false;
-       }       
-       if($('#wrtDtReg').val() == ""){
-           alert("입사 날짜를 입력하세요");
-       
+       }
+       if($('#phone_cell1').val() == ""){
+           alert("핸드폰 번호를 입력하세요");
+           $('#phone_cell1').focus();
+           return false;
+       }
+       if($('#phone_cell2').val() == ""){
+           alert("핸드폰 번호를 입력하세요");
+           $('#phone_cell2').focus();
+           return false;
+       }
+       if($('#phone_cell3').val() == ""){
+           alert("핸드폰 번호를 입력하세요");
+           $('#phone_cell3').focus();
+           return false;
+       }
+       if($('#phone_home1').val() == ""){
+           alert("전화번호를 입력하세요");
+           $('#phone_home1').focus();
+           return false;
+       }
+       if($('#phone_home2').val() == ""){
+           alert("전화번호를 입력하세요");
+           $('#phone_home2').focus();
+           return false;
+       }
+       if($('#phone_home3').val() == ""){
+           alert("전화번호를 입력하세요");
+           $('#phone_home3').focus();
+           return false;
+       }
+       if($('#address_real').val() == ""){
+           alert("실주소를 입력하세요");
+           $('#address_real').focus();
+           return false;
+       }
+       if($('#address_registered').val() == ""){
+           alert("주민등록증상의 주소를 입력하세요");
+           $('#address_registered').focus();
+           return false;
+       }
+       if($('#email').val() == ""){
+           alert("이메일을 입력하세요");
+           $('#email').focus();
+           return false;
+       }
+       if($('#bank').val() == ""){
+           alert("은행명을 입력하세요");
+           $('#bank').focus();
+           return false;
+       }
+       if($('#bank_account').val() == ""){
+           alert("계좌번호를 입력하세요");
+           $('#bank_account').focus();
+           return false;
+       }
+       if($('#account_owner').val() == ""){
+           alert("계좌주를 입력하세요");
+           $('#account_owner').focus();
            return false;
        }
        
@@ -226,13 +293,20 @@ $(document).ready(function(){
        $("#registerBtn").attr("disabled", true);
        $('#registerBtn').text('처리중');
        $('#lodingModal').modal({
-			backdrop:false,
-			keyboard:false
-			
-		   });
+        backdrop:false,
+        keyboard:false
+        
+        });
 	});
+	
+	
+		
+		 
+	
 
 });	
+
+
 
 </script>
 
