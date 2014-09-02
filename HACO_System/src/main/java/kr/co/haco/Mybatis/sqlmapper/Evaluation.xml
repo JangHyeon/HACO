@@ -21,7 +21,8 @@
 	</select>
 	<!-- 개설과정(평가등록) 리스트 -->
 	<select id="getEvaluationRegistList" resultType="kr.co.haco.VO.EvaluationRegisterForm" parameterType="java.util.Map">
-		select ec.location , oc.center_id, oc.open_course_id ,oc.course_name , oc.course_start_date , oc.course_end_date ,ifnull(l.state_code,-1) as state_code
+		select ec.location , oc.center_id, oc.open_course_id ,oc.course_name , oc.course_start_date , oc.course_end_date ,
+				ifnull(l.state_code,-1) as state_code
 		from open_course as oc
 			inner join education_center as ec
 			on oc.center_id = ec.center_id
@@ -34,7 +35,7 @@
 		    <if test="isResult == 1">
 		    	where  l.state_code =  9
 		    </if>		    
-	    	limit ${startNum},${pageSize}
+	    	<!-- limit #{startNum},#{pageSize} -->
 		
 	</select>	
 	

@@ -24,15 +24,20 @@ import org.springframework.stereotype.Component;
 public class EvaluationRegisterImpl implements EvaluationRegisterService {
 	
 	@Autowired
-	SqlSession sqlsession;
+	SqlSession sqlsession;	
+
 	
 	//개설과정 목록
 	@Override
-	public List<EvaluationRegisterForm> getEvaluationRegistList(int isResult,int pageSize,int pageNum) {		
+	public List<EvaluationRegisterForm> getEvaluationRegistList(int isResult) {		
 		EvaluationRegisterDAO evalRegistDAO = sqlsession.getMapper(EvaluationRegisterDAO.class);
 		System.out.println("EvaluationRegisterImpl의 isResult:"+isResult);
 		Map<String, Integer> isResultMap = new HashMap<String, Integer>();
 		isResultMap.put("isResult", isResult);
+/*		isResultMap.put("pageNum", pageNum);
+		isResultMap.put("startNum", pageNum*10-1);
+		isResultMap.put("pageSize", pageSize);
+		
 		//For 페이징 
 				
 		//기본값 설정
@@ -57,14 +62,10 @@ public class EvaluationRegisterImpl implements EvaluationRegisterService {
 			if (endPage > pagecount) {
 				endPage = pagecount;
 			}
-		}
-
-				
-				
+		}				
 		
-		
-		//
-		
+		*/
+		//		
 		List<EvaluationRegisterForm> evalRegisList =  evalRegistDAO.getEvaluationRegistList(isResultMap);
 		
 		return evalRegisList;
@@ -236,6 +237,8 @@ public class EvaluationRegisterImpl implements EvaluationRegisterService {
 		List<EvalQuestionAnswer> answerList = evalDAO.getEvalEssayResult(open_course_id);
 		return answerList;
 	}
+
+	
 	
 	
 }

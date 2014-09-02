@@ -97,6 +97,34 @@
                </div><!-- /col-lg-4 -->			
 		  	</div><!-- /row -->
 		  	
+		  	
+		  	<%-- <div class="col-xs-12">
+				<!-- 페이징 -->
+				<ul class="pagination pagination-centered">
+					<!-- 이전 링크 -->
+					<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+						<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/evaluationRegisterList/pageSize/${pageSize}/pageNum/${beginpage-1}"</c:if>>«</a>
+					</li>
+					
+				  	<!-- 페이지 리스트   -->
+				  	<c:if test="${beginpage!=0}">
+					<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+					
+						<c:if test="${i==pageNum}">
+							<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+						</c:if>
+						<c:if test="${i!=pageNum}">
+							<li><a href="${pageContext.request.contextPath}/management/evaluationRegisterList/pageSize/${pageSize}/pageNum/${i}">${i}</a></li>
+						</c:if>
+					</c:forEach>
+					</c:if>
+				  	<!-- 다음링크 -->
+					<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+						<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/evaluationRegisterList/pageSize/${pageSize}/pageNum/${endpage+1}"</c:if>>»</a>
+					</li>
+				</ul>
+			</div>	 --%>
+		  	
 		  
 		</section><!-- /wrapper -->
       </section><!-- /MAIN CONTENT -->

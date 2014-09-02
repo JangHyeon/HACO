@@ -623,7 +623,7 @@ public class ManagementController {
 			String res = "redirect:/management/lectureRegister";
 			return res;
 		}*/
-	//평가 등록, 평가 결과 리스트
+	//평가 등록, 평가 결과 리스트 - 페이지가 없는 경우
 	@RequestMapping(value = {"evaluationRegisterList", "evaluationResultList"}, method=RequestMethod.GET)
 	public String evaluationRegister(Model model,HttpServletRequest request){
 		//평가등록 리스트: isResult=0, 평가결과 리스트:isResult=1 구분 
@@ -639,7 +639,7 @@ public class ManagementController {
 		model.addAttribute("evalRegList",evaluationRegisterService.getEvaluationRegistList(isResult));
 		return "management.evaluationRegisterList";		
 	}	
-	//평가 등록,평가 결과 - 페이지 리스트
+	/*//평가 등록,평가 결과 - 페이지 리스트
 	@RequestMapping(value = "/evaluationRegisterList/pageSize/{pageSize}/pageNum/{pageNum}" ,method=RequestMethod.GET)
 	public String notice(Model model, HttpServletRequest request,
 			HttpSession session, 
@@ -660,7 +660,7 @@ public class ManagementController {
 		model.addAttribute("evalRegList",evalList);
 		return "management.evaluationRegisterList";
 	}
-	
+	*/
 	
 	//평가 등록 폼
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
