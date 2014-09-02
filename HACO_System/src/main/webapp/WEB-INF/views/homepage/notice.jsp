@@ -205,7 +205,7 @@ $(document).ready(function(){
 			alert('검색어를 입력해주세요.');
 			$('#inputSearchKey').focus();
 		}else{
-			location.href="${pageContext.request.contextPath}/notice/pageSize/"+$('input[name=pageSize]').val()+"/pageNum/1/searchType/"+$('input[name=searchType]').val()+"/searchKey/"+$('input[name=searchKey]').val();
+			location.href="${pageContext.request.contextPath}/notice/pageSize/"+$('input[name=pageSize]').val()+"/pageNum/1/searchType/"+$('input[name=searchType]').val()+"/searchKey/"+$.trim($('input[name=searchKey]').val());
 		}
 	}
 	

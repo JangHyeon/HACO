@@ -3,11 +3,15 @@
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!-- 구현하고자하는 인터페이스 풀경로 -->
+<!-- ѸȶȏѭZȏՂ NƍǤLݺ ǮѦ؎ -->
 <mapper namespace="kr.co.haco.DAO.CourceDAO">
-	<!-- id명은 인터페이스가 구현하는 메서드명 -->
-	<!-- resultType은 랩퍼클래스 타입 -->
-<!-- 과정목록 -->
+	<!-- id٭: NƍǤLݺС ѸȶȏՂ ٞܭ֥٭ -->
+	<!-- resultType: צǛŬסݺ ŸT -->
+	
+	
+	
+	
+<!-- Ѻdٱ؏ -->
 	<select id="getCourseList" resultType="kr.co.haco.VO.getCourseList">
 		select a.open_course_id as
 		open_course_id,
@@ -16,7 +20,7 @@
 		course_start_date,
 		a.course_end_date as course_end_date,
 		e.classroom as
-		classroom, b.subject_name as subject_name ,c.location as location
+		classroom, b.subject_name as subject_name ,c.location as location ,c.center_id as center_id
 		from open_course a join subject b  join
 		education_center c join employee d join
 		center_classroom e
@@ -24,28 +28,31 @@
 		and a.center_id = c.center_id
 		and a.account_id = d.account_id
 		and a.center_classroom_id = e.center_classroom_id
-		
+			 
 			<where>
-			<if test="searchType == 'teacher'">
-				name_kor like CONCAT('%',#{searchKey},'%') 
+			<if test="searchType == 'center'">
+				location like CONCAT('%',#{searchKey},'%') 
 			</if>
-			<if test="searchType == 'teacherAndcourse'">
-				(course_name like CONCAT('%',#{searchKey},'%')  or name_kor like CONCAT('%',#{searchKey},'%')) 
-			</if>
-			<if test="searchType == 'course'">
+				<if test="searchType == 'course'">
 				course_name like CONCAT('%',#{searchKey},'%') 
+			</if>
+				<if test="searchType == 'subject'">
+				subject_name like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="searchType == 'name'">
+				name_kor like CONCAT('%',#{searchKey},'%') 
 			</if>
 			</where>
 			order by open_course_id desc 
 			limit ${startNum},${pageSize}
 	</select>
 	
-	<!--과정카운트 -->
+	<!--Ѻdī࠮Ʈ -->
 	<select id="getCourseListCount" resultType="Integer">
 		
 		select 
-		count(open_course_id)
-		from open_course a join subject b join
+		COUNT(open_course_id)
+		from open_course a join subject b  join
 		education_center c join employee d join
 		center_classroom e
 		on a.subject_id = b.subject_id
@@ -53,18 +60,21 @@
 		and a.account_id = d.account_id
 		and a.center_classroom_id = e.center_classroom_id
 			<where>
-			<if test="searchType == 'teacher'">
-				name_kor like CONCAT('%',#{searchKey},'%') 
+			<if test="searchType == 'center'">
+				location like CONCAT('%',#{searchKey},'%') 
 			</if>
-			<if test="searchType == 'teacherAndcourse'">
-				(course_name like CONCAT('%',#{searchKey},'%')  or name_kor like CONCAT('%',#{searchKey},'%')) 
-			</if>
-			<if test="searchType == 'course'">
+				<if test="searchType == 'course'">
 				course_name like CONCAT('%',#{searchKey},'%') 
+			</if>
+				<if test="searchType == 'subject'">
+				subject_name like CONCAT('%',#{searchKey},'%') 
+			</if>
+			<if test="searchType == 'name'">
+				name_kor like CONCAT('%',#{searchKey},'%') 
 			</if>
 			</where>
 	</select>
-		<!-- 과정목록 -->
+		<!-- Ѻdٱ؏ -->
 	<select id="getCourseList2" parameterType="Integer" resultType="kr.co.haco.VO.getCourseList">
 		select a.open_course_id as open_course_id,
 		a.course_name as course_name ,
@@ -75,7 +85,9 @@
 		a.course_end_date as course_end_date,
 		e.classroom as classroom,
 		 b.subject_name as subject_name ,
-		c.location as location
+		c.location as location,
+		c.center_id as center_id
+		,e.center_classroom_id as center_classroom_id
 		
 		from open_course a , subject b ,
 		education_center c , employee d ,
@@ -88,7 +100,7 @@
 	</select>
 	
 
-	<!-- 개설과정 -->
+	<!-- гܳѺd -->
 	<select id="getClassroom" parameterType="Integer"
 		resultType="kr.co.haco.VO.CenterClassroom">
 		select center_classroom_id,classroom from center_classroom
@@ -96,20 +108,20 @@
 		center_id=#{center_id}
 	</select>
 
-	<!-- 교육센터 목록-->
+	<!-- ѳ0ܾƍ ٱ؏-->
 	<select id="getCenter" parameterType="Integer"
 		resultType="kr.co.haco.VO.EducationCenter">
 		select center_id, location from education_center
 	</select>
 
-	<!--교육센타 검색  -->
+	<!--ѳ0ܾŸ ыܶ  -->
 	<select id="getCenter2" parameterType="Integer"
 		resultType="kr.co.haco.VO.EducationCenter">
 		select center_id, location from education_center
 	 where
 		center_id=#{center_id}
 	</select>
-	<!-- 과정등록 -->
+	<!-- Ѻd֮؏ -->
 	<insert id="insertCourse" parameterType="kr.co.haco.VO.OpenCourse">
 		insert into
 		open_course(account_id,subject_id,course_name,
@@ -118,13 +130,13 @@
 		#{course_start_date},#{course_end_date},#{center_id},#{center_classroom_id})
 	</insert>
 
-	<!--과정삭제 -->
+	<!--Ѻdܨf -->
 	<delete id="deleteCourse" parameterType="Integer">
 		delete from open_course
 		where open_course_id=#{open_course_id}
 	</delete>
 
-	<!--과정수정 -->
+	<!--Ѻdݶd -->
 	<update id="updateCourse" parameterType="kr.co.haco.VO.OpenCourse">
 		update open_course set
 		account_id = #{account_id},

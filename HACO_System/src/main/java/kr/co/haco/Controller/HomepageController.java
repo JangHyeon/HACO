@@ -66,14 +66,16 @@ public class HomepageController {
 	// 메인페이지
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String index(Model model, HttpServletRequest request, HttpSession session, Notice notice) {
+		notice.setPageSize(5);
 		homepageService.getNoticeList(notice, session, model, request.getContextPath());
 		
 		HashMap<String,Object> map = new HashMap<String,Object>();
 		Calendar c = Calendar.getInstance();
 		String month = ""+(c.get(Calendar.MONTH)+1);
 		if(month.length()==1) {month= "0" +month;};
-		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE)+1);
+		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE));
 		map.put("today", today);
+		map.put("limit", 5);
 		model.addAttribute("lectureRegisterList", lectureRegisterService.getopencourselist(map));
 		return "homepage.index";
 	}

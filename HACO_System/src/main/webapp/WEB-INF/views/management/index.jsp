@@ -13,15 +13,12 @@
     <!--external css-->
     <link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"/>
     <link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/css/zabuto_calendar.css">
-    <link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/js/gritter/css/jquery.gritter.css" />
     <link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/lineicons/style.css">    
     
     <!-- Custom styles for this template -->
-    <link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
-    <link href="${resourceUrl}/assets/css/style-responsive.css" rel="stylesheet">
-
-    <script src="${resourceUrl}/assets/js/chart-master/Chart.min.js"></script>
-
+    <link href="${resourceUrl}/assets/css/style.css" rel="stylesheet" type="text/css">
+    <link href="${resourceUrl}/assets/css/style-responsive.css" rel="stylesheet" type="text/css">
+	<link href="${resourceUrl}/simpleWeather/simpleWeather.css"  rel="stylesheet" type="text/css">
 	<input id="current-accordion" type="hidden" value="index"/>
 
       <!-- **********************************************************************************************************************************************************
@@ -78,10 +75,10 @@
                       	<div class="col-md-4 col-sm-4 mb">
                       		<div class="white-panel pn donut-chart">
                       			<div class="white-header">
-						  			<h5>SERVER LOAD</h5>
+						  			<h5>NOW TIME</h5>
                       			</div>
 								<div class="row">
-									<script src="http://widgetprovider.daum.net/view?url=http://widgetcfs1.daum.net/xml/26/widget/2008/09/22/11/20/48d700e69f437.xml&&width=166&height=166&widgetId=86&scrap=0" type="text/javascript"></script>
+									<figure id="canvas"></figure>
 	                      		</div>
 	                      	</div><!--/grey-panel -->
                       	</div><!-- /col-md-4-->
@@ -165,15 +162,9 @@
 						
 						
 						<div class="col-md-4 mb">
-							<script src="http://widgetprovider.daum.net/view?url=http://widgetcfs1.daum.net/xml/9/widget/2013/01/02/12/42/50e3ac9f2a781.xml&up_mycolor=SEO&&width=160&height=320&widgetId=2373&scrap=1" type="text/javascript"></script>
-						
-							<!-- INSTAGRAM PANEL -->
+							<!-- WEATHER PANEL -->
 							<div class="instagram-panel pn">
-								<i class="fa fa-instagram fa-4x"></i>
-								<p>@THISISYOU<br/>
-									5 min. ago
-								</p>
-								<p><i class="fa fa-comment"></i> 18 | <i class="fa fa-heart"></i> 49</p>
+								<div id="weather"></div>
 							</div>
 						</div><!-- /col-md-4 -->
 						
@@ -181,12 +172,12 @@
 							<!-- REVENUE PANEL -->
 							<div class="darkblue-panel pn">
 								<div class="darkblue-header">
-									<h5>이 달의 우수강사<br>인센티브</h5>
+									<h5>다음 달<br>우수강사 지원금</h5>
 								</div>
-								<div class="chart mt">
-									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
+								<div>
+									<i class="fa fa-money fa-7x"></i>
 								</div>
-								<p class="mt"><b>$ ${bestIncentiveStack}</b><br/>Month Income</p>
+								<p><b>￦ ${bestIncentiveStack}</b><br/> 보너스</p>
 							</div>
 						</div><!-- /col-md-4 -->
 						
@@ -195,45 +186,14 @@
 					<div class="row mt">
                       <!--CUSTOM CHART START -->
                       <div class="border-head">
-                          <h3>VISITS</h3>
+                          <h3>STUDENTS</h3>
                       </div>
-                      <div class="custom-bar-chart">
-                          <ul class="y-axis">
-                              <li><span>10.000</span></li>
-                              <li><span>8.000</span></li>
-                              <li><span>6.000</span></li>
-                              <li><span>4.000</span></li>
-                              <li><span>2.000</span></li>
-                              <li><span>0</span></li>
-                          </ul>
-                          <div class="bar">
-                              <div class="title">JAN</div>
-                              <div class="value tooltips" data-original-title="8.500" data-toggle="tooltip" data-placement="top">85%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">FEB</div>
-                              <div class="value tooltips" data-original-title="5.000" data-toggle="tooltip" data-placement="top">50%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">MAR</div>
-                              <div class="value tooltips" data-original-title="6.000" data-toggle="tooltip" data-placement="top">60%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">APR</div>
-                              <div class="value tooltips" data-original-title="4.500" data-toggle="tooltip" data-placement="top">45%</div>
-                          </div>
-                          <div class="bar">
-                              <div class="title">MAY</div>
-                              <div class="value tooltips" data-original-title="3.200" data-toggle="tooltip" data-placement="top">32%</div>
-                          </div>
-                          <div class="bar ">
-                              <div class="title">JUN</div>
-                              <div class="value tooltips" data-original-title="6.200" data-toggle="tooltip" data-placement="top">62%</div>
-                          </div>
-                          <div class="bar">
-                              <div class="title">JUL</div>
-                              <div class="value tooltips" data-original-title="7.500" data-toggle="tooltip" data-placement="top">75%</div>
-                          </div>
+                      <input id="barChartLabel" value="${jsonLabel}" type="hidden">
+                      <input id="barChartData" value="${jsonData}" type="hidden">
+                      <div id="main" role="main">
+                      	<canvas id="respondCanvas" width="100" height="100">
+					        < !-- Provide fallback -->
+					    </canvas>
                       </div>
                       <!--custom chart end-->
 					</div><!-- /row -->	
@@ -389,10 +349,16 @@
     <%@ include file="commonScript.jsp" %>
 
     <!--script for this page-->    
-    <script src="${resourceUrl}/assets/js/gritter/js/jquery.gritter.js"></script>
-    <script src="${resourceUrl}/assets/js/gritter-conf.js"></script>
-    <script src="${resourceUrl}/assets/js/sparkline-chart.js"></script>    
 	<script src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>	
+	<script src="${resourceUrl}/assets/js/chart-master/Chart.min.js"></script>
 	
-	<script src="${resourceUrl}/js/managemnetIndex.js"></script>	
-  
+	<script src="${resourceUrl}/js/managemnetIndex.js"></script>
+	
+	<script src="${resourceUrl}/svg.clock.js-master/lib/svg.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${resourceUrl}/svg.clock.js-master/lib/svg.easing.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${resourceUrl}/svg.clock.js-master/svg.clock.min.js" type="text/javascript" charset="utf-8"></script>
+	<script type="text/javascript" charset="utf-8">
+		SVG('canvas').clock('100%').start()
+	</script>
+	<script src="${resourceUrl}/simpleWeather/jquery.simpleWeather.min.js" type="text/javascript" charset="utf-8"></script>
+	<script src="${resourceUrl}/simpleWeather/simpleWeather.js" type="text/javascript" charset="utf-8"></script>

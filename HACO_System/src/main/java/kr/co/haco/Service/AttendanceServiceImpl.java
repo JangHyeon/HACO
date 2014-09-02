@@ -23,8 +23,8 @@ public class AttendanceServiceImpl implements AttendanceService{
 		return sqlSession.getMapper(AttendanceDAO.class).getattenlist(map);
 	}
 
-	public List<AttendanceMember> getstdentlist(HashMap<String, Object> map) {
-		return sqlSession.getMapper(AttendanceDAO.class).getstdentlist(map);
+	public List<AttendanceMember> getstudentlist(HashMap<String, Object> map) {
+		return sqlSession.getMapper(AttendanceDAO.class).getstudentlist(map);
 	}
 	public int insertatt(HashMap<String, Object> att) {
 		return sqlSession.getMapper(AttendanceDAO.class).insertatt(att);

@@ -74,4 +74,85 @@ $(function(){
 		);
 	
 	$('#usePercent').text(totalFileSizePercent+totalImageSizePercent+'% 사용');
+	
+	var past7mouthsBar = new Chart(document.getElementById("respondCanvas").getContext("2d")).Bar({
+		labels: eval($('#barChartLabel').val()),
+		datasets:[{
+			label: "My First dataset",
+            fillColor: "rgba(255, 134, 92, 1)",
+            strokeColor: "rgba(255, 134, 92,0.95)",
+            highlightFill: "rgba(255, 163, 132,0.75)",
+            highlightStroke: "rgba(255, 163, 132,1)",
+            data: eval($('#barChartData').val())
+		}]
+	},{
+		//Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
+	    scaleBeginAtZero : true,
+
+	    //Boolean - Whether grid lines are shown across the chart
+	    scaleShowGridLines : true,
+
+	    //String - Colour of the grid lines
+	    scaleGridLineColor : "rgba(0,0,0,.05)",
+
+	    //Number - Width of the grid lines
+	    scaleGridLineWidth : 1,
+
+	    //Boolean - If there is a stroke on each bar
+	    barShowStroke : true,
+
+	    //Number - Pixel width of the bar stroke
+	    barStrokeWidth : 1,
+
+	    //Number - Spacing between each of the X value sets
+	    barValueSpacing : 45,
+
+	    //Number - Spacing between data sets within X values
+	    barDatasetSpacing : 5,
+	    
+	    //String - A legend template
+	    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+
+	});
 });
+
+/*
+
+$(document).ready( function(){
+	
+	//Get the canvas & context
+	var c = $('#respondCanvas');
+	var ct = c.get(0).getContext('2d');
+	var container = $(c).parent();
+	
+	//Run function when browser  resize
+	$(window).resize( respondCanvas );
+	
+	function respondCanvas(){
+			c.attr('width', $(container).width() ); //max width
+			c.attr('height', $(container).height() ); //max height
+			
+			//Call a function to redraw other content (texts, images etc)
+			past7mouthsBar.resize();
+	}
+
+	//Initial call
+	//respondCanvas();
+});
+
+*/
+var width = $('#main').width();
+var height = $('#main').height();
+$('#respondCanvas').attr("width",height);
+$('#respondCanvas').attr("height",height);
+window.onresize = function(event){
+	var width = $('#main').width();
+	var height = $('#main').height();
+	$('#respondCanvas').attr("width",height);
+	$('#respondCanvas').attr("height",height);
+	past7mouthsBar.clear();
+	past7mouthsBar.resize();
+};
+
+
+	

@@ -2,6 +2,7 @@ package kr.co.haco.Service;
 
 import java.sql.Timestamp;
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -25,6 +26,8 @@ import kr.co.haco.VO.Qna;
 import kr.co.haco.VO.UploadFile;
 
 import org.apache.ibatis.session.SqlSession;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -645,6 +648,25 @@ public class HomepageServiceImpl implements HomepageService {
 		//사용량 차트
 		map.put("totalFileSize", sqlSession.getMapper(HomepageDAO.class).getTotalFileSize());
 		map.put("totalImageSize", sqlSession.getMapper(HomepageDAO.class).getTotalImageSize());
+		
+		//지난 7개월간 수강생 차트
+		map.put("past7mouthsList", sqlSession.getMapper(HomepageDAO.class).getPast7monthsList());
+		
+		List<Map<String, Object>> list = (List<Map<String, Object>>) sqlSession.getMapper(HomepageDAO.class).getPast7monthsList(); 
+		
+		ArrayList<String> label = new ArrayList<String>();
+		ArrayList<Object> data = new ArrayList<Object>();
+		for(Map<String, Object> m : list){
+			label.add((String) m.get("mouth"));
+			data.add(m.get("counts"));
+		}
+		JSONArray jsonLabel = new JSONArray(label);
+		JSONArray jsonData = new JSONArray(data);
+		
+		map.put("jsonLabel", jsonLabel.toString().replace("\"", "'"));
+		map.put("jsonData", jsonData.toString());
+		
+		
 		return map;
 	}
 	

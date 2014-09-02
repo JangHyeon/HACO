@@ -1132,7 +1132,7 @@ PANELS CONFIGURATIONS
 	/* margin-left: 15px; */
 }
 .white-panel .white-header {
-	background: #f4f4f4;
+	background: #f8f8f8;
 	padding: 3px;
 	margin-bottom: 15px;
 	color: #c6c6c6;
@@ -2601,4 +2601,16 @@ border-color: #324A5D;
 	.writeDate{
 		display: none;
 	}
+}
+
+#main{
+	display:block;
+    width:100%;
+    padding:0 15px 50px;
+    height:300px;
+}
+
+
+.fa-7x{
+	font-size: 100px;
 }

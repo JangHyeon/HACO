@@ -9,7 +9,7 @@ import kr.co.haco.VO.AttendanceOpenCourse;
 
 public interface AttendanceDAO {
 
-	public List<AttendanceMember> getstdentlist(HashMap<String, Object> map);
+	public List<AttendanceMember> getstudentlist(HashMap<String, Object> map);
 	public int insertatt(HashMap<String, Object> att);
 	public List<AttendanceOpenCourse> getattenlist(HashMap<String, Object> map);
 }

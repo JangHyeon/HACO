@@ -333,4 +333,13 @@
 		join subject as sb
 		on ss.subject_id = sb.subject_id
 	</select>
+	
+	<!-- 지난 7개월간 신규 수강생 수  -->
+	<select id="getPast7monthsList" resultType="hashmap">
+		select count(lecture_register_id) as counts, date_format(lecture_register_date,'%M') as mouth
+		from lecture_register
+		where left(DATE_SUB(curdate(),INTERVAL 7 month),7) &lt; left(lecture_register_date,7)
+		group by mouth
+		order by mouth
+	</select>
 </mapper>

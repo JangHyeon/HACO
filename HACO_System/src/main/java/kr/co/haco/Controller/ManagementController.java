@@ -1,7 +1,6 @@
 package kr.co.haco.Controller;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.security.Principal;
 import java.sql.SQLException;
 import java.sql.Time;
@@ -23,13 +22,9 @@ import kr.co.haco.Service.CourseService;
 import kr.co.haco.Service.EmployeeService;
 import kr.co.haco.Service.EvaluationRegisterService;
 import kr.co.haco.Service.HomepageService;
-import kr.co.haco.Service.HomepageServiceImpl;
 import kr.co.haco.Service.LectureRegisterService;
 import kr.co.haco.Service.MemberService;
 import kr.co.haco.Service.SubjectService;
-import kr.co.haco.Util.ImageJ;
-import kr.co.haco.Util.MultipartUploader;
-import kr.co.haco.VO.Attendance;
 import kr.co.haco.VO.AttendanceMember;
 import kr.co.haco.VO.AttendanceOpenCourse;
 import kr.co.haco.VO.EducationCenter;
@@ -42,13 +37,9 @@ import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
 import kr.co.haco.VO.OpenCourse;
-import kr.co.haco.VO.Qna;
 import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
-import kr.co.haco.VO.Teacher;
 import kr.co.haco.VO.getCourseList;
-
-import org.apache.ibatis.session.SqlSession;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,7 +50,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 
@@ -198,8 +188,8 @@ public class ManagementController {
 	               attendanceService.insertatt(map);
 	            }
 	         }
-	         List<AttendanceMember> getstdentlist = attendanceService.getstdentlist(map);
-	         req.setAttribute("getstdentlist", getstdentlist);
+	         List<AttendanceMember> getstudentlist = attendanceService.getstudentlist(map);
+	         req.setAttribute("getstudentlist", getstudentlist);
 	         return "management.studentlist";
 	      }
 	// 과정-과목등록-SubjectList(Basic)
@@ -333,99 +323,89 @@ public class ManagementController {
 	/////////////////////////////과정//////////////////////////////////////////////////////////
 
 
-		
-	
-	
-	
-	// 과정-과정등록-CourseList(Basic)
-	@RequestMapping(value = "courseRegister", method = RequestMethod.GET)
-	public String courseRegister(Model model ,HttpServletRequest request, getCourseList courseList ) {
-	
-		
-		System.out.println("************************************************");
-		System.out.println("courseRegister//Basic");
-		System.out.println("move:management.courseRegister//att:roleList");
-		courseService.getCourseList(courseList, model,  request.getContextPath());
-		return "management.courseRegister";
-	}
+	// ///////////////////////////과정//////////////////////////////////////////////////////////
 
-	// 과정-과목등록-CourseList(PageChange)
-		@RequestMapping(value = "/courseRegister/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}")
-		public String courseRegister2(Model model, HttpServletRequest request, HttpSession session,
-							@PathVariable String searchType,@PathVariable String searchKey,@PathVariable int pageSize,@PathVariable int pageNum) {
-			System.out.println("************************************************");
-			System.out.println("subjectRegister//MainList//PageChange");
-			getCourseList courseList = new getCourseList();
-			courseList.setSearchType(searchType);
-			courseList.setPageSize(pageSize);
-			courseList.setPageNum(pageNum);
-			courseList.setSearchKey(searchKey);		
-			if(searchKey.equals("[noKeyword]")){
-				courseList.setSearchKey("");
-			}
-			courseService.getCourseList(courseList, model, request.getContextPath());
-			System.out.println("Move : management.subjectRegister(PageChange)");
-			return "management.courseRegister";   
-		}
-		
-	
+	   // 과정-과정등록-CourseList(Basic)
+	   @RequestMapping(value = "courseRegister", method = RequestMethod.GET)
+	   public String courseRegister(Model model, HttpServletRequest request,
+	         getCourseList courseList) {
 
-		
-		
-		
-		
-		
-	
-	
-	
-	
-	@RequestMapping(value = "courseInsert", method = RequestMethod.GET)
-	public String courseInsert(Model model) {
-		// 리스트.
-		System.out.println("************************************************");
-		System.out.println("courseInsert//InsertForm");
-		System.out.println("move:management.courseInsert");
-		model.addAttribute("Center", courseService.getCenter());
-		System.out.println("test");
-		model.addAttribute("Subject", subjectService.getsubjectList());
-		return "management.courseInsert";
-	}
+	      System.out.println("************************************************");
+	      System.out.println("courseRegister//Basic");
+	      System.out.println("move:management.courseRegister//att:roleList");
+	      courseService
+	            .getCourseList(courseList, model, request.getContextPath());
+	      return "management.courseRegister";
+	   }
 
-	@RequestMapping(value = "courseInsert", method = RequestMethod.POST)
-	@ResponseBody
-	public HashMap<String, Object> courseInsert(String json_data, Model model,
-			HttpServletResponse rs) throws JsonGenerationException,
-			JsonMappingException, IOException {
-		System.out.println("************************************************");
-		System.out
-				.println("tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
-		System.out.println(json_data);
+	   // 과정-과목등록-CourseList(PageChange)
+	   @RequestMapping(value = "/courseRegister/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}")
+	   public String courseRegister2(Model model, HttpServletRequest request,
+	         HttpSession session, @PathVariable String searchType,
+	         @PathVariable String searchKey, @PathVariable int pageSize,
+	         @PathVariable int pageNum) {
+	      System.out.println("************************************************");
+	      System.out.println("subjectRegister//MainList//PageChange");
+	      getCourseList courseList = new getCourseList();
+	      courseList.setSearchType(searchType);
+	      courseList.setPageSize(pageSize);
+	      courseList.setPageNum(pageNum);
+	      courseList.setSearchKey(searchKey);
+	      if (searchKey.equals("[noKeyword]")) {
+	         courseList.setSearchKey("");
+	      }
+	      courseService
+	            .getCourseList(courseList, model, request.getContextPath());
+	      System.out.println("Move : management.subjectRegister(PageChange)");
+	      return "management.courseRegister";
+	   }
 
-		HashMap<String, Object> mapJson = new HashMap<String, Object>();
-		mapJson.put("t",courseService.getClassroom(Integer.parseInt(json_data)));
-		System.out.println(mapJson);
-
-		/*
-		 * ObjectMapper om = new ObjectMapper(); // 어노테이션 방식을 수동으로 적용시키는방법
-		 * om.writeValue(rs.getWriter(), mapJson);
-		 */
-		return mapJson;
-	}
-
-	@RequestMapping(value = "courseInsertOk", method = RequestMethod.GET)
-	   public String courseInsertOk(String name2, int center_id,
-	         int center_classroom_id, String course_name,int subject_id, String course_start_date,
-	         String course_end_date, Model model) throws ParseException {
+	   @RequestMapping(value = "courseInsert", method = RequestMethod.GET)
+	   public String courseInsert(Model model) {
 	      // 리스트.
+	      System.out.println("************************************************");
+	      System.out.println("courseInsert//InsertForm");
+	      System.out.println("move:management.courseInsert");
+	      model.addAttribute("Center", courseService.getCenter());
+	      System.out.println("test");
+	      model.addAttribute("Subject", subjectService.getsubjectList());
+	      return "management.courseInsert";
+	   }
+
+	   @RequestMapping(value = "courseInsert", method = RequestMethod.POST)
+	   @ResponseBody
+	   public HashMap<String, Object> courseInsert(String json_data, Model model,
+	         HttpServletResponse rs) throws JsonGenerationException,
+	         JsonMappingException, IOException {
+	      System.out.println("************************************************");
+	      System.out
+	            .println("tttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt");
+	      System.out.println(json_data);
+
+	      HashMap<String, Object> mapJson = new HashMap<String, Object>();
+	      mapJson.put("t",
+	            courseService.getClassroom(Integer.parseInt(json_data)));
+	      System.out.println(mapJson);
+
+	      /*
+	       * ObjectMapper om = new ObjectMapper(); // 어노테이션 방식을 수동으로 적용시키는방법
+	       * om.writeValue(rs.getWriter(), mapJson);
+	       */
+	      return mapJson;
+	   }
+
+	   @RequestMapping(value = "courseInsertOk", method = RequestMethod.GET)
+	   public String courseInsertOk(String name2, int center_id,
+	         int center_classroom_id, String course_name, int subject_id,
+	         String course_start_date, String course_end_date, Model model)
+	         throws ParseException {
+	      // 리스트.
+
 	      System.out.println("************************************************");
 	      System.out.println("courseInsertOk//InsertForm");
 	      System.out.println(name2);
-	      /*Employee e = accountService.getEmployeeID(name);
-	*/
-	      // 개설과정ID 자동 increment
-	      /*System.out.println(e.getAccount_id()); // 강사ID
-	*/      System.out.println(subject_id);// 과목ID
-	      System.out.println(course_name); //과정명   
+	      System.out.println(subject_id);// 과목ID
+	      System.out.println(course_name); // 과정명
 	      System.out.println(java.sql.Date.valueOf(course_start_date));
 	      System.out.println(java.sql.Date.valueOf(course_end_date));
 	      System.out.println(center_id); // 센터ID
@@ -436,58 +416,69 @@ public class ManagementController {
 	            java.sql.Date.valueOf(course_end_date), center_id,
 	            center_classroom_id);
 	      System.out.println(courseService.insertCourse(course));
-	      
-	      return "management.courseRegister";
+
+	      return "redirect:courseRegister";
+
 	   }
 
-	@RequestMapping(value = "courseDeleteOk", method = RequestMethod.GET)
-	public void courseDeleteOk(Model model, HttpServletRequest request,
-			HttpServletResponse res) throws IOException {
-		System.out.println("************************************************");
-		System.out.println("courseDeleteOk//");
-		courseService.deleteCourse(request.getParameter("id"));
-		res.sendRedirect("courseRegister");
-	}
+	   @RequestMapping(value = "courseDeleteOk", method = RequestMethod.GET)
+	   public void courseDeleteOk(Model model, HttpServletRequest request,
+	         HttpServletResponse res) throws IOException {
+	      System.out.println("************************************************");
+	      System.out.println("courseDeleteOk//");
+	      courseService.deleteCourse(request.getParameter("id"));
+	      res.sendRedirect("courseRegister");
+	   }
+
+	   // 과정수정 updateForm..
+	   @RequestMapping(value = "courseUpdate", method = RequestMethod.GET)
+	   public String courseUpdate(HttpServletRequest request, Model model) {
+
+	      System.out.println("************************************************");
+	      System.out.println("courseUpdate//");
+	      System.out.println("move:management.courseUpdate//Update");
+	      System.out.println(request.getParameter("id"));
+	      model.addAttribute("Center", courseService.getCenter());
+	      model.addAttribute("Subject", subjectService.getsubjectList());
+	      model.addAttribute("roleList",
+	            courseService.getCourseList2(request.getParameter("id")));
+
+	      return "management.courseUpdate";
+	   }
+
+	   // 과목수정 UpdateOk..
+	   @RequestMapping(value = "courseUpdateOk", method = RequestMethod.GET)
+	   public void courseUpdateOk(Model model, String start, String center_id,
+	         String center_classroom_id, getCourseList getList, String end,
+	         HttpServletResponse res) throws IOException {
+	      System.out
+	            .println("**************eeeeeeeeeeeeeee**********************************");
+	      System.out.println("courseUpdateOk//");
+
+	      /*
+	       * getCourseList getList2 = new getCourseList
+	       * (getList.getOpen_course_id(), getList.getCourse_name(),
+	       * java.sql.Date.valueOf(start) , java.sql.Date.valueOf(end),
+	       * getList.getClassroom(), getList.getName_kor(), getList.getLocation(),
+	       * getList.getSubject_name());
+	       */
+
+	      System.out.println("accountID:" + getList.getAccount_id());
+	      OpenCourse course = new OpenCourse(getList.getOpen_course_id(),
+	            getList.getAccount_id(), getList.getSubject_id(),
+	            getList.getCourse_name(), Integer.parseInt(center_id),
+	            Integer.parseInt(center_classroom_id));
+
+	      System.out.println(course.toString());
+
+	      System.out.println("되나요?:" + courseService.updateCourse(course));
+	      res.sendRedirect("courseRegister");
+	   }
+
+		
 	
-	// 과정수정 updateForm..
-		@RequestMapping(value = "courseUpdate", method = RequestMethod.GET)
-		public String courseUpdate(HttpServletRequest request, Model model) {
-
-			System.out.println("************************************************");
-			System.out.println("courseUpdate//");
-			System.out.println("move:management.subjectUpdate//Update");
-			System.out.println(request.getParameter("id"));
-			model.addAttribute("Center", courseService.getCenter());
-			System.out.println("test1: "+ courseService.getCenter());
-			model.addAttribute("Subject", subjectService.getsubjectList());
-			System.out.println("test2: "+ subjectService.getsubjectList());
-			model.addAttribute("roleList", courseService.getCourseList2(request.getParameter("id")));
-			
-		  return "management.courseUpdate"; 
-		}
-		// 과목수정 UpdateOk..
-		@RequestMapping(value = "courseUpdateOk", method = RequestMethod.GET)
-		public void courseUpdateOk(Model model, String start, String center_id,String center_classroom_id,
-				getCourseList getList	,String end, HttpServletResponse res) throws IOException {
-			System.out.println("************************************************");
-			System.out.println("courseUpdateOk//");
-
-			/*getCourseList getList2 = new getCourseList
-					(getList.getOpen_course_id(), getList.getCourse_name(), java.sql.Date.valueOf(start) , java.sql.Date.valueOf(end), 
-							getList.getClassroom(), getList.getName_kor(), getList.getLocation(), getList.getSubject_name());
-			
-			*/
-			
-			System.out.println("accountID:"+getList.getAccount_id());
-			OpenCourse course = new OpenCourse(getList.getOpen_course_id(),getList.getAccount_id(), getList.getSubject_id(),
-					getList.getCourse_name(), Integer.parseInt(center_id),
-					Integer.parseInt(center_classroom_id));
-			
-			System.out.println(course.toString());
-			
-			System.out.println("되나요?:"+courseService.updateCourse(course));
-			res.sendRedirect("subjectRegister");
-		}
+	
+	
 	
 	//교육센터
 	@RequestMapping(value = "educationCenter", method = RequestMethod.GET)
@@ -520,7 +511,7 @@ public class ManagementController {
 		Calendar c = Calendar.getInstance();
 		String month = ""+(c.get(Calendar.MONTH)+1);
 		if(month.length()==1) {month= "0" +month;};
-		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE)+1);
+		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE));
 		
 		map.put("center_id", eply.getNow_center_id());
 		map.put("today", today);
@@ -536,7 +527,7 @@ public class ManagementController {
 			Calendar c = Calendar.getInstance();
 			String month = ""+(c.get(Calendar.MONTH)+1);
 			if(month.length()==1) {month= "0" +month;};
-			String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE)+1);
+			String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE));
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("center_id", eply.getNow_center_id());
 			map.put("today", today);
@@ -544,45 +535,6 @@ public class ManagementController {
 			req.setAttribute("getlecturecomplete", getlecturecomplete);
 			return "management.lectureRegisterComplete";
 		}
-		/*//수강신청허가
-		@RequestMapping(value = "updatest", method = RequestMethod.GET)
-		public String updatest(HttpServletRequest req) {
-			String open_course_id = req.getParameter("open_course_id");
-			String account_id = req.getParameter("account_id");
-			HashMap map = new HashMap();
-			map.put("open_course_id", open_course_id);
-			map.put("account_id", account_id);
-			int updatestudent = lectureregisterService.updatestudent(map);
-			req.setAttribute("updatestudent", updatestudent);
-			String res = "redirect:/management/lectureRegister";
-			return res;
-		}
-		//수강신청취소
-		@RequestMapping(value = "cancelst", method = RequestMethod.GET)
-		public String canslest(HttpServletRequest req) {
-			String open_course_id = req.getParameter("open_course_id");
-			String account_id = req.getParameter("account_id");
-			HashMap map = new HashMap();
-			map.put("open_course_id", open_course_id);
-			map.put("account_id", account_id);
-			int cancelstudent = lectureregisterService.cancelstudent(map);
-			req.setAttribute("canslestudent", cancelstudent);
-			String res = "redirect:/management/lectureRegister";
-			return res;
-		}
-		//수강신청완료
-		@RequestMapping(value = "completest", method = RequestMethod.GET)
-		public String deletest(HttpServletRequest req) {
-			String open_course_id = req.getParameter("open_course_id");
-			String account_id = req.getParameter("account_id");
-			HashMap map = new HashMap();
-			map.put("open_course_id", open_course_id);
-			map.put("account_id", account_id);
-			int completestudent = lectureregisterService.completestudent(map);
-			req.setAttribute("completestudent", completestudent);
-			String res = "redirect:/management/lectureRegister";
-			return res;
-		}*/
 	//평가 등록, 평가 결과 리스트
 	@RequestMapping(value = {"evaluationRegisterList", "evaluationResultList"}, method=RequestMethod.GET)
 	public String evaluationRegister(Model model,HttpServletRequest request){
@@ -930,23 +882,22 @@ public class ManagementController {
 	
 	
 	
-	/////자동완성//////////
-	@RequestMapping(value = "test", method = RequestMethod.POST)
-	@ResponseBody
-	public HashMap<String, Object> key(String json_data, Model model,
-			HttpServletResponse rs) throws JsonGenerationException,
-			JsonMappingException, IOException {
-		System.out.println("************************************************");
-		System.out.println("json_data_value: "+json_data);
+	// ///자동완성//////////
+	   @RequestMapping(value = "test", method = RequestMethod.POST)
+	   @ResponseBody
+	   public HashMap<String, Object> key(String json_data, Model model,
+	         HttpServletResponse rs) throws JsonGenerationException,
+	         JsonMappingException, IOException {
+	      System.out.println("************************************************");
+	      System.out.println("json_data_value: " + json_data);
 
-		subjectService.getName(json_data);
-		
-		
-		HashMap<String, Object> mapJson = new HashMap<String, Object>();
-		mapJson.put("t",subjectService.getName(json_data));
-		System.out.println("mapJson_value: "+mapJson);
-		return mapJson;
-	}
+	      subjectService.getName(json_data);
+
+	      HashMap<String, Object> mapJson = new HashMap<String, Object>();
+	      mapJson.put("auto", subjectService.getName(json_data));
+	      System.out.println("mapJson_value: " + mapJson);
+	      return mapJson;
+	   }
 	
 /////자동완성->프로필검색//////////
 	@RequestMapping(value = "test2", method = RequestMethod.POST)
@@ -963,5 +914,27 @@ public class ManagementController {
 		System.out.println("mapJson_value: "+mapJson);
 		return mapJson;
 	}
-	
+	/*// 과정-교육센터등록-CenterList(Basic)
+		@RequestMapping(value = "centerRegister", method = RequestMethod.GET)
+		public String centerRegister(Model model) {
+			System.out.println("************************************************");
+			System.out.println("centerRegister//Basic");
+			System.out.println("move:management.centerRegister//att:roleList");
+
+			model.addAttribute("Center", centerService.getcenterList());
+			return "management.centerRegister";
+		}
+
+		// 과정-교육센터등록-CenterList(Basic)
+		@RequestMapping(value = "centerList", method = RequestMethod.GET)
+		public String centerList(Model model, HttpServletRequest req) {
+			System.out.println("************************************************");
+			System.out.println("centerRegister//Basic");
+			System.out.println("move:management.centerRegister//att:roleList");
+			System.out.println("center_id::" + req.getParameter("id"));
+			model.addAttribute("Classroom", centerService.getclassroomList(req.getParameter("id")));
+			return "management.centerList";
+		}
+
+	}*/
 }

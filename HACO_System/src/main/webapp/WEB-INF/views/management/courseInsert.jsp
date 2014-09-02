@@ -14,7 +14,7 @@
 <!DOCTYPE html>
 
 <input id="current-accordion" type="hidden"
-   value="course,subjectRegister" />
+   value="course,courseRegister" />
 
 <!--external css-->
 
@@ -143,16 +143,16 @@
             function() {
                var date2 = [];
                var json_data = $(this).val();
-               // alert("test2");
+               // alert("test2"
                $.ajax({
                   type : 'POST',
                   url : 'test',
                   data : 'json_data=' + json_data,
                   dataType : "json",
                   success : function(date) {
-                     for (var i = 0; i < date.t.length; i++) {
-                        date2.push(date.t[i].account_id + "/"
-                              + date.t[i].name_kor);   
+                     for (var i = 0; i < date.auto.length; i++) {
+                        date2.push(date.auto[i].account_id + "/"
+                              + date.auto[i].name_kor);   
                      }
                      $("#tags").autocomplete({
                         source : date2
@@ -198,19 +198,10 @@
                                     var option = document
                                           .createElement("option");
                                     option.innerText = date.t[i].classroom;
-                                    //   option.attr("value",date.t[i].center_classroom_id);   
-                                    selectClassroom
-                                          .appendChild(option);
-                                    $("#selectClassroom option")
-                                          .eq(0).attr("value",
-                                                'novalue');
-                                    $("#selectClassroom option")
-                                          .eq(i + 1)
-                                          .attr(
-                                                "value",
-                                                date.t[i].center_classroom_id);
+                                    selectClassroom.appendChild(option);
+                                    $("#selectClassroom option").eq(0).attr("value",'novalue');
+                                    $("#selectClassroom option").eq(i + 1).attr("value",date.t[i].center_classroom_id);
                                  }
-                                 //alert("testing:end");
                               },
                               error : function() {
 
@@ -230,67 +221,63 @@
       });
 
       $('#courseInsertOk').submit(
-            function() {
+         function() {
+            /*강사명 예외처리 */
+            if ($('#tags').val() == "") {
+               alert("강사명을 입력하세요.");
+               $('#tags').focus();
+               return false;
+            } else if ($('#tags').val().length > 10) {
+               alert("강사명은 10자 이하로 입력하세요.");
+               $('#tags').focus();
+               return false;
+            }
 
-               /*강사명 예외처리 */
-               if ($('#tags').val() == "") {
-                  alert("강사명을 입력하세요.");
-                  $('#tags').focus();
-                  return false;
-               } else if ($('#tags').val().length > 10) {
-                  alert("강사명은 10자 이하로 입력하세요.");
-                  $('#tags').focus();
-                  return false;
-               }
+            /*시작종료일시 예외처리 */
+            if ($('#course_start_date').val() == "") {
+               alert("시작일을 입력하세요.");
+               $('#course_start_date').focus();
+               return false;
+            }
+            if ($('#course_end_date').val() == "") {
+               alert("종료일을 입력하세요.");
+               $('#course_end_date').focus();
+               return false;
+            } else if ($('#course_start_date').val() >= $(
+                  '#course_end_date').val()) {
+               alert("종료일이 시작일보다 빠릅니다.");
+               $('#course_end_date').focus();
+               return false;
+            }
 
-               /*시작종료일시 예외처리 */
-               if ($('#course_start_date').val() == "") {
-                  alert("시작일을 입력하세요.");
-                  $('#course_start_date').focus();
-                  return false;
-               }
-               if ($('#course_end_date').val() == "") {
-                  alert("종료일을 입력하세요.");
-                  $('#course_end_date').focus();
-                  return false;
-               } else if ($('#course_start_date').val() >= $(
-                     '#course_end_date').val()) {
-                  alert("종료일이 시작일보다 빠릅니다.");
-                  $('#course_end_date').focus();
-                  return false;
-               }
+            /*센터명 예외처리 */
+            if ($('#selectCenter').val() == "novalue") {
+               alert("센터명을 선택하세요.");
+               $('#selectCenter').focus();
+               return false;
+            } /*강의실 예외처리 */
+            if ($('#selectClassroom').val() == "novalue") {
+               alert("강의실을 선택하세요.");
+               $('#selectClassroom').focus();
+               return false;
+            }
 
-               /*센터명 예외처리 */
-               if ($('#selectCenter').val() == "novalue") {
-                  alert("센터명을 선택하세요.");
-                  $('#selectCenter').focus();
-                  return false;
-               } /*강의실 예외처리 */
-               if ($('#selectClassroom').val() == "novalue") {
-                  alert("강의실을 선택하세요.");
-                  $('#selectClassroom').focus();
-                  return false;
-               }
-
-               /*과목명 예외처리 */
-               if ($('#subject_id').val() == "novalue") {
-                  alert("과목명을 선택하세요.");
-                  $('#subject_id').focus();
-                  return false;
-               }
-               /*과정명 예외처리 */
-               if ($('#course_name').val() == "") {
-                  alert("과정명을 입력하세요.");
-                  $('#course_name').focus();
-                  return false;
-               } else if ($('#course_name').val().length >= 20) {
-                  alert("50자이내로 입력하세요.");
-                  $('#course_name').focus();
-                  return false;
-               }
-            });
-
-   });
-
-   
+            /*과목명 예외처리 */
+            if ($('#subject_id').val() == "novalue") {
+               alert("과목명을 선택하세요.");
+               $('#subject_id').focus();
+               return false;
+            }
+            /*과정명 예외처리 */
+            if ($('#course_name').val() == "") {
+               alert("과정명을 입력하세요.");
+               $('#course_name').focus();
+               return false;
+            } else if ($('#course_name').val().length >= 20) {
+               alert("50자이내로 입력하세요.");
+               $('#course_name').focus();
+               return false;
+            }
+       });
+   });   
 </script>

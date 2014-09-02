@@ -3,10 +3,11 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!-- spEL을 활용한 리소스 버전 관리 -->
-<spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
+<spring:eval expression="@baseConfig['app.version']"
+   var="applicationVersion" />
 <spring:url value="/static-{applicationVersion}" var="resourceUrl">
    <spring:param name="applicationVersion" value="${applicationVersion}" />
 </spring:url>
@@ -14,22 +15,18 @@
 <!DOCTYPE html>
 
 <input id="current-accordion" type="hidden"
-   value="course,subjectRegister" />
+   value="course,courseRegister" />
 
 <!--external css-->
 
-<link
-   href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"
+<link href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"
    rel="stylesheet" />
 <link rel="stylesheet" type="text/css"
    href="${resourceUrl}/assets/js/gritter/css/jquery.gritter.css" />
 
 <!-- Custom styles for this template -->
-<link
-   href="${resourceUrl}/assets/css/style.css"
-   rel="stylesheet">
-<link
-   href="${resourceUrl}/assets/css/style-responsive.css"
+<link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
+<link href="${resourceUrl}/assets/css/style-responsive.css"
    rel="stylesheet">
 
 <link rel="stylesheet" type="text/css" media="screen"
@@ -52,38 +49,76 @@
          <div class="col-lg-12">
             <div class="form-panel">
                <h4 class="mb">
-                  <i class="fa fa-angle-right"></i> 과정등록
+                  <i class="fa fa-angle-right"></i> 과정등록-수정
                </h4>
-                  <form class="form-horizontal style-form" action="courseUpdateOk" id="insertsubject" method="get">
-                     <c:forEach var="role" items="${roleList}">
+               <form class="form-horizontal style-form" action="courseUpdateOk"
+                  id="insertsubject" method="get">
+                  <c:forEach var="role" items="${roleList}">
                      <input type="hidden" name="open_course_id" value="${role.open_course_id}">
                      <input type="hidden" name="account_id" value="${role.account_id}">
                      <input type="hidden" name="subject_id" value="${role.subject_id}">
-               
-                     강사명:<input type="text" name="name_kor" value="${role.name_kor}" disabled="disabled">
-
                      <input type="hidden" id="subject_name" value="${role.subject_name}">
+                     <input type="hidden" id=center_classroom_id1 value="${role.center_classroom_id}">
+                     <input type="hidden" id="center_id1" value="${role.center_id}">
 
-                      <select id ="selectCenter" name="center_id">
-                        <option value="">교육센터   명</option>
-                        <c:forEach var="Center" items="${Center}">
-                           <option value="${Center.center_id}">${Center.location}</option>
-                        </c:forEach>
-                     </select>
-                     <select id ="selectClassroom" name="center_classroom_id">
-                        <option value="">강의실</option>
-                     </select>
-                  
-                  <select name="course_name">
-                           <option value="${role.subject_name}" selected >${role.subject_name}</option>
-                        
-                     </select>
-                        
-                   과정명 <input type="text" name="course_name" value="${role.course_name}">
-          시작일:<input type="date" name="start" value="${role.course_start_date}" disabled="disabled"/>
-         종료일:<input type="date" name="end" value="${role.course_end_date}" disabled="disabled"/> 
-         <button class="btn btn-warning"   type="submit">등록</button>
-         </c:forEach> 
+                        <fmt:formatDate value="${role.course_start_date}" var="start2" pattern="yyyy-MM-dd"/>
+                     
+                        <fmt:formatDate value="${role.course_end_date}" var="end2" pattern="yyyy-MM-dd"/>
+                     
+                     <div class="form-group">
+                        <label class="col-md-2 col-sm-2 control-label">강사명</label>
+                        <div class="col-md-4 col-sm-4">
+                           <input type="text" name="name_kor" class="form-control"
+                              value="${role.name_kor}" disabled="disabled">
+                        </div>
+                        <label class="col-md-2 col-sm-2 control-label">시작시간/종료시간</label>
+                        <div class="col-md-2 col-sm-2">
+                           <input type="date" name="start"
+                           value=${start2}   id="course_start_date" class="form-control" />
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                           <input type="date" name="end" id="course_end_date"
+                           value=${end2}   class="form-control" />
+                        </div>
+                     </div>
+
+                     <div class="form-group">
+                        <label class="col-md-2 col-sm-2 control-label">센터명/강의실</label>
+                        <div class="col-md-2 col-sm-2">
+                           <select class="form-control" id="selectCenter" name="center_id">
+                              <option value="">교육센터 명</option>
+                              <c:forEach var="centerchild" items="${Center}">
+                                 <c:if test="${centerchild.center_id==role.center_id}">
+                                    <option value="${centerchild.center_id}" selected="selected">${centerchild.location}</option>
+                                 </c:if>
+                                 <c:if test="${centerchild.center_id!=role.center_id}">
+                                    <option value="${centerchild.center_id}">${centerchild.location}</option>
+                                 </c:if>
+                              </c:forEach>
+                           </select>
+                        </div>
+                        <div class="col-md-2 col-sm-2">
+                           <select class="form-control" id="selectClassroom"
+                              name="center_classroom_id">
+                              <option value="1">강의실</option>
+                           </select>
+                        </div>
+                        <label class="col-md-2 col-sm-2 control-label">과목명</label>
+                        <div class="col-md-4 col-sm-4">
+                           <input class="form-control" type="text" name="subject_id"
+                              value="${role.subject_name}" disabled="disabled">
+                           
+                        </div>
+                     </div>
+                     <div class="form-group">
+                        <label class="col-md-2 col-sm-2 control-label">과정명</label>
+                        <div class="col-md-10 col-sm-10">
+                           <input type="text" name="course_name" id="course_name"
+                              class="form-control" value="${role.course_name}">
+                        </div>
+                     </div>
+                     <button class="btn btn-warning" type="submit">등록</button>
+                  </c:forEach>
                </form>
             </div>
          </div>
@@ -100,11 +135,8 @@
 <!--main content end-->
 
 
-
 <!-- inclue common script -->
 <%@ include file="commonScript.jsp"%>
-
-
 
 
 
@@ -112,21 +144,52 @@
 
 <script type="text/javascript">
    $(function() {
+            var json_data = $('#selectCenter').val();
+                     $.ajax({   
+                        type : 'POST',
+                        url : 'courseInsert',
+                        data : 'json_data=' + json_data,
+                        dataType : "json",
+                        success : function(date) {
+                           //alert("testing:start");//mt
+                           var selectClassroom = document
+                                 .getElementById("selectClassroom");
 
-   
+                           $("#selectClassroom option").remove();
 
-      $("#selectCenter").change(
+                           var option1 = document.createElement("option");
+                           option1.innerText = "강의실";
+                           selectClassroom.appendChild(option1);
+
+                           for (var i = 0; i < date.t.length; i++) {
+                              var option = document.createElement("option");
+                              option.innerText = date.t[i].classroom;
+                              selectClassroom.appendChild(option);
+                              $("#selectClassroom option").eq(i+1).attr("value",date.t[i].center_classroom_id);   
+                           }
+                          $("#selectClassroom").val($("#center_classroom_id1").val()).attr("selected", "selected");
+
+                        },
+                        error : function() {
+
+                           $("#selectClassroom option").remove();
+                        }
+
+                     });
+                  
+      ///////////////////////////////////////////////////// 
+       $("#selectCenter").change(
             function() {
-               //alert($(this).val());
-               var json_data = $(this).val();
+                
+               var json_data = $('#selectCenter').val();
+          
                $.ajax({   
                   type : 'POST',
                   url : 'courseInsert',
                   data : 'json_data=' + json_data,
                   dataType : "json",
                   success : function(date) {
-                     //alert("testing:start");//mt
-                     var selectClassroom = document
+                      var selectClassroom = document
                            .getElementById("selectClassroom");
 
                      $("#selectClassroom option").remove();
@@ -135,14 +198,12 @@
                      option1.innerText = "강의실";
                      selectClassroom.appendChild(option1);
 
-                     for (i = 0; i < date.t.length; i++) {
+                     for (var i = 0; i < date.t.length; i++) {
                         var option = document.createElement("option");
-                        option.innerText = date.t[i].classroom;
-                     //   option.attr("value",date.t[i].center_classroom_id);   
+                        option.innerText = date.t[i].classroom; 
                         selectClassroom.appendChild(option);
                         $("#selectClassroom option").eq(i+1).attr("value",date.t[i].center_classroom_id);   
                      }
-                     //alert("testing:end");
                   },
                   error : function() {
 
@@ -150,15 +211,12 @@
                   }
 
                });
-            });
+           }); 
 
-      $("#selectClassroom").change(function() {
-         //alert($("#selectClassroom option:selected").val());
-      });
+        
       
       
-      
-   
+  
       
    });
 </script>

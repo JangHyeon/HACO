@@ -14,6 +14,9 @@
 					and a.subject_id = c.subject_id
 					and a.center_id = d.center_id
 					and STR_TO_DATE(#{today},'%Y-%m-%d') &lt; a.course_start_date
+					<if test="limit != 0">
+					limit 0,#{limit}
+					</if>
 	</select>
 	<select id="getteachers" parameterType="hashmap" resultType="kr.co.haco.VO.OpenCourseList">
 		select a.name_kor, b.career_desc, c.certificate, d.profile_photo, d.profile_content, d.introduction
@@ -83,7 +86,6 @@
 			</if>
 			and f.lecture_register_code = h.lecture_register_code
 			and f.lecture_register_code = '4'
-			and STR_TO_DATE(#{today},'%Y-%m-%d') &lt; a.course_start_date
 	</select>
 	<insert id="insertlecture" parameterType="kr.co.haco.VO.Student">
 		insert into lecture_register(open_course_id,account_id,lecture_register_code,is_survey) 

@@ -59,7 +59,7 @@
                <table class="table">
                   <thead>
                      <tr>
-                        <th>#</th>
+                  
                         <th>강사명</th>
                         <th>과목명</th>
                         <th>과정명</th>
@@ -72,9 +72,9 @@
                   </thead>
                   <tbody>
                      <c:forEach var="role" items="${CourseList}">
+                     <input type="hidden" id=open_course_id value="${role.open_course_id}">
                               <tr>
-                                 <td>${role.open_course_id}</td>
-                                 <td>${role.name_kor}</td>
+                              <td>${role.name_kor}</td>
                                  <td>${role.subject_name}</td>
                                  <td>${role.course_name}</td>
                                  <td>${role.classroom}</td>
@@ -85,17 +85,16 @@
                                  <td><a
                                     href="${pageContext.request.contextPath}/management/courseUpdate?id=${role.open_course_id}">
                                        <button class="btn btn-default btn-xs">
-         
-                                          <i class="fa fa-pencil"></i>
+                                    <i class="fa fa-pencil"></i>
                                        </button>
          
                                  </a></td>
-                                 <td><a
-                                    href="${pageContext.request.contextPath}/management/courseDeleteOk?id=${role.open_course_id}">
-                                       <button class="btn btn-danger btn-xs">
-                                          <i class="fa fa-trash-o "></i>
-                                       </button>
-                                 </a></td>
+                                 <td>
+                              <button class="btn btn-danger btn-xs" id="deletebtn">
+                                 <i class="fa fa-trash-o "></i>
+                              </button>
+                           </td>
+                                
                               </tr>
                            </c:forEach>
                   </tbody>
@@ -137,22 +136,29 @@
                         <div class="input-group-btn">
                           <button id="searchType" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                              <c:choose>
-                                <c:when test="${searchType=='titleAndContent'}">
-                                   <span>제목+내용 </span>
+                                <c:when test="${searchType=='name'}">
+                                   <span>강사명 </span>
                                 </c:when>
-                                <c:when test="${searchType=='writer'}">
-                                   <span>작성자 </span>
+                                <c:when test="${searchType=='subject'}">
+                                   <span>과목명 </span>
+                                </c:when>
+                                <c:when test="${searchType=='course'}">
+                                   <span>과정명 </span>
                                 </c:when>
                                 <c:otherwise>
-                                   <span>제목 </span>
+                                   <span>교육센터 </span>
                                 </c:otherwise>
+                                
+                                
+                                
                              </c:choose> 
                              <span class="caret"></span>
                           </button>
                           <ul id="selectType" class="dropdown-menu" role="menu">
-                            <li id="typeTitle" value="title"><a>제목</a></li>
-                            <li id="typeTitleAndContent" value="titleAndContent"><a>제목+내용</a></li>
-                            <li id="writer" value="writer"><a>작성자</a></li>
+                            <li id="name" value="name"><a>강사명</a></li>
+                             <li id="subject" value="subject"><a>과목명</a></li>
+                             <li id="course" value="course"><a>과정명</a></li>
+                             <li id="center" value="center"><a>교육센터</a></li>
                           </ul>
                         </div><!-- /btn-group -->
                         <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
@@ -173,8 +179,36 @@
    </section>
 </section>
 <!--main content end-->
+ 
 
 
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+   tabindex="-1" id="deleteModal" class="modal fade">
+   <div class="modal-dialog">
+      <div class="modal-content">
+         <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+               aria-hidden="true">&times;</button>
+            <h4 class="modal-title">과목 삭제</h4>
+         </div>
+         <div class="modal-body">
+            <p>응슷응</p>
+            <h3>
+               <Strong id="resultID">이 과목을 삭제하시겠습니까?</Strong>
+            </h3>
+
+         </div>
+         <div class="modal-footer">
+            <button id="deleteModalCloseBtn" data-dismiss="modal"
+               class="btn btn-default" type="button">닫기</button>
+            <button id="ModalDeletebtn" class="btn btn-danger" type="button">삭제</button>
+
+         </div>
+      </div>
+   </div>
+</div>
+<!-- modal -->
 
 <!-- inclue common script -->
 
@@ -183,6 +217,17 @@
 
 <script>
 $(document).ready(function(){
+   $('#deletebtn').on('click', function() {
+      $('#deleteModal').modal('show');
+   });
+   
+   $('#ModalDeletebtn')
+         .on(
+               'click',
+               function() {
+                  alert('장현이를 입력해주세요.'+$('#open_course_id').val());
+                  location.href = "${pageContext.request.contextPath}/management/courseDeleteOk?id="+$('#open_course_id').val();
+            });                   
    //검색 조건
    $('#selectType>li').on('click',function(){
       $('#searchType>span:first-child').text($('a',this).text());
@@ -211,20 +256,6 @@ $(document).ready(function(){
    });
    
 
-   //공지 토글
-   var toggle = false;
-   $('#noticeToggle').on('click',function(){
-      if(!toggle){
-         $(this).button('noti');
-         toggle=true;
-         $('#topNotice').hide();
-      }else{
-         $(this).blur();
-         $(this).button('reset');
-         toggle=false;
-         $('#topNotice').show();
-      }
-   });
    
    //페이지 사이즈
    $('#pageNum>li').on('click',function(){

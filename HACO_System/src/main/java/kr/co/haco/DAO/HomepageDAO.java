@@ -1,6 +1,7 @@
 package kr.co.haco.DAO;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.Qna;
@@ -41,5 +42,5 @@ public interface HomepageDAO {
 	public int getBestTeacher();
 	public List<Qna> getWaitAnswerList();
 	public int getBestIncentive(int account_id);
-	
+	public List<Map<String, Object>> getPast7monthsList();
 }

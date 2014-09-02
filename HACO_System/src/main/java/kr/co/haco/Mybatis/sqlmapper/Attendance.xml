@@ -18,7 +18,7 @@
 			</if>
 			and STR_TO_DATE(#{seldate},'%Y-%m-%d') BETWEEN course_start_date and course_end_date
 	</select>
-	<select id="getstdentlist" parameterType="hashmap" resultType="kr.co.haco.VO.AttendanceMember">
+	<select id="getstudentlist" parameterType="hashmap" resultType="kr.co.haco.VO.AttendanceMember">
 		select b.name, b.phone, b.account_id , a.lecture_register_id ,c.center_id , COALESCE(g.attendance_code,'1') as attendance_code
 			from       lecture_register a
             inner join member           b   on a.account_id = b.account_id

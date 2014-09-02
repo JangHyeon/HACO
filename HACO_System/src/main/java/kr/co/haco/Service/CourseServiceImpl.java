@@ -74,7 +74,7 @@ public class CourseServiceImpl implements CourseService {
 		//기본값 설정
 		if(getCourseList.getPageNum()==0) getCourseList.setPageNum(1);
 		if(getCourseList.getPageSize()==0) getCourseList.setPageSize(10);
-		if(getCourseList.getSearchType()==null || getCourseList.getSearchType().equals("")) getCourseList.setSearchType("subject");
+		if(getCourseList.getSearchType()==null || getCourseList.getSearchType().equals("")) getCourseList.setSearchType("center");
 		if(getCourseList.getSearchKey()==null || getCourseList.getSearchKey().equals("")) getCourseList.setSearchKey("");
 
 		System.out.println("getSearchType : "+getCourseList.getSearchType());
@@ -88,12 +88,9 @@ public class CourseServiceImpl implements CourseService {
 		getCourseList.setStartNum(start);
 		//게시물 리스트 출력
 		List<getCourseList> CourseList = sqlSession.getMapper(CourceDAO.class).getCourseList(getCourseList);
-		System.out.println("CourseList: "+CourseList);
 		// 검색된 총 게시물 건수
 		int CourseListCount = sqlSession.getMapper(CourceDAO.class).getCourseListCount(getCourseList);
-		System.out.println("CourseListCount: "+CourseListCount);
-		
-		model.addAttribute("CourseListCount", CourseListCount);
+			model.addAttribute("CourseListCount", CourseListCount);
 
 		// 페이징 처리 하단!
 		int visiblePageNum = 10;

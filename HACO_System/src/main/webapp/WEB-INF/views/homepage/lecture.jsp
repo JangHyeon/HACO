@@ -99,18 +99,14 @@
 		else if(account_id!=null){
 			var id = document.lecturesuccess.id.value;
 			if(account_id == id){
-				alert("1 : ");
 					$('#fail').modal('show');
 			} else if(state_code == 0){
-				alert("2 : ");
 				$(document).ready(function(){
 					$('#mail').modal('show');
 					});
 			} else if(parseInt(CNT)>=parseInt(capacity)){
-				alert("3 : ");
 					$('#over').modal('show');
 			} else if(parseInt(capacity)>parseInt(CNT)){
-				alert("4 : ");
 					document.lecturesuccess.opid.value =opid;
 					document.lecturesuccess.account_id.value;
 					document.lecturesuccess.submit();
