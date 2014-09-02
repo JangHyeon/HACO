@@ -39,7 +39,7 @@
                            <th>시작일시</th>   
                            <th>종료일시</th>   
                            <th>출석확인</th>                        
-                           <th>강의평가</th>                           
+                           <th>강의평가/수료증발급</th>                           
                         </tr>
                      </thead>
                      <tbody>                        
@@ -51,18 +51,42 @@
                            <td>${myLecture.course_start_date}</td>   
                            <td>${myLecture.course_end_date}</td>   
                            <td>
-                              <button type="button" class="btn btn-default btn-sm attendBtn" style="width:80px" value="${myLecture.open_course_id}">   
+                        <%--       <button type="button" class="btn btn-default btn-sm attendBtn" style="width:80px" value="${myLecture.open_course_id}">   
                                  ${myLecture.now_study}
-                              </button>
-                           </td>    
-                           <td>                        
+                              </button>  --%>                             
                               <c:choose>
-                                 <c:when test="${myLecture.is_survey=='N'}">
+                                 <c:when test="${myLecture.now_study=='수강중'}">
+                                    <button type="button" class="btn btn-default btn-sm attendBtn" style="width:80px" value="${myLecture.open_course_id}">수강중</button>
+                                 </c:when>
+                                 <c:when test="${myLecture.now_study=='수강완료'}">
+                                    <button type="button" class="btn btn-default btn-sm attendBtn" style="width:80px" value="${myLecture.open_course_id}">수강완료</button>
+                                 </c:when>
+                                 <c:when test="${myLecture.now_study=='미개강'}">
+                                    미개강
+                                 </c:when>
+                              </c:choose>
+                           </td>    
+                           <td>                   
+                           
+  <!--                           WHEN state_code IS null THEN '평가없음'
+                WHEN state_code =1 AND l.is_survey='Y' THEN  '평가활성-평가함'
+                WHEN state_code =1 AND l.is_survey='N' THEN '평가활성-평가안함'
+                WHEN state_code =0 THEN '평가비활성'
+                WHEN state_code =9 THEN '평가CLOSE'
+                                 -->
+                              <c:choose>
+                                 <c:when test="${myLecture.is_survey=='평가활성-평가안함'}">
                                     <button type="button" class="btn btn-default btn-sm evalBtn" style="width:100px" value="${myLecture.open_course_id}">강의평가 하기</button>
                                  </c:when>
-                                 <c:when test="${myLecture.is_survey=='Y'}">
+                                 <c:when test="${myLecture.is_survey=='평가활성-평가함'}">
                                     <button type="button" class="btn btn-default btn-sm certificateBtn" style="width:100px">수료증 발급</button>
                                  </c:when>
+                             <%--      <c:when test="${myLecture.is_survey=='평가CLOSE'}">
+                                    강의평가 CLOSE
+                                 </c:when> --%>
+                                 <c:otherwise>
+                                 	강의평가 없음
+                                 </c:otherwise>
                               </c:choose>
                               
                            </td>            

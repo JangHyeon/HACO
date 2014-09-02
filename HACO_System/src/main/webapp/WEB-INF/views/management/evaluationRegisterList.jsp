@@ -76,12 +76,12 @@
 	                                	<%-- ${erl.state_code}   --%>                             
 		                                <c:choose>		                                
 											<c:when test="${erl.state_code==1}">
-												<button type="button" class="btn btn-default btn-sm evalBtn" style="width:100px;" 
+												<button type="button" class="btn btn-default btn-xs evalBtn" style="width:80px;" 
 												value="${erl.open_course_id}">설문중</button>												
 											</c:when>
 											<c:when test="${erl.state_code==0}">비활성</c:when>
 											<c:when test="${erl.state_code==9}">
-												<button type="button" class="btn btn-default btn-sm evalBtn" style="width:100px" 
+												<button type="button" class="btn btn-default btn-xs evalBtn" style="width:80px" 
 												value="${erl.open_course_id}">설문완료</button>		
 											</c:when>
 											<c:when test="${erl.state_code==-1}">미등록</c:when>																								
@@ -98,12 +98,12 @@
 		  	</div><!-- /row -->
 		  	
 		  	
-		  	<%-- <div class="col-xs-12">
+		  	<div class="col-xs-12">
 				<!-- 페이징 -->
 				<ul class="pagination pagination-centered">
 					<!-- 이전 링크 -->
 					<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
-						<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/evaluationRegisterList/pageSize/${pageSize}/pageNum/${beginpage-1}"</c:if>>«</a>
+						<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/${uri}/pageSize/${pageSize}/pageNum/${beginpage-1}"</c:if>>«</a>
 					</li>
 					
 				  	<!-- 페이지 리스트   -->
@@ -114,16 +114,16 @@
 							<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
 						</c:if>
 						<c:if test="${i!=pageNum}">
-							<li><a href="${pageContext.request.contextPath}/management/evaluationRegisterList/pageSize/${pageSize}/pageNum/${i}">${i}</a></li>
+							<li><a href="${pageContext.request.contextPath}/management/${uri}/pageSize/${pageSize}/pageNum/${i}">${i}</a></li>
 						</c:if>
 					</c:forEach>
 					</c:if>
 				  	<!-- 다음링크 -->
 					<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
-						<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/evaluationRegisterList/pageSize/${pageSize}/pageNum/${endpage+1}"</c:if>>»</a>
+						<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/${uri}/pageSize/${pageSize}/pageNum/${endpage+1}"</c:if>>»</a>
 					</li>
 				</ul>
-			</div>	 --%>
+			</div>	
 		  	
 		  
 		</section><!-- /wrapper -->

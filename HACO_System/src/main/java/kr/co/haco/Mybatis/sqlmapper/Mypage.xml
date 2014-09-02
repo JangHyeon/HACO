@@ -9,16 +9,28 @@
 	<select id="getMyLecture" resultType="kr.co.haco.VO.MyLectureHistory">
 		SELECT l.account_id,l.open_course_id, o.course_name,
 			o.center_id, e.location,  o.course_start_date, o.course_end_date,
-		    IF(o.course_end_date>NOW(),'수강중','수강완료')  AS now_study,
-		    l.is_survey
+		    IFNULL(le.state_code,-1) AS state_code,
+            CASE
+                WHEN state_code IS null THEN '평가없음'
+                WHEN state_code =1 AND l.is_survey='Y' THEN  '평가활성-평가함'
+                WHEN state_code =1 AND l.is_survey='N' THEN '평가활성-평가안함'
+                WHEN state_code =0 THEN '평가비활성'
+                WHEN state_code =9 THEN '평가CLOSE'
+            END AS is_survey,
+            CASE
+				WHEN o.course_start_date>CURDATE() THEN '미개강'
+			    <![CDATA[ WHEN o.course_start_date<=CURDATE() AND o.course_end_date>= CURDATE() THEN '수강중' ]]>
+			    <![CDATA[ WHEN o.course_start_date<CURDATE() AND o.course_end_date< CURDATE()THEN '수강완료' ]]>
+			END as now_study
 		FROM lecture_register l
+        LEFT outer JOIN lecture_evaluation le
+      	ON l.open_course_id = le.open_course_id
 		INNER JOIN open_course o
 		ON l.open_course_id = o.open_course_id
 		INNER JOIN education_center e
 		ON o.center_id = e.center_id
 		WHERE l.account_id=#{account_id}
 	</select>
-	
 	<!-- 강의평가 - 설문내용 불러오기 -->
 	<select id="getEvaluationQuestion" resultType="kr.co.haco.VO.EvaluationRegister" parameterType="Integer">
 		SELECT q.open_course_id,q.question_id,q.question,q.type_code

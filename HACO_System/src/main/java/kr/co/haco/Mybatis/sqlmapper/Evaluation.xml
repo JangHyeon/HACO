@@ -6,7 +6,7 @@
 <!-- 구현하고자하는 인터페이스 풀경로 -->
 <mapper namespace="kr.co.haco.DAO.EvaluationRegisterDAO">
 	<!-- 개설과정(평가등록) 리스트 총 게시물 수-->
-	<select id="getEvaluationRegistListCount"  resultType="kr.co.haco.VO.EvaluationRegisterForm" parameterType="java.util.Map">
+	<select id="getEvaluationRegistListCount"  resultType="Integer" parameterType="java.util.Map">
 		SELECT COUNT(*)
 		from open_course as o
 		LEFT OUTER JOIN lecture_evaluation l
@@ -28,14 +28,14 @@
 			on oc.center_id = ec.center_id
 			LEFT OUTER JOIN lecture_evaluation l
 			ON oc.open_course_id = l.open_course_id		
-			<if test="isResult == 0">
-				where l.state_code !=  9
-				OR l.state_code IS NULL 
-		    </if>
-		    <if test="isResult == 1">
-		    	where  l.state_code =  9
-		    </if>		    
-	    	<!-- limit #{startNum},#{pageSize} -->
+		<if test="isResult == 0">
+			where l.state_code !=  9
+			OR l.state_code IS NULL 
+		</if>
+		<if test="isResult == 1">
+		  	where  l.state_code =  9
+		</if>		    
+	    limit #{startNum},#{pageSize}
 		
 	</select>	
 	

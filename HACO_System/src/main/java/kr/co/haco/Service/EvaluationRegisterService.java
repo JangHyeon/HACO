@@ -9,11 +9,12 @@ import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.EvaluationRegisterForm;
 
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 public interface EvaluationRegisterService {
 	//개설과정 목록
-	public List<EvaluationRegisterForm> getEvaluationRegistList(int isResult);
-	//public List<EvaluationRegisterForm> getEvaluationRegistList(int isResult,int pageSize,int pageNum);
+	//public List<EvaluationRegisterForm> getEvaluationRegistList(int isResult);
+	public void getEvaluationRegistList(int isResult,int pageSize,int pageNum,Model model);
 	
 	//평가 등록 폼- 기본정보(과정명, 과목명 , 강사명 , 수강기간)
 	public EvaluationRegisterForm getEvaluationRegisterform(int open_course_id);

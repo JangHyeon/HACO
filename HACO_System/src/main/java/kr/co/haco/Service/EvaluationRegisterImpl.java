@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.haco.DAO.EvaluationRegisterDAO;
-import kr.co.haco.DAO.HomepageDAO;
-import kr.co.haco.DAO.MypageDAO;
 import kr.co.haco.VO.EvalExample;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestion;
@@ -15,9 +13,11 @@ import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
 import kr.co.haco.VO.EvaluationRegisterForm;
 
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.ui.Model;
 
 
 @Component
@@ -29,46 +29,53 @@ public class EvaluationRegisterImpl implements EvaluationRegisterService {
 	
 	//개설과정 목록
 	@Override
-	public List<EvaluationRegisterForm> getEvaluationRegistList(int isResult) {		
+	public void getEvaluationRegistList(int isResult,int pageSize,int pageNum,Model model) {		
 		EvaluationRegisterDAO evalRegistDAO = sqlsession.getMapper(EvaluationRegisterDAO.class);
 		System.out.println("EvaluationRegisterImpl의 isResult:"+isResult);
-		Map<String, Integer> isResultMap = new HashMap<String, Integer>();
-		isResultMap.put("isResult", isResult);
-/*		isResultMap.put("pageNum", pageNum);
-		isResultMap.put("startNum", pageNum*10-1);
-		isResultMap.put("pageSize", pageSize);
 		
-		//For 페이징 
-				
-		//기본값 설정
-			//if(qna.getPageNum()==0) qna.setPageNum(1);
-			//if(qna.getPageSize()==0) qna.setPageSize(10);
-		//총 게시물 건수
-		int evalCourseListCount = evalRegistDAO.getEvaluationRegistListCount(isResultMap);
-
-		// 페이징 처리
+		//for페이징	
+		int startNum = pageNum * pageSize - (pageSize -1)-1;		
+		
+		//DAO에 보낼 parameter
+		Map<String, Integer> isResultMap = new HashMap<String, Integer>();
+		isResultMap.put("isResult", isResult);		
+		isResultMap.put("startNum", startNum);
+		isResultMap.put("pageSize", pageSize);		
+		
+		//DAO로부터 데이터 select수행		
+		List<EvaluationRegisterForm> evalRegList =  evalRegistDAO.getEvaluationRegistList(isResultMap);
+		model.addAttribute("evalRegList", evalRegList);
+		
+		
+		// 검색된 총 게시물 건수		
+		int evalListCount = evalRegistDAO.getEvaluationRegistListCount(isResultMap);		
+		model.addAttribute("evalListCount", evalListCount);
+		
+		// 페이징 처리		
 		int visiblePageNum = 10;
 		int pagecount = 0;
 		int beginPage = 0;
 		int endPage = 0;
-		if (evalCourseListCount != 0) {// 게시물이 없는 경우
-			pagecount = evalCourseListCount / pageSize;// 115건 = 11page
-			if (evalCourseListCount % pageSize > 0) {// 115건 = 나머지 5 true
+		if (evalListCount != 0) {// 게시물이 없는 경우
+			pagecount = evalListCount / pageSize;// 115건 = 11page
+			if (evalListCount % pageSize > 0) {// 115건 = 나머지 5 true
 				pagecount++;// 11page++ = 12page
 			}
-			beginPage = (pageNum - 1) / visiblePageNum * visiblePageNum + 1;// 10단위
-																			// 계산
+			beginPage = (pageNum - 1) / visiblePageNum * visiblePageNum + 1;// 10단위 계산
 			endPage = beginPage + (visiblePageNum - 1);
 			if (endPage > pagecount) {
 				endPage = pagecount;
 			}
-		}				
+		}
+
 		
-		*/
-		//		
-		List<EvaluationRegisterForm> evalRegisList =  evalRegistDAO.getEvaluationRegistList(isResultMap);
-		
-		return evalRegisList;
+		// view에 보낼 데이터
+		model.addAttribute("pagecount", pagecount);
+		model.addAttribute("beginpage", beginPage);
+		model.addAttribute("endpage", endPage);
+
+		model.addAttribute("pageNum",pageNum);
+		model.addAttribute("pageSize",pageSize);		
 	}
 	
 	//평가 등록 폼

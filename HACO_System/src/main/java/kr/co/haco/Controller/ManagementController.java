@@ -17,7 +17,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import kr.co.haco.DAO.EmployeeDAO;
-import kr.co.haco.DAO.HomepageDAO;
 import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.AttendanceService;
 import kr.co.haco.Service.CourseService;
@@ -35,11 +34,8 @@ import kr.co.haco.VO.EmployeeList;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
-import kr.co.haco.VO.EvaluationRegisterForm;
 import kr.co.haco.VO.LectureRegisterList;
-import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
-import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
@@ -65,7 +61,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 public class ManagementController {
 	@Autowired
 	AccountService accountService;
-
 	@Autowired
 	AttendanceService attendanceService;
 	@Autowired
@@ -73,22 +68,18 @@ public class ManagementController {
 	@Autowired
 	SqlSession sqlSession;
 	@Autowired
-	MemberService memberService;
-	
+	MemberService memberService;	
 	@Autowired
 	LectureRegisterService lectureregisterService;
 	@Autowired
-	EvaluationRegisterService evaluationRegisterService; 	
-
-
+	EvaluationRegisterService evaluationRegisterService;
 	@Autowired
 	SubjectService subjectService;
-
 	@Autowired
 	HomepageService homepageService;
-
 	@Autowired
 	CourseService courseService;
+	
 	// ////직원 관리//////////////////
 	// 직원추가
 	@RequestMapping(value = "employeeRegister", method = RequestMethod.GET)
@@ -623,6 +614,8 @@ public class ManagementController {
 			String res = "redirect:/management/lectureRegister";
 			return res;
 		}*/
+		
+		
 	//평가 등록, 평가 결과 리스트 - 페이지가 없는 경우
 	@RequestMapping(value = {"evaluationRegisterList", "evaluationResultList"}, method=RequestMethod.GET)
 	public String evaluationRegister(Model model,HttpServletRequest request){
@@ -635,12 +628,16 @@ public class ManagementController {
 		if(uri.equals("evaluationResultList")){
 			isResult =1;
 		}
+		
+		evaluationRegisterService.getEvaluationRegistList(isResult,10,1,model);
 		model.addAttribute("uri", uri);
-		model.addAttribute("evalRegList",evaluationRegisterService.getEvaluationRegistList(isResult));
 		return "management.evaluationRegisterList";		
-	}	
-	/*//평가 등록,평가 결과 - 페이지 리스트
-	@RequestMapping(value = "/evaluationRegisterList/pageSize/{pageSize}/pageNum/{pageNum}" ,method=RequestMethod.GET)
+	}
+	
+	//평가 등록, 평가 결과 리스트 - 페이지가 있는 경우
+	@RequestMapping(value = {"evaluationRegisterList/pageSize/{pageSize}/pageNum/{pageNum}",
+							 "evaluationResultList/pageSize/{pageSize}/pageNum/{pageNum}"} 
+							,method=RequestMethod.GET)
 	public String notice(Model model, HttpServletRequest request,
 			HttpSession session, 
 			@PathVariable int pageSize,
@@ -649,18 +646,18 @@ public class ManagementController {
 		//평가등록 리스트: isResult=0, 평가결과 리스트:isResult=1 구분 
 		int isResult=0;
 		String myuri = request.getRequestURI();
-			System.out.println("myurl:"+myuri);				
-		String uri = myuri.substring(myuri.lastIndexOf("/")+1);
+			System.out.println("myurl:"+myuri);	
+		String uri = myuri.substring(17,myuri.indexOf("/",17));
 			System.out.println("uri:"+uri);
 		if(uri.equals("evaluationResultList")){
 			isResult =1;
-		}	
+		}		
 		
-		List<EvaluationRegisterForm> evalList =  evaluationRegisterService.getEvaluationRegistList(isResult,pageSize,pageNum);
-		model.addAttribute("evalRegList",evalList);
+		evaluationRegisterService.getEvaluationRegistList(isResult,pageSize,pageNum,model);
+		model.addAttribute("uri", uri);
 		return "management.evaluationRegisterList";
 	}
-	*/
+	
 	
 	//평가 등록 폼
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
@@ -812,11 +809,7 @@ public class ManagementController {
 		
 		return sendEvalResultListofList;
 	}	
-	//차트 샘플
-	@RequestMapping(value="evaluationResultList_sample" , method=RequestMethod.GET)
-	public String chartSample(){
-		return "management.evaluationResult_sample";
-	}
+
 	
 	
 	/*//수강신청허가
@@ -885,35 +878,73 @@ public class ManagementController {
 	}
 
 	
-	
-
 	///////원생////////////////
-	//사이트 회원
-	@RequestMapping(value = "memberOfSiteList", method = RequestMethod.GET)
-	public String getSiteMember(Model model) {		
-		List<Member> memberList = memberService.getMemberOfSiteList();
-		
-		model.addAttribute("memberList", memberList);
+	//사이트 회원 - 페이징 처리 없는 것
+	@RequestMapping(value ="memberOfSiteList",method = RequestMethod.GET)	 //, params="!pageSize"
+	public String getSiteMember(Model model){			
+		memberService.getMemberOfSiteList(model,10,1);	
 		return "management.memberOfSiteList";
 	}
-	//원생목록
-	@RequestMapping(value = "memberOfAcademyList", method = RequestMethod.GET)
-	public String basic_table(Model model,
+	//사이트 회원 - 페이징 처리
+	@RequestMapping(value ="memberOfSiteList/{pageSize}/{pageNum}",method = RequestMethod.GET)	
+	public String getSiteMemberPaging(Model model,
+			@PathVariable int pageSize, 
+			@PathVariable int pageNum){
+			//@RequestParam(value = "pageSize", required = false) String pageSize,
+			//@RequestParam(value = "pageNum", required = false) String pageNum){		
+		/*int pageSize1 =0; 
+		int pageNum1 =0; 
+		
+		String myuri = request.getRequestURI();
+		System.out.println("myurl:"+myuri);	
+		String uri = myuri.substring(17);
+			System.out.println("uri:"+uri);
+		if(uri.equals("memberOfSiteList")){
+			pageSize1 = 10;
+			pageNum1 =1;
+		}else{
+			pageSize1 = Integer.parseInt(pageSize);
+			pageNum1 = Integer.parseInt(pageNum);
+		}*/		
+	
+		memberService.getMemberOfSiteList(model,pageSize,pageNum);	
+		return "management.memberOfSiteList";
+	}
+	//원생목록 - 페이징 처리 없음
+	@RequestMapping(value = "memberOfAcademyList", method = RequestMethod.GET , params="!pageSize")
+	public String studentList(Model model,			
 			@RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
 			@RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
 		
 		System.out.println("center_id:"+c_id);
 		System.out.println("open_course_id:"+open_course_id);
-/*		MemberOfAcademy moa = new MemberOfAcademy();
-		moa.setCenter_id(center_id);
-		moa.setOpen_course_id(open_course_id);
-		System.out.println("moa.getAccount_id():"+moa.getAccount_id());
-		System.out.println("moa.getOpen_course_id():"+moa.getOpen_course_id());*/
 		
-		List<MemberOfAcademy> memberList = memberService.getMemberOfAcademyList(c_id,open_course_id);
+		memberService.getMemberOfAcademyList(c_id,open_course_id,model,1, 10);
 		List<EducationCenter> eduCenterList = employeeService.getEduCenterList();		
 		
-		model.addAttribute("memberList", memberList);
+		model.addAttribute("eduCenterList", eduCenterList);
+		
+		if(c_id != 0){
+			List<OpenCourse> courseList = memberService.getCourseList(c_id);
+			model.addAttribute("courseList", courseList);
+		}	
+		
+		return "management.memberOfAcademyList";
+	}
+	//원생목록 - 페이징 처리
+	@RequestMapping(value = "memberOfAcademyList/pageSize/{pageSize}/{pageNum}", method = RequestMethod.GET)
+	public String studentListPageing(Model model,
+			@PathVariable int pageSize,
+			@PathVariable int pageNum,
+			@RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
+			@RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
+		
+		System.out.println("center_id:"+c_id);
+		System.out.println("open_course_id:"+open_course_id);
+		
+		memberService.getMemberOfAcademyList(c_id,open_course_id,model,pageNum, pageSize);
+		List<EducationCenter> eduCenterList = employeeService.getEduCenterList();		
+		
 		model.addAttribute("eduCenterList", eduCenterList);
 		
 		if(c_id != 0){

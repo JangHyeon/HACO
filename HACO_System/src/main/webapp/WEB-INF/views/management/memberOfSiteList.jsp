@@ -1,6 +1,3 @@
-MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
-<%@page import="java.util.List"%>
-<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -82,11 +79,35 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 				<!-- /content-panel -->
 			</div>
 			<!-- /col-md-12 -->
-
 		</div>
 		<!-- row -->
 		
-		
+		<div class="col-xs-12">
+			<!-- 페이징 -->
+			<ul class="pagination pagination-centered">
+				<!-- 이전 링크 -->
+				<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+					<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/memberOfSiteList/${pageSize}/${beginpage-1}"</c:if>>«</a>
+				</li>
+				
+			  	<!-- 페이지 리스트   -->
+			  	<c:if test="${beginpage!=0}">
+				<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+				
+					<c:if test="${i==pageNum}">
+						<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+					</c:if>
+					<c:if test="${i!=pageNum}">
+						<li><a href="${pageContext.request.contextPath}/management/memberOfSiteList/${pageSize}/${i}">${i}</a></li>
+					</c:if>
+				</c:forEach>
+				</c:if>
+			  	<!-- 다음링크 -->
+				<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+					<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/memberOfSiteList/${pageSize}/${endpage+1}"</c:if>>»</a>
+				</li>
+			</ul>
+		</div>	
 		
 	</section>
 </section>

@@ -143,7 +143,7 @@
                               name="resident_registration_num2" maxlength="7">
                         </div>
                      </div>
-                                 <div class="form-group">
+                     <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">채용센터</label>
                         <div class="col-sm-10">
                            <div class="btn-group">
@@ -159,7 +159,6 @@
                               </ul>
                            </div>
                         </div>
-
                      </div>
                      <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">현재 센터</label>
@@ -216,9 +215,8 @@
                         </div>
                      </div>
          
-                     <input type="hidden" name="join_center_id" id="join_center_id"
-                        value="0"> <input type="hidden" name="now_center_id"
-                        id="now_center_id" value="0">
+                     <input type="hidden" name="join_center_id" id="join_center_id" value="0"> 
+                     <input type="hidden" name="now_center_id"  id="now_center_id" value="0">
 
                      <button id="registerBtn" type="button" class="btn btn-theme writeBtn">등록</button>
                   </form>

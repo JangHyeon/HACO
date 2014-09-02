@@ -54,28 +54,27 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 					    강좌 목록 <span class="caret"></span>
 					  </button>
-					  <ul class="dropdown-menu" role="menu">
+					  <ul class="dropdown-menu" role="menu" >
 					  		<li><a href="memberOfAcademyList?center_id=0&open_course_id=0">전체 강좌</a></li>
 					  	<c:forEach var="course" items="${courseList}">
-					   		<li><a href="memberOfAcademyList?center_id=${course.center_id}&open_course_id=${course.open_course_id}">${course.course_name}</a></li>
+					   		<li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList?c_id=${course.center_id}&open_course_id=${course.open_course_id}">${course.course_name}</a></li>
 					    </c:forEach>					    
 					  </ul>
 					</div>	
 					
 					<!-- 센터목록 -->
 					<div class="btn-group pull-right topToggle">
-					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-					    센터목록 <span class="caret"></span>
+					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="centerBtn">
+					    <span>센터목록</span><span class="caret"></span>
 					  </button>
-					  <ul class="dropdown-menu" role="menu">
-					  		<li><a href="memberOfAcademyList?center_id=0">전체 센터</a></li>
+					  <ul class="dropdown-menu" role="menu" id="centerList">
+					  	<li><a href="memberOfAcademyList?center_id=0">전체 센터</li>
 					  	<c:forEach var="edu" items="${eduCenterList}">
 					   		<li><a href="memberOfAcademyList?c_id=${edu.center_id}">${edu.location}</a></li>
+					   		<%-- <li><a>${edu.location}</a></li> --%>					   		
 					    </c:forEach>					    
 					  </ul>
-					</div>	
-							
-				
+					</div>	                   
 				
 				
 					<h4>
@@ -124,6 +123,32 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 		</div>
 		<!-- row -->
 		
+		<div class="col-xs-12">
+			<!-- 페이징 -->
+			<ul class="pagination pagination-centered">
+				<!-- 이전 링크 -->
+				<li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+					<a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/memberOfAcademyList/pageSize/${pageSize}/${beginpage-1}"</c:if>>«</a>
+				</li>
+				
+			  	<!-- 페이지 리스트   -->
+			  	<c:if test="${beginpage!=0}">
+				<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+				
+					<c:if test="${i==pageNum}">
+						<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+					</c:if>
+					<c:if test="${i!=pageNum}">
+						<li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList/pageSize/${pageSize}/${i}">${i}</a></li>
+					</c:if>
+				</c:forEach>
+				</c:if>
+			  	<!-- 다음링크 -->
+				<li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+					<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/memberOfAcademyList/pageSize/${pageSize}/${endpage+1}"</c:if>>»</a>
+				</li>
+			</ul>
+		</div>	
 		
 		
 	</section>
@@ -136,18 +161,13 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 <%@ include file="commonScript.jsp"%>
 
 <!--script for this page-->
-<script
-	src="${resourceUrl}/assets/js/sparkline-chart.js"></script>
-<script
-	src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>
-
-
-
-<script type="application/javascript">
-	
-        $(document).ready(function () {
-			
-        }
+<script type="text/javascript">	
+$(document).ready(function () {
+	//센터목록 선택
+    $('#centerList>li').on('click',function(){
+       $('#centerBtn>span:first-child').text($('a',this).text());               
+    });
+});
     
 </script>
 

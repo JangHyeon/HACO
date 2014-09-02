@@ -6,17 +6,55 @@
 <!-- 구현하고자하는 인터페이스 풀경로 -->
  <!-- EmployeeDAO를 구현하는 Mapper -->
 <mapper namespace="kr.co.haco.DAO.MemberDAO"> 	
+	<!-- 사이트 회원 목록 총 수-->
+	<select id="getMemberOfSiteCount" resultType="Integer">
+		SELECT COUNT(*)
+		FROM member m
+		LEFT OUTER JOIN 
+			(SELECT DISTINCT(account_id) AS account_id FROM lecture_register) l
+		ON m.account_id = l.account_id
+		WHERE  l.account_id  IS NULL
+	</select>
 	<!-- 사이트 회원 목록 -->
-	<select id="getMemberOfSite" resultType="kr.co.haco.VO.Member">
+	<select id="getMemberOfSite" resultType="kr.co.haco.VO.Member" parameterType="java.util.Map">
 		SELECT m.*
 		FROM member m
 		LEFT OUTER JOIN 
 			(SELECT DISTINCT(account_id) AS account_id FROM lecture_register) l
 		ON m.account_id = l.account_id
-		WHERE  l.account_id  IS NULL;
+		WHERE  l.account_id  IS NULL
+		ORDER BY  m.create_date DESC
+		limit #{startNum},#{pageSize}
+	</select>
+	
+	<!-- 수강 중인 회원 총 수 -->
+	<select id="getMemberCount" resultType="Integer" parameterType="java.util.Map">
+		SELECT COUNT(*)
+		FROM open_course o
+		INNER JOIN
+			(SELECT l.open_course_id, l.account_id, l.lecture_register_code, l.lecture_register_date,l.is_survey,
+					m.name, m.address, m.email, m.phone, m.job_duty
+			FROM lecture_register l
+			INNER JOIN member m
+			ON l.account_id = m.account_id
+			WHERE l.open_course_id IN
+				(SELECT open_course_id
+				FROM open_course
+				WHERE course_end_date > NOW()
+			    )
+			) mem
+		ON o.open_course_id = mem.open_course_id
+		<where>
+			<if test="center_id != 0">
+				and o.center_id= #{center_id}
+			</if>
+	   		<if test="open_course_id != 0">
+				and mem.open_course_id = #{open_course_id}
+			</if>
+		</where>
 	</select>
 	<!-- 수강 중인 회원 목록 -->
-	<select id="getMember" resultType="kr.co.haco.VO.MemberOfAcademy" >
+	<select id="getMember" resultType="kr.co.haco.VO.MemberOfAcademy" parameterType="java.util.Map" >
 		SELECT o.center_id,o.course_name,
 			mem.open_course_id,mem.account_id,mem.lecture_register_code,mem.lecture_register_date,mem.is_survey,
 		    mem.name,mem.address, mem.email, mem.phone, mem.job_duty
@@ -35,13 +73,14 @@
 			) mem
 		ON o.open_course_id = mem.open_course_id		
 		<where>
-			<if test="param1 != 0">
-				and o.center_id= ${param1}
+			<if test="center_id != 0">
+				and o.center_id= #{center_id}
 			</if>
-    		<if test="param2 != 0">
-				and mem.open_course_id = ${param2}
+    		<if test="open_course_id != 0">
+				and mem.open_course_id = #{open_course_id}
 			</if>
 		</where>
+		limit #{startNum},#{pageSize}
 	</select>
 	<!-- 센터별 개설과정 목록 -->
 	<select id="getCourseList" parameterType="kr.co.haco.VO.OpenCourse" resultType="kr.co.haco.VO.OpenCourse">
