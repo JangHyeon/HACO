@@ -65,7 +65,7 @@
 											<th class="idx">#</th>
 											<th>제목</th>
 											<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
-												<th>작성자</th>
+												<th class="writer">작성자</th>
 											</s:authorize>
 											<th class="writeDate">작성일</th>
 											<th class="hit">조회</th>
@@ -146,7 +146,9 @@
 						              			<span>제목+내용 </span>
 						              		</c:when>
 						              		<c:when test="${searchType=='writer'}">
+						              			<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
 						              			<span>작성자 </span>
+						              			</s:authorize>
 						              		</c:when>
 						              		<c:otherwise>
 						              			<span>제목 </span>
@@ -157,7 +159,9 @@
 						              <ul id="selectType" class="dropdown-menu" role="menu">
 						                <li id="typeTitle" value="title"><a>제목</a></li>
 						                <li id="typeTitleAndContent" value="titleAndContent"><a>제목+내용</a></li>
-						                <li id="writer" value="writer"><a>작성자</a></li>
+						                <s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
+						                	<li id="writer" value="writer"><a>작성자</a></li>
+						                </s:authorize>
 						              </ul>
 						            </div><!-- /btn-group -->
 						            <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
@@ -196,7 +200,8 @@ $(document).ready(function(){
 	});
 	
 	var submit = function(){
-		if($('input[name=searchKey]').val().length==0){
+		
+		if($.trim($('input[name=searchKey]').val()).length==0){
 			alert('검색어를 입력해주세요.');
 			$('#inputSearchKey').focus();
 		}else{

@@ -78,7 +78,7 @@
 					</div>
 				
 					<h4>
-						<i class="fa fa-angle-right"></i> Notice
+						<i class="fa fa-angle-right"></i> QnA
 					</h4>
 					
 					<hr>
@@ -87,7 +87,7 @@
 							<tr>
 								<th class="idx">구분</th>
 								<th>제목</th>
-								<th>작성자</th>
+								<th class="writer">작성자</th>
 								<th class="writeDate">작성일</th>
 								<th class="hit">조회</th>
 								<th class="answer">답변</th>
@@ -106,7 +106,7 @@
 									</td>
 									<td><a data-name="title" data-content='${fn:substring(qna.content,0,100)}..' href="${pageContext.request.contextPath}/management/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${qna.qna_id}">${qna.title}</a></td>
 									<td>${qna.name_kor}${qna.name}</td>
-									<td>${qna.register_date_string}</td>
+									<td class="writeDate">${qna.register_date_string}</td>
 									<td>${qna.hit}</td>
 									<td>
 										<c:if test="${qna.divide_code_toString == 'Q'}">
@@ -153,7 +153,7 @@
 							
 						<!-- 검색 -->
 						<div class="col-sm-6 col-sm-offset-3" style="clear:both">
-				          <div class="input-group">
+				          <div class="input-group dropup">
 				            <div class="input-group-btn">
 				              <button id="searchType" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 				              	<c:choose>
@@ -211,7 +211,7 @@ $(document).ready(function(){
 	});
 	
 	var submit = function(){
-		if($('input[name=searchKey]').val().length==0){
+		if($.trim($('input[name=searchKey]').val()).length==0){
 			alert('검색어를 입력해주세요.');
 			$('#inputSearchKey').focus();
 		}else{

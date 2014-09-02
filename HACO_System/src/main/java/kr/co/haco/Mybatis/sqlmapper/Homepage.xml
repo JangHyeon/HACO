@@ -160,7 +160,7 @@
 				(title like CONCAT('%',#{searchKey},'%') or content like CONCAT('%',#{searchKey},'%')) 
 			</if>
 			<if test="searchType == 'writer'">
-				name like CONCAT('%',#{searchKey},'%') 
+				name like CONCAT('%',#{searchKey},'%') or name_kor like CONCAT('%',#{searchKey},'%')
 			</if>
 			<if test="qna_id != 0">
 				and qna_id != ${qna_id}
@@ -189,7 +189,7 @@
 				(title like CONCAT('%',#{searchKey},'%')  or content like CONCAT('%',#{searchKey},'%')) 
 			</if>
 			<if test="searchType == 'writer'">
-				name like CONCAT('%',#{searchKey},'%') 
+				name like CONCAT('%',#{searchKey},'%') or name_kor like CONCAT('%',#{searchKey},'%')
 			</if>
 			<if test="qna_id != 0">
 				and qna_id != ${qna_id}
@@ -245,7 +245,11 @@
 		insert into upload_file(file_id,file_type,board_name,orign_file,save_file,filesize) 
 		values(#{file_id},#{file_type},#{board_name},#{orign_file},#{save_file},#{filesize})
 	</insert>
+
+
 	
+	
+	<!-- management 메인 -->	
 	<!-- 총 파일 용량 -->
 	<select id="getTotalFileSize" resultType="Long">
 		select IFNULL(sum(filesize)/1024,0) from upload_file where file_type='File'
@@ -254,5 +258,79 @@
 	<!-- 총 이미지 용량 -->
 	<select id="getTotalImageSize" resultType="Long">
 		select IFNULL(sum(filesize)/1024,0) from upload_file where file_type='images'
+	</select>
+	
+	<!-- 총 회원수 -->
+	<select id="getTotalMemberNumber" resultType="Integer">
+		select count(a.account_id) from member as m 
+		join account as a on m.account_id=a.account_id 
+		where state_code!=9
+	</select>
+	<!-- 총 학생수 -->
+	<select id="getTotalStudentNumber" resultType="Integer">
+		select count(a.account_id) from authority as au 
+		join account as a on au.account_id=a.account_id 
+		where state_code!=9 AND role_name='STUDENT'
+	</select>
+	<!-- 신규 학원생 수 -->
+	<select id="getNewStudentNumber" resultType="Integer">
+		SELECT count(account_id) from member 
+		where left(DATE_SUB(curdate(),INTERVAL 0 month  ),7) = left(create_date,7)
+	</select>
+	<!-- 신규 직원 수 -->
+	<select id="getNewEmployeeNumber" resultType="Integer">
+		SELECT count(account_id) from employee where left(DATE_SUB(  curdate(),  INTERVAL 0 month  ) ,7) = left(join_date,7)
+	</select>
+	
+	<!-- 오늘 새로 올라온 공지글 -->
+	<select id="getNewNoticeNumber" resultType="Integer">
+		SELECT count(notice_id) from notice where left(DATE_SUB(  curdate(),  INTERVAL 0 month  ) ,7) = left(register_date,7)
+	</select>
+	
+	<!-- 오늘 새로 올라온 질문과 답변 -->
+	<select id="getNewQnaNumber" resultType="Integer">
+		SELECT count(qna_id) from qna where left(DATE_SUB(  curdate(),  INTERVAL 0 month  ) ,7) = left(register_date,7)
+	</select>	
+	
+	<!-- 답변을 기다리는 질문 -->
+	<select id="getWaitAnswerList" resultType="kr.co.haco.VO.Qna">
+		select qna_id,q.account_id as account_id,title,content,group_no,divide_code,state_code,hit,register_date, count(group_no) as counts 
+		from qna as q 
+		left outer join employee as e 
+		on q.account_id = e.account_id
+		left outer join member as m 
+		on q.account_id = m.account_id
+		where state_code!=9
+		GROUP by group_no
+		HAVING counts=1
+		order by qna_id desc limit 6
+	</select>
+	
+	<!-- 우수 강사 -->
+	<select id="getBestTeacher" resultType="Integer">
+		select teacher from 
+		(SELECT COUNT(o.account_id) as counts, o.account_id AS teacher
+		FROM lecture_register as l
+		INNER JOIN open_course as o
+		ON l.open_course_id = o.open_course_id
+		WHERE LEFT(DATE_SUB(CURDATE(),INTERVAL 0 month),7) = LEFT(lecture_register_date,7)
+		GROUP BY teacher
+		ORDER BY counts DESC LIMIT 1) as t
+	</select>
+	
+	<!-- 우수강사 인센티브 -->
+	<select id="getBestIncentive" parameterType="Integer" resultType="Integer">
+		select sum(tuition_fee*sumCounts) as sum, lecture_register_date from 
+		(select subject_id, sum(counts) as sumCounts,lecture_register_date from
+		(select open_course_id, count(lecture_register_id) as counts, lecture_register_date
+		from lecture_register 
+		where open_course_id in (select DISTINCT open_course_id from open_course where account_id=#{account_id})
+		and LEFT(DATE_SUB(CURDATE(),INTERVAL 0 month),7) = LEFT(lecture_register_date,7) 
+		group by open_course_id) as lr
+		join open_course as oc
+		on lr.open_course_id = oc.open_course_id
+		group by subject_id) as ss
+		join subject as sb
+		on ss.subject_id = sb.subject_id
 	</select>
 </mapper>

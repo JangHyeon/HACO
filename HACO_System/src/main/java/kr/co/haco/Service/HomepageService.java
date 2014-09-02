@@ -26,7 +26,7 @@ public interface HomepageService {
 	public int deleteNotice(int notice_id);
 	
 	public int insertQuestion(Qna question);
-	public void getQnaList(Qna qna, HttpSession session, Model model, String contextPath);
+	public void getQnaList(Qna qna, Model model, String contextPath);
 	@Transactional
 	public Qna getQna(HttpServletRequest request, HttpServletResponse response,HttpSession session, int qna_id);
 	public Qna getQna(int qna_id);
@@ -36,5 +36,5 @@ public interface HomepageService {
 	
 	public Map<String, String> photoUpload(MultipartHttpServletRequest req);
 	
-	public Map<String, Number> getUploadFileSumFilesize();
+	public Map<String, Object> getIndexInfo();
 }

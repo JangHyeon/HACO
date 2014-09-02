@@ -16,8 +16,8 @@
 			<ol class="slides">
 				<li class="current">
 					<div class="description">
-						<h2>Java Framework<br><strong>자바 개발자 취업반</strong></h2>
-						<p>현재 IT에서 가장 각광받는 java Technology의 기초부터 고급기술까지 학습합니다.</p>
+						<h2><span>Java Framework<br><strong>자바 개발자 취업반</strong><span></h2>
+						<p><span>현재 IT에서 가장 각광받는 java Technology의 기초부터 고급기술까지 학습합니다.</span></p>
 						<p><span><strong>전자정부 프레임워크(java opensource framework)</strong>를 이용한 Enterprise Solution 설계 및 구현과 안드로이드 및 하이브리드앱을 이용한 모바일 애플리케이션 구현을 <br>학습하고 <strong>실무 프로젝트</strong>를 통해 현업에서 필요로 하는 자바 엔지니어 양성을 목표로 합니다.</span></p>
 					</div>
 					<div class="tiltview col">
@@ -27,7 +27,7 @@
 				</li>
 				<li>
 					<div class="description">
-						<h2>jQuery기반<br><strong>Ajax & Template</strong></h2>
+						<h2><span>jQuery기반<br><strong>Ajax & Template</strong><span></h2>
 						<p><span><strong>jQuery</strong>를 이용한 다이나믹한 웹 프로그래밍을 위한 기초 과정으로, jQuery, JSON, Ajax에 초점을 맞춰 수업이 진행되며, <br>서버에서 JSON을 처리하는 <strong>JSON-LIB</strong>를 사용합니다.</span></p>
 <p><span>또한 Handlers Template 엔진을 이용하여, <strong>Template 프레임워크</strong>에 대한 개념도 익힐 수 있습니다.</span></p>
 					</div>
@@ -38,7 +38,7 @@
 				</li>
 				<li>
 					<div class="description">
-						<h2>BootStrap 기반<br><strong>반응형 웹</strong></h2>
+						<h2><span>BootStrap 기반<br><strong>반응형 웹</strong><span></h2>
 						<p><span><strong>Twitter Bootstrap</strong>을 이용한 반응형 웹 프로그래밍을 위한 기초 과정부터 고급과정까지 수업이 진행되며, <br>강력한 프론트엔드 프레임워크 <strong>Bootstrap 3</strong>을 사용합니다.</span></p>
 <p><span>부트스트랩의 개요, 다운받아 사용하는법, 기본 템플릿과 예제 등을 익힐 수 있습니다.</span></p>
 					</div>
@@ -70,7 +70,7 @@
 						<tbody>
 							<c:forEach var="notice" items="${noticeList}">
 								<tr>
-									<td>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${notice.title}</a></td>
+									<td><span>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${notice.title}</a></span></td>
 								</tr>
 							</c:forEach>
 						</tbody>
@@ -90,7 +90,7 @@
 						<tbody>
 							<c:forEach var="lectureRegister" items="${lectureRegisterList}">
 								<tr>
-									<td>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${lectureRegister.course_name}</a></td>
+									<td><span>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${lectureRegister.course_name}</a></span></td>
 								</tr>
 							</c:forEach>
 						</tbody>

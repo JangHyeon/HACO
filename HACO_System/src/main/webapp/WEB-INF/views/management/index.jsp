@@ -20,7 +20,7 @@
     <link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
     <link href="${resourceUrl}/assets/css/style-responsive.css" rel="stylesheet">
 
-    <script src="${resourceUrl}/assets/js/chart-master/Chart.js"></script>
+    <script src="${resourceUrl}/assets/js/chart-master/Chart.min.js"></script>
 
 	<input id="current-accordion" type="hidden" value="index"/>
 
@@ -38,37 +38,37 @@
                   		<div class="col-md-2 col-sm-2 col-md-offset-1 box0">
                   			<div class="box1">
 					  			<i class="fa fa-database fa-4x"></i>
-					  			<h3>933</h3>
+					  			<h3>${totalMemberNumber}</h3>
                   			</div>
-					  			<p>HACO Academy<br> 총 학원생 수 !<br>1612명</p>
+					  			<p>HACO Academy<br> 회원 수<br> ${totalMemberNumber}명</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<i class="fa fa-user fa-4x"></i>
-					  			<h3>+48</h3>
+					  			<h3>${totalStudentNumber}</h3>
                   			</div>
-					  			<p>???센터<br> 학원생 수 !<br> 128명</p>
+					  			<p>HACO Academy<br> 학원생 수<br> ${totalStudentNumber}명</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<i class="fa fa-child fa-4x"></i>
-					  			<h3>+48</h3>
+					  			<h3>+${newStudentNumber}</h3>
                   			</div>
-					  			<p>이번 달의<br> 신규 학원생 수 !<br> +48명</p>
+					  			<p>이번 달의<br> 신규 학원생 수<br> +${newStudentNumber}명</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<i class="fa fa-sign-in fa-4x"></i>
-					  			<h3>23</h3>
+					  			<h3>+${newEmployeeNumber}</h3>
                   			</div>
-					  			<p>파릇파릇 !<br>이번달에 입사한<br>신규 직원 수 !<br> +24명</p>
+					  			<p>파릇파릇 !<br>이번달에 입사한<br>신규 직원 수<br> +${newEmployeeNumber}명</p>
                   		</div>
                   		<div class="col-md-2 col-sm-2 box0">
                   			<div class="box1">
 					  			<i class="fa fa-upload fa-4x"></i>
-					  			<h3>+21</h3>
+					  			<h3>+${newNoticeNumber+newQnaNumber}</h3>
                   			</div>
-					  			<p>오늘 새로 올라온 글<br>+21건</p>
+					  			<p>오늘 새로 올라온 글<br>+${newNoticeNumber+newQnaNumber}건</p>
                   		</div>
                   	</div><!-- /row mt -->	
                   
@@ -81,24 +81,8 @@
 						  			<h5>SERVER LOAD</h5>
                       			</div>
 								<div class="row">
-									<div class="col-sm-6 col-xs-6 goleft">
-										<p><i class="fa fa-database"></i> 70%</p>
-									</div>
+									<script src="http://widgetprovider.daum.net/view?url=http://widgetcfs1.daum.net/xml/26/widget/2008/09/22/11/20/48d700e69f437.xml&&width=166&height=166&widgetId=86&scrap=0" type="text/javascript"></script>
 	                      		</div>
-								<canvas id="serverstatus01" height="120" width="120"></canvas>
-								<script>
-									var doughnutData = [
-											{
-												value: 70,
-												color:"#68dff0"
-											},
-											{
-												value : 30,
-												color : "#fdfdfd"
-											}
-										];
-										var myDoughnut = new Chart(document.getElementById("serverstatus01").getContext("2d")).Doughnut(doughnutData);
-								</script>
 	                      	</div><!--/grey-panel -->
                       	</div><!-- /col-md-4-->
                       	
@@ -111,19 +95,20 @@
 								<div class="row">
 									
 	                      		</div>
-	                      		<div class="centered">
+	                      		<div class="waitAnswer centered">
 									<table class="table table-hover index-notice">
 										<tbody>
-										<tr>
-													<td>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${lectureRegister.course_name}</a></td>
-												</tr>
-											<c:forEach var="lectureRegister" items="${lectureRegisterList}">
+											<c:forEach var="waitAnswer" items="${waitAnswerList}">
 												<tr>
-													<td>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${lectureRegister.course_name}</a></td>
+													<td><span>－<a href="${pageContext.request.contextPath}/management/qnaView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/qnaId/${waitAnswer.qna_id}">${waitAnswer.title}</a></span></td>
+													<td><fmt:formatDate value="${waitAnswer.register_date}" pattern="MM/dd"/></td>
 												</tr>
 											</c:forEach>
 										</tbody>
 									</table>
+									<c:if test="${empty waitAnswerList || empty waitAnswerList[0]}">
+										<h3 style="margin: 80px auto; text-align: center;">질문이 없습니다...</h3>
+									</c:if>
 	                      		</div>
                       		</div>
                       	</div><!-- /col-md-4 -->
@@ -134,16 +119,18 @@
 								<div class="white-header">
 									<h5>이 달의 우수강사</h5>
 								</div>
-								<p><img src="${resourceUrl}/assets/img/ui-zac.jpg" class="img-circle" width="80"></p>
-								<p><b>Zac Snider</b></p>
+								<p><div class="centered employeePhoto"><img src="${pageContext.request.contextPath}/employeePhoto/${bestTeacher.photo}" class="employeePhoto-img" width="80" onerror="this.src='${pageContext.request.contextPath}/images/User-Role-Guest-icon.png'"></div></p>
+								<p><b>${bestTeacher.name_kor} (${bestTeacher.name_eng})
+				              	  <br><small>${bestTeacher.location}</small>
+				              	</b></p>
 								<div class="row">
 									<div class="col-md-6">
 										<p class="small mt">MEMBER SINCE</p>
-										<p>2012</p>
+										<p><fmt:formatDate value="${bestTeacher.join_date}" pattern="yyyy.MM"/></p>
 									</div>
 									<div class="col-md-6">
 										<p class="small mt">INCENTIVE</p>
-										<p>￦ 447,650</p>
+										<p>￦ ${bestIncentive}</p>
 									</div>
 								</div>
 							</div>
@@ -160,39 +147,17 @@
                       			<div class="darkblue-header">
 						  			<h5>파일 서버 사용량</h5>
                       			</div>
-								<canvas id="serverstatus02" height="125" width="125"></canvas>
-								<input id="totalFileSizePercent" type="hidden" value="${totalFileSizePercent}"/>
-								<input id="totalImageSizePercent" type="hidden" value="${totalImageSizePercent}"/>
-								<script>
-								var totalFileSizePercent = document.getElementById("totalFileSizePercent").value;
-								var totalImageSizePercent = document.getElementById("totalImageSizePercent").value;
-									var doughnutData = [
-											{
-												value: totalFileSizePercent*1,
-												color:"#FF865C",
-												highlight: "#dF764C",
-										        label: "File"
-											},{
-												value: totalImageSizePercent*1,
-												color:"#68dff0",
-												highlight: "#2daebf",
-										        label: "Image"
-											},{
-												value : 100-(totalFileSizePercent+totalImageSizePercent)*1,
-												color : "#444c57",
-												highlight: "#485360",
-												label: "남은 공간"
-											}
-										];
-										var myDoughnut = new Chart(document.getElementById("serverstatus02").getContext("2d")).Doughnut(doughnutData);
-								</script>
+								<canvas id="serverstatus02" height="125" width="200"></canvas>
+								<input id="maxStorage" type="hidden" value="${maxStorage}"/>
+								<input id="totalFileSize" type="hidden" value="${totalFileSize}"/>
+								<input id="totalImageSize" type="hidden" value="${totalImageSize}"/>
 								<p data-name="now">April 17, 2014 </p>
 								<footer>
 									<div class="pull-left">
 										<h5><i class="fa fa-hdd-o"></i> ${maxStorage/1024/1024} GB</h5>
 									</div>
 									<div class="pull-right">
-										<h5>${totalFileSizePercent+totalImageSizePercent}% 사용</h5>
+										<h5 id="usePercent">${totalFileSizePercent+totalImageSizePercent}% 사용</h5>
 									</div>
 								</footer>
                       		</div><!-- /darkblue panel -->
@@ -200,6 +165,8 @@
 						
 						
 						<div class="col-md-4 mb">
+							<script src="http://widgetprovider.daum.net/view?url=http://widgetcfs1.daum.net/xml/9/widget/2013/01/02/12/42/50e3ac9f2a781.xml&up_mycolor=SEO&&width=160&height=320&widgetId=2373&scrap=1" type="text/javascript"></script>
+						
 							<!-- INSTAGRAM PANEL -->
 							<div class="instagram-panel pn">
 								<i class="fa fa-instagram fa-4x"></i>
@@ -219,7 +186,7 @@
 								<div class="chart mt">
 									<div class="sparkline" data-type="line" data-resize="true" data-height="75" data-width="90%" data-line-width="1" data-line-color="#fff" data-spot-color="#fff" data-fill-color="" data-highlight-line-color="#fff" data-spot-radius="4" data-data="[200,135,667,333,526,996,564,123,890,464,655]"></div>
 								</div>
-								<p class="mt"><b>$ 17,980</b><br/>Month Income</p>
+								<p class="mt"><b>$ ${bestIncentiveStack}</b><br/>Month Income</p>
 							</div>
 						</div><!-- /col-md-4 -->
 						
@@ -427,46 +394,5 @@
     <script src="${resourceUrl}/assets/js/sparkline-chart.js"></script>    
 	<script src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>	
 	
-	<script type="application/javascript">
-        $(document).ready(function () {
-        	
-			var today = new Date();
-        	
-        	$('[data-name="now"]').text(today.toDateString());
-        	
-        	
-        	
-            $("#date-popover").popover({html: true, trigger: "manual"});
-            $("#date-popover").hide();
-            $("#date-popover").click(function (e) {
-                $(this).hide();
-            });
-        
-            $("#my-calendar").zabuto_calendar({
-                action: function () {
-                    return myDateFunction(this.id, false);
-                },
-                action_nav: function () {
-                    return myNavFunction(this.id);
-                },
-                ajax: {
-                    url: "show_data.php?action=1",
-                    modal: true
-                },
-                legend: [
-                    {type: "text", label: "Special event", badge: "00"},
-                    {type: "block", label: "Regular event", }
-                ]
-            });
-        });
-        
-        
-        function myNavFunction(id) {
-            $("#date-popover").hide();
-            var nav = $("#" + id).data("navigation");
-            var to = $("#" + id).data("to");
-            console.log('nav ' + nav + ' to: ' + to.month + '/' + to.year);
-        }
-    </script>
+	<script src="${resourceUrl}/js/managemnetIndex.js"></script>	
   
-

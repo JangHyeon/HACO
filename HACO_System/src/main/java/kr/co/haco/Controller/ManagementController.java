@@ -42,6 +42,7 @@ import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
 import kr.co.haco.VO.OpenCourse;
+import kr.co.haco.VO.Qna;
 import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
 import kr.co.haco.VO.Teacher;
@@ -118,21 +119,17 @@ public class ManagementController {
 
 	//대쉬보드
 	@RequestMapping(value = {"index",""}, method = RequestMethod.GET)
-	public String index(Model model) {
+	public String index(Model model, HttpServletRequest request) {
 		
-		// 저장공간 사용량
-		long MaxStorage = 1024*50; //50GB
-		Map<String, Number> map = homepageService.getUploadFileSumFilesize();
-
-		long totalFileSize = (long) map.get("totalFileSize");
-		long totalImageSize = (long) map.get("totalImageSize");
-
-		long totalFileSizePercent = totalFileSize/(MaxStorage/100);
-		long totalImageSizePercent = totalImageSize/(MaxStorage/100);
-
+		// Top Info Area
+		Map<String, Object> topInfo = homepageService.getIndexInfo();	
+		for( String i : topInfo.keySet()){
+			model.addAttribute(i, topInfo.get(i));
+		}
+		
+		// 최대 저장공간
+		long MaxStorage = 1024*1024*5; //5GB
 		model.addAttribute("maxStorage",MaxStorage);
-		model.addAttribute("totalFileSizePercent",totalFileSizePercent);
-		model.addAttribute("totalImageSizePercent",totalImageSizePercent);
 		
 		// 오늘 날짜
 		Date date = new Date();
@@ -163,83 +160,48 @@ public class ManagementController {
 			return "management.attendancelist";
 		}
 		//출석
-		@RequestMapping(value = "studentlist", method = RequestMethod.GET)
-		public String stdentlist(HttpSession session,HttpServletRequest req) {
-			AttendanceOpenCourse date = new AttendanceOpenCourse();
-			date.setSeldate(req.getParameter("attendance_date"));
-			System.out.println("attendance_date : " +date);
-			String center_id = req.getParameter("center_id");
-			System.out.println("center_id : " + center_id);
-			String open_course_id = req.getParameter("open_course_id");
-			System.out.println("open_course_id :" + open_course_id);
-			
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			
-			map.put("center_id", center_id);
-			map.put("open_course_id", open_course_id);
-			
-			req.setAttribute("date", date);
-			
-			req.setAttribute("open_course_id", open_course_id);
-			/*String attendance_code = req.getParameter("attendance_code");*/
-			/*System.out.println("attendance_code : " +attendance_code);*/
-			String[] account_id= req.getParameterValues("account_id");
-			if(account_id!=null){
-				String[] attendance_code = req.getParameterValues("attendance_code");
-				String attendance_date = req.getParameter("attendance_date");
-				String[] lecture_register_id = req.getParameterValues("lecture_register_id");
-				System.out.println("attendance_code : " +attendance_code);
-				System.out.println("attendance_date : " +attendance_date);
-				System.out.println("center_id : " + center_id);
-				System.out.println("open_course_id :" + open_course_id);
-				System.out.println("attendance_code : " +attendance_code);
-				System.out.println(account_id.length);
-				for(int i = 0; i < account_id.length; i++){
-					
-					System.out.println("lecture_register_id : " + lecture_register_id[i]);
-					
-					/*Attendance VO = new Attendance();
-					VO.setCenter_id(Integer.parseInt(center_id));
-					VO.setAttendance_code(Integer.parseInt(attendance_code[i]));
-					VO.setAttendance_date(attendance_date);
-					VO.setLecture_register_id(Integer.parseInt(lecture_register_id[i]));
-					VO.setOpen_course_id(Integer.parseInt(open_course_id));*/
-				/*	map.put("center_id", center_id);
-					map.put("attendance_code", attendance_code[i]);
-					map.put("attendance_date", attendance_date);
-					map.put("lecture_register_id", lecture_register_id[i]);
-					map.put("open_course_id", open_course_id);*/
-					/*HashMap<String,Object> att = new HashMap<String , Object>();*/
-					map.put("center_id",Integer.parseInt(center_id));
-					map.put("attendance_code",Integer.parseInt(attendance_code[i]));
-					map.put("lecture_register_id",Integer.parseInt(lecture_register_id[i]));
-					map.put("open_course_id", Integer.parseInt(open_course_id));
-					map.put("attendance_date",attendance_date);
-					
-				/*	map.put("list", list);*/
-					attendanceService.insertatt(map);
-				}
-				
-			/*	list.add(center_id);
-				list.add(attendance_code);
-				list.add(lecture_register_id);
-				list.add(lecture_register_id);
-				list.add(attendance_date);*/
-				System.out.println(1);
-			/*	map.put("center_id",Integer.parseInt(center_id));
-				map.put("attendance_code",Integer.parseInt(attendance_code));
-				map.put("lecture_register_id",Integer.parseInt(lecture_register_id));
-				map.put("open_course_id", Integer.parseInt(open_course_id));
-				map.put("attendance_date",attendance_date);*/
-				
-				
-					
-				
-			}
-			List<AttendanceMember> getstdentlist = attendanceService.getstdentlist(map);
-			req.setAttribute("getstdentlist", getstdentlist);
-			return "management.studentlist";
-		}
+	      @RequestMapping(value = "studentlist", method = RequestMethod.GET)
+	      public String stdentlist(HttpSession session,HttpServletRequest req) {
+	         AttendanceOpenCourse date = new AttendanceOpenCourse();
+	         String attendance_date = req.getParameter("attendance_date");
+	         String center_id = req.getParameter("center_id");
+	         String open_course_id = req.getParameter("open_course_id");
+	         
+	         HashMap<String, Object> map = new HashMap<String, Object>();
+	         date.setSeldate(attendance_date);
+	         
+	         map.put("center_id", center_id);
+	         map.put("open_course_id", open_course_id);
+	         map.put("attendance_date",attendance_date);
+	         
+	         req.setAttribute("date", date);
+	         
+	         req.setAttribute("open_course_id", open_course_id);
+	         String[] account_id= req.getParameterValues("account_id");
+	         if(account_id!=null){
+	            String[] attendance_code = req.getParameterValues("attendance_code");
+	            String[] lecture_register_id = req.getParameterValues("lecture_register_id");
+	            System.out.println("attendance_code : " +attendance_code);
+	            System.out.println("attendance_date : " +attendance_date);
+	            System.out.println("center_id : " + center_id);
+	            System.out.println("open_course_id :" + open_course_id);
+	            System.out.println("attendance_code : " +attendance_code);
+	            System.out.println(account_id.length);
+	            for(int i = 0; i < account_id.length; i++){
+	               
+	               System.out.println("lecture_register_id : " + lecture_register_id[i]);
+	               map.put("center_id",Integer.parseInt(center_id));
+	               map.put("attendance_code",Integer.parseInt(attendance_code[i]));
+	               map.put("lecture_register_id",Integer.parseInt(lecture_register_id[i]));
+	               map.put("open_course_id", Integer.parseInt(open_course_id));
+	               
+	               attendanceService.insertatt(map);
+	            }
+	         }
+	         List<AttendanceMember> getstdentlist = attendanceService.getstdentlist(map);
+	         req.setAttribute("getstdentlist", getstdentlist);
+	         return "management.studentlist";
+	      }
 	// 과정-과목등록-SubjectList(Basic)
 	@RequestMapping(value = "subjectRegister", method = RequestMethod.GET)
 	public String subjectRegister(Model model,HttpServletRequest request, Subject2 subject2 ) {

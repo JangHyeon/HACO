@@ -9,8 +9,6 @@ import kr.co.haco.VO.UploadFile;
 public interface HomepageDAO {
 	//파일 업로드
 	public int insertuploadFile(UploadFile uploadFile);
-	public long getTotalFileSize();
-	public long getTotalImageSize();
 	
 	//공지사항
 	public int getNoticeListCount(Notice notice);
@@ -30,4 +28,18 @@ public interface HomepageDAO {
 	public Qna getQna(int qna_id);
 	public int updateQna(Qna qna);
 	public int deleteQna(int qna_id);
+	
+	//메인페이지
+	public long getTotalFileSize();
+	public long getTotalImageSize();
+	public int getTotalMemberNumber();
+	public int getTotalStudentNumber();
+	public int getNewStudentNumber();
+	public int getNewEmployeeNumber();
+	public int getNewNoticeNumber();
+	public int getNewQnaNumber();
+	public int getBestTeacher();
+	public List<Qna> getWaitAnswerList();
+	public int getBestIncentive(int account_id);
+	
 }

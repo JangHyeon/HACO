@@ -137,31 +137,31 @@ public class HomepageController {
 		return "homepage.lectureregister";
 	}
 	//과정설명
-   @RequestMapping(value = "/lecture", method = RequestMethod.GET)
-   public String lecture(HttpSession session,HttpServletRequest req) {
-      Member member = (Member) session.getAttribute("member");
-      String opid = req.getParameter("opid");
-      HashMap<String,Object> map = new HashMap<String,Object>();
-      map.put("course_id", opid);
-      if(member!=null){
-         int account_id = member.getAccount_id();
-         System.out.println("account_id : " + account_id);
-         map.put("account_id", account_id);
-         map.put("open_course_id", opid);
-         LectureRegisterList lecturemember = lectureRegisterService.lecturemember(map);
-         Account a = accountService.getAccountToAccount_id((account_id+""));
-         req.setAttribute("lecturemember", lecturemember);
-         req.setAttribute("a", a);
-         map.put("member_check", 1); // 회원일때
-      } else {
-         map.put("member_check", 0); // 비회원일때
-      }
-      req.setAttribute("member", member);
-      Subject getCNT = lectureRegisterService.getCNT(map);
-      req.setAttribute("getCNT", getCNT);
-      return "homepage.lecture";
-   }
-   
+		@RequestMapping(value = "/lecture", method = RequestMethod.GET)
+		public String lecture(HttpSession session,HttpServletRequest req) {
+			Member member = (Member) session.getAttribute("member");
+			String opid = req.getParameter("opid");
+			HashMap<String,Object> map = new HashMap<String,Object>();
+			map.put("course_id", opid);
+			if(member!=null){
+				int account_id = member.getAccount_id();
+				System.out.println("account_id : " + account_id);
+				map.put("account_id", account_id);
+				map.put("open_course_id", opid);
+				LectureRegisterList lecturemember = lectureRegisterService.lecturemember(map);
+				Account a = accountService.getAccountToAccount_id((account_id+""));
+				req.setAttribute("lecturemember", lecturemember);
+				req.setAttribute("a", a);
+				map.put("member_check", 1); // 회원일때
+			}else {
+				map.put("member_check", 0); // 비회원일때
+			}
+			req.setAttribute("member", member);
+			Subject getCNT = lectureRegisterService.getCNT(map);
+			req.setAttribute("getCNT", getCNT);
+			return "homepage.lecture";
+		}
+		
    
    //수강신청완료 page
    @RequestMapping(value = "/lecturesuccess", method = RequestMethod.GET)
@@ -353,14 +353,14 @@ public class HomepageController {
 
 	// 질문과 답변(페이지 정보가 없는경우) 
 	@RequestMapping(value = "/qna", method = RequestMethod.GET, params="!pageNum")
-	public String qnaDefault(Model model, HttpServletRequest request, HttpSession session, Qna qna) {
-		homepageService.getQnaList(qna, session, model, request.getContextPath());
+	public String qnaDefault(Model model, HttpServletRequest request, Qna qna) {
+		homepageService.getQnaList(qna, model, request.getContextPath());
 		return "homepage.qna";
 	}
 	
 	// 질문과 답변
 	@RequestMapping(value = "/qna/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}")
-	public String qna(Model model, HttpServletRequest request, HttpSession session,
+	public String qna(Model model, HttpServletRequest request, 
 			@PathVariable String searchType,
 			@PathVariable String searchKey,
 			@PathVariable int pageSize,
@@ -375,7 +375,7 @@ public class HomepageController {
 			qna.setSearchKey("");
 		}
 		
-		homepageService.getQnaList(qna, session, model, request.getContextPath());
+		homepageService.getQnaList(qna, model, request.getContextPath());
 		return "homepage.qna";
 	}
 	
@@ -400,7 +400,7 @@ public class HomepageController {
 		}
 
 		qna.setGroup_no(qna.getQna_id());
-		homepageService.getQnaList(qna, session, model, request.getContextPath());
+		homepageService.getQnaList(qna, model, request.getContextPath());
 		
 		qna.setSearchKey(searchKey);
 		qna.setSearchType(searchType);

@@ -64,7 +64,7 @@
 										<tr>
 											<th class="divide_code">구분</th>
 											<th>제목</th>
-											<th>작성자</th>
+											<th class="writer">작성자</th>
 											<th class="writeDate">작성일</th>
 											<th class="hit">조회</th>
 										</tr>
@@ -210,7 +210,7 @@ $(document).ready(function(){
 	});
 	
 	var submit = function(){
-		if($('input[name=searchKey]').val().length==0){
+		if($.trim($('input[name=searchKey]').val()).length==0){
 			alert('검색어를 입력해주세요.');
 			$('#inputSearchKey').focus();
 		}else{

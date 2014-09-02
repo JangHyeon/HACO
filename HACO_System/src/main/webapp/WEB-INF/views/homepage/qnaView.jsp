@@ -40,7 +40,12 @@
 						<div class="readcount_text">조회수</div>
 						<div class="readcount">${qna.hit}</div>
 						<span class="txt_bar"> | </span>
-						<div class="writer">${qna.name}</div>
+						<c:if test="${qna.divide_code_toString == 'Q'}">
+							<div class="writer">${qna.name}</div>
+						</c:if>
+						<c:if test="${qna.divide_code_toString == 'A'}">
+							<div class="writer">${qna.name_kor}</div>
+						</c:if>
 						<span class="txt_bar"> | </span>
 						<div class="reg_date">
 							<fmt:formatDate value="${qna.register_date}" pattern="yy.MM.dd hh:mm:ss" />

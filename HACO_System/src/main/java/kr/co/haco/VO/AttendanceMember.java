@@ -6,6 +6,7 @@ public class AttendanceMember {
 	private int account_id;
 	private int lecture_register_id;
 	private int center_id;
+	private int attendance_code;
 	public String getName() {
 		return name;
 	}
@@ -35,6 +36,12 @@ public class AttendanceMember {
 	}
 	public void setCenter_id(int center_id) {
 		this.center_id = center_id;
+	}
+	public int getAttendance_code() {
+		return attendance_code;
+	}
+	public void setAttendance_code(int attendance_code) {
+		this.attendance_code = attendance_code;
 	}
 	
 }

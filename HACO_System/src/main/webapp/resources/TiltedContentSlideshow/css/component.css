@@ -18,6 +18,20 @@
 	color: #333;
 }
 
+
+@media (max-width: 1200px) {
+	.slides {
+		max-width:970px;
+	}
+}
+
+
+@media (max-width: 991px) {
+	.slides {
+		max-width:750px;
+	}
+}
+
 .no-js .slides {
 	height: auto;
 }
@@ -81,7 +95,7 @@
 	padding: 7em 1em 0;
 	font-size: 10pt;
 	position: relative;
-	z-index: 1000;
+	z-index: 999999000;
 	opacity: 0;
 }
 
@@ -692,7 +706,8 @@
 	font-weight: 800;
 	/* color: #77CCDD; */
 }
-.description > p > span{
+.description > p > span,
+.description > h2 > span{
 	background: #fff;
 }
 .description > p > span > Strong{

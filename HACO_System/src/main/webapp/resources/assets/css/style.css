@@ -1122,13 +1122,14 @@ PANELS CONFIGURATIONS
 .white-panel {
 	text-align: center;
 	background: #ffffff;
-	color: #ccd1d9;
+	/* color: #ccd1d9; */
+	color: #999;
 }
 
 .white-panel p {
 	margin-top: 5px;
 	font-weight: 700;
-	margin-left: 15px;
+	/* margin-left: 15px; */
 }
 .white-panel .white-header {
 	background: #f4f4f4;
@@ -2554,4 +2555,50 @@ border-color: #324A5D;
 #registerFrm > div > label {
 	font-size: 14px;
 	font-weight: bold;
+}
+
+.waitAnswer{
+	margin-top: -10px;
+}
+
+.waitAnswer > table > tbody > tr:FIRST-CHILD > td{
+	border-top: 1px;
+}
+
+.waitAnswer > table > tbody > tr > td{
+	border-top: 0px;
+	padding: 7px;
+	text-align: left;
+}
+.waitAnswer > table > tbody > tr > td > span{
+	margin-right: -10px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 175px;
+	display: block;
+}
+.waitAnswer > table > tbody > tr > td > span > a{
+	color: #999;
+}
+
+.writer{
+	min-width:70px;
+}
+
+.divide_code{
+	width: 60px;
+}
+.writeDate{
+	max-width:120px;
+}
+.hit{
+	max-width:80px;
+	min-width:40px;
+}
+
+@media (max-width: 550px) {
+	.writeDate{
+		display: none;
+	}
 }

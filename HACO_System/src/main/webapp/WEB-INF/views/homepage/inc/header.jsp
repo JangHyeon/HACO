@@ -63,7 +63,14 @@
 		  </s:authorize>
 		  <s:authorize ifAnyGranted="GUEST,STUDENT,TEACHER,MANAGER,CENTER,MASTER">
 		  	<li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="glyphicon glyphicon-user"></i> <i class="glyphicon glyphicon-chevron-down"></i></a>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            	<i class="glyphicon glyphicon-user"></i> <span>
+            	<Strong>
+            	<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">${sessionScope.employee.name_kor}님 </s:authorize>
+            	&nbsp;
+            	<s:authorize ifAnyGranted="GUEST,STUDENT">${sessionScope.member.name}님 </s:authorize></Strong></span>
+            	<i class="glyphicon glyphicon-chevron-down"></i>
+            </a>
             <ul class="dropdown-menu">
               <s:authorize ifAnyGranted="GUEST,STUDENT">
               	<li role="presentation" class="dropdown-header">MyPage</li>

@@ -19,15 +19,16 @@
 			and STR_TO_DATE(#{seldate},'%Y-%m-%d') BETWEEN course_start_date and course_end_date
 	</select>
 	<select id="getstdentlist" parameterType="hashmap" resultType="kr.co.haco.VO.AttendanceMember">
-		select b.name, b.phone, b.account_id , a.lecture_register_id ,c.center_id
-			from lecture_register a, member b, open_course c, subject d , education_center e , center_classroom f
-			where a.account_id = b.account_id
-			and c.subject_id = d.subject_id
-			and a.open_course_id = c.open_course_id
-            and c.center_id = e.center_id
-            and c.center_classroom_id = f.center_classroom_id
-			and a.open_course_id = #{open_course_id}
-			and a.lecture_register_code = '4'
+		select b.name, b.phone, b.account_id , a.lecture_register_id ,c.center_id , COALESCE(g.attendance_code,'1') as attendance_code
+			from       lecture_register a
+            inner join member           b   on a.account_id = b.account_id
+            inner join open_course      c   on a.open_course_id = c.open_course_id
+            inner join subject          d   on c.subject_id = d.subject_id
+            inner join education_center e   on c.center_id = e.center_id
+            inner join center_classroom f   on c.center_classroom_id = f.center_classroom_id
+            left  join attendance       g   on g.lecture_register_id = a.lecture_register_id and g.attendance_date = #{attendance_date}
+			where a.open_course_id = #{open_course_id}
+			and   a.lecture_register_code = '4'
 	</select>
 	<insert id="insertatt" parameterType="java.util.Map">
 		insert into attendance (lecture_register_id, attendance_code,attendance_date, center_id, open_course_id)

@@ -87,10 +87,24 @@
                           </div>
                           <div class="form-group phoneNumber">
                               <label class="col-sm-3 control-label"><i class="fa fa-check fa-lg"></i> 휴대폰번호</label>
+                              
                               <div class="col-sm-8">
-                                  <input class="form-control" type = "tel"  id="phoneNum1" name="phoneNum1" maxlength="3"><i class="fa fa-minus"></i>
-                                  <input class="form-control" type = "tel"  id="phoneNum2" name="phoneNum2" maxlength="4"><i class="fa fa-minus"></i>
-                                  <input class="form-control" type = "tel"  id="phoneNum3" name="phoneNum3" maxlength="4">
+								  <div class="btn-group">
+								    <button id="firstPhoneNumberBtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+						              <span>010 </span>
+								      <span class="caret"></span>
+								    </button>
+								    <ul id="firstPhoneNumber" class="dropdown-menu pull-right pageSize">
+								      <li value="010"><a>010</a></li>
+								      <li value="011"><a>011</a></li>
+								      <li value="016"><a>016</a></li>
+								      <li value="017"><a>017</a></li>
+								      <li value="019"><a>019</a></li>
+								    </ul>
+								  </div>
+                                  <input class="form-control onlyNumber" type="hidden"  id="phoneNum1" name="phoneNum1" maxlength="3" value="010" ><i class="fa fa-minus"></i>
+                                  <input class="form-control onlyNumber" type="tel"  id="phoneNum2" name="phoneNum2" maxlength="4"><i class="fa fa-minus"></i>
+                                  <input class="form-control onlyNumber" type="tel"  id="phoneNum3" name="phoneNum3" maxlength="4">
                               </div>
                           </div>
                           
@@ -254,7 +268,7 @@
 		
         //비밀번호 보안 강도
         var regexpVeryLow = /^.*(?=.{7,20}).*$/;
-        var regexpLow = /^.*(?=.{7,20})(?=.*[a-zA-Z]).*$/;
+        var regexpLow = /^.*(?=.{7,20})(?=.*[a-zA-Z0-9]).*$/;
         var regexpNormal = /^.*(?=.{7,20})(?=.*[a-z])(?=.*\d).*$/;
         var regexpNormal2 = /^.*(?=.{7,20})(?=.*[a-z])(?=.*[A-Z]).*$/;
         var regexpHigh = /^.*(?=.{7,20})(?=.*[a-z])(?=.*[A-Z])(?=.*\d).*$/;
@@ -290,9 +304,16 @@
             }
        });
         
+        
+       //휴대폰 앞번호
+    	$('#firstPhoneNumber>li').on('click',function(){
+    		$('#firstPhoneNumberBtn>span:first-child').text($('a',this).text());
+    		$('#phoneNum1').val($(this).attr('value'));
+    	});
+        
        //숫자만
-       $('input[type=tel]').keydown(function(){
-    	   if(((event.keyCode>=48)&&(event.keyCode<=57))
+       $('input[type=tel]').keyup(function(){
+    	   /* if(((event.keyCode>=48)&&(event.keyCode<=57))
                    ||((event.keyCode>=33)&&(event.keyCode<=40))
                    ||event.keyCode==8
                    ||event.keyCode==9
@@ -301,7 +322,9 @@
               event.returnValue=true;
          	}else{
               event.returnValue=false;
-         	}
+         	} */
+         	
+    	   $(this).removeText();
        });
        
        $('input[type=tel]').keyup(function(){
@@ -405,5 +428,82 @@
   			keyboard:false
   		   });
 		});
+	
+		(function ($) {
+		    // 숫자 제외하고 모든 문자 삭제.
+		    $.fn.removeText = function(_v){
+		        //console.log("removeText: 숫자 제거 합니다.");
+		        if (typeof(_v)==="undefined")
+		        {
+		            $(this).each(function(){
+		                this.value = this.value.replace(/[^0-9]/g,'');
+		            });
+		        }
+		        else
+		        {
+		            return _v.replace(/[^0-9]/g,'');
+		        }
+		    };
+		     
+		    // php의 number_format과 같은 효과.
+		    $.fn.numberFormat = function(_v){
+		        this.proc = function(_v){
+		            var tmp = '',
+		                number = '',
+		                cutlen = 3,
+		                comma = ','
+		                i = 0,
+		                len = _v.length,
+		                mod = (len % cutlen),
+		                k = cutlen - mod;
+		                 
+		            for (i; i < len; i++)
+		            {
+		                number = number + _v.charAt(i);
+		                if (i < len - 1)
+		                {
+		                    k++;
+		                    if ((k % cutlen) == 0)
+		                    {
+		                        number = number + comma;
+		                        k = 0;
+		                    }
+		                }
+		            }
+		            return number;
+		        };
+		         
+		        var proc = this.proc;
+		        if (typeof(_v)==="undefined")
+		        {
+		            $(this).each(function(){
+		                this.value = proc($(this).removeText(this.value));
+		            });
+		        }
+		        else
+		        {
+		            return proc(_v);
+		        }
+		    };
+		     
+		    // 위 두개의 합성.
+		    // 콤마 불필요시 numberFormat 부분을 주석처리.
+		    $.fn.onlyNumber = function (p) {
+		        $(this).each(function(i) {
+		            $(this).attr({'style':'text-align:right'});
+		             
+		            this.value = $(this).removeText(this.value);
+		            this.value = $(this).numberFormat(this.value);
+		             
+		            $(this).bind('keypress keyup',function(e){
+		                this.value = $(this).removeText(this.value);
+		                this.value = $(this).numberFormat(this.value);
+		            });
+		        });
+		    };
+		})(jQuery);
 	});
 </script>
+
+
+

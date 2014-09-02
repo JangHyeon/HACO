@@ -153,17 +153,14 @@ public class ManagementControllerJH {
 	
 	// 질문과 답변(페이지 정보가 없는경우)
 	@RequestMapping(value = "qna", method = RequestMethod.GET, params = "!pageNum")
-	public String qnaDefault(Model model, HttpServletRequest request,
-			HttpSession session, Qna qna) {
-		homepageService.getQnaList(qna, session, model,
-				request.getContextPath());
+	public String qnaDefault(Model model, HttpServletRequest request, Qna qna) {
+		homepageService.getQnaList(qna, model, request.getContextPath());
 		return "management.qna";
 	}
 
 	// 질문과 답변
 	@RequestMapping(value = "qna/pageSize/{pageSize}/pageNum/{pageNum}/searchType/{searchType}/searchKey/{searchKey}")
-	public String qna(Model model, HttpServletRequest request,
-			HttpSession session, @PathVariable String searchType,
+	public String qna(Model model, HttpServletRequest request, @PathVariable String searchType,
 			@PathVariable String searchKey, @PathVariable int pageSize,
 			@PathVariable int pageNum) {
 		Qna qna = new Qna();
@@ -176,8 +173,7 @@ public class ManagementControllerJH {
 			qna.setSearchKey("");
 		}
 
-		homepageService.getQnaList(qna, session, model,
-				request.getContextPath());
+		homepageService.getQnaList(qna, model, request.getContextPath());
 		return "management.qna";
 	}
 
@@ -199,7 +195,7 @@ public class ManagementControllerJH {
 		}
 
 		qna.setGroup_no(qna.getQna_id());
-		homepageService.getQnaList(qna, session, model, request.getContextPath());
+		homepageService.getQnaList(qna, model, request.getContextPath());
 		
 		qna.setSearchKey(searchKey);
 		qna.setSearchType(searchType);

@@ -81,7 +81,7 @@
 							<tr>
 								<th class="idx">#</th>
 								<th>제목</th>
-								<th>작성자</th>
+								<th class="writer">작성자</th>
 								<th class="writeDate">작성일</th>
 								<th class="hit">조회</th>
 							</tr>
@@ -92,7 +92,7 @@
 									<td><i class='fa fa-bullhorn'></i></td>
 									<td><a data-name="title" data-content='${fn:substring(top.content,0,100)}..' href="${pageContext.request.contextPath}/management/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${top.notice_id}">${top.title}</a></td>
 									<td>${top.name_kor}</td>
-									<td>${top.register_date_string}</td>
+									<td class="writeDate">${top.register_date_string}</td>
 									<td>${top.hit}</td>
 								</tr>
 							</c:forEach>
@@ -103,7 +103,7 @@
 									<td>${notice.notice_id}</td>
 									<td><a data-name="title" data-content='${fn:substring(notice.content,0,100)}..' href="${pageContext.request.contextPath}/management/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${notice.title}</a></td>
 									<td>${notice.name_kor}</td>
-									<td>${notice.register_date_string}</td>
+									<td class="writeDate">${notice.register_date_string}</td>
 									<td>${notice.hit}</td>
 								</tr>
 							</c:forEach>
@@ -142,7 +142,7 @@
 							
 						<!-- 검색 -->
 						<div class="col-sm-6 col-sm-offset-3" style="clear:both">
-				          <div class="input-group">
+				          <div class="input-group dropup">
 				            <div class="input-group-btn">
 				              <button id="searchType" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 				              	<c:choose>
@@ -201,7 +201,7 @@ $(document).ready(function(){
 	});
 	
 	var submit = function(){
-		if($('input[name=searchKey]').val().length==0){
+		if($.trim($('input[name=searchKey]').val()).length==0){
 			alert('검색어를 입력해주세요.');
 			$('#inputSearchKey').focus();
 		}else{

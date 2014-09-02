@@ -1,6 +1,7 @@
 package kr.co.haco.Service;
 
 import java.sql.Timestamp;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.haco.DAO.AccountDAO;
 import kr.co.haco.DAO.HomepageDAO;
 import kr.co.haco.Util.DateUtil;
 import kr.co.haco.Util.ImageJ;
@@ -180,7 +182,7 @@ public class HomepageServiceImpl implements HomepageService {
 
 			//직원공지글
 			if(DTO.getState_code()==0){
-				title ="<span class='label label-info'><i class='fa fa-exclamation-circle'></i> 직원 공지 </span>"+ title;
+				title ="<span class='label label-info'><i class='fa fa-exclamation-circle'></i> 직원 </span>"+ title;
 			}
 			
 			// 최신글
@@ -375,7 +377,7 @@ public class HomepageServiceImpl implements HomepageService {
 	}
 
 	@Override
-	public void getQnaList(Qna qna, HttpSession session, Model model, String contextPath) {
+	public void getQnaList(Qna qna, Model model, String contextPath) {
 		
 		if(qna.getSearchKey()!=null && !qna.getSearchKey().equals(""))
 			logger.info("[getQnaList] - SearchType:["+qna.getSearchType()+"] SearchKey:["+qna.getSearchKey()+"] / 검색");
@@ -611,8 +613,36 @@ public class HomepageServiceImpl implements HomepageService {
 	}
 
 	@Override
-	public Map<String,Number> getUploadFileSumFilesize() {
-		HashMap<String,Number> map = new HashMap<String, Number>();
+	public Map<String, Object> getIndexInfo() {
+		HashMap<String, Object> map = new HashMap<String,Object>();
+		//상단 인원정보
+		map.put("totalMemberNumber", sqlSession.getMapper(HomepageDAO.class).getTotalMemberNumber());
+		map.put("totalStudentNumber", sqlSession.getMapper(HomepageDAO.class).getTotalStudentNumber());
+		map.put("newStudentNumber", sqlSession.getMapper(HomepageDAO.class).getNewStudentNumber());
+		map.put("newEmployeeNumber", sqlSession.getMapper(HomepageDAO.class).getNewEmployeeNumber());
+		map.put("newNoticeNumber", sqlSession.getMapper(HomepageDAO.class).getNewNoticeNumber());
+		map.put("newQnaNumber", sqlSession.getMapper(HomepageDAO.class).getNewQnaNumber());
+		
+		//답변을 기다리는 질문
+		map.put("waitAnswerList", sqlSession.getMapper(HomepageDAO.class).getWaitAnswerList());
+		map.put("pageSize", 10);
+		map.put("pageNum", 1);
+		map.put("searchType", "title");
+		map.put("searchKey", "[noKeyword]");
+		
+		//우수강사
+		int bestTeacher_id = sqlSession.getMapper(HomepageDAO.class).getBestTeacher();
+		map.put("bestTeacher", sqlSession.getMapper(AccountDAO.class).getEmployee(String.valueOf(bestTeacher_id)));
+
+		//인센티브
+		int incentive = sqlSession.getMapper(HomepageDAO.class).getBestIncentive(bestTeacher_id);
+		
+		NumberFormat nf = NumberFormat.getNumberInstance();
+		map.put("bestIncentive",nf.format(incentive/100));
+		
+		map.put("bestIncentiveStack",nf.format(incentive/200*3));
+		
+		//사용량 차트
 		map.put("totalFileSize", sqlSession.getMapper(HomepageDAO.class).getTotalFileSize());
 		map.put("totalImageSize", sqlSession.getMapper(HomepageDAO.class).getTotalImageSize());
 		return map;

@@ -3,7 +3,6 @@
 @import url(http://ts.daumcdn.net/custom/blog/0/606/skin/images/nanumgothic.css);
 @import url(http://fonts.googleapis.com/css?family=Ruda:400,700,900);
 
-
 /* bootstrap 3 helpers */
 .navbar-form input, .form-inline input {
 	width:auto;
@@ -627,6 +626,7 @@ margin: 3px 3px 3px 4px;
 }
 .hit{
 	max-width:80px;
+	min-width:40px;
 }
 a.lock{
 	cursor: not-allowed;
@@ -724,6 +724,7 @@ font: normal 10px/10px dotum;
 	/* max-width: 100%; */
 }
 
+tbody > tr> td> span > a ,
 tbody > tr> td> a {
 	color: #595959;
 }
@@ -775,6 +776,47 @@ tbody > tr > td > a > span > .fa-question{
 	text-overflow: ellipsis;
 }
 
+.table.index-notice > tbody > tr > td > span{
+	margin-right: -10px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 330px;
+	display: inline-block;
+}
+
+@media (max-width: 1200px) {
+	.table.index-notice > tbody > tr > td > span{
+		width: 270px;
+	}
+}
+
+@media (max-width: 992px) {
+	.table.index-notice > tbody > tr > td > span{
+		width: 670px
+	}
+}
+
+@media (max-width: 670px) {
+	.table.index-notice > tbody > tr > td > span{
+		width: 500px;
+	}
+}
+
+@media (max-width: 560px) {
+	.table.index-notice > tbody > tr > td > span{
+		width: 400px;
+	}
+}
+
+
+
+
+.writer{
+	min-width:70px;
+}
+
+
 .notice-content{
 	padding: 1px 0px;
 }
@@ -797,4 +839,8 @@ tbody > tr > td > a > span > .fa-question{
 
 .panel-heading > span > a {
 	color : #fff;
+}
+
+span.label-info{
+	margin-right: 5px;
 }
