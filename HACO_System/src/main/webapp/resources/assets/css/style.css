@@ -822,10 +822,11 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 
 .ds .desc {
 	border-bottom: 1px solid #eaeaea;
-	display: inline-block;
+	display: inline-table;
 	padding: 15px 0;
 	width: 100%;
 }
+
 
 .ds .desc:hover {
 	background: #f2f2f2;
@@ -2622,4 +2623,56 @@ border-color: #324A5D;
 clear: both;
 float: left;
 width: 100%;
+}
+
+a.NOTIFICATIONS-title{
+	color: #444;	
+}
+
+.newEmployeePhoto{
+	display: block;
+	float: left;
+	position: absolute;
+	margin: 0 5px 0 15px;
+	width: 45px;
+	height: 45px;
+	overflow: hidden;
+	border-radius: 50%;
+}
+.newEmployeePhoto-img{
+	top: -5px;
+	position: relative;
+}
+
+.newEmployeePhoto + .details {
+	padding-left: 67px;
+	min-height: 45px; 
+}
+
+input[data-registration="true"]{
+	text-align: center;
+	width:80px;
+	display: inline-block;
+}
+
+.newEmployeePhoto + .details > p{
+	margin: 0;
+}
+.form-group .fa {
+font-size: 0.7em;
+vertical-align: 10%;
+}
+.form-group > input[type=tel]{
+	width:55px;
+}
+.fa-minus {
+margin: 5px 2px 5px 5px;
+}
+
+/* td.form-group > input[type=text]{
+	width:80%;
+} */
+
+.topSelect{
+	margin: 20px 10px;
 }

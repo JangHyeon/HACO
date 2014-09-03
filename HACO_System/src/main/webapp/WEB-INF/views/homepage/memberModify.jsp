@@ -166,6 +166,7 @@
 <script	src="${resourceUrl}/gazONojfL3/js/scripts.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
 <script src="${resourceUrl}/Remodal/jquery.remodal.min.js"></script>
+<script type="text/javascript" src="${resourceUrl}/js/jquery.alphanum.js"></script>
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 
@@ -185,6 +186,8 @@
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
 	$(document).ready(function(){
+	    $("input[type=tel]").numeric();
+		
 		$('#password').focus();
 		
 		// 페이지 이탈시 작동
@@ -275,7 +278,7 @@
        });
         
        //숫자만
-       $('input[type=tel]').keydown(function(){
+       /* $('input[type=tel]').keydown(function(){
     	   if(((event.keyCode>=48)&&(event.keyCode<=57))
                    ||((event.keyCode>=33)&&(event.keyCode<=40))
                    ||event.keyCode==8
@@ -286,7 +289,7 @@
          	}else{
               event.returnValue=false;
          	}
-       });
+       }); */
        
        $('input[type=tel]').keyup(function(){
     	  if($(this).val().length >= $(this).attr('maxlength')){

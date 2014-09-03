@@ -133,6 +133,7 @@ public class HomepageController {
 		map.put("today", today);
 		String proid = req.getParameter("proid");
 		map.put("proid", proid);
+		map.put("limit", 0);
 		List<OpenCourseList> getopencourselist = lectureRegisterService.getopencourselist(map);
 		req.setAttribute("getopencourselist", getopencourselist);
 		

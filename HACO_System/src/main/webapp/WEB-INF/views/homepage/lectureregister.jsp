@@ -81,21 +81,21 @@
                 		<table class="table table-hover">
 							<thead>
 								<tr>
-									<th width="50">center</th>
+									<th style="min-width:80px">center</th>
 									<th width="270">제목</th>
-									<th width="60">강사명</th>
+									<th width="60">강사명</th>	
 									<th width="240">기간</th>
-									<th width="80">현재인원 / 정원</th>
+									<th width="80">모집인원</th>
 								</tr>
                               </thead>
                               <tbody>
                		
 				
 						<c:forEach var="b" items="${getopencourselist}">
-							<tr>
+							<tr onclick="course_sel('${b.open_course_id}')" style="cursor:pointer">
 								<td>${b.location}</td>
-								<td onclick="course_sel('${b.open_course_id}')">${b.course_name} ${b.subject_name}</td>
-								<td onclick="teacher_sel('${b.account_id}')">${b.name_kor}</td>
+								<td>${b.course_name} ${b.subject_name}</td>
+								<td>${b.name_kor}</td>
 								<td>${b.course_start_date} ~ ${b.course_end_date}</td>
 								<td>${b.CNT} /	${b.capacity }</td>
 							</tr>

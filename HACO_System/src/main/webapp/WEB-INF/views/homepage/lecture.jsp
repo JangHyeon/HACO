@@ -10,7 +10,7 @@
 <spring:url value="/static-{applicationVersion}" var="resourceUrl">
 	<spring:param name="applicationVersion" value="${applicationVersion}" />
 </spring:url>
-<%@ include file="inc/curriculum explanation.jsp" %>
+<%@ include file="inc/curriculum.jsp" %>
 
 <!-- Begin Body -->
 <form id="lecturesuccess" name="lecturesuccess" action="lecturesuccess" method="get">
@@ -21,7 +21,7 @@
 		<div class="col-md-12" id="content">
 			<div class="panel">
 				<ol class="breadcrumb">
-				  <li class="active">교육과정</li>
+				  <li class="active">과정설명</li>
 				</ol>
 				
 				<!-- Main Content -->
@@ -62,13 +62,14 @@
 							</tr>
 							<tr>
 								<th align="center">과정개요</th>
-										<td align="center">${getCNT.lecture_content}<input type="hidden" name="lecture_content" value="${getCNT.lecture_content }"/></td>
+								<td align="center">
+									${getCNT.lecture_content}<input type="hidden" name="lecture_content" value="${getCNT.lecture_content }"/>
+								</td>
 							</tr>
-							
-							<tr>
-								<td align="center" colspan="2"><input type="button" name="failed" value="수강신청" onclick="course_write('${getCNT.open_course_id}')"></td>
-							</tr>
-						</table>	      
+						</table>	 
+						<div class="btn-group submitBtn">
+							<button id="submitBtn" class="btn btn-large btn-block btn-success joinbtn" type="button">수강신청</button>
+						</div>     
                   	</div>
 					
 					<hr style="display:block;clear:both;">
@@ -87,34 +88,6 @@
 			<input type="hidden" name="state_code" id="state_code" value="${a.state_code}"/>
 			<input type="hidden" name="account_id" id="account_id" value="${member.account_id}"/>
 			<input type="hidden" name="id" id="id" value="${lecturemember.account_id}"/>
-<script type="text/javascript">
-	function course_write(opid){
-		var capacity = document.lecturesuccess.capacity.value;
-		var CNT = document.lecturesuccess.CNT.value;
-		var account_id = document.lecturesuccess.account_id.value;
-		var state_code = document.lecturesuccess.state_code.value;
-		if(account_id==""){
-				$('#empty').modal('show'); 
-		}
-		else if(account_id!=null){
-			var id = document.lecturesuccess.id.value;
-			if(account_id == id){
-					$('#fail').modal('show');
-			} else if(state_code == 0){
-				$(document).ready(function(){
-					$('#mail').modal('show');
-					});
-			} else if(parseInt(CNT)>=parseInt(capacity)){
-					$('#over').modal('show');
-			} else if(parseInt(capacity)>parseInt(CNT)){
-					document.lecturesuccess.opid.value =opid;
-					document.lecturesuccess.account_id.value;
-					document.lecturesuccess.submit();
-			}
-		}
-}
-
-</script>			
 </form>
 
 <!-- idModal2 -->
@@ -189,3 +162,37 @@
 <!-- script references -->
 <script	src="${resourceUrl}/gazONojfL3/js/jquery.1.9.1.min.js"></script>
 <script	src="${resourceUrl}/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>
+<script type="text/javascript">
+
+	function course_write(opid){
+		var capacity = document.lecturesuccess.capacity.value;
+		var CNT = document.lecturesuccess.CNT.value;
+		var account_id = document.lecturesuccess.account_id.value;
+		var state_code = document.lecturesuccess.state_code.value;
+		if(account_id==""){
+				$('#empty').modal('show'); 
+		}
+		else if(account_id!=null){
+			var id = document.lecturesuccess.id.value;
+			if(account_id == id){
+					$('#fail').modal('show');
+			} else if(state_code == 0){
+				$(document).ready(function(){
+					$('#mail').modal('show');
+					});
+			} else if(parseInt(CNT)>=parseInt(capacity)){
+					$('#over').modal('show');
+			} else if(parseInt(capacity)>parseInt(CNT)){
+					document.lecturesuccess.opid.value =opid;
+					document.lecturesuccess.account_id.value;
+					document.lecturesuccess.submit();
+			}
+		}
+
+	}	
+
+	$('#submitBtn').click(function(){
+		course_write('${getCNT.open_course_id}')
+	});
+
+</script>	

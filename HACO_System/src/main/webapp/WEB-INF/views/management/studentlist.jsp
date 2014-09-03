@@ -104,16 +104,16 @@
                       <div class="content-panel">
                       	<input type="hidden" name="open_course_id" value="${open_course_id}"/>
                           <table class="table table-striped table-advance table-hover">
-	                  	  	  <h4><i class="fa fa-angle-right"></i>원생목록</h4>
+	                  	  	  <h4><i class="fa fa-angle-right"></i>수강생목록</h4>
 	                  	  	  <hr>
                               <thead>
                               <tr>
-                                  <th><i class="fa fa-bullhorn"></i>이름</th>
-                                  <th class="hidden-phone"><i class="fa fa-question-circle"></i>전화번호</th>
-                                  <th><i class="fa fa-bookmark"></i>출석</th>
-                                  <th><i class="fa fa-bookmark"></i>지각</th>
-                                  <th><i class="fa fa-bookmark"></i>조퇴</th>
-                                  <th><i class="fa fa-bookmark"></i>결석</th>
+                                  <th>이름</th>
+                                  <th>전화번호</th>
+                                  <th>출석</th>
+                                  <th>지각</th>
+                                  <th>조퇴</th>
+                                  <th>결석</th>
                               </tr>
                               </thead>
                               <tbody>
@@ -121,7 +121,6 @@
 								<tr>
 									<td>${b.name}</td>
 									<td>${b.phone}</td>
-									<s:authorize ifAnyGranted="MASTER,CENTER,MANAGER">
                                     <td>
                                     	<input name="attendance_date" type="hidden" value="${date.seldate}"/>
                                     	<input name="account_id" type="hidden" value="${b.account_id}"/>
@@ -131,41 +130,40 @@
                                     	
                                       	<button id='check_a' name='check_a' style="width:24px;height:22px;"
                                       			type="button" onclick="check_click(this, ${b.account_id})"
-                                      			value="1" class="btn btn-success btn-xs">
+                                      			value="1" class="btn btn-default btn-xs<s:authorize ifAnyGranted="TEACHER"> disabled</s:authorize>">
                                       			<c:if test="${b.attendance_code=='1'}"><i class="fa fa-check"></i></c:if>
                                       	</button>
                                     </td>
                                     <td>
                                      	<button id='check_b' name='check_b' style="width:24px;height:22px;"
                                      			type="button" onclick="check_click(this, ${b.account_id})" 
-                                     			value="2" class="btn btn-success btn-xs">
+                                     			value="2" class="btn btn-info btn-xs<s:authorize ifAnyGranted="TEACHER"> disabled</s:authorize>">
                                      			<c:if test="${b.attendance_code=='2'}"><i class="fa fa-check"></i></c:if>
                                      	</button>
                                     </td>
                                     <td>
                                       	<button id='check_c' name='check_c' style="width:24px;height:22px;" 
                                       			type="button" onclick="check_click(this, ${b.account_id})" 
-                                      			value="3" class="btn btn-success btn-xs">
+                                      			value="3" class="btn btn-warning btn-xs<s:authorize ifAnyGranted="TEACHER"> disabled</s:authorize>">
                                       			<c:if test="${b.attendance_code=='3'}"><i class="fa fa-check"></i></c:if>
                                       	</button>
                                    	</td>
                                     <td>
                                    	  	<button id='check_d' name='check_d' style="width:24px;height:22px;" 
                                    	  			type="button" onclick="check_click(this, ${b.account_id})" 
-                                   	  			value="4" class="btn btn-success btn-xs">
+                                   	  			value="4" class="btn btn-success btn-xs<s:authorize ifAnyGranted="TEACHER"> disabled</s:authorize>">
                                    	  			<c:if test="${b.attendance_code=='4'}"><i class="fa fa-check"></i></c:if>
                                    	  	</button>
                                    	</td>
-                                   
-                                    </s:authorize>
-                                    <td></td>
                              	</tr>
                              	</c:forEach>
                               </tbody>
-                              <tr>
-                              	<td colspan="4" align="right"><input id="ii" type="submit" value="확인"/></td>
-                              </tr>
                           </table>
+                          <s:authorize ifAnyGranted="MASTER,CENTER,MANAGER">
+                          <div class="btn-group submitBtn">
+							<button id="submitBtn" class="btn btn-large btn-block btn-success joinbtn" type="button">출석 갱신하기</button>
+						  </div>
+						  </s:authorize>
                       </div><!-- /content-panel -->
                   </div><!-- /col-md-12 -->
               </div><!-- /row -->
@@ -179,4 +177,10 @@
 <!-- inclue common script -->
 <%@ include file="commonScript.jsp"%>
 
-
+<script>
+	$(document).ready(function(){
+		$('#submitBtn').click(function(){
+			$('#insertatt').submit();
+		});
+	});
+</script>

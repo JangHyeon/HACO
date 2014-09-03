@@ -674,6 +674,7 @@ public class HomepageServiceImpl implements HomepageService {
 		map.put("newEmployeeNoticeList", sqlSession.getMapper(HomepageDAO.class).getEmployeeNoticeList(notice));
 		
 		//신규 직원 5명
+		map.put("newEmployeeList", sqlSession.getMapper(HomepageDAO.class).getNewEmployeeList());
 		
 		return map;
 	}

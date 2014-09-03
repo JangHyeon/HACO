@@ -63,7 +63,7 @@
                                     <!-- 부트 스트랩 적용 input버튼 -->
                                     <!-- The fileinput-button span is used to style the file input field as button -->
                                     <span class="btn btn-success fileinput-button"> <i
-                                       class="glyphicon glyphicon-plus"></i> <span>사진 선택</span> <!-- The file input field used as target for the file upload widget -->
+                                       class="glyphicon glyphicon-plus"></i> <span>사진 선택</span><!-- The file input field used as target for the file upload widget -->
                                        <input id="photoUpFile" type="file" name="file" multiple />
                                     </span>
                                     <!-- 업로드 프로그래스바 -->
@@ -111,28 +111,29 @@
                            </tr>
                            <tr>
                               <td><b>실 거주지</b></td>
-                              <td><input type="text" 
+                              <td class="form-group"><input type="text" class="form-control"
                                  name="address_real" id="address_real" value="${emp.address_real}" maxlength="49" class="onlyAlphanum"></td>
                               <td><b>주민등록 상 주소</b></td>
-                              <td><input type="text" name="address_registered" id="address_registered" value="${emp.address_registered}"
+                              <td class="form-group"><input type="text" class="form-control" name="address_registered" id="address_registered" value="${emp.address_registered}"
                                  maxlength="49" class="onlyAlphanum"></td>
                            </tr>
                            <tr>
                               <td><b>핸드폰 번호</b></td>
-                              <td><input type="text" style="width:40px" name="phone_cell1" id="phone_cell1" value="${emp.phone_cell1}" maxlength="3" class="onlyNumber">-
-                                 <input type="text" style="width:40px" name="phone_cell2" id="phone_cell2" value="${emp.phone_cell2}" maxlength="4" class="onlyNumber">-
-                                 <input type="text" style="width:40px" name="phone_cell3" id="phone_cell3" value="${emp.phone_cell3}" maxlength="4" class="onlyNumber">
+                              <td class="form-group">
+                              	 <input type="tel" data-registration="true" class="form-control" maxlength="3" name="phone_cell1" id="phone_cell1" value="${emp.phone_cell1}" maxlength="3"><i class="fa fa-minus"></i>
+                                 <input type="tel" data-registration="true" class="form-control" maxlength="4" name="phone_cell2" id="phone_cell2" value="${emp.phone_cell2}" maxlength="4"><i class="fa fa-minus"></i>
+                                 <input type="tel" data-registration="true" class="form-control" maxlength="4" name="phone_cell3" id="phone_cell3" value="${emp.phone_cell3}" maxlength="4">
                               </td>
                               <td><b>집전화 번호</b></td>
-                              <td>
-                                 <input type="text" style="width:40px" name="phone_home1" id="phone_home1" value="${emp.phone_home1}" maxlength="3" class="onlyNumber">-
-                                 <input type="text" style="width:40px" name="phone_home2" id="phone_home2" value="${emp.phone_home2}" maxlength="4" class="onlyNumber">-
-                                 <input type="text" style="width:40px" name="phone_home3" id="phone_home3" value="${emp.phone_home3}" maxlength="4" class="onlyNumber">
+                              <td class="form-group">
+                                 <input type="tel" data-registration="true" class="form-control" maxlength="3" name="phone_home1" id="phone_home1" value="${emp.phone_home1}" maxlength="3"><i class="fa fa-minus"></i>
+                                 <input type="tel" data-registration="true" class="form-control" maxlength="4" name="phone_home2" id="phone_home2" value="${emp.phone_home2}" maxlength="4" ><i class="fa fa-minus"></i>
+                                 <input type="tel" data-registration="true" class="form-control" maxlength="4" name="phone_home3" id="phone_home3" value="${emp.phone_home3}" maxlength="4" >
                               </td>                              
                            </tr>
                            <tr>
                               <td><b>이메일</b></td>
-                              <td><input type="text" name="email" id="email" value="${emp.email}" maxlength="50"></td>
+                              <td class="form-group"><input type="text" class="form-control" name="email" id="email" value="${emp.email}" maxlength="50"></td>
                               <td><b>입사일</b></td>
                               <td>${emp.join_date}</td>
                            </tr>
@@ -145,15 +146,15 @@
                         <table class="table">
                            <tr>
                               <td><b>은행</b></td>
-                              <td><input type="text" name="bank" id="bank" value="${emp.bank}" maxlength="24" class="onlyAlphanum"></td>
+                              <td class="form-group"><input type="text" class="form-control" name="bank" id="bank" value="${emp.bank}" maxlength="24" class="onlyAlphanum"></td>
                               <td><b>계좌 번호</b></td>
-                              <td><input type="text" name="bank_account" id="bank_account" value="${emp.bank_account}" maxlength="20" class="onlyNumber"></td>
+                              <td class="form-group"><input type="text" class="form-control" name="bank_account" id="bank_account" value="${emp.bank_account}" maxlength="20" class="onlyNumber"></td>
                            </tr>
                            <tr>
                               <td><b>급여</b></td>
                               <td>${emp.salary}원</td>
                               <td><b>예금주</b></td>
-                              <td><input type="text" name="account_owner" id="account_owner" value="${emp.account_owner}" maxlength="5" class="onlyAlphanum"></td>
+                              <td class="form-group"><input type="text" class="form-control" name="account_owner" id="account_owner" value="${emp.account_owner}" maxlength="5" class="onlyAlphanum"></td>
                            </tr>
                         </table>
                      </div>
@@ -214,6 +215,27 @@ $(document).ready(function(){
         }
     });
 
+    //휴대폰 앞번호
+	$('#firstPhoneNumber>li').on('click',function(){
+		$('#firstPhoneNumberBtn>span:first-child').text($('a',this).text());
+		$('#phoneNum1').val($(this).attr('value'));
+	});
+    
+   //숫자만
+   $('input[type=tel]').keyup(function(){
+	   $(this).numeric();
+   });
+   
+   $('input[data-registration="true"]').keyup(function(){
+ 	  if($(this).val().length >= $(this).attr('maxlength')){
+ 		//다음칸으로 focus를 옮긴다.
+ 		//next()는 다음 노드를 구하는데,다음 노드가 span임으로 한번더 next시킨다.
+ 		$(this).next().next().focus();
+ 	  }else if($(this).val().length ==0 && event.keyCode==8){
+ 		$(this).prev().prev().focus();
+ 	  }
+    });
+   
     
     
    //submit, 유효성 검사
@@ -297,6 +319,79 @@ $(document).ready(function(){
         
         });
    });
+   (function ($) {
+	    // 숫자 제외하고 모든 문자 삭제.
+	    $.fn.removeText = function(_v){
+	        //console.log("removeText: 숫자 제거 합니다.");
+	        if (typeof(_v)==="undefined")
+	        {
+	            $(this).each(function(){
+	                this.value = this.value.replace(/[^0-9]/g,'');
+	            });
+	        }
+	        else
+	        {
+	            return _v.replace(/[^0-9]/g,'');
+	        }
+	    };
+	     
+	    // php의 number_format과 같은 효과.
+	    $.fn.numberFormat = function(_v){
+	        this.proc = function(_v){
+	            var tmp = '',
+	                number = '',
+	                cutlen = 3,
+	                comma = ','
+	                i = 0,
+	                len = _v.length,
+	                mod = (len % cutlen),
+	                k = cutlen - mod;
+	                 
+	            for (i; i < len; i++)
+	            {
+	                number = number + _v.charAt(i);
+	                if (i < len - 1)
+	                {
+	                    k++;
+	                    if ((k % cutlen) == 0)
+	                    {
+	                        number = number + comma;
+	                        k = 0;
+	                    }
+	                }
+	            }
+	            return number;
+	        };
+	         
+	        var proc = this.proc;
+	        if (typeof(_v)==="undefined")
+	        {
+	            $(this).each(function(){
+	                this.value = proc($(this).removeText(this.value));
+	            });
+	        }
+	        else
+	        {
+	            return proc(_v);
+	        }
+	    };
+	     
+	    // 위 두개의 합성.
+	    // 콤마 불필요시 numberFormat 부분을 주석처리.
+	    $.fn.onlyNumber = function (p) {
+	        $(this).each(function(i) {
+	            $(this).attr({'style':'text-align:right'});
+	             
+	            this.value = $(this).removeText(this.value);
+	            this.value = $(this).numberFormat(this.value);
+	             
+	            $(this).bind('keypress keyup',function(e){
+	                this.value = $(this).removeText(this.value);
+	                this.value = $(this).numberFormat(this.value);
+	            });
+	        });
+	    };
+	})(jQuery);
 });   
 </script>
 

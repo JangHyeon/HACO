@@ -349,7 +349,7 @@
 	<!-- 최신 직원 공지사항 -->
 	<select id="getEmployeeNoticeList" resultType="kr.co.haco.VO.Notice" parameterType="kr.co.haco.VO.Notice" >
 		select 
-		notice_id,n.account_id as account_id,name_kor,name_eng,title,content,state_code,hit,center_id,now()-register_date as register_date_string 
+		notice_id,n.account_id as account_id,name_kor,name_eng,title,content,state_code,hit,center_id,to_days(now())-to_days(register_date) as register_date_string 
 		from notice as n 
 		join employee as e 
 		on n.account_id = e.account_id
@@ -364,5 +364,16 @@
 		</where>
 		order by notice_id desc 
 		limit ${startNum},${pageSize}
+	</select>
+	
+	<!-- 신규 직원 -->
+	<select id="getNewEmployeeList" resultType="kr.co.haco.VO.EmployeeList" >
+		SELECT e.account_id, photo, e.name_kor,e.name_eng,e.phone_cell,e.email,e.join_date, ec2.location AS join_center_name
+		FROM employee e
+			 INNER JOIN education_center ec
+			 ON e.now_center_id = ec.center_id
+			 INNER JOIN education_center ec2
+			 ON e.join_center_id = ec2.center_id
+        order by e.join_date desc limit 5
 	</select>
 </mapper>

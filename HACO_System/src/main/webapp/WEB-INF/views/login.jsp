@@ -230,7 +230,12 @@
     <!--BACKSTRETCH-->
     <!-- You can use an image of whatever size. This script will stretch to fit in any screen size.-->
     <script type="text/javascript" src="${resourceUrl}/assets/js/jquery.backstretch.min.js"></script>
+    <script type="text/javascript" src="${resourceUrl}/js/jquery.alphanum.js"></script>
+    
     <script>
+    	$("input[name=id]").alphanum();	
+    
+    
     	$src = "${resourceUrl}/assets/img/login-bg.jpg";
         $.backstretch($src, {speed: 800});
         
