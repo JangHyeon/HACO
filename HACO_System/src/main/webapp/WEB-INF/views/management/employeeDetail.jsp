@@ -46,7 +46,8 @@
 						<div class="cover">
 							<!-- 직원사진 -->
 							<div id="img-preview">
-								<i id="loadingIcon" class="fa fa-spinner fa-spin fa-5x"></i> <img
+								<i id="loadingIcon" class="fa fa-spinner fa-spin fa-5x"></i> 
+								<img
 									class="photo"
 									src="${pageContext.request.contextPath}/employeePhoto/${emp.photo}"
 									onerror="this.src='${pageContext.request.contextPath}/images/User-Role-Guest-icon.png'">
@@ -133,14 +134,5 @@
 <script type="text/javascript"
 	src="${resourceUrl}/js/jquery.fileupload.js"></script>
 <script type="text/javascript" src="${resourceUrl}/js/upload.js"></script>
-<script type="application/javascript">
-	
-	
-	
-
-
-
-
-</script>
 
 

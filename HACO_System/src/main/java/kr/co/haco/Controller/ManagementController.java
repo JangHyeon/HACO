@@ -16,6 +16,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import kr.co.haco.DAO.EmployeeDAO;
+import kr.co.haco.DAO.HomepageDAO;
 import kr.co.haco.Service.AccountService;
 import kr.co.haco.Service.AttendanceService;
 import kr.co.haco.Service.CourseService;
@@ -33,13 +35,17 @@ import kr.co.haco.VO.EmployeeList;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
+import kr.co.haco.VO.EvaluationRegisterForm;
 import kr.co.haco.VO.LectureRegisterList;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
+import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
 import kr.co.haco.VO.getCourseList;
+
+import org.apache.ibatis.session.SqlSession;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,51 +57,51 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Controller
 @RequestMapping(value = "management/")
 public class ManagementController {
 	@Autowired
+	SqlSession sqlSession;
+	@Autowired
 	AccountService accountService;
-
 	@Autowired
 	AttendanceService attendanceService;
 	@Autowired
 	EmployeeService employeeService; 
 	@Autowired
 	MemberService memberService;
-	
 	@Autowired
 	LectureRegisterService lectureregisterService;
 	@Autowired
 	EvaluationRegisterService evaluationRegisterService; 	
-
-
 	@Autowired
 	SubjectService subjectService;
-
 	@Autowired
 	HomepageService homepageService;
 
 	@Autowired
 	CourseService courseService;
-	// ////직원 관리//////////////////
-	// 직원추가
-	@RequestMapping(value = "employeeRegister", method = RequestMethod.GET)
-	public String employeeManagement(Model model){
-		List<EducationCenter> eduList = employeeService.getEduCenterList();
-		model.addAttribute("eduCenterList", eduList);
-		return "management.employeeRegister";
-	}
-	@RequestMapping(value = "employeeRegister", method = RequestMethod.POST)
-	public String employeeManagementAdd(Employee employee){		
-
-		System.out.println("employ.photo:"+employee.getPhoto());
-		//System.out.println("employee.getJoin_center_id():"+employee.getJoin_center_id());
-		employeeService.addEmployee(employee);
-		return "management.index";
-	}
+	//////직원 관리//////////////////
+   // 직원추가
+   @RequestMapping(value = "employeeRegister", method = RequestMethod.GET)
+   public String employeeManagement(Model model){
+      List<EducationCenter> eduList = employeeService.getEduCenterList();
+      model.addAttribute("eduCenterList", eduList);
+      return "management.employeeRegister";
+   }
+   @RequestMapping(value = "employeeRegister", method = RequestMethod.POST)
+   public String employeeManagementAdd(Employee employee,RedirectAttributes redirectAttributes){   
+      HashMap<String, Integer> resultMap =  employeeService.addEmployee(employee);
+      int result = resultMap.get("result");
+      int account_id = resultMap.get("account_id");
+            
+      redirectAttributes.addAttribute("result",result);
+      redirectAttributes.addAttribute("user_id",account_id);
+      return "redirect:index";
+   }
 	 
 
 
@@ -236,36 +242,63 @@ public class ManagementController {
 		return "management.lectureRegister";
 	}
 	//수강신청완료page
-		@RequestMapping(value = "lectureRegisterComplete", method = RequestMethod.GET)
-		public String lectureRegisterComplete(HttpSession session, HttpServletRequest req) {	
-			Employee eply = (Employee) session.getAttribute("employee");
-			Calendar c = Calendar.getInstance();
-			String month = ""+(c.get(Calendar.MONTH)+1);
-			if(month.length()==1) {month= "0" +month;};
-			String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE));
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put("center_id", eply.getNow_center_id());
-			map.put("today", today);
-			List<LectureRegisterList> getlecturecomplete = lectureregisterService.getlecturecomplete(map);
-			req.setAttribute("getlecturecomplete", getlecturecomplete);
-			return "management.lectureRegisterComplete";
-		}
-	//평가 등록, 평가 결과 리스트
-	@RequestMapping(value = {"evaluationRegisterList", "evaluationResultList"}, method=RequestMethod.GET)
-	public String evaluationRegister(Model model,HttpServletRequest request){
-		//평가등록 리스트: isResult=0, 평가결과 리스트:isResult=1 구분 
-		int isResult=0;
-		String myuri = request.getRequestURI();
-			System.out.println("myurl:"+myuri);				
-		String uri = myuri.substring(myuri.lastIndexOf("/")+1);
-			System.out.println("uri:"+uri);
-		if(uri.equals("evaluationResultList")){
-			isResult =1;
-		}
-		model.addAttribute("uri", uri);
-		model.addAttribute("evalRegList",evaluationRegisterService.getEvaluationRegistList(isResult));
-		return "management.evaluationRegisterList";		
-	}	
+	@RequestMapping(value = "lectureRegisterComplete", method = RequestMethod.GET)
+	public String lectureRegisterComplete(HttpSession session, HttpServletRequest req) {	
+		Employee eply = (Employee) session.getAttribute("employee");
+		Calendar c = Calendar.getInstance();
+		String month = ""+(c.get(Calendar.MONTH)+1);
+		if(month.length()==1) {month= "0" +month;};
+		String today = c.get(Calendar.YEAR) +"-" + month +"-"+(c.get(Calendar.DATE));
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("center_id", eply.getNow_center_id());
+		map.put("today", today);
+		List<LectureRegisterList> getlecturecomplete = lectureregisterService.getlecturecomplete(map);
+		req.setAttribute("getlecturecomplete", getlecturecomplete);
+		return "management.lectureRegisterComplete";
+	}
+	
+	
+	//평가 등록, 평가 결과 리스트 - 페이지가 없는 경우
+	   @RequestMapping(value = {"evaluationRegisterList", "evaluationResultList"}, method=RequestMethod.GET)
+	   public String evaluationRegister(Model model,HttpServletRequest request){
+	      //평가등록 리스트: isResult=0, 평가결과 리스트:isResult=1 구분 
+	      int isResult=0;
+	      String myuri = request.getRequestURI();
+	         System.out.println("myurl:"+myuri);            
+	      String uri = myuri.substring(myuri.lastIndexOf("/")+1);
+	         System.out.println("uri:"+uri);
+	      if(uri.equals("evaluationResultList")){
+	         isResult =1;
+	      }
+	      
+	      evaluationRegisterService.getEvaluationRegistList(isResult,10,1,model);
+	      model.addAttribute("uri", uri);
+	      return "management.evaluationRegisterList";      
+	   }
+	   
+	   //평가 등록, 평가 결과 리스트 - 페이지가 있는 경우
+	   @RequestMapping(value = {"evaluationRegisterList/pageSize/{pageSize}/pageNum/{pageNum}",
+	                      "evaluationResultList/pageSize/{pageSize}/pageNum/{pageNum}"} 
+	                     ,method=RequestMethod.GET)
+	   public String notice(Model model, HttpServletRequest request,
+	         HttpSession session, 
+	         @PathVariable int pageSize,
+	         @PathVariable int pageNum) {
+	      
+	      //평가등록 리스트: isResult=0, 평가결과 리스트:isResult=1 구분 
+	      int isResult=0;
+	      String myuri = request.getRequestURI();
+	         System.out.println("myurl:"+myuri);   
+	      String uri = myuri.substring(17,myuri.indexOf("/",17));
+	         System.out.println("uri:"+uri);
+	      if(uri.equals("evaluationResultList")){
+	         isResult =1;
+	      }      
+	      
+	      evaluationRegisterService.getEvaluationRegistList(isResult,pageSize,pageNum,model);
+	      model.addAttribute("uri", uri);
+	      return "management.evaluationRegisterList";
+	   }
 	
 	//평가 등록 폼
 	@RequestMapping(value="evaluationRegisterform" , method=RequestMethod.GET)
@@ -416,13 +449,7 @@ public class ManagementController {
 		
 		
 		return sendEvalResultListofList;
-	}	
-	//차트 샘플
-	@RequestMapping(value="evaluationResultList_sample" , method=RequestMethod.GET)
-	public String chartSample(){
-		return "management.evaluationResult_sample";
 	}
-	
 	
 	/*//수강신청허가
 	@RequestMapping(value = "updatest", method = RequestMethod.GET)
@@ -491,43 +518,77 @@ public class ManagementController {
 
 	
 	
+///////원생////////////////
+ //사이트 회원 - 페이징 처리 없는 것
+ @RequestMapping(value ="memberOfSiteList",method = RequestMethod.GET)    //, params="!pageSize"
+ public String getSiteMember(Model model){         
+    memberService.getMemberOfSiteList(model,10,1);   
+    return "management.memberOfSiteList";
+ }
+ //사이트 회원 - 페이징 처리
+ @RequestMapping(value ="memberOfSiteList/{pageSize}/{pageNum}",method = RequestMethod.GET)   
+ public String getSiteMemberPaging(Model model,
+       @PathVariable int pageSize, 
+       @PathVariable int pageNum){
+    memberService.getMemberOfSiteList(model,pageSize,pageNum);   
+    return "management.memberOfSiteList";
+ }
+ //원생목록 - 페이징 처리 없음
+ @RequestMapping(value = "memberOfAcademyList", method = RequestMethod.GET , params="!pageSize")
+ public String studentList(Model model,         
+       @RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
+       @RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
+    
+    System.out.println("center_id:"+c_id);
+    System.out.println("open_course_id:"+open_course_id);
+    
+    memberService.getMemberOfAcademyList(c_id,open_course_id,model,1, 10);
+    List<EducationCenter> eduCenterList = employeeService.getEduCenterList();      
+    
+    model.addAttribute("eduCenterList", eduCenterList);
+    
+    if(c_id != 0){
+       List<OpenCourse> courseList = memberService.getCourseList(c_id);
+       model.addAttribute("courseList", courseList);
+    }   
+    
+    return "management.memberOfAcademyList";
+ }
+ //원생목록 - 페이징 처리
+ @RequestMapping(value = "memberOfAcademyList/pageSize/{pageSize}/{pageNum}", method = RequestMethod.GET)
+ public String studentListPageing(Model model,
+       @PathVariable int pageSize,
+       @PathVariable int pageNum,
+       @RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
+       @RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
+    
+    System.out.println("center_id:"+c_id);
+    System.out.println("open_course_id:"+open_course_id);
+    
+    memberService.getMemberOfAcademyList(c_id,open_course_id,model,pageNum, pageSize);
+    List<EducationCenter> eduCenterList = employeeService.getEduCenterList();      
+    
+    model.addAttribute("eduCenterList", eduCenterList);
+    
+    if(c_id != 0){
+       List<OpenCourse> courseList = memberService.getCourseList(c_id);
+       model.addAttribute("courseList", courseList);
+    }   
+    
+    return "management.memberOfAcademyList";
+ }
+ //센터별 강좌 리스트 가져오기
+ @RequestMapping(value = "getOpenCourseList", method = RequestMethod.POST)
+ @ResponseBody
+ public List<OpenCourse> getCourseList(int center_id){
+    System.out.println("ManagementController - getCourseList");
+    System.out.println("center_id:"+center_id);
+    List<OpenCourse> openCourseList = memberService.getCourseList(center_id);   
+    return openCourseList;
+ }
 
-	///////원생////////////////
-	//사이트 회원
-	@RequestMapping(value = "memberOfSiteList", method = RequestMethod.GET)
-	public String getSiteMember(Model model) {		
-		List<Member> memberList = memberService.getMemberOfSiteList();
-		
-		model.addAttribute("memberList", memberList);
-		return "management.memberOfSiteList";
-	}
-	//원생목록
-	@RequestMapping(value = "memberOfAcademyList", method = RequestMethod.GET)
-	public String basic_table(Model model,
-			@RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
-			@RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
-		
-		System.out.println("center_id:"+c_id);
-		System.out.println("open_course_id:"+open_course_id);
-/*		MemberOfAcademy moa = new MemberOfAcademy();
-		moa.setCenter_id(center_id);
-		moa.setOpen_course_id(open_course_id);
-		System.out.println("moa.getAccount_id():"+moa.getAccount_id());
-		System.out.println("moa.getOpen_course_id():"+moa.getOpen_course_id());*/
-		
-		List<MemberOfAcademy> memberList = memberService.getMemberOfAcademyList(c_id,open_course_id);
-		List<EducationCenter> eduCenterList = employeeService.getEduCenterList();		
-		
-		model.addAttribute("memberList", memberList);
-		model.addAttribute("eduCenterList", eduCenterList);
-		
-		if(c_id != 0){
-			List<OpenCourse> courseList = memberService.getCourseList(c_id);
-			model.addAttribute("courseList", courseList);
-		}	
-		
-		return "management.memberOfAcademyList";
-	}
+
+	
 	//퇴교목록
 	@RequestMapping(value = "memberOfLeaveList", method = RequestMethod.GET)
 	public String responsive_table() {		
@@ -568,53 +629,53 @@ public class ManagementController {
 	}	
 	//직원 상세정보 조회
 	@RequestMapping(value = {"employeeDetail"}, method = RequestMethod.GET)
-	public String employeeDetail(Model model, int account_id) {	
-		Employee emp = employeeService.getEmp(account_id);
-		model.addAttribute("emp", emp);
-		return "management.employeeDetail";	
+	public String employeeDetail(Model model, Principal principal) {   
+	   int account_id = Integer.parseInt(principal.getName());
+      Employee emp = employeeService.getEmp(account_id);
+      model.addAttribute("emp", emp);
+      return "management.employeeDetail";   
 	}
 	//직원 정보 수정
-	@RequestMapping(value = {"employeeUpdate"}, method = RequestMethod.GET)
-	public String employeeUpdate(Model model,Principal principal) {		
-		int account_id = Integer.parseInt(principal.getName());
-		
-		Employee emp = employeeService.getEmp(account_id);
-		model.addAttribute("emp", emp);
-		return "management.employeeUpdate";
-	}
-	//직원 정보 수정 로직
-	@RequestMapping(value = {"employeeUpdate"}, method = RequestMethod.POST)
-	public String employeeUpdatePro(Model model,Employee emp) {
-		int result = employeeService.updateEmp(emp);
-		
-		System.out.println("employeeUpdate result:"+result);		
-		model.addAttribute("result", result);
-		model.addAttribute("emp", emp);
-		return "management.employeeUpdate";
-	}
-	
-
-	/*// 과정-교육센터등록-CenterList(Basic)
-		@RequestMapping(value = "centerRegister", method = RequestMethod.GET)
-		public String centerRegister(Model model) {
-			System.out.println("************************************************");
-			System.out.println("centerRegister//Basic");
-			System.out.println("move:management.centerRegister//att:roleList");
-
-			model.addAttribute("Center", centerService.getcenterList());
-			return "management.centerRegister";
-		}
-
-		// 과정-교육센터등록-CenterList(Basic)
-		@RequestMapping(value = "centerList", method = RequestMethod.GET)
-		public String centerList(Model model, HttpServletRequest req) {
-			System.out.println("************************************************");
-			System.out.println("centerRegister//Basic");
-			System.out.println("move:management.centerRegister//att:roleList");
-			System.out.println("center_id::" + req.getParameter("id"));
-			model.addAttribute("Classroom", centerService.getclassroomList(req.getParameter("id")));
-			return "management.centerList";
-		}
-
-	}*/
+   @RequestMapping(value = {"employeeUpdate"}, method = RequestMethod.GET)
+   public String employeeUpdate(Model model, 
+         Principal principal,
+         @RequestParam(value="result",defaultValue="0") int result) {      
+      int account_id = Integer.parseInt(principal.getName());
+      
+      Employee emp = employeeService.getEmp(account_id);
+      model.addAttribute("emp", emp);
+      model.addAttribute("result", result);
+      return "management.employeeUpdate";
+   }
+   //직원 정보 수정 로직
+   @RequestMapping(value = {"employeeUpdate"}, method = RequestMethod.POST)
+   public String employeeUpdatePro(Model model,Employee emp,Principal principal, HttpSession session ,RedirectAttributes redirectAttributes) {
+      System.out.println("ManagementController- employeeUpdate");
+      int account_id = Integer.parseInt(principal.getName());
+      emp.setAccount_id(account_id);
+      
+      int result=0;
+      
+      System.out.println("user_id:"+emp.getUser_id());
+      //id를 변경할 경우
+      if(emp.getUser_id() != null){
+         EmployeeDAO employeeDAO = sqlSession.getMapper(EmployeeDAO.class);
+         result += employeeDAO.setUserIdWithId(emp.getAccount_id(),emp.getUser_id());
+         
+         if(result>0){
+            result += employeeService.updateEmp(emp);
+         }
+      }else{ //id를 변경하지 않은 경우
+         result += employeeService.updateEmp(emp);
+      }
+      
+      session.setAttribute("employee",accountService.getEmployee(principal.getName()));
+      
+      System.out.println("photo:"+emp.getPhoto());
+      System.out.println("account_id:" +emp.getAccount_id());       
+      System.out.println("employeeUpdate result:"+result);      
+      
+      redirectAttributes.addAttribute("result", result);
+      return "redirect:employeeUpdate";      
+   }
 }

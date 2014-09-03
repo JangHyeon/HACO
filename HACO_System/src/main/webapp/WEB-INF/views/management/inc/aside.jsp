@@ -13,7 +13,7 @@
               <ul class="sidebar-menu" id="nav-accordion">
               
               	  <div class="centered employeePhoto">
-              	  	<a href="${pageContext.request.contextPath}/management/employeeDetail?account_id=<s:authentication property="name"/>">
+              	  	<a href="${pageContext.request.contextPath}/management/employeeDetail">
               	  		<img src="${pageContext.request.contextPath}/employeePhoto/${sessionScope.employee.photo}" class="employeePhoto-img" width="80" onerror="this.src='${pageContext.request.contextPath}/images/gray-ori-User-Role-Guest-icon.png'">
               	  	</a>
               	  </div>
@@ -93,7 +93,7 @@
                   <li class="sub-menu" name="member">
                       <a href="javascript:;" >
                           <i class="fa fa-graduation-cap"></i>
-                          <span>원생</span>
+                          <span>원생 조회</span>
                       </a>
                       <ul class="sub">
                           <li name="memberOfSiteList"><a  href="${pageContext.request.contextPath}/management/memberOfSiteList">회원 목록</a></li>
@@ -104,8 +104,8 @@
                   
                   <li class="sub-menu" name="employee">
                       <a href="javascript:;" >
-                          <i class="fa fa-users"></i>
-                          <span>직원</span>
+                          <i class="fa fa-graduation-cap"></i>
+                          <span>직원 조회</span>
                       </a>
                       <ul class="sub">
                           <li name="center"><a  href="${pageContext.request.contextPath}/management/center">센터장</a></li>                          
