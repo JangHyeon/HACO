@@ -47,30 +47,27 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 		<div class="row">
 
 			<div class="col-md-12">
-				<div class="content-panel">
-				
+				<div class="content-panel">				
 					<!-- 강좌목록 -->
 					<div class="btn-group pull-right topToggle">
-					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					  <button id="courseBtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
 					    강좌 목록 <span class="caret"></span>
 					  </button>
-					  <ul class="dropdown-menu" role="menu" >
-					  		<li><a href="memberOfAcademyList?center_id=0&open_course_id=0">전체 강좌</a></li>
-					  	<c:forEach var="course" items="${courseList}">
-					   		<li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList?c_id=${course.center_id}&open_course_id=${course.open_course_id}">${course.course_name}</a></li>
-					    </c:forEach>					    
+					  <ul class="dropdown-menu" role="menu" id="courseList">
+					  	<!-- <li><a href="memberOfAcademyList?center_id=0&open_course_id=0">전체 강좌</a></li> -->										    
 					  </ul>
 					</div>	
 					
 					<!-- 센터목록 -->
 					<div class="btn-group pull-right topToggle">
-					  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" id="centerBtn">
+					  <button id="centerBtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" >
 					    <span>센터목록</span><span class="caret"></span>
 					  </button>
 					  <ul class="dropdown-menu" role="menu" id="centerList">
 					  	<li><a href="memberOfAcademyList?center_id=0">전체 센터</li>
 					  	<c:forEach var="edu" items="${eduCenterList}">
-					   		<li><a href="memberOfAcademyList?c_id=${edu.center_id}">${edu.location}</a></li>
+					  		<li value="${edu.center_id}"><a>${edu.location}</a></li>
+					   		<%-- <li><a href="memberOfAcademyList?c_id=${edu.center_id}">${edu.location}</a></li> --%>
 					   		<%-- <li><a>${edu.location}</a></li> --%>					   		
 					    </c:forEach>					    
 					  </ul>
@@ -165,8 +162,47 @@ MemberofLeaveList<%@page import="kr.co.haco.VO.EmployeeList"%>
 $(document).ready(function () {
 	//센터목록 선택
     $('#centerList>li').on('click',function(){
-       $('#centerBtn>span:first-child').text($('a',this).text());               
-    });
+       $('#courseBtn>span:first-child').text($('a',this).text());          
+       var center_id  = $(this).attr('value');   
+       alert("center_id:"+center_id);
+       $.ajax({
+   			type : "POST",
+	   		url : "getOpenCourseList?center_id="+center_id,
+	   		cache : false,	   		
+	   		success : function(response) {
+	   			$("#courseList").empty();
+	   			$.each(response, function(index, item) {
+	   				var course = '<li><a value="'+item.open_course_id+'">'+item.course_name+'</a></li>';	   				
+	   				$("#courseList").append(course);
+	   			});
+	   		},
+	   		error : function() {
+	   			alert('Error while request..');
+	   		}
+   		});		
+    }); 
+    //강의목록 선택
+     $('#courseList>li').on('click',function(){
+       $('#centerBtn>span:first-child').text($('a',this).text());          
+       var center_id  = $(this).attr('value');   
+       alert("center_id:"+center_id);
+       $.ajax({
+   			type : "POST",
+	   		url : "getOpenCourseList?center_id="+center_id,
+	   		cache : false,
+	   		/* data : 'center=' + $('.center').children('a').attr('value'), */
+	   		success : function(response) {
+	   			$("#courseList").empty();
+	   			$.each(response, function(index, item) {
+	   				var course = '<li><a value="'+item.open_course_id+'">'+item.course_name+'</a></li>';	   				
+	   				$("#courseList").append(course);
+	   			});
+	   		},
+	   		error : function() {
+	   			alert('Error while request..');
+	   		}
+   		});		
+    }); //
 });
     
 </script>

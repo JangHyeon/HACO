@@ -48,6 +48,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -954,6 +955,16 @@ public class ManagementController {
 		
 		return "management.memberOfAcademyList";
 	}
+	//센터별 강좌 리스트 가져오기
+	@RequestMapping(value = "getOpenCourseList", method = RequestMethod.POST)
+	@ResponseBody
+	public List<OpenCourse> getCourseList(int center_id){
+		System.out.println("ManagementController - getCourseList");
+		System.out.println("center_id:"+center_id);
+		List<OpenCourse> openCourseList = memberService.getCourseList(center_id);	
+		return openCourseList;
+	}
+	
 	//퇴교목록
 	@RequestMapping(value = "memberOfLeaveList", method = RequestMethod.GET)
 	public String responsive_table() {		
