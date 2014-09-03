@@ -44,12 +44,12 @@
 
 			<div class="col-md-12">
 				<div class="content-panel">
-				
-				<div class="pull-right topToggle">
-					<a class="btn btn-success"
-						href="${pageContext.request.contextPath}/management/subjectInsert">
-						과목 등록</a>
-				</div>
+
+					<div class="pull-right topToggle">
+						<a class="btn btn-success"
+							href="${pageContext.request.contextPath}/management/subjectInsert">
+							과목 등록</a>
+					</div>
 					<h4>
 						<i class="fa fa-angle-right"></i> 과목등록
 					</h4>
@@ -58,8 +58,8 @@
 					<table class="table">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>센터명</th>								
+
+								<th>센터명</th>
 								<th>과목명</th>
 								<th>총강의일수</th>
 								<th>총강의시간</th>
@@ -74,7 +74,6 @@
 						<tbody>
 							<c:forEach var="Subject2" items="${SubjectList}">
 								<tr>
-									<td>${Subject2.subject_id}</td>
 									<td>${Subject2.location}</td>
 									<td>${Subject2.subject_name}</td>
 									<td>${Subject2.lecture_totalday}</td>
@@ -92,12 +91,12 @@
 											</button>
 
 									</a></td>
-									<td><a
-										href="${pageContext.request.contextPath}/management/DeleteOk?id=${Subject2.subject_id}">
-											<button class="btn btn-danger btn-xs">
-												<i class="fa fa-trash-o "></i>
-											</button>
-									</a></td>
+									<td>
+										<button class="btntn btn btn-danger btn-xs"
+											value="${Subject2.subject_id}">
+											<i class="fa fa-trash-o "></i>
+										</button>
+									</td>
 								</tr>
 							</c:forEach>
 
@@ -115,8 +114,9 @@
 								<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${beginpage-1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>«</a>
 							</li>
 							<c:if test="${beginpage!=0}">
-								<c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
-	
+								<c:forEach var="i" begin="${beginpage}" end="${endpage}"
+									step="1">
+
 									<c:if test="${i==pageNum}">
 										<li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
 									</c:if>
@@ -131,39 +131,41 @@
 								<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/subjectRegister/pageSize/${pageSize}/pageNum/${endpage+1}/searchType/${searchType}/searchKey/${searchKey}"</c:if>>»</a>
 							</li>
 						</ul>
-	
-	
+
+
 						<!-- 검색 -->
-						<div class="col-sm-6 col-sm-offset-3" style="clear:both">
-				          <div class="input-group">
-				            <div class="input-group-btn">
-				              <button id="searchType" type="button"
-									class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-									<c:choose>
-										<c:when test="${searchType=='center'}">
-											<span>센터명 </span>
-										</c:when>
-										<c:otherwise>
-											<span>과목명</span>
-										</c:otherwise>
-									</c:choose>
-									<span class="caret"></span>
-								</button>
-								<ul id="selectType" class="dropdown-menu" role="menu">
-									<li id=center value="center"><a>센터명</a></li>
-									<li id="course" value="course"><a>과목명</a></li>
-								</ul>
-				            </div><!-- /btn-group -->
-				            <input type="text" class="form-control" id="inputSearchKey" value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
-				            <span class="input-group-btn">
-				              <button class="btn btn-default" id="submitBtn" type="button">검색</button>
-				            </span>
-				          </div>
-					        <input type="hidden" name="searchKey" value="${searchKey}">
-					        <input type="hidden" name="pageNum" value="${pageNum}">
-					        <input type="hidden" name="pageSize" value="${pageSize}">
-					        <input type="hidden" name="searchType" value="${searchType}">
-				        </div>
+						<div class="col-sm-6 col-sm-offset-3" style="clear: both">
+							<div class="input-group">
+								<div class="input-group-btn">
+									<button id="searchType" type="button"
+										class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+										<c:choose>
+											<c:when test="${searchType=='center'}">
+												<span>센터명 </span>
+											</c:when>
+											<c:otherwise>
+												<span>과목명</span>
+											</c:otherwise>
+										</c:choose>
+										<span class="caret"></span>
+									</button>
+									<ul id="selectType" class="dropdown-menu" role="menu">
+										<li id=center value="center"><a>센터명</a></li>
+										<li id="course" value="course"><a>과목명</a></li>
+									</ul>
+								</div>
+								<!-- /btn-group -->
+								<input type="text" class="form-control" id="inputSearchKey"
+									value='<c:if test="${searchKey!='[noKeyword]'}">${searchKey}</c:if>'>
+								<span class="input-group-btn">
+									<button class="btn btn-default" id="submitBtn" type="button">검색</button>
+								</span>
+							</div>
+							<input type="hidden" name="searchKey" value="${searchKey}">
+							<input type="hidden" name="pageNum" value="${pageNum}"> <input
+								type="hidden" name="pageSize" value="${pageSize}"> <input
+								type="hidden" name="searchType" value="${searchType}">
+						</div>
 					</div>
 				</div>
 			</div>
@@ -173,10 +175,37 @@
 
 
 
-
+<!--  -->
 
 <!--main content end-->
 
+<!-- Modal -->
+<div aria-hidden="true" aria-labelledby="myModalLabel" role="dialog"
+	tabindex="-1" id="deleteModal" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-hidden="true">&times;</button>
+				<h4 class="modal-title">과목 삭제</h4>
+			</div>
+			<div class="modal-body">
+				<p>응슷응</p>
+				<h3>
+					<Strong id="resultID">이 과목을 삭제하시겠습니까?</Strong>
+				</h3>
+
+			</div>
+			<div class="modal-footer">
+				<button id="deleteModalCloseBtn" data-dismiss="modal"
+					class="btn btn-default" type="button">닫기</button>
+				<button id="ModalDeletebtn" class="btn btn-danger" type="button">삭제</button>
+
+			</div>
+		</div>
+	</div>
+</div>
+<!-- modal -->
 
 <!-- inclue common script -->
 
@@ -187,6 +216,34 @@
 	$(document)
 			.ready(
 					function() {
+						var centerid;
+						$('.btntn').on('click', function() {
+							centerid = $(this).val();
+
+							var json_data = $(this).val();
+							$.ajax({
+								type : 'POST',
+								url : 'DeleteOk',
+								data : 'json_data=' + json_data,
+								dataType : "json",
+								success : function(date) {
+									alert('검색어를 입력해주세요.' + date);
+
+								},
+								error : function() {
+									$('#deleteModal').modal('show');
+								}
+							});
+
+						});
+
+						$('#ModalDeletebtn')
+								.on(
+										'click',
+										function() {
+											location.href = "${pageContext.request.contextPath}/management/DeleteOk?id="
+													+ centerid;
+										});
 						//검색 조건
 						$('#selectType>li').on(
 								'click',
@@ -198,7 +255,8 @@
 								});
 
 						var submit = function() {
-							if ($('input[name=searchKey]').val().length == 0) {
+
+							if ($.trim($('input[name=searchKey]').val()).length == 0) {
 								alert('검색어를 입력해주세요.');
 								$('#inputSearchKey').focus();
 							} else {

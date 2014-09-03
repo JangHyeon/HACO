@@ -666,6 +666,14 @@ public class HomepageServiceImpl implements HomepageService {
 		map.put("jsonLabel", jsonLabel.toString().replace("\"", "'"));
 		map.put("jsonData", jsonData.toString());
 		
+		//최신 직원 공지사항5개
+		Notice notice = new Notice();
+		notice.setState_code(77);
+		notice.setPageSize(5);
+		notice.setPageNum(1);
+		map.put("newEmployeeNoticeList", sqlSession.getMapper(HomepageDAO.class).getEmployeeNoticeList(notice));
+		
+		//신규 직원 5명
 		
 		return map;
 	}

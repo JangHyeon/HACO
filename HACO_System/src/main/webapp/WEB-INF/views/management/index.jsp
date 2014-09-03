@@ -75,7 +75,7 @@
                       	<div class="col-md-4 col-sm-4 mb">
                       		<div class="white-panel pn donut-chart">
                       			<div class="white-header">
-						  			<h5>NOW TIME</h5>
+						  			<h5>현재 시간</h5>
                       			</div>
 								<div class="row">
 									<figure id="canvas"></figure>
@@ -186,14 +186,12 @@
 					<div class="row mt">
                       <!--CUSTOM CHART START -->
                       <div class="border-head">
-                          <h3>STUDENTS</h3>
+                          <h3>NEW STUDENTS</h3>
                       </div>
                       <input id="barChartLabel" value="${jsonLabel}" type="hidden">
                       <input id="barChartData" value="${jsonData}" type="hidden">
-                      <div id="main" role="main">
-                      	<canvas id="respondCanvas" width="100" height="100">
-					        < !-- Provide fallback -->
-					    </canvas>
+                      <div id="bar-chart-div">
+                      <canvas id="bar-chart"></canvas>
                       </div>
                       <!--custom chart end-->
 					</div><!-- /row -->	
@@ -209,61 +207,29 @@
                     <!--COMPLETED ACTIONS DONUTS CHART-->
 						<h3>NOTIFICATIONS</h3>
                                         
-                      <!-- First Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>2 Minutes Ago</muted><br/>
-                      		   <a href="#">James Brown</a> subscribed to your newsletter.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Second Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>3 Hours Ago</muted><br/>
-                      		   <a href="#">Diana Kennedy</a> purchased a year subscription.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Third Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>7 Hours Ago</muted><br/>
-                      		   <a href="#">Brandon Page</a> purchased a year subscription.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fourth Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>11 Hours Ago</muted><br/>
-                      		   <a href="#">Mark Twain</a> commented your post.<br/>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fifth Action -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
-                      	</div>
-                      	<div class="details">
-                      		<p><muted>18 Hours Ago</muted><br/>
-                      		   <a href="#">Daniel Pratt</a> purchased a wallet in your store.<br/>
-                      		</p>
-                      	</div>
-                      </div>
+						<c:forEach var="employeeNotice" items="${newEmployeeNoticeList}">
+							<div class="desc">
+		                      	<div class="thumb">
+		                      		<span class="badge bg-theme"><i class="fa fa-clock-o"></i></span>
+		                      	</div>
+		                      	<div class="details">
+		                      		<c:set var="regTime" value="${employeeNotice.register_date_string}" />
+		                      		<p>
+		                      			<muted>${regTime}
+		                      				<c:choose>
+		                      				<c:when test="${regTime<60}"><fmt:formatNumber value="${regTime}" pattern="#,##"/>초 전</c:when>
+		                      				<c:when test="${regTime<60*60}"><fmt:formatNumber value="${regTime/60}" pattern="#,##"/>분 전</c:when>
+		                      				<c:when test="${regTime<60*60*60}"><fmt:formatNumber value="${regTime/60/60}" pattern="#,##"/>시간 전</c:when>
+		                      				<c:otherwise><fmt:formatNumber value="${regTime/60/60/24}" pattern="#,##"/>일 전</c:otherwise>
+		                      				</c:choose>
+		                      			</muted><br/>
+		                      		   <a href="#">${employeeNotice.name_kor}</a> ${employeeNotice.title}<br/>
+		                      		</p>
+		                      	</div>
+		                      </div>
+						</c:forEach>
+                                        
+                      
 
                        <!-- USERS ONLINE SECTION -->
 						<h3>TEAM MEMBERS</h3>

@@ -54,9 +54,10 @@
 					</h4>
 					<form class="form-horizontal style-form" action="UpdateOk" id="updatesubject"
 						method="get">
-
+			
 						
 						<c:forEach var="role" items="${roleList}">
+						<input type="hidden" value="${role.center_id}" id="Cid" >
 						<input type="hidden" value="${role.subject_id}" name="subject_id">
 							<div class="form-group">
 								<label class="col-md-2 col-sm-2 control-label">과목명</label>
@@ -69,11 +70,11 @@
 								<label class="col-md-2 col-sm-2 control-label">정원</label>
 								<div class="col-md-4 col-sm-4">
 									<input type="text" class="form-control" name="capacity" id="capacity" 
-										value="${role.capacity}">
+										value="${role.capacity}" onkeydown="OnlyNum();" style="ime-mode: disabled">
 								</div>
 								<label class="col-md-2 col-sm-2 control-label">교육센터</label>
 								<div class="col-md-4 col-sm-4">
-									<select id="center_id" name="center_id">
+									<select id="center_id" name="center_id" disabled="disabled">
 										<option value="name">교육센터명</option>
 										<c:forEach var="Center" items="${Center}">
 											<option value="${Center.center_id}">${Center.location}</option>
@@ -86,7 +87,7 @@
 								<label class="col-md-2 col-sm-2 control-label">총강의일수</label>
 								<div class="col-md-1 col-sm-1">
 									<input type="text" class="form-control" name="lecture_totalday" id="lecture_totalday"
-										value="${role.lecture_totalday}">
+										value="${role.lecture_totalday}"onkeydown="OnlyNum();" style="ime-mode: disabled" >
 								</div>
 
 								<label class="col-md-1 col-sm-1 control-label">강의시간</label>
@@ -100,7 +101,7 @@
 								<label class="col-md-1 col-sm-1 control-label">수강료</label>
 								<div class="col-md-3 col-sm-3">
 									<input type="text" class="form-control" name="Tuition_fee" id="Tuition_fee"
-										value="${role.tuition_fee}">
+										value="${role.tuition_fee}"onkeydown="OnlyNum();" style="ime-mode: disabled">
 								</div>
 							</div>
 							<div class="form-group">
@@ -168,6 +169,12 @@
 <script src="${resourceUrl}/ckeditor/ckeditor.js"></script>
 
 <script type="text/javascript">
+
+
+
+
+$("#center_id").val($("#Cid").val()).attr("selected", "selected");
+
 function OnlyNum(){
 	var code = window.event.keyCode; 
  	if((code>=48&& code<=57)||(code>=96&&code<=105)||code==110||code==190||code==8||code==9||
@@ -188,8 +195,8 @@ $(document).ready(function(){
 		enterMode: '2',
 		shiftEnterMode:'3',
 		//filebrowserBrowseUrl : "${resourceUrl}",
-		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
-        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images' 
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images' 
 	});
 	ckeditor1 = CKEDITOR.instances['lecture_content'];
 
@@ -198,8 +205,8 @@ $(document).ready(function(){
 		enterMode: '2',
 		shiftEnterMode:'3',
 		//filebrowserBrowseUrl : "${resourceUrl}",
-		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
-        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images' 
 	});
 	ckeditor2 = CKEDITOR.instances['subject_explanation'];
 	
@@ -208,8 +215,8 @@ $(document).ready(function(){
 		enterMode: '2',
 		shiftEnterMode:'3',
 		//filebrowserBrowseUrl : "${resourceUrl}",
-		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
-        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images' 
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images' 
 	});
 	ckeditor3 = CKEDITOR.instances['instructional_objectives'];
 	
@@ -218,8 +225,8 @@ $(document).ready(function(){
 		enterMode: '2',
 		shiftEnterMode:'3',
 		//filebrowserBrowseUrl : "${resourceUrl}",
-		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
-        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images' 
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images' 
 	});
 	ckeditor4 = CKEDITOR.instances['subject_point'];
 	
@@ -351,15 +358,7 @@ $(document).ready(function(){
 			ckeditor4.focus();
 			return false;
 		} 
-		
 		$(window).off('beforeunload');
-		$('#updateBtn').off('click');
-		$("#updateBtn").attr("disabled", true);
-		$('#updateBtn').text('처리중');
-		$('#lodingModal').modal({
-			backdrop : false,
-			keyboard : false
-		});
 	});
 });
 </script>

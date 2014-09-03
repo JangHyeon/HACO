@@ -43,4 +43,6 @@ public interface HomepageDAO {
 	public List<Qna> getWaitAnswerList();
 	public int getBestIncentive(int account_id);
 	public List<Map<String, Object>> getPast7monthsList();
+	public List<Notice> getEmployeeNoticeList(Notice notice);
+	
 }

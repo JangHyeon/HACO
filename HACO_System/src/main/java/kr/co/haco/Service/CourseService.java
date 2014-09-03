@@ -14,7 +14,7 @@ import org.springframework.ui.Model;
 public interface CourseService {
 ///////////////////////////과정 부분///////////////////////////
 public void getCourseList(getCourseList getCourseList, Model model, String contextPath);
-		
+      
 /*// 과정:목록..
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 public List<getCourseList> getCourseList();*/
@@ -44,5 +44,11 @@ public int deleteCourse(String open_course_id);
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 public int updateCourse(OpenCourse course);
 // 과정:삭제..
+
+public int CKsubjectid(int subject_id);
+
+public int CKopencouseid(int open_course_id);
+
+public int CKcenterid(int center_id);
 
 }

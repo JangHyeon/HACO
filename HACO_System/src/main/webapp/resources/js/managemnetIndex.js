@@ -75,7 +75,7 @@ $(function(){
 	
 	$('#usePercent').text(totalFileSizePercent+totalImageSizePercent+'% 사용');
 	
-	var past7mouthsBar = new Chart(document.getElementById("respondCanvas").getContext("2d")).Bar({
+	var past7mouthsBar = new Chart(document.getElementById("bar-chart").getContext("2d")).Bar({
 		labels: eval($('#barChartLabel').val()),
 		datasets:[{
 			label: "My First dataset",
@@ -86,6 +86,20 @@ $(function(){
             data: eval($('#barChartData').val())
 		}]
 	},{
+		/*
+		// 단위 수동 설정
+		// Boolean - If we want to override with a hard coded scale
+	    scaleOverride: true,
+		
+		// ** Required if scaleOverride is true **
+	    // Number - The number of steps in a hard coded scale
+	    scaleSteps: 10,
+	    // Number - The value jump in the hard coded scale
+	    scaleStepWidth: 5,
+	    // Number - The scale starting value
+	    scaleStartValue: 0,
+		*/
+		
 		//Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
 	    scaleBeginAtZero : true,
 
@@ -105,54 +119,33 @@ $(function(){
 	    barStrokeWidth : 1,
 
 	    //Number - Spacing between each of the X value sets
-	    barValueSpacing : 45,
+	    barValueSpacing : 20,
 
 	    //Number - Spacing between data sets within X values
 	    barDatasetSpacing : 5,
 	    
-	    //String - A legend template
-	    legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].lineColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
+	    // Number - Tooltip title font size in pixels
+	    tooltipFontSize: 12,
+	    
+	    // String - Tooltip background colour
+	    tooltipFillColor: "rgba(66, 74, 93,.8)",
+	    
+	    // Number - pixel width of padding around tooltip text
+	    tooltipYPadding: 8,
 
+	    // Number - pixel width of padding around tooltip text
+	    tooltipXPadding: 8,
+
+	    // Number - Size of the caret on the tooltip
+	    tooltipCaretSize: 5,
+
+	    // Number - Pixel radius of the tooltip border
+	    tooltipCornerRadius: 5,
+	    
+	    responsive: true,
+	    maintainAspectRatio: false,
+
+	    // String - Template string for single tooltips
+	    tooltipTemplate: "<%if (label){%><%=label%> : <%}%><%= value %>명"
 	});
 });
-
-/*
-
-$(document).ready( function(){
-	
-	//Get the canvas & context
-	var c = $('#respondCanvas');
-	var ct = c.get(0).getContext('2d');
-	var container = $(c).parent();
-	
-	//Run function when browser  resize
-	$(window).resize( respondCanvas );
-	
-	function respondCanvas(){
-			c.attr('width', $(container).width() ); //max width
-			c.attr('height', $(container).height() ); //max height
-			
-			//Call a function to redraw other content (texts, images etc)
-			past7mouthsBar.resize();
-	}
-
-	//Initial call
-	//respondCanvas();
-});
-
-*/
-var width = $('#main').width();
-var height = $('#main').height();
-$('#respondCanvas').attr("width",height);
-$('#respondCanvas').attr("height",height);
-window.onresize = function(event){
-	var width = $('#main').width();
-	var height = $('#main').height();
-	$('#respondCanvas').attr("width",height);
-	$('#respondCanvas').attr("height",height);
-	past7mouthsBar.clear();
-	past7mouthsBar.resize();
-};
-
-
-	

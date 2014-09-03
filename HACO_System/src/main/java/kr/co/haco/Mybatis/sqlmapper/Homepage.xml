@@ -78,6 +78,9 @@
 			<if test="state_code == 99">
 				AND state_code in(0,1)
 			</if>
+			<if test="state_code == 77">
+				AND state_code = 0
+			</if>
 		</where>
 		order by notice_id desc 
 		limit ${startNum},${pageSize}
@@ -341,5 +344,25 @@
 		where left(DATE_SUB(curdate(),INTERVAL 7 month),7) &lt; left(lecture_register_date,7)
 		group by mouth
 		order by mouth
+	</select>
+	
+	<!-- 최신 직원 공지사항 -->
+	<select id="getEmployeeNoticeList" resultType="kr.co.haco.VO.Notice" parameterType="kr.co.haco.VO.Notice" >
+		select 
+		notice_id,n.account_id as account_id,name_kor,name_eng,title,content,state_code,hit,center_id,now()-register_date as register_date_string 
+		from notice as n 
+		join employee as e 
+		on n.account_id = e.account_id
+		<where>
+			<if test="center_id != null and center_id != ''">
+				AND center_id = #{center_id}
+			</if>
+			<if test="center_list != null and center_list !=''">
+				AND center_id in(1,${center_list})
+			</if>
+			AND state_code = 0
+		</where>
+		order by notice_id desc 
+		limit ${startNum},${pageSize}
 	</select>
 </mapper>

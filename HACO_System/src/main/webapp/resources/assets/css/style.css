@@ -836,10 +836,12 @@ ul.top-menu > li > a:hover, ul.top-menu > li > a:focus {
 	margin: 0 10px 0 20px;
 	display: block;
 	float: left;
+	position: absolute;
 }
 
 .ds .details {
-	width: 170px;
+	width: 100%;
+	padding-left: 52px;
 	float: left;
 }
 
@@ -2603,14 +2605,21 @@ border-color: #324A5D;
 	}
 }
 
-#main{
-	display:block;
-    width:100%;
-    padding:0 15px 50px;
-    height:300px;
+#canvas{
+	margin-top: 15px;
 }
 
+#bar-chart-div{
+	margin: 0 20px 40px;
+	height:350px;
+}
 
 .fa-7x{
 	font-size: 100px;
+}
+
+.content-panel.pull{
+clear: both;
+float: left;
+width: 100%;
 }
