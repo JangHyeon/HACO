@@ -43,8 +43,7 @@
 	<section class="wrapper">
 		<h3>
 			<i class="fa fa-angle-right"></i> 직원 조회			 
-		</h3>
-		<h5><a href="http://fontawesome.io/icons/" target="_blank">- aside 아이콘 정보</a></h5>
+		</h3>		
 		<div class="row">
 
 			<div class="col-md-12">
@@ -101,11 +100,39 @@
 				</div>
 				<!-- /content-panel -->
 			</div>
-			<!-- /col-md-12 -->
-
+			<!-- /col-md-12 -->		
+		  
 		</div>
 		<!-- row -->
 		
+		<!-- 페이징 -->
+	      <div class="col-xs-12">         
+	         <ul class="pagination pagination-centered">
+	            <!-- 이전 링크 -->
+	            <li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+	               <a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/${uri}?pageSize=${pageSize}&pageNum=${beginpage-1}"</c:if>>«</a>
+	            </li>
+	            
+	              <!-- 페이지 리스트   -->
+	              <c:if test="${beginpage!=0}">
+	            <c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+	            
+	               <c:if test="${i==pageNum}">
+	                  <li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+	               </c:if>
+	               <c:if test="${i!=pageNum}">
+	                  <li><a href="${pageContext.request.contextPath}/management/${uri}?pageSize=${pageSize}&pageNum=${i}">${i}</a></li>
+	               </c:if>
+	            </c:forEach>
+	            </c:if>
+	              <!-- 다음링크 -->
+	            <li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+	               <a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/${uri}?pageSize=${pageSize}&pageNum=${endpage+1}"</c:if>>»</a>
+	            </li>
+	         </ul>
+	      </div>   
+		
+	  
 		
 		
 	</section>

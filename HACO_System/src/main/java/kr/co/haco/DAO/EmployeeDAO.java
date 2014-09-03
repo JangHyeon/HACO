@@ -1,6 +1,7 @@
 package kr.co.haco.DAO;
 
 import java.util.List;
+import java.util.Map;
 
 import kr.co.haco.VO.Authority;
 import kr.co.haco.VO.EducationCenter;
@@ -16,7 +17,8 @@ public interface EmployeeDAO {
 	public int addEmployee(Employee employee);
 	
 	//직원 목록 조회
-	public List<EmployeeList> getEmpList(int job_code,int now_center_id);
+	public int getEmployeeCount(Map paraMap);
+	public List<EmployeeList> getEmpList(Map paraMap);
 	public List<EducationCenter>getEduCenterList();
 	
 	//직원 상세정보 조회

@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 
 public class MemberOfAcademy{
 	private int center_id;
+	private String location;
 	private String course_name;
 	
 	private int open_course_id;
@@ -25,6 +26,12 @@ public class MemberOfAcademy{
 	}
 	public void setCenter_id(int center_id) {
 		this.center_id = center_id;
+	}	
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
 	}
 	public String getCourse_name() {
 		return course_name;

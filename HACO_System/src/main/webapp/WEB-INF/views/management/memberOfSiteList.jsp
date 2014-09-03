@@ -49,7 +49,7 @@
                   <i class="fa fa-angle-right"></i> 사이트 회원                         
                </h4>
                <hr>         
-               <table class="table">
+               <table class="table table-hover">
                   <thead>
                      <tr>
                         <th>번호</th>
@@ -82,8 +82,9 @@
       </div>
       <!-- row -->
       
-      <div class="col-xs-12">
-         <!-- 페이징 -->
+      
+      <!-- 페이징 -->
+      <div class="col-xs-12">         
          <ul class="pagination pagination-centered">
             <!-- 이전 링크 -->
             <li<c:if test="${beginpage<10}"> class="disabled"</c:if>>

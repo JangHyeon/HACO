@@ -47,35 +47,58 @@
             <div class="content-panel">            
                <!-- 강좌목록 -->
                <div class="btn-group pull-right topToggle">
-                 <button id="courseBtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                   강좌 목록 <span class="caret"></span>
-                 </button>
-                 <ul class="dropdown-menu" role="menu" id="courseList">
-                    <li><a href="memberOfAcademyList?center_id=0&open_course_id=0">전체 강좌</a></li>                                  
-                 </ul>
+                 <button id="courseBtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">                  
+	           		<c:choose>
+	           			<c:when test="${not empty course_name}">
+	           				<span>${course_name}</span>
+	           				<span class="caret"></span>
+	        				</button>
+	         					<ul class="dropdown-menu" role="menu" id="courseList">
+	         						<c:forEach var="course" items="${courseList}">
+	         							<li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList?c_id=${course.center_id}&open_course_id=${course.open_course_id}">${course.course_name}</a></li>
+	         						</c:forEach>                                                 
+	         					</ul>	         					
+	           			</c:when>
+	           			<c:otherwise>
+	           				<span>강좌목록</span>
+	           				<span class="caret"></span>
+	         				</button>
+	         					<ul class="dropdown-menu" role="menu" id="courseList">                                                  
+	         					</ul>
+	           			</c:otherwise>
+	           		</c:choose>                 
                </div>   
                
                <!-- 센터목록 -->
                <div class="btn-group pull-right topToggle">
                  <button id="centerBtn" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" >
-                   <span>센터목록</span><span class="caret"></span>
+                   <span>
+                   		<c:choose>
+                   			<c:when test="${not empty center_name}">
+                   				${center_name}
+                   			</c:when>
+                   			<c:otherwise>
+                   				센터목록
+                   			</c:otherwise>
+                   		</c:choose>
+                   </span>
+                   <span class="caret"></span>
                  </button>
                  <ul class="dropdown-menu" role="menu" id="centerList">
-                    <li><a href="memberOfAcademyList?center_id=0">전체 센터</li>
+                    <li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList?center_id=0">전체 센터</li>
                     <c:forEach var="edu" items="${eduCenterList}">
-                       <li value="${edu.center_id}"><a>${edu.location}</a></li>
-                        <%-- <li><a href="memberOfAcademyList?c_id=${edu.center_id}">${edu.location}</a></li> --%>
-                        <%-- <li><a>${edu.location}</a></li> --%>                        
+                       <li name="theCenter" value="${edu.center_id}"><a>${edu.location}</a></li>                                               
                    </c:forEach>                   
                  </ul>
                </div>                      
-            
+               <input type="hidden" name="center_name">
+               <input type="hidden" name="course_name">
             
                <h4>
                   <i class="fa fa-angle-right"></i> 원생       
                </h4>
                <hr>         
-               <table class="table">
+               <table class="table table-hover">
                   <thead>
                      <tr>
                         <th>번호</th>
@@ -84,7 +107,7 @@
                         <th>이름</th>   
                         <th>직무</th>         
                         <th>전화번호</th>                        
-                        <th>주소</th>
+                        <!-- <th>주소</th> -->
                         <th>이메일</th>
                         <th>등록일자</th>   
                         <th>등록코드</th>      
@@ -95,15 +118,22 @@
                      <c:forEach var="member" items="${memberList}" varStatus="seq">
                         <tr>
                            <td>${seq.index+1}</td>
-                           <td>${member.center_id}</a></td>
+                           <td>${member.location}</a></td>
                            <td>${member.course_name}</a></td>
                            <td>${member.name}</td>                           
                            <td>${member.job_duty}</a></td>
                            <td>${member.phone}</td>
-                           <td>${member.address}</td>
+                           <%-- <td>${member.address}</td> --%>
                            <td>${member.email}</td>
                            <td>${member.lecture_register_date}</td>
-                           <td>${member.lecture_register_code}</td>
+                           <td>
+                           	<c:choose>
+                           		<c:when test="${member.lecture_register_code=='1'}">수강신청</c:when>
+                           		<c:when test="${member.lecture_register_code=='2'}">수강허가</c:when>
+                           		<c:when test="${member.lecture_register_code=='3'}">취소</c:when>
+                           		<c:when test="${member.lecture_register_code=='4'}">납부완료</c:when>
+                           	</c:choose>
+                           </td>
                            <td>${member.is_survey}</td>                                    
                         </tr>
                      </c:forEach>
@@ -133,13 +163,27 @@
                   <li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
                </c:if>
                <c:if test="${i!=pageNum}">
-                  <li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList/pageSize/${pageSize}/${i}">${i}</a></li>
+               	  <c:choose>
+               	  	<c:when test="${not empty course_name}">
+               	  		<li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList/${pageSize}/${i}?c_id=${param.c_id}&open_course_id=${param.open_course_id}">${i}</a></li>
+               	  	</c:when>
+               	  	<c:otherwise>
+               	  		<li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList/${pageSize}/${i}">${i}</a></li>	
+               	  	</c:otherwise>
+               	  </c:choose>                  
                </c:if>
             </c:forEach>
             </c:if>
               <!-- 다음링크 -->
             <li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
-               <a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/memberOfAcademyList/pageSize/${pageSize}/${endpage+1}"</c:if>>»</a>
+            	<c:choose>
+               	  	<c:when test="${not empty course_name}">
+               	  		<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/memberOfAcademyList/${pageSize}/${endpage+1}?c_id=${param.c_id}&open_course_id=${param.open_course_id}"</c:if>>»</a>
+               	  	</c:when>
+               	  	<c:otherwise>
+               	  		<a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/memberOfAcademyList/${pageSize}/${endpage+1}"</c:if>>»</a>
+               	  	</c:otherwise>
+               	  </c:choose>              
             </li>
          </ul>
       </div>   
@@ -158,18 +202,20 @@
 <script type="text/javascript">   
 $(document).ready(function () {
    //센터목록 선택
-    $('#centerList>li').on('click',function(){
+    $('#centerList>li[name=theCenter]').on('click',function(){
        $('#centerBtn>span:first-child').text($('a',this).text());          
        var center_id  = $(this).attr('value');   
-       alert("center_id:"+center_id);
+       //alert("center_id:"+center_id);
        $.ajax({
-            type : "POST",
-            url : "getOpenCourseList?center_id="+center_id,
+            type : "GET",
+            url : "${pageContext.request.contextPath}/management/getOpenCourseList?center_id="+center_id,
             cache : false,            
             success : function(response) {
                $("#courseList").empty();
+               $('#courseBtn>span:first-child').text('강좌목록');
                $.each(response, function(index, item) {
-                  var course = '<li><a value="'+item.open_course_id+'">'+item.course_name+'</a></li>';                  
+                  //var course = '<li value="'+item.open_course_id+'"><a>'+item.course_name+'</a></li>';  
+                  var course = '<li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList?c_id='+center_id+'&open_course_id='+item.open_course_id+'">'+item.course_name+'</a></li>';                  
                   $("#courseList").append(course);
                });
             },
@@ -178,8 +224,7 @@ $(document).ready(function () {
             }
          });      
     }); 
-   
-    
+ 
     
 });
     

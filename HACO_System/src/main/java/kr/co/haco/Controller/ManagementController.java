@@ -490,11 +490,6 @@ public class ManagementController {
 		String res = "redirect:/management/lectureRegister";
 		return res;
 	}*/
-	//강의평가
-	@RequestMapping(value = "lectureEvaluation", method = RequestMethod.GET)
-	public String lectureEvaluation() {		
-		return "management.lectureEvaluation";
-	}
 	
 	
 	/////게시판////////////////////
@@ -518,77 +513,97 @@ public class ManagementController {
 
 	
 	
-///////원생////////////////
- //사이트 회원 - 페이징 처리 없는 것
- @RequestMapping(value ="memberOfSiteList",method = RequestMethod.GET)    //, params="!pageSize"
- public String getSiteMember(Model model){         
-    memberService.getMemberOfSiteList(model,10,1);   
-    return "management.memberOfSiteList";
- }
- //사이트 회원 - 페이징 처리
- @RequestMapping(value ="memberOfSiteList/{pageSize}/{pageNum}",method = RequestMethod.GET)   
- public String getSiteMemberPaging(Model model,
-       @PathVariable int pageSize, 
-       @PathVariable int pageNum){
-    memberService.getMemberOfSiteList(model,pageSize,pageNum);   
-    return "management.memberOfSiteList";
- }
- //원생목록 - 페이징 처리 없음
- @RequestMapping(value = "memberOfAcademyList", method = RequestMethod.GET , params="!pageSize")
- public String studentList(Model model,         
-       @RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
-       @RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
-    
-    System.out.println("center_id:"+c_id);
-    System.out.println("open_course_id:"+open_course_id);
-    
-    memberService.getMemberOfAcademyList(c_id,open_course_id,model,1, 10);
-    List<EducationCenter> eduCenterList = employeeService.getEduCenterList();      
-    
-    model.addAttribute("eduCenterList", eduCenterList);
-    
-    if(c_id != 0){
-       List<OpenCourse> courseList = memberService.getCourseList(c_id);
-       model.addAttribute("courseList", courseList);
-    }   
-    
-    return "management.memberOfAcademyList";
- }
- //원생목록 - 페이징 처리
- @RequestMapping(value = "memberOfAcademyList/pageSize/{pageSize}/{pageNum}", method = RequestMethod.GET)
- public String studentListPageing(Model model,
-       @PathVariable int pageSize,
-       @PathVariable int pageNum,
-       @RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
-       @RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
-    
-    System.out.println("center_id:"+c_id);
-    System.out.println("open_course_id:"+open_course_id);
-    
-    memberService.getMemberOfAcademyList(c_id,open_course_id,model,pageNum, pageSize);
-    List<EducationCenter> eduCenterList = employeeService.getEduCenterList();      
-    
-    model.addAttribute("eduCenterList", eduCenterList);
-    
-    if(c_id != 0){
-       List<OpenCourse> courseList = memberService.getCourseList(c_id);
-       model.addAttribute("courseList", courseList);
-    }   
-    
-    return "management.memberOfAcademyList";
- }
- //센터별 강좌 리스트 가져오기
- @RequestMapping(value = "getOpenCourseList", method = RequestMethod.POST)
- @ResponseBody
- public List<OpenCourse> getCourseList(int center_id){
-    System.out.println("ManagementController - getCourseList");
-    System.out.println("center_id:"+center_id);
-    List<OpenCourse> openCourseList = memberService.getCourseList(center_id);   
-    return openCourseList;
- }
-
-
-	
+	///////원생////////////////
+	 //사이트 회원 - 페이징 처리 없는 것
+	 @RequestMapping(value ="memberOfSiteList",method = RequestMethod.GET)    //, params="!pageSize"
+	 public String getSiteMember(Model model){         
+	    memberService.getMemberOfSiteList(model,10,1);   
+	    return "management.memberOfSiteList";
+	 }
+	 //사이트 회원 - 페이징 처리
+	 @RequestMapping(value ="memberOfSiteList/{pageSize}/{pageNum}",method = RequestMethod.GET)   
+	 public String getSiteMemberPaging(Model model,
+	       @PathVariable int pageSize, 
+	       @PathVariable int pageNum){
+	    memberService.getMemberOfSiteList(model,pageSize,pageNum);   
+	    return "management.memberOfSiteList";
+	 }
+	 //원생목록 - 페이징 처리 없음
+	 @RequestMapping(value = "memberOfAcademyList", method = RequestMethod.GET)
+	 public String studentList(Model model,         
+	       @RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
+	       @RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
+	    
+	    System.out.println("center_id:"+c_id);
+	    System.out.println("open_course_id:"+open_course_id);
+	    
+	    memberService.getMemberOfAcademyList(c_id,open_course_id,model,1, 10);
+	    List<EducationCenter> eduCenterList = employeeService.getEduCenterList();      
+	    
+	    model.addAttribute("eduCenterList", eduCenterList);
+	    
+	    if(open_course_id !=0){
+	    	System.out.println("open_course_id 값이 0이 아닐 때 들어오나");
+	    	//센터목록에 셋팅
+	    	model.addAttribute("center_name",eduCenterList.get(c_id-1).getLocation());
+	    	List<OpenCourse> courseList = memberService.getCourseList(c_id);
+	    	model.addAttribute("courseList", courseList);
+	    	//강좌목록에 셋팅
+	    	String course_name="";
+	    	for(int i=0; i<courseList.size();i++){
+	    		if(courseList.get(i).getOpen_course_id()==open_course_id){
+	    			course_name = courseList.get(i).getCourse_name();
+	    		}
+	    	}
+	    	model.addAttribute("course_name",course_name);
+	    }   
+	    
+	    return "management.memberOfAcademyList";
+	 }
+	 //원생목록 - 페이징 처리
+	 @RequestMapping(value = "memberOfAcademyList/{pageSize}/{pageNum}", method = RequestMethod.GET)
+	 public String studentListPageing(Model model,
+	       @PathVariable int pageSize,
+	       @PathVariable int pageNum,
+	       @RequestParam(value="c_id",required=false, defaultValue="0")int c_id,
+	       @RequestParam(value="open_course_id",required=false, defaultValue="0")int open_course_id) {
+	    
+	    System.out.println("center_id:"+c_id);
+	    System.out.println("open_course_id:"+open_course_id);
+	    
+	    memberService.getMemberOfAcademyList(c_id,open_course_id,model,pageNum, pageSize);
+	    List<EducationCenter> eduCenterList = employeeService.getEduCenterList();      
+	    
+	    model.addAttribute("eduCenterList", eduCenterList);
+	    
+	    if(open_course_id !=0){
+	    	System.out.println("open_course_id 값이 0이 아닐 때 들어오나");
+	    	//센터목록에 셋팅
+	    	model.addAttribute("center_name",eduCenterList.get(c_id-1).getLocation());
+	    	List<OpenCourse> courseList = memberService.getCourseList(c_id);
+	    	model.addAttribute("courseList", courseList);
+	    	//강좌목록에 셋팅
+	    	String course_name="";
+	    	for(int i=0; i<courseList.size();i++){
+	    		if(courseList.get(i).getOpen_course_id()==open_course_id){
+	    			course_name = courseList.get(i).getCourse_name();
+	    		}
+	    	}
+	    	model.addAttribute("course_name",course_name);
+	    }   
+	    
+	    return "management.memberOfAcademyList";
+	 }	 
+	 
+	 //센터별 강좌 리스트 가져오기
+	 @RequestMapping(value = "getOpenCourseList")
+	 @ResponseBody
+	 public List<OpenCourse> getCourseList(int center_id){
+	    System.out.println("ManagementController - getCourseList");
+	    System.out.println("center_id:"+center_id);
+	    List<OpenCourse> openCourseList = memberService.getCourseList(center_id);   
+	    return openCourseList;
+	 }
 	//퇴교목록
 	@RequestMapping(value = "memberOfLeaveList", method = RequestMethod.GET)
 	public String responsive_table() {		
@@ -598,10 +613,10 @@ public class ManagementController {
 	
 
 	///직원///////
-	//직원 목록 
+	/*//직원 목록 - 페이징 없는 것
 	@RequestMapping(value = {"center", "manager", "teacher"}, method = RequestMethod.GET)
 	//@RequestParam :파라미터로 now_center_id를 보내지 않을 때 기본값을 0으로 셋팅해준다.
-	public String employee(Model model,
+	public String employeeList(Model model,
 			@RequestParam(value="now_center_id",defaultValue="0") int now_center_id , 
 			HttpServletRequest request) {	
 		int job_code = 0;
@@ -625,6 +640,37 @@ public class ManagementController {
 		model.addAttribute("eduCenterList", eduCenterList);
 		model.addAttribute("job_code", job_code);
 		model.addAttribute("emplist",emplist);
+		return "management.employee";
+	}	*/
+	//직원 목록 - 페이징 있는 것
+	@RequestMapping(value = {"center", "manager", "teacher"}, method = RequestMethod.GET)
+	//@RequestParam :파라미터로 now_center_id를 보내지 않을 때 기본값을 0으로 셋팅해준다.
+	public String employeeListPaging(Model model,
+			@RequestParam(value="now_center_id",defaultValue="0") int now_center_id , 
+			@RequestParam(value="pageNum",defaultValue="1") int pageNum ,
+			@RequestParam(value="pageSize",defaultValue="10") int pageSize ,
+			HttpServletRequest request) {	
+		int job_code = 0;
+		
+		String myuri = request.getRequestURI();
+			System.out.println("myurl:"+myuri);				
+		String uri = myuri.substring(myuri.lastIndexOf("/")+1);
+			System.out.println("uri:"+uri);
+		if(uri.equals("center")){
+			job_code = 3;
+		}else if(uri.equals("manager")){
+			job_code = 2;
+		}else if(uri.equals("teacher")){
+			job_code = 1;
+		}	
+		
+		employeeService.getEmplList(job_code,now_center_id,model,pageNum,pageSize);
+		List<EducationCenter> eduCenterList = employeeService.getEduCenterList();
+		
+		model.addAttribute("uri", uri);
+		model.addAttribute("eduCenterList", eduCenterList);
+		model.addAttribute("job_code", job_code);
+		
 		return "management.employee";
 	}	
 	//직원 상세정보 조회

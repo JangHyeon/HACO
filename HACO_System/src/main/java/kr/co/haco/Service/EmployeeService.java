@@ -5,10 +5,10 @@ import java.util.List;
 
 import kr.co.haco.VO.EducationCenter;
 import kr.co.haco.VO.Employee;
-import kr.co.haco.VO.EmployeeList;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.ui.Model;
 
 public interface EmployeeService{
 	
@@ -18,7 +18,8 @@ public interface EmployeeService{
 	public HashMap<String, Integer> addEmployee(Employee employee);
 	
 	//직원 목록 조회
-	public List<EmployeeList> getEmplList(int job_code, int now_center_id);
+	//public List<EmployeeList> getEmplList(int job_code, int now_center_id);
+	public void getEmplList(int job_code, int now_center_id,Model model,int pageNum, int pageSize);
 	
 	//센터 목록 조회
 	public List<EducationCenter> getEduCenterList();

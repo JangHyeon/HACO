@@ -55,10 +55,12 @@
    </select>
    <!-- 수강 중인 회원 목록 -->
    <select id="getMember" resultType="kr.co.haco.VO.MemberOfAcademy" parameterType="java.util.Map" >
-      SELECT o.center_id,o.course_name,
-         mem.open_course_id,mem.account_id,mem.lecture_register_code,mem.lecture_register_date,mem.is_survey,
-          mem.name,mem.address, mem.email, mem.phone, mem.job_duty
+ 	  SELECT e.location, o.center_id,o.course_name,
+         	mem.open_course_id,mem.account_id,mem.lecture_register_code,mem.lecture_register_date,mem.is_survey,
+          	mem.name,mem.address, mem.email, mem.phone, mem.job_duty
       FROM open_course o
+      INNER JOIN education_center e
+      ON o.center_id = e.center_id
       INNER JOIN
          (SELECT l.open_course_id, l.account_id, l.lecture_register_code, l.lecture_register_date,l.is_survey,
                m.name, m.address, m.email, m.phone, m.job_duty
@@ -71,7 +73,7 @@
             WHERE course_end_date > NOW()
              )
          ) mem
-      ON o.open_course_id = mem.open_course_id      
+      ON o.open_course_id = mem.open_course_id        
       <where>
          <if test="center_id != 0">
             and o.center_id= #{center_id}
@@ -80,6 +82,7 @@
             and mem.open_course_id = #{open_course_id}
          </if>
       </where>
+      ORDER BY mem.lecture_register_date desc
       limit #{startNum},#{pageSize}
    </select>
    <!-- 센터별 개설과정 목록 -->
@@ -89,6 +92,7 @@
       WHERE course_end_date > NOW()
       <if test="center_id != 0">
           AND center_id=#{center_id}   
-       </if>
+      </if>
+      order by open_course_id
    </select>
 </mapper>
