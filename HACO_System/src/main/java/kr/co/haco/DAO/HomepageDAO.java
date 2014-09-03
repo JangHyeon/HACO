@@ -3,6 +3,7 @@ package kr.co.haco.DAO;
 import java.util.List;
 import java.util.Map;
 
+import kr.co.haco.VO.EmployeeList;
 import kr.co.haco.VO.Notice;
 import kr.co.haco.VO.Qna;
 import kr.co.haco.VO.UploadFile;
@@ -44,5 +45,5 @@ public interface HomepageDAO {
 	public int getBestIncentive(int account_id);
 	public List<Map<String, Object>> getPast7monthsList();
 	public List<Notice> getEmployeeNoticeList(Notice notice);
-	
+	public List<EmployeeList> getNewEmployeeList();
 }

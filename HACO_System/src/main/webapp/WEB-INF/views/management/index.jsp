@@ -215,15 +215,13 @@
 		                      	<div class="details">
 		                      		<c:set var="regTime" value="${employeeNotice.register_date_string}" />
 		                      		<p>
-		                      			<muted>${regTime}
+		                      			<muted>
 		                      				<c:choose>
-		                      				<c:when test="${regTime<60}"><fmt:formatNumber value="${regTime}" pattern="#,##"/>초 전</c:when>
-		                      				<c:when test="${regTime<60*60}"><fmt:formatNumber value="${regTime/60}" pattern="#,##"/>분 전</c:when>
-		                      				<c:when test="${regTime<60*60*60}"><fmt:formatNumber value="${regTime/60/60}" pattern="#,##"/>시간 전</c:when>
-		                      				<c:otherwise><fmt:formatNumber value="${regTime/60/60/24}" pattern="#,##"/>일 전</c:otherwise>
+		                      				<c:when test="${regTime==0}">오늘</c:when>
+		                      				<c:otherwise>${regTime}일 전</c:otherwise>
 		                      				</c:choose>
 		                      			</muted><br/>
-		                      		   <a href="#">${employeeNotice.name_kor}</a> ${employeeNotice.title}<br/>
+		                      		   <a href="#">${employeeNotice.name_kor}</a> <a class="NOTIFICATIONS-title" href="${pageContext.request.contextPath}/management/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${employeeNotice.notice_id}"">${employeeNotice.title}</a><br/>
 		                      		</p>
 		                      	</div>
 		                      </div>
@@ -232,62 +230,24 @@
                       
 
                        <!-- USERS ONLINE SECTION -->
-						<h3>TEAM MEMBERS</h3>
+						<h3>NEW EMPLOYEES</h3>
                       <!-- First Member -->
+                      <c:forEach var="newEmployee" items="${newEmployeeList}">
                       <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-divya.jpg" width="35px" height="35px" align="">
-                      	</div>
+                      	<div class="newEmployeePhoto">
+	                      	<a href="${pageContext.request.contextPath}/management/employeeDetail/${newEmployee.account_id}">
+			              	  	<img src="${pageContext.request.contextPath}/employeePhoto/${newEmployee.photo}" class="newEmployeePhoto-img" width="45" onerror="this.src='${pageContext.request.contextPath}/images/User-Role-Guest-icon.png'">
+			              	</a>
+		              	</div>
                       	<div class="details">
-                      		<p><a href="#">DIVYA MANIAN</a><br/>
-                      		   <muted>Available</muted>
+                      		<p><a href="${pageContext.request.contextPath}/management/employeeDetail/${newEmployee.account_id}">${newEmployee.name_kor}(${newEmployee.name_eng})</a>－<span>${newEmployee.join_center_name}</span>
+                      		<br/>
+                      		   <muted>${newEmployee.phone_cell}</muted><br>
+                      		   <span>${newEmployee.email}</span>
                       		</p>
                       	</div>
                       </div>
-                      <!-- Second Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-sherman.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DJ SHERMAN</a><br/>
-                      		   <muted>I am Busy</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Third Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-danro.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">DAN ROGERS</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fourth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-zac.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Zac Sniders</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
-                      <!-- Fifth Member -->
-                      <div class="desc">
-                      	<div class="thumb">
-                      		<img class="img-circle" src="${resourceUrl}/assets/img/ui-sam.jpg" width="35px" height="35px" align="">
-                      	</div>
-                      	<div class="details">
-                      		<p><a href="#">Marcel Newman</a><br/>
-                      		   <muted>Available</muted>
-                      		</p>
-                      	</div>
-                      </div>
+                      </c:forEach>
 
                         <!-- CALENDAR-->
                         <div id="calendar" class="mb">

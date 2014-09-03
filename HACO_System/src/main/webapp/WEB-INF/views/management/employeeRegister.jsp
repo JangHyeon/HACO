@@ -123,23 +123,24 @@
                         <div class="col-lg-6">
                            <div class="input-group">
                               &nbsp;&nbsp;&nbsp; <label> <input type="radio"
-                                 name="job_code" id="optionsRadios1" value="1"> 1강사
+                                 name="job_code" id="optionsRadios1" value="1"> 강사
                               </label> &nbsp;&nbsp;&nbsp; <label> <input type="radio"
-                                 name="job_code" id="optionsRadios2" value="2"> 2관리직원
-                              </label> &nbsp;&nbsp;&nbsp; <label> <input type="radio"
-                                 name="job_code" id="optionsRadios2" value="3"> 3센터장
+                                 name="job_code" id="optionsRadios2" value="2"> 관리직원
+                              </label> &nbsp;&nbsp;&nbsp; 
+                              <s:authorize ifAnyGranted="MASTER">
+                              <label> <input type="radio"
+                                 name="job_code" id="optionsRadios2" value="3"> 센터장
                               </label>
+                              </s:authorize>
                            </div>
                         </div>
                      </div>
                      <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">주민등록번호</label>
                         <div class="col-sm-10">
-                           <input type="text" class="form-control-je onlyNumber"
-                              id="resident_registration_num1"
-                              name="resident_registration_num1" maxlength="6"> - <input
-                              type="text" class="form-control-je onlyNumber"
-                              id="resident_registration_num2"
+                           <input data-registration="true" type="text" class="form-control-je onlyNumber" id="resident_registration_num1"
+                              name="resident_registration_num1" maxlength="6"><i class="fa fa-minus"></i>
+                           <input data-registration="true" type="text" class="form-control-je onlyNumber" id="resident_registration_num2"
                               name="resident_registration_num2" maxlength="7">
                         </div>
                      </div>
@@ -190,9 +191,9 @@
                      <div class="form-group">
                         <label class="col-sm-2 col-sm-2 control-label">휴대폰번호</label>
                         <div class="col-sm-10">
-                           <input type="text" class="form-control-je onlyNumber" name="phone_cell1" id="phone_cell1" maxlength="3"> - 
-                           <input type="text" class="form-control-je onlyNumber" name="phone_cell2" id="phone_cell2" maxlength="4"> - 
-                           <input type="text" class="form-control-je onlyNumber" name="phone_cell3" id="phone_cell3" maxlength="4">
+                           <input data-registration="true" type="text" class="form-control-je onlyNumber" name="phone_cell1" id="phone_cell1" maxlength="3"><i class="fa fa-minus"></i> 
+                           <input data-registration="true" type="text" class="form-control-je onlyNumber" name="phone_cell2" id="phone_cell2" maxlength="4"><i class="fa fa-minus"></i>
+                           <input data-registration="true" type="text" class="form-control-je onlyNumber" name="phone_cell3" id="phone_cell3" maxlength="4">
                         </div>
                      </div>
                      <div class="form-group">
@@ -299,6 +300,17 @@
            autoclose: true,
            todayHighlight: true
           });
+      
+      
+      $('input[data-registration="true"]').keyup(function(){
+    	  if($(this).val().length >= $(this).attr('maxlength')){
+    		//다음칸으로 focus를 옮긴다.
+    		//next()는 다음 노드를 구하는데,다음 노드가 span임으로 한번더 next시킨다.
+    		$(this).next().next().focus();
+    	  }else if($(this).val().length ==0 && event.keyCode==8){
+    		$(this).prev().prev().focus();
+    	  }
+       });
       
       //submit, 유효성 검사
       $('#registerBtn').on('click',function(){

@@ -9,12 +9,13 @@ public class EmployeeList{
 	private String now_center_name;
 	private int account_id;
 	private String name_kor;
+	private String name_eng;
 	private String phone_cell;
 	private String email;
 	private Date join_date;
 	private int join_center_id;
 	private String join_center_name;
-
+	private String photo;
 	
 	public int getNow_center_id() {
 		return now_center_id;
@@ -69,6 +70,18 @@ public class EmployeeList{
 	}
 	public void setJoin_center_name(String join_center_name) {
 		this.join_center_name = join_center_name;
+	}
+	public String getPhoto() {
+		return photo;
+	}
+	public void setPhoto(String photo) {
+		this.photo = photo;
+	}
+	public String getName_eng() {
+		return name_eng;
+	}
+	public void setName_eng(String name_eng) {
+		this.name_eng = name_eng;
 	}
 
 	

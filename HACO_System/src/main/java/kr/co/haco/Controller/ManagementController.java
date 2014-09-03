@@ -674,13 +674,23 @@ public class ManagementController {
 		return "management.employee";
 	}	
 	//직원 상세정보 조회
-	@RequestMapping(value = {"employeeDetail"}, method = RequestMethod.GET)
+	@RequestMapping(value = {"employeeDetail"}, method = RequestMethod.GET, params="!account_id")
 	public String employeeDetail(Model model, Principal principal) {   
 	   int account_id = Integer.parseInt(principal.getName());
       Employee emp = employeeService.getEmp(account_id);
       model.addAttribute("emp", emp);
       return "management.employeeDetail";   
 	}
+	
+	//직원 상세정보 조회
+	@RequestMapping(value = {"employeeDetail/{account_id}"}, method = RequestMethod.GET)
+	public String employeeDetail(Model model, Principal principal, @PathVariable int account_id) {   
+      Employee emp = employeeService.getEmp(account_id);
+      model.addAttribute("emp", emp);
+      return "management.employeeDetail";   
+	}
+	
+	
 	//직원 정보 수정
    @RequestMapping(value = {"employeeUpdate"}, method = RequestMethod.GET)
    public String employeeUpdate(Model model, 

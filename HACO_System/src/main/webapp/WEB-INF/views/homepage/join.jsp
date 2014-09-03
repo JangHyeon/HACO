@@ -175,6 +175,7 @@
 <script	src="${resourceUrl}/gazONojfL3/js/scripts.js"></script>
 <script src="http://dmaps.daum.net/map_js_init/postcode.js"></script>
 <script src="${resourceUrl}/Remodal/jquery.remodal.min.js"></script>
+<script type="text/javascript" src="${resourceUrl}/js/jquery.alphanum.js"></script>
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
@@ -202,6 +203,8 @@
 	    });
 		
 
+	    $("#id").alphanum();
+	    $("input[type=tel]").numeric();
 		
 		//아이디 중복 체크
 		$('#id').tooltip({
@@ -324,7 +327,8 @@
               event.returnValue=false;
          	} */
          	
-    	   $(this).removeText();
+    	   //$(this).removeText();
+       		$(this).numeric();
        });
        
        $('input[type=tel]').keyup(function(){

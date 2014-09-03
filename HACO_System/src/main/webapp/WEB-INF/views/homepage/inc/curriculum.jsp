@@ -7,7 +7,7 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-6">
-          <h1><strong><a href="${pageContext.request.contextPath}/notice">교육과정</a></strong>
+          <h1><strong><a href="${pageContext.request.contextPath}/lectureregister">교육과정</a></strong>
           <p class="lead">curriculum</p></h1>
       </div>
       <div class="col-xs-6">

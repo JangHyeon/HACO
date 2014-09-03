@@ -358,8 +358,9 @@ margin: 3px 3px 3px 4px;
 }
 
 .phoneNumber .form-control{
-	width: 55px;
+	width: 60px;
 	display: inline-block;
+	text-align: center;
 }
 .phoneNumber .form-control{
 	width: 55px;

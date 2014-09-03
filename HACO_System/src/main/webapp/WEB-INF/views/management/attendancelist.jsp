@@ -56,19 +56,18 @@
 	                  	  	  <hr>
                               <thead>
                               <tr>
-                                  <th><i class="fa fa-bullhorn"></i>센터명</th>
-                                  <th><i class="fa fa-bullhorn"></i>과정명</th>
-                                  <th><i class="fa fa-bullhorn"></i>강의실</th>
-                                  <th><i class="fa fa-bullhorn"></i>교육기간</th>
-                                  <th><i class="fa fa-bullhorn"></i>강사명</th>
-                                  <th></th>
+                                  <th>센터명</th>
+                                  <th>과정명</th>
+                                  <th>강의실</th>
+                                  <th>교육기간</th>
+                                  <th>강사명</th>
                               </tr>
                               </thead>
                               <tbody>
                               <c:forEach var="b" items="${getattenlist}">
-								<tr>
+								<tr onclick="course_write('${b.open_course_id}','${b.center_id}')" style="cursor: pointer;">
 									<td>${b.location}</td>
-									<td onclick="course_write('${b.open_course_id}','${b.center_id}')">${b.course_name}</td>
+									<td>${b.course_name}</td>
 									<td>${b.classroom }</td>
 									<td>${b.course_start_date} ~ ${b.course_end_date}</td>
 									<td>${b.name_kor }</td>
@@ -76,6 +75,9 @@
 							  </c:forEach>
                               </tbody>
                           </table>
+                          <c:if test="${empty getattenlist || empty getattenlist[0]}">
+							<h3 style="margin: 80px auto; text-align: center;">진행중인 과정이 없습니다...</h3>
+						  </c:if>
                       </div><!-- /content-panel -->
                   </div><!-- /col-md-12 -->
               </div><!-- /row -->
