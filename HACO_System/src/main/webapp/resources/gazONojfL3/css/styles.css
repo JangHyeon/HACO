@@ -844,3 +844,11 @@ tbody > tr > td > a > span > .fa-question{
 span.label-info{
 	margin-right: 5px;
 }
+
+.attendBtn{
+	margin:-5px;
+}
+
+.table.table-hover{
+	margin-bottom: 0;
+}

@@ -1,5 +1,4 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-   pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -75,41 +74,43 @@
                      </c:forEach>
                   </tbody>
                </table>
+		       <c:if test="${empty memberList || empty memberList[0]}">
+					<h3 style="margin: 80px auto; text-align: center;">결과가 없습니다...</h3>
+				</c:if>
+				<div class="table-footer">
+					<div class="col-sm-12 col-md-12">
+						<!-- 페이징 -->
+						<ul class="pagination pagination-centered">
+			            <!-- 이전 링크 -->
+			            <li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+			               <a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/memberOfSiteList/${pageSize}/${beginpage-1}"</c:if>>«</a>
+			            </li>
+			            
+			              <!-- 페이지 리스트   -->
+			              <c:if test="${beginpage!=0}">
+			            <c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+			            
+			               <c:if test="${i==pageNum}">
+			                  <li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+			               </c:if>
+			               <c:if test="${i!=pageNum}">
+			                  <li><a href="${pageContext.request.contextPath}/management/memberOfSiteList/${pageSize}/${i}">${i}</a></li>
+			               </c:if>
+			            </c:forEach>
+			            </c:if>
+			              <!-- 다음링크 -->
+			            <li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+			               <a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/memberOfSiteList/${pageSize}/${endpage+1}"</c:if>>»</a>
+			            </li>
+			         </ul>
+			      </div>  
+		      </div>
             </div>
             <!-- /content-panel -->
          </div>
          <!-- /col-md-12 -->
       </div>
       <!-- row -->
-      
-      
-      <!-- 페이징 -->
-      <div class="col-xs-12">         
-         <ul class="pagination pagination-centered">
-            <!-- 이전 링크 -->
-            <li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
-               <a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/memberOfSiteList/${pageSize}/${beginpage-1}"</c:if>>«</a>
-            </li>
-            
-              <!-- 페이지 리스트   -->
-              <c:if test="${beginpage!=0}">
-            <c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
-            
-               <c:if test="${i==pageNum}">
-                  <li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
-               </c:if>
-               <c:if test="${i!=pageNum}">
-                  <li><a href="${pageContext.request.contextPath}/management/memberOfSiteList/${pageSize}/${i}">${i}</a></li>
-               </c:if>
-            </c:forEach>
-            </c:if>
-              <!-- 다음링크 -->
-            <li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
-               <a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/memberOfSiteList/${pageSize}/${endpage+1}"</c:if>>»</a>
-            </li>
-         </ul>
-      </div>   
-      
    </section>
 </section>
 
@@ -120,18 +121,4 @@
 <%@ include file="commonScript.jsp"%>
 
 <!--script for this page-->
-<script
-   src="${resourceUrl}/assets/js/sparkline-chart.js"></script>
-<script
-   src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>
-
-
-
-<script type="application/javascript">
-   
-        $(document).ready(function () {
-         
-        }
-    
-</script>
 

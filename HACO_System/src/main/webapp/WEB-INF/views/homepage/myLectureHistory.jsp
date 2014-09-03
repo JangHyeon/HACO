@@ -56,10 +56,10 @@
                               </button>  --%>                             
                               <c:choose>
                                  <c:when test="${myLecture.now_study=='수강중'}">
-                                    <button type="button" class="btn btn-default btn-sm attendBtn" style="width:80px" value="${myLecture.open_course_id}">수강중</button>
+                                    <button type="button" class="btn btn-warning btn-xs attendBtn" value="${myLecture.open_course_id}">수강중</button>
                                  </c:when>
                                  <c:when test="${myLecture.now_study=='수강완료'}">
-                                    <button type="button" class="btn btn-default btn-sm attendBtn" style="width:80px" value="${myLecture.open_course_id}">수강완료</button>
+                                    <button type="button" class="btn btn-success btn-xs attendBtn" value="${myLecture.open_course_id}">수강완료</button>
                                  </c:when>
                                  <c:when test="${myLecture.now_study=='미개강'}">
                                     미개강
@@ -76,10 +76,10 @@
                                  -->
                               <c:choose>
                                  <c:when test="${myLecture.is_survey=='평가활성-평가안함'}">
-                                    <button type="button" class="btn btn-default btn-sm evalBtn" style="width:100px" value="${myLecture.open_course_id}">강의평가 하기</button>
+                                    <button type="button" class="btn btn-default btn-xs attendBtn evalBtn" value="${myLecture.open_course_id}">강의평가 하기</button>
                                  </c:when>
                                  <c:when test="${myLecture.is_survey=='평가활성-평가함'}">
-                                    <button type="button" class="btn btn-default btn-sm certificateBtn" style="width:100px">수료증 발급</button>
+                                    <button type="button" class="btn btn-default btn-xs attendBtn certificateBtn">수료증 발급</button>
                                  </c:when>
                              <%--      <c:when test="${myLecture.is_survey=='평가CLOSE'}">
                                     강의평가 CLOSE

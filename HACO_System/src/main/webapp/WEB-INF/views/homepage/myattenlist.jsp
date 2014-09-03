@@ -45,7 +45,10 @@
 								</tr>
 								</c:forEach>
 							</tbody>							
-						</table>	      
+						</table>
+						<c:if test="${empty getattenlist || empty getattenlist[0]}">
+							<h3 style="margin: 80px auto; text-align: center;">출석 정보가 없습니다...</h3>
+						</c:if>
                   	</div>
 					
 					<hr style="display:block;clear:both;">

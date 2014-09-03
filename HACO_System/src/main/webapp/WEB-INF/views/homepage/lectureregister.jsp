@@ -85,7 +85,7 @@
 									<th width="270">제목</th>
 									<th width="60">강사명</th>	
 									<th width="240">기간</th>
-									<th width="80">모집인원</th>
+									<th style="min-width:45px">모집인원</th>
 								</tr>
                               </thead>
                               <tbody>
@@ -104,7 +104,7 @@
 						</table>	      
                   	</div>
 					
-					<hr style="display:block;clear:both;">
+					<hr style="margin-top: 0;display:block;clear:both;">
 
 				</div>
 				<!--/panel-body-->

@@ -2331,6 +2331,7 @@ label {
 
 .table-footer{
 	display: inline-block;
+	width: 100%;
 }
 
 .pagination-centered {
