@@ -93,7 +93,11 @@
                         </tr>
                         </c:forEach>
                      </tbody>                     
-                  </table>         
+                  </table>
+                  <c:if test="${empty myLectureList || empty myLectureList[0]}">
+					<h3 style="margin: 80px auto; text-align: center;">수강내역이 없습니다...</h3>
+				  </c:if>	 
+                           
                      </div>
                
                <hr style="margin-top:0;display:block;clear:both;">

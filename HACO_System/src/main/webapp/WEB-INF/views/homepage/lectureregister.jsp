@@ -101,7 +101,10 @@
 							</tr>
 								</c:forEach>
 							</tbody>							
-						</table>	      
+						</table>
+						<c:if test="${empty getopencourselist || empty getopencourselist[0]}">
+							<h3 style="margin: 80px auto; text-align: center;">등록된 과정이 없습니다...</h3>
+						</c:if>	      
                   	</div>
 					
 					<hr style="margin-top: 0;display:block;clear:both;">

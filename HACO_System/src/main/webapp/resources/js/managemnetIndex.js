@@ -1,10 +1,4 @@
-$(function(){
-	$(document).ready(function () {
-    	
-		var today = new Date();
-    	
-    	$('[data-name="now"]').text(today.toDateString());
-    	
+$(document).ready(function () {
     	
     	
         $("#date-popover").popover({html: true, trigger: "manual"});
@@ -30,7 +24,11 @@ $(function(){
             ]
         });
     });
-    
+
+$(function(){
+	var today = new Date();
+	
+	$('[data-name="now"]').text(today.toDateString());
     
     function myNavFunction(id) {
         $("#date-popover").hide();

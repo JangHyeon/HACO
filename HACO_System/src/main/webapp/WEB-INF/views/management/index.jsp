@@ -310,6 +310,19 @@
 	<!-- inclue common script -->
     <%@ include file="commonScript.jsp" %>
 
+	<script>
+		$(document).ready(function(){
+			 //직원등록 후 
+		    var result = ${param.result};
+		    var user_id = ${param.user_id};
+		    if(result==4){
+		       alert("직원 등록을 하였습니다.\n 생성 아이디: "+user_id+ "\n 패스워드: 1004");   
+		    }
+			
+		});
+	</script>
+
+
     <!--script for this page-->    
 	<script src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>	
 	<script src="${resourceUrl}/assets/js/chart-master/Chart.min.js"></script>
@@ -325,14 +338,4 @@
 	<script src="${resourceUrl}/simpleWeather/jquery.simpleWeather.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${resourceUrl}/simpleWeather/simpleWeather.js" type="text/javascript" charset="utf-8"></script>
 	
-	<script>
-		$(document).ready(function(){
-			 //직원등록 후 
-		    var result = ${param.result};
-		    var user_id = ${param.user_id};
-		    if(result==4){
-		       alert("직원 등록을 하였습니다.\n 생성 아이디: "+user_id+ "\n 패스워드: 1004");   
-		    }
-			
-		});
-	</script>
+	

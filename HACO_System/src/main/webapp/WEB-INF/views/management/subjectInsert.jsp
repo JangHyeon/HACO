@@ -205,8 +205,8 @@
 											enterMode : '2',
 											shiftEnterMode : '3',
 											//filebrowserBrowseUrl : "${resourceUrl}",
-											filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
-											filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images'
+											filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
+									        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
 										});
 						ckeditor1 = CKEDITOR.instances['lecture_content'];
 
@@ -218,8 +218,8 @@
 											enterMode : '2',
 											shiftEnterMode : '3',
 											//filebrowserBrowseUrl : "${resourceUrl}",
-											filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
-											filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images'
+											filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
+									        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
 										});
 						ckeditor2 = CKEDITOR.instances['subject_explanation'];
 
@@ -231,8 +231,8 @@
 											enterMode : '2',
 											shiftEnterMode : '3',
 											//filebrowserBrowseUrl : "${resourceUrl}",
-											filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
-											filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images'
+											filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
+									        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
 										});
 						ckeditor3 = CKEDITOR.instances['instructional_objectives'];
 
@@ -244,8 +244,8 @@
 											enterMode : '2',
 											shiftEnterMode : '3',
 											//filebrowserBrowseUrl : "${resourceUrl}",
-											filebrowserUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=File',
-											filebrowserImageUploadUrl : '${pageContext.request.contextPath}/noticeUpload?command=QuickUpload&type=Images'
+											filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
+									        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
 										});
 						ckeditor4 = CKEDITOR.instances['subject_point'];
 
