@@ -41,12 +41,12 @@
 		<div class="row">
 			<div class="col-md-12">
 				<div class="content-panel pull">
-
+ 
 					<div class="col-md-6">
 						<div class="pull-right topToggle">
-							<a class="btn btn-success"
-								href="${pageContext.request.contextPath}/management/centerInsert">
-								과목 등록</a>
+						<input type="text" id="newcenter">
+							<a class="btn btn-success" id="test">
+								센터 등록</a>
 						</div>
 						<h4>
 							<i class="fa fa-angle-right"></i> 교육센터등록
@@ -130,6 +130,11 @@
 	$(document)
 			.ready(
 					function() {
+						
+						$('#test').on('click', function() {
+							location.href = "${pageContext.request.contextPath}/management/centerinsertOk?location="+$("#newcenter").val();
+					});
+						
 						var centerId;
 						$('.btntn').on('click', function() {
 							centerId = $(this).val();

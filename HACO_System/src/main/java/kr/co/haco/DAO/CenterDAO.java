@@ -12,4 +12,6 @@ public interface CenterDAO {
 	public List<getCourseList> getopencoursesList(String center_classroom_id);
 	public int insertCenter(String location);
 	public int deleteCenter(String center_id);
+	public int insertRoom(String center_id,String classroom);
+	public int deleteRoom(String center_classroom_id);
 }

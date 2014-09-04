@@ -67,7 +67,7 @@
 								<input type="text" class="form-control" name="capacity"
 									id="capacity" onkeydown="OnlyNum();" style="ime-mode: disabled">
 							</div>
-							<label class="col-md-2 col-sm-2 control-label">교육센터</label>
+							<label class="col-md-2 col-sm-2 control-label">등록센터명</label>
 							<div class="col-md-4 col-sm-4">
 								<%-- <select id="center_id" name="center_id">
 									<option value="name">교육센터명</option>
@@ -332,8 +332,8 @@
 								alert("강의 내용을 입력하세요.");
 								ckeditor.focus();
 								return false;
-							} else if (ckeditor1.getData().length >= 1000) {
-								alert("1000자 이하로 입력해주세요.");
+							} else if (ckeditor1.getData().length >= 2000) {
+								alert("2000자 이하로 입력해주세요.");
 								ckeditor.focus();
 								return false;
 							}
@@ -342,8 +342,8 @@
 								alert("과목 설명을 입력하세요.");
 								ckeditor.focus();
 								return false;
-							} else if (ckeditor2.getData().length >= 500) {
-								alert("500자 이하로 입력해주세요.");
+							} else if (ckeditor2.getData().length >= 2000) {
+								alert("2000자 이하로 입력해주세요.");
 								ckeditor.focus();
 								return false;
 							}
@@ -352,8 +352,8 @@
 								alert("학습 목표을 입력하세요.");
 								ckeditor.focus();
 								return false;
-							} else if (ckeditor3.getData().length >= 100) {
-								alert("100자 이하로 입력해주세요.");
+							} else if (ckeditor3.getData().length >= 2000) {
+								alert("2000자 이하로 입력해주세요.");
 								ckeditor.focus();
 								return false;
 							}
@@ -362,8 +362,8 @@
 								alert("과목 특장점을 입력하세요.");
 								ckeditor.focus();
 								return false;
-							} else if (ckeditor4.getData().length >= 200) {
-								alert("200자 이하로 입력해주세요.");
+							} else if (ckeditor4.getData().length >= 2000) {
+								alert("2000자 이하로 입력해주세요.");
 								ckeditor.focus();
 								return false;
 							}

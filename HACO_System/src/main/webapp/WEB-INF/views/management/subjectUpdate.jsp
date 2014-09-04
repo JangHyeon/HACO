@@ -74,12 +74,16 @@
 								</div>
 								<label class="col-md-2 col-sm-2 control-label">교육센터</label>
 								<div class="col-md-4 col-sm-4">
-									<select id="center_id" name="center_id" disabled="disabled">
+								     <%--    <select id="center_id" name="center_id" disabled="disabled">
 										<option value="name">교육센터명</option>
 										<c:forEach var="Center" items="${Center}">
-											<option value="${Center.center_id}">${Center.location}</option>
-										</c:forEach>
-									</select>
+											<option value="${role.center_id}">${role.location}</option>
+										</c:forEach> 
+									</select> --%>
+								
+								 <input type="hidden" value="${role.center_id}"  id="center_id" name="center_id">
+									<input type="text" class="form-control" name="location"
+									id="location" value="${role.location}" disabled="disabled">
 								</div>
 							</div>
 
@@ -333,8 +337,8 @@ $(document).ready(function(){
 			alert("과목 설명을 입력하세요.");
 			ckeditor2.focus();
 			return false;
-		}else if(ckeditor2.getData().length>=500){
-			alert("500자 이하로 입력해주세요.");
+		}else if(ckeditor2.getData().length>=2000){
+			alert("2000자 이하로 입력해주세요.");
 			ckeditor2.focus();
 			return false;
 		} 
@@ -343,8 +347,8 @@ $(document).ready(function(){
 			alert("학습 목표을 입력하세요.");
 			ckeditor3.focus();
 			return false;
-		}else if(ckeditor3.getData().length>=100){
-			alert("100자 이하로 입력해주세요.");
+		}else if(ckeditor3.getData().length>=2000){
+			alert("2000자 이하로 입력해주세요.");
 			ckeditor3.focus();
 			return false;
 		} 
@@ -353,8 +357,8 @@ $(document).ready(function(){
 			alert("과목 특장점을 입력하세요.");
 			ckeditor4.focus();
 			return false;
-		}else if(ckeditor4.getData().length>=200){
-			alert("200자 이하로 입력해주세요.");
+		}else if(ckeditor4.getData().length>=2000){
+			alert("2000자 이하로 입력해주세요.");
 			ckeditor4.focus();
 			return false;
 		} 

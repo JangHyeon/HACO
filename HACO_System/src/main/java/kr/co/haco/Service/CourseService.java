@@ -12,9 +12,12 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.ui.Model;
 
 public interface CourseService {
-///////////////////////////과정 부분///////////////////////////
+	
 public void getCourseList(getCourseList getCourseList, Model model, String contextPath);
-      
+
+public void getCourseList(String searchType, int pageSize, int pageNum,
+		String searchKey, Model model, String contextPath);
+     
 /*// 과정:목록..
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 public List<getCourseList> getCourseList();*/
@@ -50,5 +53,7 @@ public int CKsubjectid(int subject_id);
 public int CKopencouseid(int open_course_id);
 
 public int CKcenterid(int center_id);
+
+public int CKroomid(int center_classroom_id);
 
 }

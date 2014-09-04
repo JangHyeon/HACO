@@ -6,6 +6,8 @@ import java.util.List;
 
 
 
+
+
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -47,6 +49,20 @@ public class CenterServiceImpl implements CenterService{
 	public int deleteCenter(String center_id) {
 		// TODO Auto-generated method stub
 		return sqlSession.getMapper(CenterDAO.class).deleteCenter(center_id);
+
+	}
+
+	@Override
+	public int insertRoom(String center_id, String classroom) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(CenterDAO.class).insertRoom(center_id, classroom);
+
+	}
+
+	@Override
+	public int deleteRoom(String center_classroom_id) {
+		// TODO Auto-generated method stub
+		return sqlSession.getMapper(CenterDAO.class).deleteRoom(center_classroom_id);
 
 	}
 

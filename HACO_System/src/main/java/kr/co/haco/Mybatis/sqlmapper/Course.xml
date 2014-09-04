@@ -117,10 +117,10 @@
    <!--교육센타 검색  -->
    <select id="getCenter2" parameterType="Integer"
       resultType="kr.co.haco.VO.EducationCenter">
-      select center_id, location from education_center
-    where
-      center_id=#{center_id} and state =1
-   </select>
+	      select center_id, location from education_center
+	    where
+	      center_id=#{center_id} and state =1
+   </select>	
    <!-- 과정등록 -->
    <insert id="insertCourse" parameterType="kr.co.haco.VO.OpenCourse">
       insert into
@@ -160,4 +160,8 @@
    <select id="CKcenterid" parameterType="Integer" resultType="Integer">
    select count(center_id) from open_course where center_id = #{center_id}
      </select>
+        <select id="CKroomid" parameterType="Integer" resultType="Integer">
+  		 select count(center_classroom_id) from open_course where center_classroom_id = #{center_classroom_id}
+     </select>
+     
 </mapper>
