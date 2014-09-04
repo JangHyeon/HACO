@@ -75,6 +75,9 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					<c:if test="${empty noticeList || empty noticeList[0]}">
+						<h4 style="margin: 60px auto; text-align: center;">결과가 없습니다...</h4>
+					</c:if>
 				</div>
 			</div>
 		</div>
@@ -95,6 +98,9 @@
 							</c:forEach>
 						</tbody>
 					</table>
+					<c:if test="${empty lectureRegisterList || empty lectureRegisterList[0]}">
+						<h4 style="margin: 60px auto; text-align: center;">데이터 없습니다...</h4>
+					</c:if>
 				</div>
 			</div>
 		</div>

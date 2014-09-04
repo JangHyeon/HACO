@@ -634,16 +634,18 @@ public class HomepageServiceImpl implements HomepageService {
 		map.put("searchKey", "[noKeyword]");
 		
 		//우수강사
-		int bestTeacher_id = sqlSession.getMapper(HomepageDAO.class).getBestTeacher();
-		map.put("bestTeacher", sqlSession.getMapper(AccountDAO.class).getEmployee(String.valueOf(bestTeacher_id)));
-
-		//인센티브
-		int incentive = sqlSession.getMapper(HomepageDAO.class).getBestIncentive(bestTeacher_id);
+		if(sqlSession.getMapper(HomepageDAO.class).ExistBestTeacher()!=0){
+			int bestTeacher_id = sqlSession.getMapper(HomepageDAO.class).getBestTeacher();
+			map.put("bestTeacher", sqlSession.getMapper(AccountDAO.class).getEmployee(String.valueOf(bestTeacher_id)));
+			
+			//인센티브
+			int incentive = sqlSession.getMapper(HomepageDAO.class).getBestIncentive(bestTeacher_id);
+			
+			NumberFormat nf = NumberFormat.getNumberInstance();
+			map.put("bestIncentive",nf.format(incentive/100));
+			map.put("bestIncentiveStack",nf.format(incentive/200*3));
+		}
 		
-		NumberFormat nf = NumberFormat.getNumberInstance();
-		map.put("bestIncentive",nf.format(incentive/100));
-		
-		map.put("bestIncentiveStack",nf.format(incentive/200*3));
 		
 		//사용량 차트
 		map.put("totalFileSize", sqlSession.getMapper(HomepageDAO.class).getTotalFileSize());

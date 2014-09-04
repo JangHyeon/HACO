@@ -605,6 +605,7 @@ margin: 3px 3px 3px 4px;
 	min-width: 80px;
 }
 .topToggle{
+	margin-top: 15px;
 	margin-bottom: 10px;
 }
 
@@ -845,10 +846,28 @@ span.label-info{
 	margin-right: 5px;
 }
 
-.attendBtn{
+.attendBtn,
+.certificateBtn,
+.evalBtn{
 	margin:-5px;
 }
 
 .table.table-hover{
 	margin-bottom: 0;
+}
+
+.pull-right{
+	margin-right: 15px;
+}
+.bottomToggle{
+	margin-top: 15px;
+}
+.panel-body{
+	padding: 0px;
+}
+
+@media (max-width: 550px) {
+	.responsive{
+		display: none;
+	}
 }

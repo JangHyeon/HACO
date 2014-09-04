@@ -29,7 +29,7 @@
 	href="${resourceUrl}/assets/css/style-responsive.css"
 	rel="stylesheet">
 
-<input id="current-accordion" type="hidden" value="lectureRegister" />
+<input id="current-accordion" type="hidden" value="lectureRegister,lectureRegister" />
 
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -70,26 +70,26 @@ function lecture(open_course_id,account_id,classification){
 						<hr>
 						<thead>
 							<tr>
-								<th><i class="fa fa-bullhorn"></i>센터명</th>
-								<th><i class="fa fa-bullhorn"></i>과정명</th>
-								<th><i class="fa fa-bullhorn"></i>강의실</th>
-								<th><i class="fa fa-bullhorn"></i>강사명</th>
-								<th><i class="fa fa-bullhorn"></i>기간</th>
-								<th><i class="fa fa-bullhorn"></i>현재인원/정원</th>
-								<th><i class="fa fa-bullhorn"></i>성명</th>
-								<th><i class="fa fa-bullhorn"></i>수강상태</th>
+								<th class="responsive">센터명</th>
+								<th>과정명</th>
+								<th>강의실</th>
+								<th>강사명</th>
+								<th class="responsive">기간</th>
+								<th>현재인원/정원</th>
+								<th>성명</th>
 								<s:authorize ifAnyGranted="MASTER,CENTER,MANAGER">
-								<th><i class="fa fa-bullhorn"></i>수강신청상태</th>
+								<th>수강신청상태</th>
 								</s:authorize>
+								<th>수강상태</th>
 							</tr>
 						</thead>
 							<c:forEach var="b" items="${getlecturestats}">
 								<tr>
-									<td>${b.location}</td>
+									<td class="responsive">${b.location}</td>
 									<td>${b.course_name}</td>
 									<td>${b.classroom }</td>
 									<td>${b.name_kor }</td>
-									<td>${b.course_start_date}~ ${b.course_end_date}</td>
+									<td class="responsive">${b.course_start_date}~ ${b.course_end_date}</td>
 									<td>${b.CNT}/${b.capacity }</td>
 									<td>${b.name }</td>
 									<s:authorize ifAnyGranted="MASTER,CENTER,MANAGER">
@@ -103,6 +103,9 @@ function lecture(open_course_id,account_id,classification){
 								</tr>
 							</c:forEach>
 					</table>
+					<c:if test="${empty getlecturestats || empty getlecturestats[0]}">
+						<h3 style="margin: 80px auto; text-align: center;">목록이 없습니다...</h3>
+					</c:if>
 				</div>
 				<!-- /content-panel -->
 			</div>

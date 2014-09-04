@@ -309,6 +309,15 @@
 		order by qna_id desc limit 6
 	</select>
 	
+	<!-- 우수 강사 유무 -->
+	<select id="ExistBestTeacher" resultType="Integer">
+		SELECT count(o.account_id) AS teacher
+		FROM lecture_register as l
+		INNER JOIN open_course as o
+		ON l.open_course_id = o.open_course_id
+		WHERE LEFT(DATE_SUB(CURDATE(),INTERVAL 0 month),7) = LEFT(lecture_register_date,7)
+	</select>
+	
 	<!-- 우수 강사 -->
 	<select id="getBestTeacher" resultType="Integer">
 		select teacher from 

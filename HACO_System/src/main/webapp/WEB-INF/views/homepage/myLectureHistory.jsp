@@ -46,7 +46,7 @@
                         <c:forEach var="myLecture" items="${myLectureList}" varStatus="seq">                        
                         <tr>
                            <td>${seq.index+1}</td>
-                           <td>${myLecture.course_name}</td>               
+                           <td><a href="${pageContext.request.contextPath}/lecture?opid=${myLecture.open_course_id}">${myLecture.course_name}</a></td>               
                            <td>${myLecture.location}</td>                           
                            <td>${myLecture.course_start_date}</td>   
                            <td>${myLecture.course_end_date}</td>   
@@ -62,7 +62,7 @@
                                     <button type="button" class="btn btn-success btn-xs attendBtn" value="${myLecture.open_course_id}">수강완료</button>
                                  </c:when>
                                  <c:when test="${myLecture.now_study=='미개강'}">
-                                    미개강
+                                    <small>미개강</small>
                                  </c:when>
                               </c:choose>
                            </td>    
@@ -76,16 +76,16 @@
                                  -->
                               <c:choose>
                                  <c:when test="${myLecture.is_survey=='평가활성-평가안함'}">
-                                    <button type="button" class="btn btn-default btn-xs attendBtn evalBtn" value="${myLecture.open_course_id}">강의평가 하기</button>
+                                    <button type="button" class="btn btn-default btn-xs evalBtn" value="${myLecture.open_course_id}">강의평가 하기</button>
                                  </c:when>
                                  <c:when test="${myLecture.is_survey=='평가활성-평가함'}">
-                                    <button type="button" class="btn btn-default btn-xs attendBtn certificateBtn">수료증 발급</button>
+                                    <button type="button" class="btn btn-default btn-xs certificateBtn">수료증 발급</button>
                                  </c:when>
                              <%--      <c:when test="${myLecture.is_survey=='평가CLOSE'}">
                                     강의평가 CLOSE
                                  </c:when> --%>
                                  <c:otherwise>
-                                    강의평가 없음
+                                    <small>평가 미등록</small>
                                  </c:otherwise>
                               </c:choose>
                               
@@ -96,7 +96,7 @@
                   </table>         
                      </div>
                
-               <hr style="display:block;clear:both;">
+               <hr style="margin-top:0;display:block;clear:both;">
 
             </div>
             <!--/panel-body-->
@@ -144,7 +144,8 @@
       });
       //수료증 발급 버튼
         $('.certificateBtn').on('click',function(){
-           location.href="#";        
+           location.href="#";
+           alert('준비중입니다...');
       });
       //출결 버튼
         $('.attendBtn').on('click',function(){

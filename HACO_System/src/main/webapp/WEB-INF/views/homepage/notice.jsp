@@ -23,7 +23,7 @@
 				<!-- <div class="panel-heading">공지사항 작성</div> -->
 				<div class="panel-body">
 					<div class="form-panel">
-						<div class="row mt">
+						<div class="mt">
 							<div class="content-panel">
 								<!-- <h4>
 									<i class="fa fa-angle-right"></i> Hover Table

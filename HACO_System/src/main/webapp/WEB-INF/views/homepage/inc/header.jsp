@@ -29,7 +29,7 @@
             <ul class="dropdown-menu">
               <li><a href="${pageContext.request.contextPath}/notice">공지사항</a></li>
               <li><a href="${pageContext.request.contextPath}/qna">질문과 답변</a></li>
-              <li><a href="${pageContext.request.contextPath}/community">모임방</a></li>
+              <%-- <li><a href="${pageContext.request.contextPath}/community">모임방</a></li> --%>
             </ul>
           </li>
           <s:authorize ifAnyGranted="GUEST,STUDENT">

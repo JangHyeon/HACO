@@ -40,6 +40,7 @@ public interface HomepageDAO {
 	public int getNewEmployeeNumber();
 	public int getNewNoticeNumber();
 	public int getNewQnaNumber();
+	public int ExistBestTeacher();
 	public int getBestTeacher();
 	public List<Qna> getWaitAnswerList();
 	public int getBestIncentive(int account_id);

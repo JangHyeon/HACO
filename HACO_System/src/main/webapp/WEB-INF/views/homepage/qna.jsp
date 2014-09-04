@@ -23,7 +23,7 @@
 				<!-- <div class="panel-heading">공지사항 작성</div> -->
 				<div class="panel-body">
 					<div class="form-panel">
-						<div class="row mt">
+						<div class="mt">
 							<div class="content-panel">
 								<!-- <h4>
 									<i class="fa fa-angle-right"></i> Hover Table
@@ -118,7 +118,7 @@
 								</c:if>
 								
 								<s:authorize ifAnyGranted="GUEST,STUDENT">
-					            <div class="pull-right">
+					            <div class="pull-right bottomToggle">
 									<button id="writeBtn" class="btn btn-default" type="button">질문 올리기</button>
 								</div>
 								</s:authorize>

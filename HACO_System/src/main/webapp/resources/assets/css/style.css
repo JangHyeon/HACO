@@ -389,8 +389,9 @@ ul.sidebar-menu li a{
     -ms-transition: all 0.3s ease;
     transition: all 0.3s ease;
 }
-
-ul.sidebar-menu li a.active, ul.sidebar-menu li a:hover, ul.sidebar-menu li a:focus {
+ul.sidebar-menu > li.sub-menu > a.active, 
+ul.sidebar-menu > li.sub-menu > a:hover, 
+ul.sidebar-menu > li.sub-menu > a:focus {
     background: #68dff0;
     color: #fff;
     display: block;
@@ -2603,6 +2604,10 @@ border-color: #324A5D;
 
 @media (max-width: 550px) {
 	.writeDate{
+		display: none;
+	}
+	
+	.responsive{
 		display: none;
 	}
 }

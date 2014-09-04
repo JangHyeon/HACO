@@ -1,8 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/security/tags"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+
 
 <!-- spEL을 활용한 리소스 버전 관리 -->
 <spring:eval expression="@baseConfig['app.version']" var="applicationVersion" />
@@ -117,17 +119,34 @@
 									<h5>이 달의 우수강사</h5>
 								</div>
 								<p><div class="centered employeePhoto"><img src="${pageContext.request.contextPath}/employeePhoto/${bestTeacher.photo}" class="employeePhoto-img" width="80" onerror="this.src='${pageContext.request.contextPath}/images/User-Role-Guest-icon.png'"></div></p>
-								<p><b>${bestTeacher.name_kor} (${bestTeacher.name_eng})
-				              	  <br><small>${bestTeacher.location}</small>
-				              	</b></p>
+								<p>
+									<c:if test="${empty bestTeacher}">
+										<b>우수강사 선정중…</b>
+									</c:if>
+									<c:if test="${!empty bestTeacher}">
+										<b>${bestTeacher.name_kor} (${bestTeacher.name_eng})
+					              	  	<br><small>${bestTeacher.location}</small>
+					              		</b>
+				              		</c:if>
+				              	</p>
 								<div class="row">
 									<div class="col-md-6">
 										<p class="small mt">MEMBER SINCE</p>
-										<p><fmt:formatDate value="${bestTeacher.join_date}" pattern="yyyy.MM"/></p>
+										<p>
+											<fmt:formatDate value="${bestTeacher.join_date}" pattern="yyyy.MM"/>
+											<c:if test="${empty bestIncentive}">
+												<p>…</p>
+											</c:if>
+										</p>
 									</div>
 									<div class="col-md-6">
 										<p class="small mt">INCENTIVE</p>
-										<p>￦ ${bestIncentive}</p>
+										<c:if test="${empty bestIncentive}">
+											<p>…</p>
+										</c:if>
+										<c:if test="${!empty bestIncentive}">
+											<p>￦ ${bestIncentive}</p>
+										</c:if>
 									</div>
 								</div>
 							</div>
@@ -172,12 +191,19 @@
 							<!-- REVENUE PANEL -->
 							<div class="darkblue-panel pn">
 								<div class="darkblue-header">
-									<h5>다음 달<br>우수강사 지원금</h5>
+									<h5>다음 달<br>우수강사 포상</h5>
 								</div>
 								<div>
 									<i class="fa fa-money fa-7x"></i>
 								</div>
-								<p><b>￦ ${bestIncentiveStack}</b><br/> 보너스</p>
+								<p>
+									<c:if test="${empty bestIncentiveStack}">
+										<p>정수기 무제한 이용권</p>
+									</c:if>
+									<c:if test="${!empty bestIncentiveStack}">
+										<b>￦ ${bestIncentiveStack}</b><br/>보너스
+									</c:if>
+								</p>
 							</div>
 						</div><!-- /col-md-4 -->
 						
@@ -191,7 +217,12 @@
                       <input id="barChartLabel" value="${jsonLabel}" type="hidden">
                       <input id="barChartData" value="${jsonData}" type="hidden">
                       <div id="bar-chart-div">
-                      <canvas id="bar-chart"></canvas>
+	                      <c:if test="${fn:length(jsonData)<=2}">
+							<h3 style="margin: 200px auto; text-align: center;">데이터가 없습니다...</h3>
+						  </c:if>
+						  <c:if test="${fn:length(jsonData)>2}">
+						  <canvas id="bar-chart"></canvas>
+						  </c:if>
                       </div>
                       <!--custom chart end-->
 					</div><!-- /row -->	
@@ -206,7 +237,6 @@
                   <div class="col-lg-3 ds">
                     <!--COMPLETED ACTIONS DONUTS CHART-->
 						<h3>NOTIFICATIONS</h3>
-                                        
 						<c:forEach var="employeeNotice" items="${newEmployeeNoticeList}">
 							<div class="desc">
 		                      	<div class="thumb">
@@ -226,7 +256,9 @@
 		                      	</div>
 		                      </div>
 						</c:forEach>
-                                        
+                        <c:if test="${empty newEmployeeNoticeList || empty newEmployeeNoticeList[0]}">
+							<h3 style="margin: 80px auto; text-align: center; background: #fff;color: #aaa;">공지사항이 없습니다...</h3>
+						</c:if>               
                       
 
                        <!-- USERS ONLINE SECTION -->
@@ -248,7 +280,11 @@
                       	</div>
                       </div>
                       </c:forEach>
-
+					  <c:if test="${empty newEmployeeList || empty newEmployeeList[0]}">
+							<h3 style="margin: 80px auto; text-align: center; background: #fff;color: #aaa;">신규직원이 없습니다...</h3>
+					  </c:if>               
+                      
+					  
                         <!-- CALENDAR-->
                         <div id="calendar" class="mb">
                             <div class="panel green-panel no-margin">
