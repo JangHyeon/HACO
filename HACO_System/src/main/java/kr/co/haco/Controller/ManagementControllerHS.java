@@ -85,10 +85,8 @@ public class ManagementControllerHS {
    
    // 과정-과목등록-SubjectInsert-Form  *완료*
       @RequestMapping(value = "subjectInsert", method = RequestMethod.GET)
-      public String insertForm(Model model, HttpSession session) {
+      public String insertForm(Model model, HttpSession session)  {
          Employee eply = (Employee) session.getAttribute("employee");
-         System.out.println("1:"+eply.getAccount_id());
-         System.out.println("2:"+eply.getNow_center_id());
          model.addAttribute("Center", courseService.getCenter());
 	       /*  model.addAttribute("getAccountId",subjectService.getSubjectList2(Integer.toString(eply.getAccount_id())));
 	      */  
@@ -99,9 +97,11 @@ public class ManagementControllerHS {
 
   
       // 과정-과목등록-SubjectInsert-OK  *완료*
-      @RequestMapping(value = "insertOk", method = RequestMethod.GET)
+      @RequestMapping(value = "insertOk", method = RequestMethod.POST)
       public String insertOk(Subject subject, String start, String end)
-            throws ParseException {
+            throws ParseException {  
+    	  
+    	  
          subjectService.insertSubject(subject,start,end);
          return "redirect:subjectRegister";
       }
@@ -115,7 +115,7 @@ public class ManagementControllerHS {
       }
 
      // 과정-과목수정-updateForm-Form-OK *완료*
-      @RequestMapping(value = "UpdateOk", method = RequestMethod.GET)
+      @RequestMapping(value = "UpdateOk", method = RequestMethod.POST)
       public String UpdateOk(Model model, Subject subject, String start,
             String end, HttpServletResponse res) throws IOException { 
          subjectService.updateSubject(subject,start,end);
@@ -213,7 +213,7 @@ public class ManagementControllerHS {
             HttpServletResponse rs) throws JsonGenerationException,
             JsonMappingException, IOException {
         String state;
-         if (courseService.CKsubjectid(Integer.parseInt(json_data)) == 0) {
+         if (courseService.CKopencouseid(Integer.parseInt(json_data)) == 0) {
             state = "notnull";
          } else {
             state = "null";
@@ -235,10 +235,14 @@ public class ManagementControllerHS {
       public void courseUpdateOk(Model model, String start, String center_id,
             String center_classroom_id, getCourseList getList, String end,
             HttpServletResponse res) throws IOException {
-    	  OpenCourse course = new OpenCourse(getList.getOpen_course_id(),
+         OpenCourse course = new OpenCourse(getList.getOpen_course_id(),
              getList.getAccount_id(), getList.getSubject_id(),
-             getList.getCourse_name(), Integer.parseInt(center_id),
+             getList.getCourse_name(), java.sql.Date.valueOf(start),
+             java.sql.Date.valueOf(end),
+             Integer.parseInt(center_id),
              Integer.parseInt(center_classroom_id));
+       
+         
          courseService.updateCourse(course);
          res.sendRedirect("courseRegister");
       }

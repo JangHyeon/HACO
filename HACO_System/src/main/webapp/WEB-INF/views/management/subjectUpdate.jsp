@@ -50,7 +50,7 @@
 						<i class="fa fa-angle-right"></i> 과목수정
 					</h4>
 					<form class="form-horizontal style-form" action="UpdateOk" id="updatesubject"
-						method="get">
+						method="POST">
 						
 						<c:forEach var="role" items="${roleList}">
 						<input type="hidden" value="${role.center_id}" id="Cid" >
@@ -74,8 +74,8 @@
 							<label class="col-md-2 col-sm-2 control-label">정원</label>
 							<div class="col-md-4 col-sm-4">
 								<div class="input-group">
-									<input type="text" class="form-control" name="capacity"
-										value="${role.capacity}" id="capacity" style="ime-mode: disabled">
+									<input type="text" class="form-control" name="capacity_String"
+										value="${role.capacity}" id="capacity_String" style="ime-mode: disabled">
 										<span class="input-group-addon">명</span>
 								</div>
 							</div>
@@ -85,8 +85,8 @@
 							<label class="col-md-2 col-sm-2 control-label">총강의일수</label>
 							<div class="col-md-4 col-sm-4">
 								<div class="input-group">
-									<input type="text" class="form-control" name="lecture_totalday"
-										value="${role.lecture_totalday}" id="lecture_totalday" style="ime-mode: disabled">
+									<input type="text" class="form-control" name="lecture_totalday_String"
+										value="${role.lecture_totalday}" id="lecture_totalday_String" style="ime-mode: disabled">
 									<span class="input-group-addon">일</span>
 								</div>
 							</div>
@@ -111,8 +111,8 @@
 							<div class="col-md-4 col-sm-4">
 								<div class="input-group">
 									<span class="input-group-addon">￦</span>
-									<input type="text" class="form-control" name="Tuition_fee"
-										value="${role.tuition_fee}" id="Tuition_fee" style="ime-mode: disabled">
+									<input type="text" class="form-control" name="tuition_fee_String"
+										value="${role.tuition_fee}" id="tuition_fee_String" style="ime-mode: disabled">
 								</div>
 							</div>
 						</div>
@@ -189,9 +189,13 @@ $("#center_id").val($("#Cid").val()).attr("selected", "selected");
 
 $(document).ready(function(){
 
-    $('#capacity').numeric();
-    $('#lecture_totalday').numeric();
-	$("#Tuition_fee").numeric();
+    /* $('#capacity_String').numeric();
+    $('#lecture_totalday_String').numeric();
+	$("#tuition_fee_String").numeric(); */
+	
+	$('#capacity_String').number(true);
+    $('#lecture_totalday_String').number(true);
+	$("#tuition_fee_String").number(true);
 	
 	var ckeditor1;
 	var ckeditor2;
@@ -243,7 +247,7 @@ $(document).ready(function(){
  	var beforeUnload = 1;
 	$(window).on('beforeunload',function() {
 		if (beforeUnload) return "저장하지 않고 페이지를 벗어나려 합니다.\n작성중인 내용은 저장되지 않습니다.";
-});
+	});
  
 	// BackSpace 키 방지 이벤트
 	$(document).keydown(function(e) {
@@ -274,19 +278,19 @@ $(document).ready(function(){
 			$('#subject_name').focus();
 			return false;
 		}
-		
-	
+
 		/*정원 예외처리 */
-		if ($('#capacity').val() == "") {
+		if ($('#capacity_String').val() == "") {
 			alert("정원을 입력하세요.");
-			$('#capacity').focus();
+			$('#capacity_String').focus();
 			return false;
 		}
-		else if($('#capacity').val()>20){
-			alert("정원은 최대 20명입니다.");
-			$('#capacity').focus();
+		else if($('#capacity_String').val().replace(',','')>100){
+			alert("정원은 최대 100명입니다.");
+			$('#capacity_String').focus();
 			return false;
 		}
+
 		
 		/*센터명 예외처리 */
 		if ($('#center_id').val() == "name") {
@@ -296,9 +300,13 @@ $(document).ready(function(){
 		}
 		
 		/*총강의일수 예외처리 */
-		if ($('#lecture_totalday').val() == "") {
+		if ($('#lecture_totalday_String').val() == "") {
 			alert("강의일수를 입력하세요.");
-			$('#lecture_totalday').focus();
+			$('#lecture_totalday_String').focus();
+			return false;
+		}else if($('#lecture_totalday_String').val().replace(',','')>500){
+			alert("최대 강의일수는 500일입니다.");
+			$('#capacity_String').focus();
 			return false;
 		}
 		
@@ -320,9 +328,13 @@ $(document).ready(function(){
 		}
 		
 		/*수강료 예외처리 */
-		if ($('#Tuition_fee').val() == "") {
+		if ($('#tuition_fee_String').val() == "") {
 			alert("수강료를 입력하세요.");
-			$('#Tuition_fee').focus();
+			$('#tuition_fee_String').focus();
+			return false;
+		}else if($('#tuition_fee_String').val().replace(',','')>10000000){
+			alert("최대 수강료는 10,000,000원 입니다.");
+			$('#tuition_fee_String').focus();
 			return false;
 		}
 		
@@ -366,6 +378,13 @@ $(document).ready(function(){
 			ckeditor4.focus();
 			return false;
 		} 
+		
+		//수강 대상
+		if ($('#lecture_target').val() == "") {
+			alert("수강대상을 입력하세요.");
+			$('#lecture_target').focus();
+			return false;
+		}
 		$(window).off('beforeunload');
 	});
 });

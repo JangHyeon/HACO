@@ -20,13 +20,15 @@ public class OpenCourse {
 		this.center_classroom_id = center_classroom_id;
 	}
 	    public OpenCourse(int open_course_id, int account_id, int subject_id,
-			String course_name, 
+			String course_name, Date course_start_date, Date course_end_date,
 			int center_id, int center_classroom_id) {
 		super();
 		this.open_course_id = open_course_id;
 		this.account_id = account_id;
 		this.subject_id = subject_id;
 		this.course_name = course_name;
+		this.course_start_date = course_start_date;
+		this.course_end_date = course_end_date;
 		this.center_id = center_id;
 		this.center_classroom_id = center_classroom_id;
 	}

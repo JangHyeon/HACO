@@ -42,6 +42,14 @@ public class SubjectServiceImpl implements SubjectService {
 	
 	@Override
 		public int insertSubject(Subject subject, String start, String end) {
+		
+		
+
+		subject.setCapacity(Integer.parseInt(subject.getLecture_totalday_String().replace(",", "")));
+		subject.setLecture_totalday(Integer.parseInt(subject.getLecture_totalday_String().replace(",", "")));
+		subject.setTuition_fee(Integer.parseInt(subject.getTuition_fee_String().replace(",", "")));
+		 
+		
 		 Time start1 =  Time.valueOf(start + ":00");
          Time end1 =  Time.valueOf(end + ":00");
          long a = (end1.getTime() - start1.getTime()) / 1000;
@@ -60,6 +68,14 @@ public class SubjectServiceImpl implements SubjectService {
 	
 	@Override
 	public int updateSubject(Subject subject, String start, String end) {
+		
+		
+
+		subject.setCapacity(Integer.parseInt(subject.getCapacity_String().replace(",", "")));
+		subject.setLecture_totalday(Integer.parseInt(subject.getLecture_totalday_String().replace(",", "")));
+		subject.setTuition_fee(Integer.parseInt(subject.getTuition_fee_String().replace(",", "")));
+		
+		
 		     Time start1 = null;
 	         Time end1 = null;
 	         if (start.length() < 7) {

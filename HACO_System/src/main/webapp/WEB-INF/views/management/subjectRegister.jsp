@@ -76,14 +76,14 @@
 								<tr>
 									<td>${Subject2.location}</td>
 									<td>${Subject2.subject_name}</td>
-									<td>${Subject2.lecture_totalday}</td>
-									<td>${Subject2.lecture_totaltime}</td>
+									<td><fmt:formatNumber value="${Subject2.lecture_totalday}" type="number"/></td>
+									<td><fmt:formatNumber value="${Subject2.lecture_totaltime}" type="number"/></td>
 									<td><fmt:formatDate type="time"
 											value="${Subject2.lecture_time_start}" />~ <fmt:formatDate
 											type="time" value="${Subject2.lecture_time_end}" /></td>
 									<td>${Subject2.lecture_target}</td>
-									<td>${Subject2.capacity}</td>
-									<td>${Subject2.tuition_fee}</td>
+									<td><fmt:formatNumber value="${Subject2.capacity}" type="number"/></td>
+									<td>￦<fmt:formatNumber value="${Subject2.tuition_fee}" type="number"/></td>
 									<td><a
 										href="${pageContext.request.contextPath}/management/subjectUpdate?id=${Subject2.subject_id}">
 											<button class="btn btn-default btn-xs">
@@ -216,6 +216,7 @@
 	$(document)
 			.ready(
 					function() {
+						
 						var centerid;
 						$('.btntn').on('click', function() {
 							centerid = $(this).val();

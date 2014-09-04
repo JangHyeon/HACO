@@ -71,11 +71,11 @@
 								<label class="col-md-2 col-sm-2 control-label">시작시간/종료시간</label>
 								<div class="col-md-2 col-sm-2">
 									<input type="date" name="start"
-									value=${start2}	id="course_start_date" class="form-control" />
+									value=${start2}	id="course_start_date" class="form-control"/>
 								</div>
 								<div class="col-md-2 col-sm-2">
 									<input type="date" name="end" id="course_end_date"
-									value=${end2}	class="form-control" />
+									value=${end2}	class="form-control"/>
 								</div>
 							</div>
 

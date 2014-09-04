@@ -48,7 +48,7 @@
 					<h4 class="mb">
 						<i class="fa fa-angle-right"></i> 과목등록
 					</h4>
-					<form class="form-horizontal style-form" action="insertOk" id="insertsubject" method="get">
+					<form class="form-horizontal style-form" action="insertOk" id="insertsubject" method="POST">
 						
 						<div class="form-group">
 							<label class="col-md-2 col-sm-2 control-label">등록센터</label>
@@ -70,7 +70,7 @@
 						<div class="form-group">
 							<label class="col-md-2 col-sm-2		 control-label">과목명</label>
 							<div class="col-sm-10 col-md-10">
-								<input type="text" class="form-control" name="subject_name"
+								<input type="text" class="form-control" name="subject_name" 
 									id="subject_name">
 							</div>
 						</div>
@@ -78,8 +78,8 @@
 							<label class="col-md-2 col-sm-2 control-label">정원</label>
 							<div class="col-md-4 col-sm-4">
 								<div class="input-group">
-									<input type="text" class="form-control" name="capacity"
-										id="capacity" style="ime-mode: disabled">
+									<input type="text" class="form-control" name="capacity_String" placeholder="최대 100"
+										id="capacity_String" style="ime-mode: disabled">
 										<span class="input-group-addon">명</span>
 								</div>
 							</div>
@@ -90,8 +90,8 @@
 							<div class="col-md-4 col-sm-4">
 								
 								<div class="input-group">
-									<input type="text" class="form-control" name="lecture_totalday"
-										id="lecture_totalday" style="ime-mode: disabled">
+									<input type="text" class="form-control" name="lecture_totalday_String"
+										id="lecture_totalday_String" style="ime-mode: disabled">
 									<span class="input-group-addon">일</span>
 								</div>
 							</div>
@@ -115,47 +115,45 @@
 							<div class="col-md-4 col-sm-4">
 								<div class="input-group">
 									<span class="input-group-addon">￦</span>
-									<input type="text" class="form-control" name="Tuition_fee"
-										id="Tuition_fee" style="ime-mode: disabled">
+									<input type="text" class="form-control" name="tuition_fee_String"
+										id="tuition_fee_String" style="ime-mode: disabled">
 								</div>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 col-sm-2 control-label">강의내용<!-- <button class="btn btn-warning" id="contentBtn" type="button">입력폼</button>
-						 --></label>
-							<div class="col-md-10 col-sm-10" id="lecture_content2">
-								<textarea class="form-control" name="lecture_content"></textarea>
+							<label class="col-sm-2 col-sm-2 control-label">강의내용</label>
+							<!-- <button class="btn btn-warning" id="contentBtn" type="button">입력폼</button>-->
+							
+							<div class="col-md-10 col-sm-10">
+								<textarea class="form-control" name="lecture_content" id="lecture_content"></textarea>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">과목설명</label>
-							<div class="col-md-10 col-sm-10" id="subject_explanation2">
-								<textarea class="form-control" name="subject_explanation"></textarea>
+							<div class="col-md-10 col-sm-10">
+								<textarea class="form-control" name="subject_explanation" id="subject_explanation"></textarea>
 							</div>
 						</div>
 
 
 						<div class="form-group">
 							<label class="col-lg-2 col-sm-2 control-label">학습목표</label>
-							<div class="col-md-10 col-sm-10" id="instructional_objectives2">
-								<textarea class="form-control" name="instructional_objectives"
-									id="instructional_objectives"></textarea>
+							<div class="col-md-10 col-sm-10">
+								<textarea class="form-control" name="instructional_objectives" id="instructional_objectives"></textarea>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="col-lg-2 col-sm-2 control-label">과목특장점</label>
-							<div class="col-md-10 col-sm-10" id="subject_point2">
-								<textarea class="form-control" name="subject_point"
-									id="subject_point"></textarea>
+							<div class="col-md-10 col-sm-10">
+								<textarea class="form-control" name="subject_point" id="subject_point"></textarea>
 							</div>
 						</div>
 
 						<div class="form-group">
 							<label class="col-lg-2 col-sm-2 control-label">수강대상</label>
 							<div class="col-md-10 col-sm-10">
-								<input type="text" class="form-control" name="lecture_target"
-									id="lecture_target">
+								<input type="text" class="form-control" name="lecture_target" id="lecture_target">
 							</div>
 						</div>
 						<button class="btn btn-warning" id="submitBtn" type="button">등록</button>
@@ -188,217 +186,261 @@
 
 
 /*숫자만입력가능 메서드 */
-	/* function OnlyNum() {
-		var code = window.event.keyCode;
-		if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105)
-				|| code == 110 || code == 190 || code == 8 || code == 9
-				|| code == 13 || code == 46) {
-			window.event.returnValue = true;
-			return;
-		}
-		window.event.returnValue = false;
-	} */
+/* function OnlyNum() {
+	var code = window.event.keyCode;
+	if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105)
+			|| code == 110 || code == 190 || code == 8 || code == 9
+			|| code == 13 || code == 46) {
+		window.event.returnValue = true;
+		return;
+	}
+	window.event.returnValue = false;
+} */
+$(document).ready(function() {
+
+    /* $('#capacity_String').numeric();
+    $('#lecture_totalday_String').numeric();
+	$("#tuition_fee_String").numeric(); */
 	
-	$(document)
-			.ready(
-					function() {
+	$('#capacity_String').number(true);
+    $('#lecture_totalday_String').number(true);
+	$("#tuition_fee_String").number(true);
+	
+	
+	// 페이지 이탈시 작동
+	var beforeUnload = 1;
+	$(window).on('beforeunload',function() {
+		if (beforeUnload) return "저장하지 않고 페이지를 벗어나려 합니다.\n작성중인 내용은 저장되지 않습니다.";
+	});
+	
+	var ckeditor1;
+	var ckeditor2;
+	var ckeditor3;
+	var ckeditor4;
 
-					    $('#capacity').numeric();
-					    $('#lecture_totalday').numeric();
-						$("#Tuition_fee").numeric();
-						
-						
-						
-						
-						// 페이지 이탈시 작동
-						var beforeUnload = 1;
-						$(window)
-								.on(
-										'beforeunload',
-										function() {
-											if (beforeUnload)
-												return "저장하지 않고 페이지를 벗어나려 합니다.\n작성중인 내용은 저장되지 않습니다.";
-										});
-						var ckeditor1;
-						var ckeditor2;
-						var ckeditor3;
-						var ckeditor4;
+	CKEDITOR.replace('lecture_content',	{
+		skin : 'bootstrapck',
+		enterMode : '2',
+		shiftEnterMode : '3',
+		//filebrowserBrowseUrl : "${resourceUrl}",
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
+	});
+	ckeditor1 = CKEDITOR.instances['lecture_content'];
 
-						CKEDITOR
-								.replace(
-										'lecture_content',
-										{
-											skin : 'bootstrapck',
-											enterMode : '2',
-											shiftEnterMode : '3',
-											//filebrowserBrowseUrl : "${resourceUrl}",
-											filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
-									        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
-										});
-						ckeditor1 = CKEDITOR.instances['lecture_content'];
+	CKEDITOR.replace('subject_explanation',	{
+		skin : 'bootstrapck',
+		enterMode : '2',
+		shiftEnterMode : '3',
+		//filebrowserBrowseUrl : "${resourceUrl}",
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
+	});
+	ckeditor2 = CKEDITOR.instances['subject_explanation'];
 
-						CKEDITOR
-								.replace(
-										'subject_explanation',
-										{
-											skin : 'bootstrapck',
-											enterMode : '2',
-											shiftEnterMode : '3',
-											//filebrowserBrowseUrl : "${resourceUrl}",
-											filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
-									        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
-										});
-						ckeditor2 = CKEDITOR.instances['subject_explanation'];
+	CKEDITOR.replace('instructional_objectives',{
+		skin : 'bootstrapck',
+		enterMode : '2',
+		shiftEnterMode : '3',
+		//filebrowserBrowseUrl : "${resourceUrl}",
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
+	});
+	ckeditor3 = CKEDITOR.instances['instructional_objectives'];
 
-						CKEDITOR
-								.replace(
-										'instructional_objectives',
-										{
-											skin : 'bootstrapck',
-											enterMode : '2',
-											shiftEnterMode : '3',
-											//filebrowserBrowseUrl : "${resourceUrl}",
-											filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
-									        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
-										});
-						ckeditor3 = CKEDITOR.instances['instructional_objectives'];
+	CKEDITOR.replace('subject_point',{
+		skin : 'bootstrapck',
+		enterMode : '2',
+		shiftEnterMode : '3',
+		//filebrowserBrowseUrl : "${resourceUrl}",
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
+	});
+	ckeditor4 = CKEDITOR.instances['subject_point'];
+	
+	
+	// BackSpace 키 방지 이벤트
+	$(document).keydown(function(e){
+		if (e.target.nodeName != "INPUT"
+				&& e.target.nodeName != "TEXTAREA") {
+			if (e.keyCode === 8) {
+				e.preventDefault();
+				return false;
+			}
+		}
+	});
 
-						CKEDITOR
-								.replace(
-										'subject_point',
-										{
-											skin : 'bootstrapck',
-											enterMode : '2',
-											shiftEnterMode : '3',
-											//filebrowserBrowseUrl : "${resourceUrl}",
-											filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
-									        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
-										});
-						ckeditor4 = CKEDITOR.instances['subject_point'];
+	$('#submitBtn').on('click', function() {
+		$('#insertsubject').submit();
+	});
 
-						// BackSpace 키 방지 이벤트
-						$(document)
-								.keydown(
-										function(e) {
-											if (e.target.nodeName != "INPUT"
-													&& e.target.nodeName != "TEXTAREA") {
-												if (e.keyCode === 8) {
-													e.preventDefault();
-													return false;
-												}
-											}
-										});
+	$('#insertsubject').submit(function() {
+		/*과목명 예외처리 */
+		if ($('#subject_name').val() == "") {
+			alert("과목명을 입력하세요.");
+			$('#subject_name').focus();
+			return false;
+		} else if ($('#subject_name').val().length > 20) {
+			alert("과목명은 20자 이하로 입력하세요.");
+			$('#subject_name').focus();
+			return false;
+		}
 
-						$('#submitBtn').on('click', function() {
-							$('#insertsubject').submit();
-						});
+		/*센터명 예외처리 */
+		if ($('#center_id').val() == "name") {
+			alert("센터명을 선택하세요.");
+			$('#center_id').focus();
+			return false;
+		}
 
-						$('#insertsubject').submit(function() {
+		/*총강의일수 예외처리 */
+		if ($('#lecture_totalday_String').val() == "") {
+			alert("강의일수를 입력하세요.");
+			$('#lecture_totalday_String').focus();
+			return false;
+		}
 
-							/*과목명 예외처리 */
-							if ($('#subject_name').val() == "") {
-								alert("과목명을 입력하세요.");
-								$('#subject_name').focus();
-								return false;
-							} else if ($('#subject_name').val().length > 20) {
-								alert("과목명은 20자 이하로 입력하세요.");
-								$('#subject_name').focus();
-								return false;
-							}
+		/*강의시간 예외처리 */
+		if ($('#start').val() == "") {
+			alert("강의시작시간을 입력하세요.");
+			$('#start').focus();
+			return false;
+		}
+		if ($('#end').val() == "") {
+			alert("강의종료시간을 입력하세요.");
+			$('#end').focus();
+			return false;
+		} else if ($('#end').val() <= $('#start').val()) {
+			alert("강의종료시간이 강의시작시간보다 이릅니다.");
+			$('#end').focus();
+			return false;
+		}
 
-							/*정원 예외처리 */
-							if ($('#capacity').val() == "") {
-								alert("정원을 입력하세요.");
-								$('#capacity').focus();
-								return false;
-							} else if ($('#capacity').val() > 20) {
-								alert("정원은 최대 20명입니다.");
-								$('#capacity').focus();
-								return false;
-							}
+		/*수강료 예외처리 */
+		if ($('#tuition_fee_String').val() == "") {
+			alert("수강료를 입력하세요.");
+			$('#tuition_fee_String').focus();
+			return false;
+		}
+		/*과목명 예외처리 */
+		if ($('#subject_name').val() == "") {
+			alert("과목명을 입력하세요.");
+			$('#subject_name').focus();
+			return false;
+		} else if ($('#subject_name').val().length > 20) {
+			alert("과목명은 20자 이하로 입력하세요.");
+			$('#subject_name').focus();
+			return false;
+		}
 
-							/*센터명 예외처리 */
-							if ($('#center_id').val() == "name") {
-								alert("센터명을 선택하세요.");
-								$('#center_id').focus();
-								return false;
-							}
+		/*정원 예외처리 */
+		if ($('#capacity_String').val() == "") {
+			alert("정원을 입력하세요.");
+			$('#capacity_String').focus();
+			return false;
+		}
+		else if($('#capacity_String').val().replace(',','')>100){
+			alert("정원은 최대 100명입니다.");
+			$('#capacity_String').focus();
+			return false;
+		}
 
-							/*총강의일수 예외처리 */
-							if ($('#lecture_totalday').val() == "") {
-								alert("강의일수를 입력하세요.");
-								$('#lecture_totalday').focus();
-								return false;
-							}
+		/*센터명 예외처리 */
+		if ($('#center_id').val() == "name") {
+			alert("센터명을 선택하세요.");
+			$('#center_id').focus();
+			return false;
+		}
+		/*총강의일수 예외처리 */
+		if ($('#lecture_totalday_String').val() == "") {
+			alert("강의일수를 입력하세요.");
+			$('#lecture_totalday_String').focus();
+			return false;
+		}else if($('#lecture_totalday_String').val().replace(',','')>500){
+			alert("최대 강의일수는 500일입니다.");
+			$('#capacity_String').focus();
+			return false;
+		}
 
-							/*강의시간 예외처리 */
-							if ($('#start').val() == "") {
-								alert("강의시작시간을 입력하세요.");
-								$('#start').focus();
-								return false;
-							}
-							if ($('#end').val() == "") {
-								alert("강의종료시간을 입력하세요.");
-								$('#end').focus();
-								return false;
-							} else if ($('#end').val() <= $('#start').val()) {
-								alert("강의종료시간이 강의시작시간보다 이릅니다.");
-								$('#end').focus();
-								return false;
-							}
+		/*강의시간 예외처리 */
+		if ($('#start').val() == "") {
+			alert("강의시작시간을 입력하세요.");
+			$('#start').focus();
+			return false;
+		}
+		if ($('#end').val() == "") {
+			alert("강의종료시간을 입력하세요.");
+			$('#end').focus();
+			return false;
+		} else if ($('#end').val() <= $('#start').val()) {
+			alert("강의종료시간이 강의시작시간보다 이릅니다.");
+			$('#end').focus();
+			return false;
+		}
 
-							/*수강료 예외처리 */
-							if ($('#Tuition_fee').val() == "") {
-								alert("수강료를 입력하세요.");
-								$('#Tuition_fee').focus();
-								return false;
-							}
+		/*수강료 예외처리 */
+		if ($('#tuition_fee_String').val() == "") {
+			alert("수강료를 입력하세요.");
+			$('#tuition_fee_String').focus();
+			return false;
+		}else if($('#tuition_fee_String').val().replace(',','')>10000000){
+			alert("최대 수강료는 10,000,000원 입니다.");
+			$('#tuition_fee_String').focus();
+			return false;
+		}
 
-							/*강의내용 예외처리  */
-							if (ckeditor1.getData() == "") {
-								alert("강의 내용을 입력하세요.");
-								ckeditor1.focus();
-								return false;
-							} else if (ckeditor1.getData().length >= 2000) {
-								alert("2000자 이하로 입력해주세요.");
-								ckeditor1.focus();
-								return false;
-							}
-							/*과목설명 예외처리  */
-							if (ckeditor2.getData() == "") {
-								alert("과목 설명을 입력하세요.");
-								ckeditor2.focus();
-								return false;
-							} else if (ckeditor2.getData().length >= 2000) {
-								alert("2000자 이하로 입력해주세요.");
-								ckeditor2.focus();
-								return false;
-							}
-							/*학습목표 예외처리  */
-							if (ckeditor3.getData() == "") {
-								alert("학습 목표을 입력하세요.");
-								ckeditor3.focus();
-								return false;
-							} else if (ckeditor3.getData().length >= 2000) {
-								alert("2000자 이하로 입력해주세요.");
-								ckeditor3.focus();
-								return false;
-							}
-							/*강의내용 예외처리  */
-							if (ckeditor4.getData() == "") {
-								alert("과목 특장점을 입력하세요.");
-								ckeditor4.focus();
-								return false;
-							} else if (ckeditor4.getData().length >= 2000) {
-								alert("2000자 이하로 입력해주세요.");
-								ckeditor4.focus();
-								return false;
-							}
-				
-							$(window).off('beforeunload');
+		/*강의내용 예외처리  */
+		if (ckeditor1.getData() == "") {
+			alert("강의 내용을 입력하세요.");
+			$('#lecture_content').focus();
+			return false;
+		} else if (ckeditor1.getData().length >= 2000) {
+			alert("2000자 이하로 입력해주세요.");
+			$('#lecture_content').focus();
+			return false;
+		}
+		/*과목설명 예외처리  */
+		if (ckeditor2.getData() == "") {
+			alert("과목 설명을 입력하세요.");
+			ckeditor2.focus();
+			return false;
+		} else if (ckeditor2.getData().length >= 2000) {
+			alert("2000자 이하로 입력해주세요.");
+			ckeditor2.focus();
+			return false;
+		}
+		/*학습목표 예외처리  */
+		if (ckeditor3.getData() == "") {
+			alert("학습 목표을 입력하세요.");
+			ckeditor3.focus();
+			return false;
+		} else if (ckeditor3.getData().length >= 2000) {
+			alert("2000자 이하로 입력해주세요.");
+			ckeditor3.focus();
+			return false;
+		}
+		/*과목 특장점 예외처리  */
+		if (ckeditor4.getData() == "") {
+			alert("과목 특장점을 입력하세요.");
+			ckeditor4.focus();
+			return false;
+		} else if (ckeditor4.getData().length >= 2000) {
+			alert("2000자 이하로 입력해주세요.");
+			ckeditor4.focus();
+			return false;
+		}
+		
+		//수강 대상
+		if ($('#lecture_target').val() == "") {
+			alert("수강대상을 입력하세요.");
+			$('#lecture_target').focus();
+			return false;
+		}
+		$(window).off('beforeunload');
+	});
+	
 
-						});
-					});
+});
 </script>
 
 

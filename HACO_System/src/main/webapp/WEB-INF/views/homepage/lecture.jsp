@@ -27,67 +27,64 @@
 				<!-- Main Content -->
 				<div class="panel-body">
 					<div class="form-panel">
-                		<table class="table table-hover">
-							<thead>
-								<tr>
-								<th>과정명</th>
-										<td align="center">${getCNT.course_name}<input type="hidden" name="course_name" value="${getCNT.course_name }"/></td>
-							</tr>
-							<tr>
-								<th>강사명</th>
-										<td align="center">${getCNT.name_kor}<input type="hidden" name="name_kor" value="${getCNT.name_kor }"/></td>
-							</tr>
-							<tr>
-								<th>교육기간</th>
-										<td align="center">${getCNT.course_start_date}<input type="hidden" name="course_start_date" value="${getCNT.course_start_date }"/>
-										 ~ ${getCNT.course_end_date}<input type="hidden" name="course_end_date" value="${getCNT.course_end_date }"/></td>
-							</tr>
-							<tr>
-								<th>교육시간</th>
-										<td align="center">${getCNT.lecture_time_start}<input type="hidden" name="lecture_time_start" value="${getCNT.lecture_time_start }"/>
-										 ~ ${getCNT.lecture_time_end}<input type="hidden" name="lecture_time_end" value="${getCNT.lecture_time_end }"/></td>
-							</tr>
-							<tr>
-								<th align="center">교육비용</th>
-										<td align="center">${getCNT.tuition_fee}<input type="hidden" name="tuition_fee" value="${getCNT.tuition_fee }"/></td>
-							</tr>
-							<tr>
-								<th align="center">교육장</th>
-										<td align="center">${getCNT.location}<input type="hidden" name="location" value="${getCNT.location }"/></td>
-							</tr>
-							<tr>
-								<th align="center">현재인원 / 정원</th>
-										<td align="center">${getCNT.CNT}<input type="hidden" name="CNT" value="${getCNT.CNT }"/>
-										 / ${getCNT.capacity}<input type="hidden" name="capacity" value="${getCNT.capacity}"/> </td>
-							</tr>
-							<tr>
-								<th align="center">과정개요</th>
-								<td align="center">
-									${getCNT.lecture_content}<input type="hidden" name="lecture_content" value="${getCNT.lecture_content }"/>
-								</td>
-							</tr>
-						</table>	 
+                		<div class="form-group">
+                              <label class="col-sm-2 col-md-2 control-label">과정명</label>
+                              <div class="col-sm-10 col-md-10">${getCNT.course_name}</div>
+                        </div>
+						<div class="form-group">
+							  <label class="col-sm-2 col-md-2 control-label">강사명</label>
+                              <div class="col-sm-10 col-md-10">${getCNT.name_kor}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">교육기간</label>
+                              <div class="col-sm-10">${getCNT.course_start_date} ~ ${getCNT.course_end_date}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">교육시간</label>
+                              <div class="col-sm-10">${getCNT.lecture_time_start} ~ ${getCNT.lecture_time_end}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">교육비용</label>
+                              <div class="col-sm-10">${getCNT.tuition_fee}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">교육장</label>
+                              <div class="col-sm-10">${getCNT.location}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">현재인원 / 정원</label>
+                              <div class="col-sm-10">${getCNT.CNT} / ${getCNT.capacity}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">과정개요</label>
+                              <div class="col-sm-10">${getCNT.lecture_content}</div>
+                        </div>
 						<div class="btn-group submitBtn">
 							<button id="submitBtn" class="btn btn-large btn-block btn-success joinbtn" type="button">수강신청</button>
-						</div>     
-                  	</div>
-					
-					<hr style="display:block;clear:both;">
-
+						</div>
+					</div>
 				</div>
-				<!--/panel-body-->
-				
 			</div>
-			<!--/panel-->
-			<!--/end right column-->
 		</div>
 	</div>
 </div>
+
+			<input type="hidden" name="CNT" value="${getCNT.CNT }"/>
+			<input type="hidden" name="capacity" value="${getCNT.capacity}"/>
+			<input type="hidden" name="lecture_content" value="${getCNT.lecture_content }"/>
+			<input type="hidden" name="course_name" value="${getCNT.course_name }"/>
 			<input type="hidden" name="opid" id="opid" value=""/>
 			<input type="hidden" name="name" id="name" value="${getCNT.name}"/>
 			<input type="hidden" name="state_code" id="state_code" value="${a.state_code}"/>
 			<input type="hidden" name="account_id" id="account_id" value="${member.account_id}"/>
 			<input type="hidden" name="id" id="id" value="${lecturemember.account_id}"/>
+			<input type="hidden" name="location" value="${getCNT.location }"/>
+			<input type="hidden" name="tuition_fee" value="${getCNT.tuition_fee }"/>
+			<input type="hidden" name="lecture_time_start" value="${getCNT.lecture_time_start }"/>
+			<input type="hidden" name="lecture_time_end" value="${getCNT.lecture_time_end }"/>
+			<input type="hidden" name="course_end_date" value="${getCNT.course_end_date }"/>
+			<input type="hidden" name="course_start_date" value="${getCNT.course_start_date }"/>
+			<input type="hidden" name="name_kor" value="${getCNT.name_kor }"/>
 </form>
 
 <!-- idModal2 -->

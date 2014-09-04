@@ -32,12 +32,36 @@ public class Subject {
    private String open_course_id;
    private int account_id;
    
+   private String lecture_totalday_String;
+   private String  capacity_String;
+   private String  tuition_fee_String;
    
    
-   
-   
-   
-   public Subject(){}
+   public String getLecture_totalday_String() {
+	return lecture_totalday_String;
+}
+
+public void setLecture_totalday_String(String lecture_totalday_String) {
+	this.lecture_totalday_String = lecture_totalday_String;
+}
+
+public String getCapacity_String() {
+	return capacity_String;
+}
+
+public void setCapacity_String(String capacity_String) {
+	this.capacity_String = capacity_String;
+}
+
+public String getTuition_fee_String() {
+	return tuition_fee_String;
+}
+
+public void setTuition_fee_String(String tuition_fee_String) {
+	this.tuition_fee_String = tuition_fee_String;
+}
+
+public Subject(){}
    
    public Subject(int subject_id, String subject_name, int capacity,
          String subject_explanation, String instructional_objectives,

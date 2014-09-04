@@ -10,56 +10,62 @@
 	<spring:param name="applicationVersion" value="${applicationVersion}" />
 </spring:url>
 
+<%@ include file="inc/curriculum.jsp" %>
+
 <!-- Begin Body -->
-<h1>과정설명</h1>
-<section id="main-content">
- 	<section class="wrapper site-min-height">
- 		<div class="row mt">
-			<div class="col-md-12">
-				<div class="content-panel">
-					<table class="table table-striped table-advance table-hover">
-						<tr>
-							<th>과정명</th>
-									<td>${sbj.course_name }</td>
-						</tr>
-						<tr>
-							<th>강사명</th>
-									<td>${sbj.name_kor }</td>
-						</tr>
-						<tr>
-							<th>교육기간</th>
-									<td>${sbj.course_start_date} ~ ${sbj.course_end_date}</td>
-						</tr>
-						<tr>
-							<th>교육시간</th>
-									<td>${sbj.lecture_time_start} ~ ${sbj.lecture_time_end}</td>
-						</tr>
-						<tr>
-							<th>교육비용</th>
-									<td>${sbj.tuition_fee}</td>
-						</tr>
-						<tr>
-							<th>교육장</th>
-									<td>${sbj.location}</td>
-						</tr>
-						<tr>
-							<th>현재인원 / 정원</th>
-									<td>${sbj.CNT} /
-										${sbj.capacity } </td>
-						</tr>
-						<tr>
-							<th>과정개요</th>
-									<td>${sbj.lecture_content}</td>
-						</tr>
-						<tr colspan="2" align="center">
-							<td>${member.name}님의 수강신청이 완료 되었습니다.</td>
-						</tr>
-					</table>
+<div class="container">
+	<div class="no-gutter row">
+		<!-- right content column-->
+		<div class="col-md-12" id="content">
+			<div class="panel">
+				<ol class="breadcrumb">
+				  <li class="active">과정설명</li>
+				</ol>
+				
+				<!-- Main Content -->
+				<div class="panel-body">
+					<div class="form-panel">
+						<div class="form-group">
+                              <label class="col-sm-2 col-md-2 control-label">과정명</label>
+                              <div class="col-sm-10 col-md-10">${sbj.course_name}</div>
+                        </div>
+						<div class="form-group">
+							  <label class="col-sm-2 col-md-2 control-label">강사명</label>
+                              <div class="col-sm-10 col-md-10">${sbj.name_kor}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">교육기간</label>
+                              <div class="col-sm-10">${sbj.course_start_date} ~ ${sbj.course_end_date}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">교육시간</label>
+                              <div class="col-sm-10">${sbj.lecture_time_start} ~ ${sbj.lecture_time_end}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">교육비용</label>
+                              <div class="col-sm-10">${sbj.tuition_fee}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">교육장</label>
+                              <div class="col-sm-10">${sbj.location}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">현재인원 / 정원</label>
+                              <div class="col-sm-10">${sbj.CNT} / ${sbj.capacity}</div>
+                        </div>
+                        <div class="form-group">
+                       		  <label class="col-sm-2">과정개요</label>
+                              <div class="col-sm-10">${sbj.lecture_content}</div>
+                        </div>
+                         <div class="form-group">
+                         	<label class="col-sm-12">${member.name}님의 수강신청이 완료 되었습니다.</label>
+                         </div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</section>
-</section>
+	</div>
+</div>
 <!-- script references -->
 <script	src="${resourceUrl}/gazONojfL3/js/jquery.1.9.1.min.js"></script>
 <script	src="${resourceUrl}/gazONojfL3/js/bootstrap.3.2.0.min.js"></script>

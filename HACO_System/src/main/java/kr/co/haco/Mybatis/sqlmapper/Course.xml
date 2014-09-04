@@ -143,7 +143,9 @@
       subject_id = #{subject_id},
       course_name =#{course_name},
       center_id = #{center_id},
-      center_classroom_id =#{center_classroom_id}
+      center_classroom_id =#{center_classroom_id},
+      course_start_date = #{course_start_date},
+      course_end_date = #{course_end_date}
       where
       open_course_id=#{open_course_id}
    </update>
