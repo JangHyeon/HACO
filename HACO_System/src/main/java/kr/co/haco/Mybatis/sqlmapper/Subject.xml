@@ -77,9 +77,10 @@
 		select
 		subject_id,subject_name,lecture_totalday,lecture_totaltime,lecture_time_start,lecture_time_end,
 		lecture_target,capacity,tuition_fee,subject_explanation,instructional_objectives,subject_point
-		,lecture_content,create_date,update_date,center_id
+		,lecture_content,create_date,update_date,e.center_id as center_id ,e.location as location
 		from
-		subject
+		subject s join education_center e 
+        on s.center_id = e.center_id
 		where
 		subject_id=#{subject_id}
 	</select>
@@ -99,8 +100,7 @@
 		lecture_totalday =#{lecture_totalday},
 		lecture_time_start= #{lecture_time_start},
 		lecture_time_end= #{lecture_time_end},
-		tuition_fee = #{tuition_fee},
-		center_id = #{center_id}
+		tuition_fee = #{tuition_fee}
 		where subject_id= #{subject_id}
 	</update>
 

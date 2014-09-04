@@ -204,6 +204,7 @@
 		
 
 	    $("#id").alphanum();
+	    $("#id").css("ime-mode","disabled");
 	    $("input[type=tel]").numeric();
 		
 		//아이디 중복 체크

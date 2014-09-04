@@ -76,15 +76,15 @@
                                       <%-- ${erl.state_code}   --%>                             
                                       <c:choose>                                      
                                  <c:when test="${erl.state_code==1}">
-                                    <button type="button" class="btn btn-default btn-xs evalBtn" style="width:80px;" 
+                                    <button type="button" class="btn btn-default btn-xs evalBtn"
                                     value="${erl.open_course_id}">설문중</button>                                    
                                  </c:when>
-                                 <c:when test="${erl.state_code==0}">비활성</c:when>
+                                 <c:when test="${erl.state_code==0}"><small>비활성</small></c:when>
                                  <c:when test="${erl.state_code==9}">
-                                    <button type="button" class="btn btn-default btn-xs evalBtn" style="width:80px" 
+                                    <button type="button" class="btn btn-default btn-xs evalBtn"
                                     value="${erl.open_course_id}">설문완료</button>      
                                  </c:when>
-                                 <c:when test="${erl.state_code==-1}">미등록</c:when>                                                                        
+                                 <c:when test="${erl.state_code==-1}"><small>미등록</small></c:when>                                                                        
                               </c:choose>   
                               
                                    </td>                                   
@@ -92,40 +92,43 @@
                               </c:forEach>   
                               </tbody>
                           </table>
-                          </section>
+                          <c:if test="${empty evalRegList || empty evalRegList[0]}">
+								<h3 style="margin: 80px auto; text-align: center;">등록된 설문이 없습니다...</h3>
+						  </c:if>
+						  
+						  <div class="table-footer">
+	           <div class="col-xs-12">
+	            <!-- 페이징 -->
+	            <ul class="pagination pagination-centered">
+	               <!-- 이전 링크 -->
+	               <li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
+	                  <a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/${uri}/pageSize/${pageSize}/pageNum/${beginpage-1}"</c:if>>«</a>
+	               </li>
+	               
+	                 <!-- 페이지 리스트   -->
+	                 <c:if test="${beginpage!=0}">
+	               <c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
+	               
+	                  <c:if test="${i==pageNum}">
+	                     <li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
+	                  </c:if>
+	                  <c:if test="${i!=pageNum}">
+	                     <li><a href="${pageContext.request.contextPath}/management/${uri}/pageSize/${pageSize}/pageNum/${i}">${i}</a></li>
+	                  </c:if>
+	               </c:forEach>
+	               </c:if>
+	                 <!-- 다음링크 -->
+	               <li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
+	                  <a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/${uri}/pageSize/${pageSize}/pageNum/${endpage+1}"</c:if>>»</a>
+	               </li>
+	            </ul>
+	         </div>
+         </div>
+						  
+                      </section>
                   </div><!-- /content-panel -->
-               </div><!-- /col-lg-4 -->         
+               </div><!-- /col-lg-4 -->
            </div><!-- /row -->
-           
-           
-           <div class="col-xs-12">
-            <!-- 페이징 -->
-            <ul class="pagination pagination-centered">
-               <!-- 이전 링크 -->
-               <li<c:if test="${beginpage<10}"> class="disabled"</c:if>>
-                  <a<c:if test="${beginpage>10}"> href="${pageContext.request.contextPath}/management/${uri}/pageSize/${pageSize}/pageNum/${beginpage-1}"</c:if>>«</a>
-               </li>
-               
-                 <!-- 페이지 리스트   -->
-                 <c:if test="${beginpage!=0}">
-               <c:forEach var="i" begin="${beginpage}" end="${endpage}" step="1">
-               
-                  <c:if test="${i==pageNum}">
-                     <li class="active"><a>${i} <span class="sr-only">(current)</span></a></li>
-                  </c:if>
-                  <c:if test="${i!=pageNum}">
-                     <li><a href="${pageContext.request.contextPath}/management/${uri}/pageSize/${pageSize}/pageNum/${i}">${i}</a></li>
-                  </c:if>
-               </c:forEach>
-               </c:if>
-                 <!-- 다음링크 -->
-               <li<c:if test="${endpage>=pagecount}"> class="disabled"</c:if>>
-                  <a<c:if test="${endpage<pagecount}"> href="${pageContext.request.contextPath}/management/${uri}/pageSize/${pageSize}/pageNum/${endpage+1}"</c:if>>»</a>
-               </li>
-            </ul>
-         </div>   
-           
-        
       </section><!-- /wrapper -->
       </section><!-- /MAIN CONTENT -->
 

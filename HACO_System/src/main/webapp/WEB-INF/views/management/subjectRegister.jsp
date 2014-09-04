@@ -190,7 +190,7 @@
 				<h4 class="modal-title">과목 삭제</h4>
 			</div>
 			<div class="modal-body">
-				<p>응슷응</p>
+				
 				<h3>
 					<Strong id="resultID">이 과목을 삭제하시겠습니까?</Strong>
 				</h3>
@@ -227,7 +227,7 @@
 								data : 'json_data=' + json_data,
 								dataType : "json",
 								success : function(date) {
-									alert('검색어를 입력해주세요.' + date);
+									alert('사용중인 과목입니다.');
 
 								},
 								error : function() {

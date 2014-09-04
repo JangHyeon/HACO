@@ -23,4 +23,6 @@ public interface CourceDAO {
    public int CKsubjectid(int subject_id);
    public int CKopencouseid(int open_course_id);
    public int CKcenterid(int center_id);
+   public int CKcenterid2(int center_id);
+   public int CKroomid(int center_classroom_id);
 }

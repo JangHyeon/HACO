@@ -39,18 +39,24 @@
 		</h3>
 
 		<div class="row">
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="content-panel pull">
-
-					<div class="col-md-6">
-						<div class="pull-right topToggle">
-							<a class="btn btn-success"
-								href="${pageContext.request.contextPath}/management/centerInsert">
-								과목 등록</a>
-						</div>
+ 
+					<div class="col-md-12">
+						
 						<h4>
 							<i class="fa fa-angle-right"></i> 교육센터등록
 						</h4>
+						
+						<div class="input-group">
+							<input type="text" id="newcenter" class="form-control">
+							<span class="input-group-btn">
+					            <button class="btn btn-success" id="test" type="button">센터 등록</button>
+					        </span>
+						</div>
+
+						<hr style="display: block; clear: both;border-top: 0px solid #ccc;margin-top: 20px;margin-bottom: 30px;">
+							
 						<div>
 							<table class="table">
 								<thead>
@@ -85,8 +91,6 @@
 							</table>
 						</div>
 					</div>
-
-					<div class="col-md-6">비어놈</div>
 				</div>
 			</div>
 		</div>
@@ -106,9 +110,9 @@
 				<h4 class="modal-title">교육센터 삭제</h4>
 			</div>
 			<div class="modal-body">
-				<p>응슷응</p>
+				
 				<h3>
-					<Strong id="resultID">이 과목을 삭제하시겠습니까?</Strong>
+					<Strong id="resultID">이 센터명을 삭제하시겠습니까?</Strong>
 				</h3>
 
 			</div>
@@ -127,9 +131,12 @@
 <%@ include file="commonScript.jsp"%>
 
 <script>
-	$(document)
-			.ready(
-					function() {
+	$(document).ready(function() {
+						
+						$('#test').on('click', function() {
+							location.href = "${pageContext.request.contextPath}/management/centerinsertOk?location="+$("#newcenter").val();
+						});
+						
 						var centerId;
 						$('.btntn').on('click', function() {
 							centerId = $(this).val();
@@ -141,7 +148,7 @@
 								data : 'json_data=' + json_data,
 								dataType : "json",
 								success : function(date) {
-									alert('검색어를 입력해주세요.' + date);
+									alert('사용중인 센터명입니다.');
 
 								},
 								error : function() {

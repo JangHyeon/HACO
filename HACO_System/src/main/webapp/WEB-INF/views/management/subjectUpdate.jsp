@@ -10,10 +10,7 @@
 	<spring:param name="applicationVersion" value="${applicationVersion}" />
 </spring:url>
 
-<!DOCTYPE html>
 
-<input id="current-accordion" type="hidden"
-	value="course,subjectRegister" />
 
 <!--external css-->
 <link
@@ -50,60 +47,75 @@
 			<div class="col-lg-12">
 				<div class="form-panel">
 					<h4 class="mb">
-						<i class="fa fa-angle-right"></i> 과목등록
+						<i class="fa fa-angle-right"></i> 과목수정
 					</h4>
 					<form class="form-horizontal style-form" action="UpdateOk" id="updatesubject"
 						method="get">
-			
 						
 						<c:forEach var="role" items="${roleList}">
 						<input type="hidden" value="${role.center_id}" id="Cid" >
 						<input type="hidden" value="${role.subject_id}" name="subject_id">
-							<div class="form-group">
-								<label class="col-md-2 col-sm-2 control-label">과목명</label>
-								<div class="col-sm-10 col-md-10">
-									<input type="text" class="form-control" name="subject_name" id="subject_name"
-										value="${role.subject_name}">
+						<div class="form-group">
+							<label class="col-md-2 col-sm-2 control-label">등록센터</label>
+							<div class="col-md-4 col-sm-4">
+								 <input type="hidden" value="${role.center_id}"  id="center_id" name="center_id">
+								 <input type="text" class="form-control" name="location"	id="location" value="${role.location}" disabled="disabled">
+							</div>
+						</div>
+					
+						<div class="form-group">
+							<label class="col-md-2 col-sm-2		 control-label">과목명</label>
+							<div class="col-sm-10 col-md-10">
+								<input type="text" class="form-control" name="subject_name"
+									value="${role.subject_name}" id="subject_name">
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 col-sm-2 control-label">정원</label>
+							<div class="col-md-4 col-sm-4">
+								<div class="input-group">
+									<input type="text" class="form-control" name="capacity"
+										value="${role.capacity}" id="capacity" style="ime-mode: disabled">
+										<span class="input-group-addon">명</span>
 								</div>
 							</div>
-							<div class="form-group">
-								<label class="col-md-2 col-sm-2 control-label">정원</label>
-								<div class="col-md-4 col-sm-4">
-									<input type="text" class="form-control" name="capacity" id="capacity" 
-										value="${role.capacity}" onkeydown="OnlyNum();" style="ime-mode: disabled">
-								</div>
-								<label class="col-md-2 col-sm-2 control-label">교육센터</label>
-								<div class="col-md-4 col-sm-4">
-									<select id="center_id" name="center_id" disabled="disabled">
-										<option value="name">교육센터명</option>
-										<c:forEach var="Center" items="${Center}">
-											<option value="${Center.center_id}">${Center.location}</option>
-										</c:forEach>
-									</select>
+							
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 col-sm-2 control-label">총강의일수</label>
+							<div class="col-md-4 col-sm-4">
+								<div class="input-group">
+									<input type="text" class="form-control" name="lecture_totalday"
+										value="${role.lecture_totalday}" id="lecture_totalday" style="ime-mode: disabled">
+									<span class="input-group-addon">일</span>
 								</div>
 							</div>
-
-							<div class="form-group">
-								<label class="col-md-2 col-sm-2 control-label">총강의일수</label>
-								<div class="col-md-1 col-sm-1">
-									<input type="text" class="form-control" name="lecture_totalday" id="lecture_totalday"
-										value="${role.lecture_totalday}"onkeydown="OnlyNum();" style="ime-mode: disabled" >
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 col-sm-2 control-label">강의시간</label>
+							<div class="col-md-10 col-sm-10">
+								<div class="input-group col-sm-5 time">
+									<span class="input-group-addon">시작</span>
+									<input type="time" name="start" id="start" 
+									value="${role.lecture_time_start}" class="form-control time">
 								</div>
-
-								<label class="col-md-1 col-sm-1 control-label">강의시간</label>
-								<div class="col-md-4 col-sm-4">
-									<input type="time" name="start"
-										value="${role.lecture_time_start}">
-									&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp; <input type="time" name="end"
-										value="${role.lecture_time_end}">
-								</div>
-
-								<label class="col-md-1 col-sm-1 control-label">수강료</label>
-								<div class="col-md-3 col-sm-3">
-									<input type="text" class="form-control" name="Tuition_fee" id="Tuition_fee"
-										value="${role.tuition_fee}"onkeydown="OnlyNum();" style="ime-mode: disabled">
+								<div class="input-group col-sm-5 time">
+									<span class="input-group-addon">종료</span>
+									<input type="time" class="form-control time" 
+										value="${role.lecture_time_end}" name="end" id="end">
 								</div>
 							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 col-sm-2 control-label">수강료</label>
+							<div class="col-md-4 col-sm-4">
+								<div class="input-group">
+									<span class="input-group-addon">￦</span>
+									<input type="text" class="form-control" name="Tuition_fee"
+										value="${role.tuition_fee}" id="Tuition_fee" style="ime-mode: disabled">
+								</div>
+							</div>
+						</div>
 							<div class="form-group">
 								<label class="col-sm-2 col-sm-2 control-label">강의내용</label>
 								<div class="col-md-10 col-sm-10">
@@ -145,7 +157,7 @@
 						<div class="btn-group submitBtn">
 								<button id="updateBtn"  
 									class="btn btn-large btn-block btn-primary joinbtn" 
-									type="button">수2정</button>
+									type="button">수정</button>
 							</div>
 					</form>
 				</div>
@@ -167,24 +179,20 @@
 <%@ include file="commonScript.jsp"%>
 
 <script src="${resourceUrl}/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="${resourceUrl}/jquery-number-master/jquery.number.min.js"></script>
+<script type="text/javascript" src="${resourceUrl}/js/jquery.alphanum.js"></script>
+
 
 <script type="text/javascript">
 
-
-
-
 $("#center_id").val($("#Cid").val()).attr("selected", "selected");
 
-function OnlyNum(){
-	var code = window.event.keyCode; 
- 	if((code>=48&& code<=57)||(code>=96&&code<=105)||code==110||code==190||code==8||code==9||
-				code==13 ||code==46){
-			window.event.returnValue = true;
-			return;
-		}
-		window.event.returnValue = false;
-	} 
 $(document).ready(function(){
+
+    $('#capacity').numeric();
+    $('#lecture_totalday').numeric();
+	$("#Tuition_fee").numeric();
+	
 	var ckeditor1;
 	var ckeditor2;
 	var ckeditor3;
@@ -216,7 +224,7 @@ $(document).ready(function(){
 		shiftEnterMode:'3',
 		//filebrowserBrowseUrl : "${resourceUrl}",
 		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
-        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images'
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images' 
 	});
 	ckeditor3 = CKEDITOR.instances['instructional_objectives'];
 	
@@ -224,7 +232,7 @@ $(document).ready(function(){
 		skin : 'bootstrapck',
 		enterMode: '2',
 		shiftEnterMode:'3',
-		//filebrowserBrowseUrl : "${resourceUrl}",/ckUpload/board/subject/command/QuickUpload/type/File
+		//filebrowserBrowseUrl : "${resourceUrl}",
 		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/File',
         filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/subject/command/QuickUpload/type/Images' 
 	});
@@ -333,8 +341,8 @@ $(document).ready(function(){
 			alert("과목 설명을 입력하세요.");
 			ckeditor2.focus();
 			return false;
-		}else if(ckeditor2.getData().length>=500){
-			alert("500자 이하로 입력해주세요.");
+		}else if(ckeditor2.getData().length>=2000){
+			alert("2000자 이하로 입력해주세요.");
 			ckeditor2.focus();
 			return false;
 		} 
@@ -343,8 +351,8 @@ $(document).ready(function(){
 			alert("학습 목표을 입력하세요.");
 			ckeditor3.focus();
 			return false;
-		}else if(ckeditor3.getData().length>=100){
-			alert("100자 이하로 입력해주세요.");
+		}else if(ckeditor3.getData().length>=2000){
+			alert("2000자 이하로 입력해주세요.");
 			ckeditor3.focus();
 			return false;
 		} 
@@ -353,8 +361,8 @@ $(document).ready(function(){
 			alert("과목 특장점을 입력하세요.");
 			ckeditor4.focus();
 			return false;
-		}else if(ckeditor4.getData().length>=200){
-			alert("200자 이하로 입력해주세요.");
+		}else if(ckeditor4.getData().length>=2000){
+			alert("2000자 이하로 입력해주세요.");
 			ckeditor4.focus();
 			return false;
 		} 

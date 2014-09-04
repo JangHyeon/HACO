@@ -14,7 +14,7 @@
  	<select id="getclassroomList"  parameterType="Integer"
 		resultType="kr.co.haco.VO.CenterClassroom">
  			select center_classroom_id,center_id,classroom from center_classroom
-			where center_id = #{center_id} 
+			where center_id = #{center_id} and state ='1'
 		</select>
 		
 		<insert id="insertCenter" parameterType="kr.co.haco.VO.Center">
@@ -24,6 +24,16 @@
 		<update id="deleteCenter" parameterType="Integer">
 		  update education_center  set state ='0'
 			where center_id=#{center_id}
+		</update>
+
+
+<insert id="insertRoom" parameterType="Integer">
+insert into center_classroom(center_id,classroom) VALUES(#{param1},#{param2})
+</insert>
+
+<update id="deleteRoom" parameterType="Integer">
+		  update center_classroom  set state ='0'
+			where center_classroom_id=#{center_classroom_id}
 		</update>
 
 </mapper>

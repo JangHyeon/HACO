@@ -11,11 +11,6 @@
 	<spring:param name="applicationVersion" value="${applicationVersion}" />
 </spring:url>
 
-<!DOCTYPE html>
-
-<input id="current-accordion" type="hidden"
-	value="course,subjectRegister" />
-
 <!--external css-->
 
 <link href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"
@@ -36,7 +31,7 @@
 <link rel="stylesheet" href="/resources/demos/style.css">
 
 <input id="current-accordion" type="hidden"
-	value="course,subjectRegister" />
+	value="course,courseRegister" />
 
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -133,7 +128,14 @@
 
 <script type="text/javascript">
 	$(function() {
-
+		var beforeUnload = 1;
+		$(window)
+				.on(
+						'beforeunload',
+						function() {
+							if (beforeUnload)
+								return "저장하지 않고 페이지를 벗어나려 합니다.\n작성중인 내용은 저장되지 않습니다.";
+						});
 		$('#Btn').on('click', function() {
 			$('#insertModal').modal('show');
 		});
@@ -201,7 +203,7 @@
 												selectClassroom.appendChild(option);
 												$("#selectClassroom option").eq(0).attr("value",'novalue');
 												$("#selectClassroom option").eq(i + 1).attr("value",date.t[i].center_classroom_id);
-											}
+											}	
 										},
 										error : function() {
 
@@ -212,9 +214,7 @@
 									});
 						});
 
-		$("#selectClassroom").change(function() {
-			alert($("#selectClassroom option:selected").val());
-		});
+	
 
 		$('#submitBtn').on('click', function() {
 			$('#courseInsertOk').submit();
@@ -278,7 +278,7 @@
 						alert("50자이내로 입력하세요.");
 						$('#course_name').focus();
 						return false;
-					}
+					}$(window).off('beforeunload');
 				});
 
 	});

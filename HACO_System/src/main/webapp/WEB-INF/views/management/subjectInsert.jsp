@@ -11,10 +11,6 @@
 	<spring:param name="applicationVersion" value="${applicationVersion}" />
 </spring:url>
 
-<!DOCTYPE html>
-
-<input id="current-accordion" type="hidden"
-	value="course,subjectRegister" />
 
 <!--external css-->
 <link href="${resourceUrl}/assets/font-awesome/css/font-awesome.css"
@@ -52,8 +48,25 @@
 					<h4 class="mb">
 						<i class="fa fa-angle-right"></i> 과목등록
 					</h4>
-					<form class="form-horizontal style-form" action="insertOk"
-						id="insertsubject" method="get">
+					<form class="form-horizontal style-form" action="insertOk" id="insertsubject" method="get">
+						
+						<div class="form-group">
+							<label class="col-md-2 col-sm-2 control-label">등록센터</label>
+							<div class="col-md-4 col-sm-4">
+								<%-- <select id="center_id" name="center_id">
+									<option value="name">교육센터명</option>
+									<c:forEach var="Center" items="${Center}">
+										<option value="${Center.center_id}">${Center.location}</option>
+									</c:forEach>
+								</select> --%>
+								<c:forEach var="getAccountId" items="${getAccountId}">
+							        <input type="hidden" value="${getAccountId.center_id}"  id="center_id" name="center_id">
+									<input type="text" class="form-control" name="location"
+									id="location" value="${getAccountId.location}" disabled="disabled">
+								</c:forEach>
+							</div>
+						</div>
+					
 						<div class="form-group">
 							<label class="col-md-2 col-sm-2		 control-label">과목명</label>
 							<div class="col-sm-10 col-md-10">
@@ -64,48 +77,49 @@
 						<div class="form-group">
 							<label class="col-md-2 col-sm-2 control-label">정원</label>
 							<div class="col-md-4 col-sm-4">
-								<input type="text" class="form-control" name="capacity"
-									id="capacity" onkeydown="OnlyNum();" style="ime-mode: disabled">
+								<div class="input-group">
+									<input type="text" class="form-control" name="capacity"
+										id="capacity" style="ime-mode: disabled">
+										<span class="input-group-addon">명</span>
+								</div>
 							</div>
-							<label class="col-md-2 col-sm-2 control-label">교육센터</label>
-							<div class="col-md-4 col-sm-4">
-								<%-- <select id="center_id" name="center_id">
-									<option value="name">교육센터명</option>
-									<c:forEach var="Center" items="${Center}">
-										<option value="${Center.center_id}">${Center.location}</option>
-									</c:forEach>
-								</select> --%>
-								
-						
-						<c:forEach var="getAccountId" items="${getAccountId}">
-							         <input type="hidden" value="${getAccountId.center_id}"  id="center_id" name="center_id">
-									<input type="text" class="form-control" name="location"
-									id="location" value="${getAccountId.location}" disabled="disabled">
-									</c:forEach>
-							</div>
+							
 						</div>
-
 						<div class="form-group">
 							<label class="col-md-2 col-sm-2 control-label">총강의일수</label>
-							<div class="col-md-1 col-sm-1">
-								<input type="text" class="form-control" name="lecture_totalday"
-									id="lecture_totalday" onkeydown="OnlyNum();" style="ime-mode: disabled">
-							</div>
-
-							<label class="col-md-1 col-sm-1 control-label">강의시간</label>
 							<div class="col-md-4 col-sm-4">
-								<input type="time" name="start" id="start">
-								&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp; <input type="time"
-									name="end" id="end">
-							</div>
-
-							<label class="col-md-1 col-sm-1 control-label">수강료</label>
-							<div class="col-md-3 col-sm-3">
-								<input type="text" class="form-control" name="Tuition_fee"
-									id="Tuition_fee" onkeydown="OnlyNum();" style="ime-mode: disabled">
+								
+								<div class="input-group">
+									<input type="text" class="form-control" name="lecture_totalday"
+										id="lecture_totalday" style="ime-mode: disabled">
+									<span class="input-group-addon">일</span>
+								</div>
 							</div>
 						</div>
-
+						<div class="form-group">
+							<label class="col-md-2 col-sm-2 control-label">강의시간</label>
+							<div class="col-md-10 col-sm-10">
+								<div class="input-group col-sm-5 time">
+									<span class="input-group-addon">시작</span>
+									<input type="time" name="start" id="start" class="form-control time">
+								</div>
+								<div class="input-group col-sm-5 time">
+									<span class="input-group-addon">종료</span>
+									<input type="time" class="form-control time" 
+										name="end" id="end">
+								</div>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-md-2 col-sm-2 control-label">수강료</label>
+							<div class="col-md-4 col-sm-4">
+								<div class="input-group">
+									<span class="input-group-addon">￦</span>
+									<input type="text" class="form-control" name="Tuition_fee"
+										id="Tuition_fee" style="ime-mode: disabled">
+								</div>
+							</div>
+						</div>
 						<div class="form-group">
 							<label class="col-sm-2 col-sm-2 control-label">강의내용<!-- <button class="btn btn-warning" id="contentBtn" type="button">입력폼</button>
 						 --></label>
@@ -166,10 +180,15 @@
 <%@ include file="commonScript.jsp"%>
 
 <script src="${resourceUrl}/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="${resourceUrl}/js/jquery.alphanum.js"></script>
+<script type="text/javascript" src="${resourceUrl}/jquery-number-master/jquery.number.min.js"></script>
+
 
 <script type="text/javascript">
+
+
 /*숫자만입력가능 메서드 */
-	function OnlyNum() {
+	/* function OnlyNum() {
 		var code = window.event.keyCode;
 		if ((code >= 48 && code <= 57) || (code >= 96 && code <= 105)
 				|| code == 110 || code == 190 || code == 8 || code == 9
@@ -178,11 +197,19 @@
 			return;
 		}
 		window.event.returnValue = false;
-	}
+	} */
 	
 	$(document)
 			.ready(
 					function() {
+
+					    $('#capacity').numeric();
+					    $('#lecture_totalday').numeric();
+						$("#Tuition_fee").numeric();
+						
+						
+						
+						
 						// 페이지 이탈시 작동
 						var beforeUnload = 1;
 						$(window)
@@ -330,41 +357,41 @@
 							/*강의내용 예외처리  */
 							if (ckeditor1.getData() == "") {
 								alert("강의 내용을 입력하세요.");
-								ckeditor.focus();
+								ckeditor1.focus();
 								return false;
-							} else if (ckeditor1.getData().length >= 1000) {
-								alert("1000자 이하로 입력해주세요.");
-								ckeditor.focus();
+							} else if (ckeditor1.getData().length >= 2000) {
+								alert("2000자 이하로 입력해주세요.");
+								ckeditor1.focus();
 								return false;
 							}
 							/*과목설명 예외처리  */
 							if (ckeditor2.getData() == "") {
 								alert("과목 설명을 입력하세요.");
-								ckeditor.focus();
+								ckeditor2.focus();
 								return false;
-							} else if (ckeditor2.getData().length >= 500) {
-								alert("500자 이하로 입력해주세요.");
-								ckeditor.focus();
+							} else if (ckeditor2.getData().length >= 2000) {
+								alert("2000자 이하로 입력해주세요.");
+								ckeditor2.focus();
 								return false;
 							}
 							/*학습목표 예외처리  */
 							if (ckeditor3.getData() == "") {
 								alert("학습 목표을 입력하세요.");
-								ckeditor.focus();
+								ckeditor3.focus();
 								return false;
-							} else if (ckeditor3.getData().length >= 100) {
-								alert("100자 이하로 입력해주세요.");
-								ckeditor.focus();
+							} else if (ckeditor3.getData().length >= 2000) {
+								alert("2000자 이하로 입력해주세요.");
+								ckeditor3.focus();
 								return false;
 							}
 							/*강의내용 예외처리  */
 							if (ckeditor4.getData() == "") {
 								alert("과목 특장점을 입력하세요.");
-								ckeditor.focus();
+								ckeditor4.focus();
 								return false;
-							} else if (ckeditor4.getData().length >= 200) {
-								alert("200자 이하로 입력해주세요.");
-								ckeditor.focus();
+							} else if (ckeditor4.getData().length >= 2000) {
+								alert("2000자 이하로 입력해주세요.");
+								ckeditor4.focus();
 								return false;
 							}
 				

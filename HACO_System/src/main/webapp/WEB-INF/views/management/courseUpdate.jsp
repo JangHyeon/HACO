@@ -12,10 +12,6 @@
 	<spring:param name="applicationVersion" value="${applicationVersion}" />
 </spring:url>
 
-<!DOCTYPE html>
-
-<input id="current-accordion" type="hidden"
-	value="course,subjectRegister" />
 
 <!--external css-->
 
@@ -28,11 +24,12 @@
 <link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
 <link href="${resourceUrl}/assets/css/style-responsive.css"
 	rel="stylesheet">
-
 <link rel="stylesheet" type="text/css" media="screen"
 	href="${resourceUrl}/assets/css/bootstrap-datetimepicker.min.css 	">
+	
+	
 <input id="current-accordion" type="hidden"
-	value="course,subjectRegister" />
+	value="course,courseRegister" />
 
 <!-- **************************	********************************************************************************************************************************
       MAIN CONTENT
@@ -52,7 +49,7 @@
 						<i class="fa fa-angle-right"></i> 과정등록-수정
 					</h4>
 					<form class="form-horizontal style-form" action="courseUpdateOk"
-						id="insertsubject" method="get">
+						id="courseUpdateOk" method="get">
 						<c:forEach var="role" items="${roleList}">
 							<input type="hidden" name="open_course_id" value="${role.open_course_id}">
 							<input type="hidden" name="account_id" value="${role.account_id}">
@@ -86,7 +83,7 @@
 								<label class="col-md-2 col-sm-2 control-label">센터명/강의실</label>
 								<div class="col-md-2 col-sm-2">
 									<select class="form-control" id="selectCenter" name="center_id">
-										<option value="">교육센터 명</option>
+										<!-- <option>교육센터 명</option> -->
 										<c:forEach var="centerchild" items="${Center}">
 											<c:if test="${centerchild.center_id==role.center_id}">
 												<option value="${centerchild.center_id}" selected="selected">${centerchild.location}</option>
@@ -100,7 +97,7 @@
 								<div class="col-md-2 col-sm-2">
 									<select class="form-control" id="selectClassroom"
 										name="center_classroom_id">
-										<option value="1">강의실</option>
+										<option value="">강의실</option>
 									</select>
 								</div>
 								<label class="col-md-2 col-sm-2 control-label">과목명</label>
@@ -117,7 +114,7 @@
 										class="form-control" value="${role.course_name}">
 								</div>
 							</div>
-							<button class="btn btn-warning" type="submit">등록</button>
+							<button class="btn btn-warning" id="submitBtn" type="button">수정</button>
 						</c:forEach>
 					</form>
 				</div>
@@ -160,7 +157,7 @@
 		                     var option1 = document.createElement("option");
 		                     option1.innerText = "강의실";
 		                     selectClassroom.appendChild(option1);
-
+		                     $("#selectClassroom option").eq(0).attr("value","");
 		                     for (var i = 0; i < date.t.length; i++) {
 		                        var option = document.createElement("option");
 		                        option.innerText = date.t[i].classroom;
@@ -197,7 +194,7 @@
                      var option1 = document.createElement("option");
                      option1.innerText = "강의실";
                      selectClassroom.appendChild(option1);
-
+                     $("#selectClassroom option").eq(0).attr("value","");
                      for (var i = 0; i < date.t.length; i++) {
                         var option = document.createElement("option");
                         option.innerText = date.t[i].classroom; 
@@ -213,10 +210,21 @@
                });
            }); 
 
-		  
+		 $('#submitBtn').on('click', function() {
+				$('#courseUpdateOk').submit();
+			});
+
+			$('#courseUpdateOk').submit(
+					function() {
+						if ($('#selectClassroom').val() == ""){
+							alert("강의실을 입력하세요.");
+							$('#selectClassroom').focus();
+							return false;
+						} 
 		
 		
   
-      
+						   
+					   }); 
    });
 </script>
