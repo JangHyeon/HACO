@@ -14,7 +14,7 @@ public interface EmployeeService{
 	
 	//직원 등록
 	@Transactional
-	@PreAuthorize("hasRole('MASTER')")
+	@PreAuthorize("hasRole('MASTER,CENTER')")
 	public HashMap<String, Integer> addEmployee(Employee employee);
 	
 	//직원 목록 조회

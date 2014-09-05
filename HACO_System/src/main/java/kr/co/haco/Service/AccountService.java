@@ -11,6 +11,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.transaction.annotation.Transactional;
 
+//계정
 public interface AccountService{
 	//서비스 인터페이스에서 세부 권한 설정	
 	/*
@@ -29,10 +30,11 @@ public interface AccountService{
 	
 	public String checkId(String id);
 	
-	
 	@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 	public Employee getEmployeeID(String name);	
+
 	
+	//회원
 	@Transactional
 	public void joinMember(Account account, Member member, StringBuffer contextURL) throws DataIntegrityViolationException;
 	

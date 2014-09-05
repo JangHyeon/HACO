@@ -93,7 +93,7 @@
 						<tbody>
 							<c:forEach var="lectureRegister" items="${lectureRegisterList}">
 								<tr>
-									<td><span>－<a href="${pageContext.request.contextPath}/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${notice.notice_id}">${lectureRegister.course_name}</a></span></td>
+									<td><span>－<a href="${pageContext.request.contextPath}/lecture?opid=${lectureRegister.open_course_id}">${lectureRegister.course_name}</a></span></td>
 								</tr>
 							</c:forEach>
 						</tbody>
