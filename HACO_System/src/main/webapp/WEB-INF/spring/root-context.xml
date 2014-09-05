@@ -8,8 +8,8 @@
 	<!-- mysql connection 정보 -->
 	<bean id="dataSource" class="org.apache.ibatis.datasource.pooled.PooledDataSource">
 		<property name="driver" value="com.mysql.jdbc.Driver"/>
-		<!-- <property name="url" value="jdbc:mysql://riat.wo.tc:3306/haco?autoReconnect=true&amp;characterEncoding=utf-8&amp;autoReconnectForPools=true"/> -->
-		<property name="url" value="jdbc:mysql://localhost:3306/haco?autoReconnect=true&amp;characterEncoding=utf-8&amp;autoReconnectForPools=true"/>
+		<property name="url" value="jdbc:mysql://riat.wo.tc:3306/haco?autoReconnect=true&amp;characterEncoding=utf-8&amp;autoReconnectForPools=true"/>
+		<!-- <property name="url" value="jdbc:mysql://localhost:3306/haco?autoReconnect=true&amp;characterEncoding=utf-8&amp;autoReconnectForPools=true"/> -->
 		<property name="username" value="haco"/>
 		<property name="password" value="1004"/>
 	</bean>
