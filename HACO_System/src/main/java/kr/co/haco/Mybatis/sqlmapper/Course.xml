@@ -120,7 +120,15 @@
 	      select center_id, location from education_center
 	    where
 	      center_id=#{center_id} and state =1
-   </select>	
+   </select>
+
+   <!--강사명 검색-->
+   <select id="getname" parameterType="Integer" resultType="kr.co.haco.VO.Employee">
+	select account_id,name_kor from employee where now_center_id =#{center_id} and job_code=1   
+   </select>
+   
+   
+   	
    <!-- 과정등록 -->
    <insert id="insertCourse" parameterType="kr.co.haco.VO.OpenCourse">
       insert into

@@ -6,6 +6,7 @@ import kr.co.haco.DAO.AccountDAO;
 import kr.co.haco.DAO.CourceDAO;
 import kr.co.haco.DAO.SubjectDAO;
 import kr.co.haco.VO.CenterClassroom;
+import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
@@ -47,7 +48,14 @@ public class CourseServiceImpl implements CourseService {
       // TODO Auto-generated method stub
       return sqlSession.getMapper(CourceDAO.class).getCenter2(center_id);
    }
-   
+
+@Override
+public List<Employee> getname(int center_id) {
+	// TODO Auto-generated method stub
+    return sqlSession.getMapper(CourceDAO.class).getname(center_id);
+    
+}
+
    @Override
    public int insertCourse(OpenCourse course) {
       // TODO Auto-generated method stub

@@ -54,21 +54,6 @@
 						id="courseInsertOk" method="get">
 						<input type="hidden" name="name2" id="name2">
 						<div class="form-group">
-							<label class="col-md-2 col-sm-2 control-label">강사명</label>
-							<div class="col-md-4 col-sm-4">
-								<input class="form-control" type="text" name="name" id="tags">
-							</div>
-							<label class="col-md-2 col-sm-2 control-label">시작시간/종료시간</label>
-							<div class="col-md-2 col-sm-2">
-								<input type="date" name="course_start_date"
-									id="course_start_date" class="form-control" />
-							</div>
-							<div class="col-md-2 col-sm-2">
-								<input type="date" name="course_end_date" id="course_end_date"
-									class="form-control" />
-							</div>
-						</div>
-						<div class="form-group">
 							<label class="col-md-2 col-sm-2 control-label">센터명/강의실</label>
 							<div class="col-md-2 col-sm-2">
 								<select class="form-control" id="selectCenter" name="center_id">
@@ -84,6 +69,32 @@
 									<option value="novalue">강의실</option>
 								</select>
 							</div>
+							<label class="col-md-2 col-sm-2 control-label">시작시간/종료시간</label>
+							<div class="col-md-2 col-sm-2">
+								<input type="date" name="course_start_date"
+									id="course_start_date" class="form-control" />
+							</div>
+							<div class="col-md-2 col-sm-2">
+								<input type="date" name="course_end_date" id="course_end_date"
+									class="form-control" />
+							</div>
+						</div>
+						<div class="form-group">
+						
+						<!-- <label class="col-md-2 col-sm-2 control-label">강사명</label>
+							<div class="col-md-4 col-sm-4">
+								<input class="form-control" type="text" name="name" id="tags">
+							</div> -->
+							
+							
+							<label class="col-md-2 col-sm-2 control-label">강사명</label>
+							<div class="col-md-4 col-sm-4">
+								<select name="name" class="form-control" id="selectName">
+									<option value="novalue">강사명</option>
+								</select>
+							</div>
+							
+														
 							<label class="col-md-2 col-sm-2 control-label">과목명</label>
 							<div class="col-md-4 col-sm-4">
 								<select name="subject_id" class="form-control" id="subject_id">
@@ -136,11 +147,8 @@
 							if (beforeUnload)
 								return "저장하지 않고 페이지를 벗어나려 합니다.\n작성중인 내용은 저장되지 않습니다.";
 						});
-		$('#Btn').on('click', function() {
-			$('#insertModal').modal('show');
-		});
-
-		$("#tags").on(
+	
+	/* 	$("#tags").on(
 				'keyup',
 				function() {
 					var date2 = [];
@@ -164,11 +172,10 @@
 							
 						}
 					});
-				});
-
+				}); 
 		$("#tags").on('blur', function() {
 			$("#name2").val($("#tags").val().split("/",1));
-		});
+		});*/
 
 
 		$("#selectCenter")
@@ -176,8 +183,7 @@
 						function() {
 							//alert($(this).val());
 							var json_data = $(this).val();
-							$
-									.ajax({
+							$.ajax({
 										type : 'POST',
 										url : 'courseInsert',
 										data : 'json_data=' + json_data,
@@ -196,14 +202,41 @@
 											selectClassroom
 													.appendChild(option1);
 
-											for (var i = 0; i < date.t.length; i++) {
+											for (var i = 0; i < date.course.length; i++) {
 												var option = document
 														.createElement("option");
-												option.innerText = date.t[i].classroom;
+												option.innerText = date.course[i].classroom;
 												selectClassroom.appendChild(option);
 												$("#selectClassroom option").eq(0).attr("value",'novalue');
-												$("#selectClassroom option").eq(i + 1).attr("value",date.t[i].center_classroom_id);
+												$("#selectClassroom option").eq(i + 1).attr("value",date.course[i].center_classroom_id);
 											}	
+											
+											
+											$.ajax({
+												type : 'POST',
+												url : 'courseInsert2',
+												data : 'json_data=' + json_data,
+												dataType : "json",
+												success : function(date) {
+													
+												var selectName = document.getElementById("selectName");
+												$("#selectName option").remove();
+												var option1 = document.createElement("option");
+												option1.innerText = "강사명";
+												selectName.appendChild(option1);
+													for (var i = 0; i < date.name.length; i++) {
+														var option = document.createElement("option");
+														option.innerText = date.name[i].name_kor;
+														selectName.appendChild(option);
+														$("#selectName option").eq(0).attr("value",'novalue');
+														$("#selectName option").eq(i + 1).attr("value",date.name[i].account_id);
+													}	
+												},
+												error : function() {}
+											});
+											
+											
+											
 										},
 										error : function() {
 
@@ -222,15 +255,25 @@
 
 		$('#courseInsertOk').submit(
 				function() {
-
-					/*강사명 예외처리 */
-					if ($('#tags').val() == "") {
-						alert("강사명을 입력하세요.");
-						$('#tags').focus();
+					/*센터명 예외처리 */
+					if ($('#selectCenter').val() == "novalue") {
+						alert("센터명을 선택하세요.");
+						$('#selectCenter').focus();
 						return false;
-					} else if ($('#tags').val().length > 10) {
+					} /*강의실 예외처리 */
+					if ($('#selectClassroom').val() == "novalue") {
+						alert("강의실을 선택하세요.");
+						$('#selectClassroom').focus();
+						return false;
+					}
+					/*강사명 예외처리 */
+					if ($('#selectName').val() == "" && $('#selectName').val() == "novalue" ) {
+						alert("강사명을 입력하세요.");
+						$('#selectName').focus();
+						return false;
+					} else if ($('#selectName').val().length > 10) {
 						alert("강사명은 10자 이하로 입력하세요.");
-						$('#tags').focus();
+						$('#selectName').focus();
 						return false;
 					}
 
@@ -251,17 +294,7 @@
 						return false;
 					}
 
-					/*센터명 예외처리 */
-					if ($('#selectCenter').val() == "novalue") {
-						alert("센터명을 선택하세요.");
-						$('#selectCenter').focus();
-						return false;
-					} /*강의실 예외처리 */
-					if ($('#selectClassroom').val() == "novalue") {
-						alert("강의실을 선택하세요.");
-						$('#selectClassroom').focus();
-						return false;
-					}
+				
 
 					/*과목명 예외처리 */
 					if ($('#subject_id').val() == "novalue") {

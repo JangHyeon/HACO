@@ -4,6 +4,7 @@ import java.util.List;
 
 import kr.co.haco.VO.CenterClassroom;
 import kr.co.haco.VO.EducationCenter;
+import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.getCourseList;
 
@@ -20,6 +21,7 @@ public interface CourceDAO {
    
    public List<getCourseList>  getCourseList(getCourseList courseList);
    public int getCourseListCount(getCourseList courseList);
+   public List<Employee> getname(int center_id);
    public int CKsubjectid(int subject_id);
    public int CKopencouseid(int open_course_id);
    public int CKcenterid(int center_id);

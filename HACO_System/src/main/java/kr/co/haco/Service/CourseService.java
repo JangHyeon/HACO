@@ -3,6 +3,7 @@ package kr.co.haco.Service;
 import java.util.List;
 
 import kr.co.haco.VO.CenterClassroom;
+import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Subject2;
 import kr.co.haco.VO.EducationCenter;
@@ -36,6 +37,8 @@ public List<EducationCenter> getCenter2(int center_id);
 // 과정:강의실검색..
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
 public List<CenterClassroom> getClassroom(int center_id);
+@PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")
+public List<Employee> getname(int center_id);
 
 // 과정:검색..
 @PreAuthorize("hasAnyRole('TEACHER','MANAGER','CENTER','MASTER')")

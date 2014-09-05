@@ -101,7 +101,6 @@ public class ManagementControllerHS {
       public String insertOk(Subject subject, String start, String end)
             throws ParseException {  
     	  
-    	  
          subjectService.insertSubject(subject,start,end);
          return "redirect:subjectRegister";
       }
@@ -179,17 +178,28 @@ public class ManagementControllerHS {
             HttpServletResponse rs) throws JsonGenerationException,
             JsonMappingException, IOException {
          HashMap<String, Object> mapJson = new HashMap<String, Object>();
-         mapJson.put("t", courseService.getClassroom(Integer.parseInt(json_data)));
+         mapJson.put("course", courseService.getClassroom(Integer.parseInt(json_data)));
          return mapJson;
       }
       
+      @RequestMapping(value = "courseInsert2", method = RequestMethod.POST)
+      @ResponseBody
+      public HashMap<String, Object> courseInsert2(String json_data, Model model,
+            HttpServletResponse rs) throws JsonGenerationException,
+            JsonMappingException, IOException {
+         HashMap<String, Object> mapJson = new HashMap<String, Object>();
+         mapJson.put("name", courseService.getname((Integer.parseInt(json_data))));
+         return mapJson;
+      }
+      
+      
       // 과정-과정등록-CourseInsert-Form *완료*
       @RequestMapping(value = "courseInsertOk", method = RequestMethod.GET)
-      public String courseInsertOk(String name2, int center_id,
+      public String courseInsertOk(String name, int center_id,
             int center_classroom_id, String course_name, int subject_id,
             String course_start_date, String course_end_date, Model model)
             throws ParseException {
-         OpenCourse course = new OpenCourse(Integer.parseInt(name2), subject_id,
+         OpenCourse course = new OpenCourse(Integer.parseInt(name), subject_id,
                course_name, java.sql.Date.valueOf(course_start_date),
                java.sql.Date.valueOf(course_end_date), center_id,
                center_classroom_id);

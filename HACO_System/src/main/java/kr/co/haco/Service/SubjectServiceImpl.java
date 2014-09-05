@@ -127,7 +127,6 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 	public void getSubjectList(Subject2 subject2, Model model,
 			String contextPath) {
-		
 		//기본값 설정
 		if(subject2.getPageNum()==0) subject2.setPageNum(1);
 		if(subject2.getPageSize()==0) subject2.setPageSize(8);
