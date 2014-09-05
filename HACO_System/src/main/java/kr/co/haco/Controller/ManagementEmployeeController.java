@@ -74,31 +74,6 @@ public class ManagementEmployeeController {
 	}
 
 	// /직원///////
-	/*
-	 * //직원 목록 - 페이징 없는 것
-	 * 
-	 * @RequestMapping(value = {"center", "manager", "teacher"}, method =
-	 * RequestMethod.GET) //@RequestParam :파라미터로 now_center_id를 보내지 않을 때 기본값을
-	 * 0으로 셋팅해준다. public String employeeList(Model model,
-	 * 
-	 * @RequestParam(value="now_center_id",defaultValue="0") int now_center_id ,
-	 * HttpServletRequest request) { int job_code = 0;
-	 * 
-	 * String myuri = request.getRequestURI();
-	 * System.out.println("myurl:"+myuri); String uri =
-	 * myuri.substring(myuri.lastIndexOf("/")+1);
-	 * System.out.println("uri:"+uri); if(uri.equals("center")){ job_code = 3;
-	 * }else if(uri.equals("manager")){ job_code = 2; }else
-	 * if(uri.equals("teacher")){ job_code = 1; }
-	 * 
-	 * List<EmployeeList> emplist =
-	 * employeeService.getEmplList(job_code,now_center_id);
-	 * List<EducationCenter> eduCenterList = employeeService.getEduCenterList();
-	 * 
-	 * model.addAttribute("uri", uri); model.addAttribute("eduCenterList",
-	 * eduCenterList); model.addAttribute("job_code", job_code);
-	 * model.addAttribute("emplist",emplist); return "management.employee"; }
-	 */
 	// 직원 목록 - 페이징 있는 것
 	@RequestMapping(value = { "center", "manager", "teacher" }, method = RequestMethod.GET)
 	// @RequestParam :파라미터로 now_center_id를 보내지 않을 때 기본값을 0으로 셋팅해준다.

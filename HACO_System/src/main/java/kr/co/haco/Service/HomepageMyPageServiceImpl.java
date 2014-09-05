@@ -9,6 +9,7 @@ import kr.co.haco.VO.Attenlist;
 import kr.co.haco.VO.EvalExampleResult;
 import kr.co.haco.VO.EvalQuestionAnswer;
 import kr.co.haco.VO.EvaluationRegister;
+import kr.co.haco.VO.EvaluationRegisterForm;
 import kr.co.haco.VO.MyLectureHistory;
 
 import org.apache.ibatis.session.SqlSession;
@@ -29,6 +30,12 @@ public class HomepageMyPageServiceImpl implements HomepageMyPageService {
       MypageDAO mypageDAO = sqlsession.getMapper(MypageDAO.class);
       List<MyLectureHistory> myLectureList =  mypageDAO.getMyLecture(account_id);
       return myLectureList;
+   }
+   
+   //강의평가 - 기본정보 불러오기
+   @Override
+   public EvaluationRegisterForm getEvaluationRegisterform(int open_course_id) {
+      return sqlsession.getMapper(MypageDAO.class).getEvaluationRegisterform(open_course_id);      
    }
    
    //강의평가 - 설문내용 불러오기

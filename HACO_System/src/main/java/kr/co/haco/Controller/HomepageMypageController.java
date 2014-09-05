@@ -165,50 +165,52 @@ public class HomepageMypageController {
 	}
 
 	// 강의평가 하기 - 평가 내용 가져오기
-	@RequestMapping(value = "/myLectureEvaluation", method = RequestMethod.GET)
-	public String myLectureEval(Model model, Principal principal, int open_course_id) {
-		Map evaluation = homepageMyPageService.getEvaluation(open_course_id);
+   @RequestMapping(value = "myLectureEvaluation", method = RequestMethod.GET)
+   public String myLectureEval(Model model, int open_course_id) {
+      // 강좌 기본 정보
+      model.addAttribute("evalForm", homepageMyPageService.getEvaluationRegisterform(open_course_id));      
+      
+      Map evaluation = homepageMyPageService.getEvaluation(open_course_id);
+      List<EvaluationRegister> questionList = (List<EvaluationRegister>) evaluation.get("questionList");
+      List<EvaluationRegister> examList = (List<EvaluationRegister>) evaluation.get("examList");
 
-		List<EvaluationRegister> questionList = (List<EvaluationRegister>) evaluation.get("questionList");
-		List<EvaluationRegister> examList = (List<EvaluationRegister>) evaluation.get("examList");
+      // 보기를 질문별로 List에 담기
+      List<List<EvaluationRegister>> examListofList = new ArrayList<List<EvaluationRegister>>();
+      List<EvaluationRegister> exam = null;
+      for (int i = 0; i < examList.size(); i++) {
+         if (i == 0) {
+            exam = new ArrayList<EvaluationRegister>();
+            exam.add(examList.get(i));
+         } else {
+            if (examList.get(i - 1).getQuestion_id() == examList.get(i).getQuestion_id()) { // 같은 문제의 보기일 때
+               exam.add(examList.get(i));
+            } else {
+               examListofList.add(exam);
+               exam = null;
+               exam = new ArrayList<EvaluationRegister>();
+               exam.add(examList.get(i));
+            }
+         }
 
-		// 보기를 질문별로 List에 담기
-		List<List<EvaluationRegister>> examListofList = new ArrayList<List<EvaluationRegister>>();
-		List<EvaluationRegister> exam = null;
-		for (int i = 0; i < examList.size(); i++) {
-			if (i == 0) {
-				exam = new ArrayList<EvaluationRegister>();
-				exam.add(examList.get(i));
-			} else {
-				if (examList.get(i - 1).getQuestion_id() == examList.get(i).getQuestion_id()) { // 같은 문제의 보기일 때
-					exam.add(examList.get(i));
-				} else {
-					examListofList.add(exam);
-					exam = null;
-					exam = new ArrayList<EvaluationRegister>();
-					exam.add(examList.get(i));
-				}
-			}
+         if (i == examList.size() - 1) {
+            examListofList.add(exam);
+         }
 
-			if (i == examList.size() - 1) {
-				examListofList.add(exam);
-			}
+      }
 
-		}
+      model.addAttribute("questionList", questionList);
+      model.addAttribute("examListofList", examListofList);
 
-		model.addAttribute("questionList", questionList);
-		model.addAttribute("examListofList", examListofList);
-
-		System.out.println("questionList.size():" + questionList.size());
-		System.out.println("examListofList.size()" + examListofList.size());
-		/*
-		 * for(int i=0;i<examListofList.size();i++){
-		 * System.out.println("examListofList.get("
-		 * +i+").size:"+examListofList.get(i).size()); }
-		 */
-		return "homepage.myLectureEvaluation";
-	}
-
+      System.out.println("questionList.size():" + questionList.size());
+      System.out.println("examListofList.size()" + examListofList.size());
+      /*
+       * for(int i=0;i<examListofList.size();i++){
+       * System.out.println("examListofList.get("
+       * +i+").size:"+examListofList.get(i).size()); }
+       */
+      return "homepage.myLectureEvaluation";
+   }
+   
 	// 설문 하기
 	@RequestMapping(value = "/myLectureEvaluation", method = RequestMethod.POST)
 	@ResponseBody

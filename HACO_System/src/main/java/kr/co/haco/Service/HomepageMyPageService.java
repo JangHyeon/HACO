@@ -6,6 +6,7 @@ import java.util.Map;
 
 import kr.co.haco.VO.Attenlist;
 import kr.co.haco.VO.EvaluationRegister;
+import kr.co.haco.VO.EvaluationRegisterForm;
 import kr.co.haco.VO.MyLectureHistory;
 
 import org.springframework.transaction.annotation.Transactional;
@@ -14,6 +15,9 @@ public interface HomepageMyPageService {
    //수강 내역
    public List<MyLectureHistory> getMyLecture(int account_id);
    
+   
+   //강의평가 - 기본정보 불러오기
+   public EvaluationRegisterForm getEvaluationRegisterform(int open_course_id);
    
    //강의평가 - 설문내용 불러오기
    @Transactional

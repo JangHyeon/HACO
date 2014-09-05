@@ -31,6 +31,17 @@
       ON o.center_id = e.center_id
       WHERE l.account_id=#{account_id}
    </select>
+   
+   <!-- 강의평가 - 기본내용 불러오기 -->   
+    <select id="getEvaluationRegisterform"  resultType="kr.co.haco.VO.EvaluationRegisterForm">
+      select  o.course_name  ,o.course_start_date , o.course_end_date ,s.subject_name ,e.name_kor 
+       from open_course as o inner join subject as s 
+       on o.subject_id = s.subject_id 
+       inner join employee as e 
+       on e.account_id = o.account_id 
+       where o.open_course_id=#{open_course_id};
+   </select>   
+   
    <!-- 강의평가 - 설문내용 불러오기 -->
    <select id="getEvaluationQuestion" resultType="kr.co.haco.VO.EvaluationRegister" parameterType="Integer">
       SELECT q.open_course_id,q.question_id,q.question,q.type_code
