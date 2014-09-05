@@ -94,9 +94,9 @@ function lecture(open_course_id,account_id,classification){
 									<td>${b.name }</td>
 									<s:authorize ifAnyGranted="MASTER,CENTER,MANAGER">
 									<td>
-										<button class='btn btn-default btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','grant')"><i class='fa fa-check'></i></button>
-										<button class='btn btn-warning btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','cancel')"><i class='fa fa-trash-o'></i></button>
-										<button class='btn btn-primary btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','complete')"><i class="fa fa-circle-thin"></i></button>
+										<button class='btn btn-default btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','grant')"><small><i class='fa fa-check'></i> 허가</small></button>
+										<button class='btn btn-warning btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','cancel')"><small><i class='fa fa-trash-o'></i> 취소</small></button>
+										<button class='btn btn-primary btn-xs' onclick="lecture('${b.open_course_id}','${b.account_id}','complete')"><small><i class="fa fa-circle-thin"></i> 완료</small></button>
 									</td>
 									</s:authorize>
 									<td>${b.lecture_register_name}</td>

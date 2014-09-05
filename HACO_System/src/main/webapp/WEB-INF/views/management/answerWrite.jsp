@@ -20,7 +20,7 @@
 <link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
 <link href="${resourceUrl}/assets/css/style-responsive.css" rel="stylesheet">
 
-<input id="current-accordion" type="hidden" value="board,notice" />
+<input id="current-accordion" type="hidden" value="board,qna" />
 
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -29,17 +29,16 @@
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i> 공지사항
+			<i class="fa fa-angle-right"></i> 질문과 답변
 		</h3>
 		<div class="row">
 			<div class="col-md-12 mt">
 				<div class="form-panel">
+					<h4>
+						Answer Write
+					</h4>
+					<hr>
 					<form id="qnaForm" action="${pageContext.request.contextPath}/management/answerWrite" class="form-horizontal style-form" method="post">
-						<%-- <div class="page-header">
-							<h3>
-								<small>공지사항 내용</small>
-							</h3>
-						</div> --%>
 						<div class="form-group">
 							<label class="col-sm-2 control-label"><i
 								class="fa fa-check fa-lg"></i> 제목</label>

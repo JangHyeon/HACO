@@ -16,7 +16,7 @@
 
 
 <!-- Begin Body -->
-<div class="container">
+<div class="container body">
 	<div class="no-gutter row">
 		<div class="col-xs-12 col-sm-12 col-md-12">
 			<div class="panel panel-default">
@@ -29,6 +29,13 @@
 									<i class="fa fa-angle-right"></i> Hover Table
 								</h4>
 								<hr> -->
+								
+								<s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
+									<div class="pull-right" style="margin-left: 10px;">
+										<button id="writeBtn" class="btn btn-primary" type="button">공지사항 작성하기</button>
+									</div>
+								</s:authorize>
+								
 								<div class="pull-right topToggle">
 									<div class="btn-group">
 									  <button type="button" class="btn btn-default" id="noticeToggle" data-toggle="button" data-noti-text="공지 보이기">공지 숨기기</button>										 
@@ -102,12 +109,6 @@
 								<c:if test="${empty noticeList || empty noticeList[0]}">
 									<h3 style="margin: 80px auto; text-align: center;">결과가 없습니다...</h3>
 								</c:if>
-								
-					            <s:authorize ifAnyGranted="TEACHER,MANAGER,CENTER,MASTER">
-									<div class="pull-right">
-										<button id="writeBtn" class="btn btn-default" type="button">공지사항 작성하기</button>
-									</div>
-								</s:authorize>
 
 								<div class="col-xs-12">
 									<!-- 페이징 -->

@@ -17,7 +17,7 @@
 
 
 <!-- Begin Body -->
-<div class="container">
+<div class="container body">
 	<div class="no-gutter row">
 
 

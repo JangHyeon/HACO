@@ -17,7 +17,7 @@
 
 
 <!-- Begin Body -->
-<div class="container">
+<div class="container body">
 	<div class="no-gutter row">
 		<div class="col-xs-12 col-sm-12 col-md-12">
 			<div class="panel panel-default">

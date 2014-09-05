@@ -21,7 +21,7 @@
 <link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
 <link href="${resourceUrl}/assets/css/style-responsive.css" rel="stylesheet">
 
-<input id="current-accordion" type="hidden" value="board,notice" />
+<input id="current-accordion" type="hidden" value="board,qna" />
 
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT

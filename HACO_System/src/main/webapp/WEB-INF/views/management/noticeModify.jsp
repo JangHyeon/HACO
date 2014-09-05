@@ -34,12 +34,11 @@
 		<div class="row">
 			<div class="col-md-12 mt">
 				<div class="form-panel">
+				<h4>
+							<i class="fa fa-angle-right"></i> Notice Write
+						</h4>
+						<hr>
 					<form id="noticeForm" action="${pageContext.request.contextPath}/management/noticeModifyProcess" class="form-horizontal style-form" method="post">
-						<%-- <div class="page-header">
-							<h3>
-								<small>공지사항 내용</small>
-							</h3>
-						</div> --%>
 						<div class="form-group">
 							<label class="col-sm-2 control-label"><i
 								class="fa fa-check fa-lg"></i> 제목</label>
@@ -83,7 +82,7 @@
 						<div class="btn-group submitBtn">
 							<button id="WriteBtn"
 								class="btn btn-large btn-block btn-primary joinbtn"
-								type="button">공지사항 올리기</button>
+								type="button">수정하기</button>
 						</div>
 					</form>
 				</div>

@@ -26,42 +26,47 @@
 				
 				<!-- Main Content -->
 				<div class="panel-body">
-					<div class="form-panel">
-                		<div class="form-group">
-                              <label class="col-sm-2 col-md-2 control-label">과정명</label>
-                              <div class="col-sm-10 col-md-10">${getCNT.course_name}</div>
-                        </div>
-						<div class="form-group">
-							  <label class="col-sm-2 col-md-2 control-label">강사명</label>
-                              <div class="col-sm-10 col-md-10">${getCNT.name_kor}</div>
-                        </div>
-                        <div class="form-group">
-                       		  <label class="col-sm-2">교육기간</label>
-                              <div class="col-sm-10">${getCNT.course_start_date} ~ ${getCNT.course_end_date}</div>
-                        </div>
-                        <div class="form-group">
-                       		  <label class="col-sm-2">교육시간</label>
-                              <div class="col-sm-10">${getCNT.lecture_time_start} ~ ${getCNT.lecture_time_end}</div>
-                        </div>
-                        <div class="form-group">
-                       		  <label class="col-sm-2">교육비용</label>
-                              <div class="col-sm-10">${getCNT.tuition_fee}</div>
-                        </div>
-                        <div class="form-group">
-                       		  <label class="col-sm-2">교육장</label>
-                              <div class="col-sm-10">${getCNT.location}</div>
-                        </div>
-                        <div class="form-group">
-                       		  <label class="col-sm-2">현재인원 / 정원</label>
-                              <div class="col-sm-10">${getCNT.CNT} / ${getCNT.capacity}</div>
-                        </div>
-                        <div class="form-group">
-                       		  <label class="col-sm-2">과정개요</label>
-                              <div class="col-sm-10">${getCNT.lecture_content}</div>
-                        </div>
-						<div class="btn-group submitBtn">
-							<button id="submitBtn" class="btn btn-large btn-block btn-success joinbtn" type="button">수강신청</button>
-						</div>
+               		<div class="form-group">
+                          <label class="col-sm-2 col-md-2 control-label">과정명</label>
+                          <div class="col-sm-10 col-md-10">${getCNT.course_name}</div>
+                    </div>
+                    <hr style="clear:both">
+					<div class="form-group">
+						  <label class="col-sm-2 col-md-2 control-label">강사명</label>
+                             <div class="col-sm-10 col-md-10">${getCNT.name_kor}</div>
+                       </div>
+                       <hr style="clear:both">
+                       <div class="form-group">
+                      		  <label class="col-sm-2">교육기간</label>
+                             <div class="col-sm-10">${getCNT.course_start_date} ~ ${getCNT.course_end_date}</div>
+                       </div>
+                       <hr style="clear:both">
+                       <div class="form-group">
+                      		  <label class="col-sm-2">교육시간</label>
+                             <div class="col-sm-10">${getCNT.lecture_time_start} ~ ${getCNT.lecture_time_end}</div>
+                       </div>
+                       <hr style="clear:both">
+                       <div class="form-group">
+                      		  <label class="col-sm-2">교육비용</label>
+                             <div class="col-sm-10">${getCNT.tuition_fee}</div>
+                       </div>
+                       <hr style="clear:both">
+                       <div class="form-group">
+                      		  <label class="col-sm-2">교육장</label>
+                             <div class="col-sm-10">${getCNT.location}</div>
+                       </div>
+                       <hr style="clear:both">
+                       <div class="form-group">
+                      		  <label class="col-sm-2">현재인원 / 정원</label>
+                             <div class="col-sm-10">${getCNT.CNT} / ${getCNT.capacity}</div>
+                       </div>
+                       <hr style="clear:both">
+                       <div class="form-group">
+                      		  <label class="col-sm-2">과정개요</label>
+                             <div class="col-sm-10">${getCNT.lecture_content}</div>
+                       </div>
+					<div class="btn-group submitBtn">
+						<button id="submitBtn" class="btn btn-large btn-block btn-success joinbtn" type="button">수강신청</button>
 					</div>
 				</div>
 			</div>

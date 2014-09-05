@@ -220,21 +220,19 @@ public class ManagementControllerJH {
 
 		model.addAttribute("qna", qna);
 
-		return "management.qnaModify";
+		return "management.answerModify";
 	}
 
 	// 질문과 답변 수정
 	@RequestMapping(value = "qnaModifyProcess", method = RequestMethod.POST)
 	public String qnaModifyProcess(Qna qna) {
 		homepageService.updateQna(qna);
-		
 		try {
 			qna.setSearchKey(new String(qna.getSearchKey().getBytes("UTF-8"),"8859_1"));
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
 		return "redirect:/management/qnaView/pageSize/" + qna.getPageSize() + "/pageNum/"
 				+ qna.getPageNum() + "/searchType/" + qna.getSearchType()
 				+ "/searchKey/" + qna.getSearchKey() + "/qnaId/"

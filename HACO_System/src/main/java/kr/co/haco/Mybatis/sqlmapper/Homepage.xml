@@ -287,12 +287,12 @@
 	
 	<!-- 오늘 새로 올라온 공지글 -->
 	<select id="getNewNoticeNumber" resultType="Integer">
-		SELECT count(notice_id) from notice where left(DATE_SUB(  curdate(),  INTERVAL 0 month  ) ,7) = left(register_date,7)
+		SELECT count(notice_id) from notice where left(DATE_SUB(  curdate(),  INTERVAL 0 day  ) ,10) = left(register_date,10)
 	</select>
 	
 	<!-- 오늘 새로 올라온 질문과 답변 -->
 	<select id="getNewQnaNumber" resultType="Integer">
-		SELECT count(qna_id) from qna where left(DATE_SUB(  curdate(),  INTERVAL 0 month  ) ,7) = left(register_date,7)
+		SELECT count(qna_id) from qna where left(DATE_SUB(  curdate(),  INTERVAL 0 day  ) ,10) = left(register_date,10)
 	</select>	
 	
 	<!-- 답변을 기다리는 질문 -->
@@ -383,6 +383,6 @@
 			 ON e.now_center_id = ec.center_id
 			 INNER JOIN education_center ec2
 			 ON e.join_center_id = ec2.center_id
-        order by e.join_date desc limit 5
+        order by e.join_date desc, name_kor asc limit 5
 	</select>
 </mapper>

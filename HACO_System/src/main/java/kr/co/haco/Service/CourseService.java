@@ -3,6 +3,7 @@ package kr.co.haco.Service;
 import java.util.List;
 
 import kr.co.haco.VO.CenterClassroom;
+import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Subject2;
 import kr.co.haco.VO.EducationCenter;
@@ -49,12 +50,10 @@ public int updateCourse(OpenCourse course);
 // 과정:삭제..
 
 public int CKsubjectid(int subject_id);
-
 public int CKopencouseid(int open_course_id);
-
 public int CKcenterid(int center_id);
 public int CKcenterid2(int center_id);
-
 public int CKroomid(int center_classroom_id);
+public List<Employee> getname(int center_id);
 
 }

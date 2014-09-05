@@ -6,6 +6,7 @@ import kr.co.haco.DAO.AccountDAO;
 import kr.co.haco.DAO.CourceDAO;
 import kr.co.haco.DAO.SubjectDAO;
 import kr.co.haco.VO.CenterClassroom;
+import kr.co.haco.VO.Employee;
 import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.Subject;
 import kr.co.haco.VO.Subject2;
@@ -204,6 +205,13 @@ public int CKcenterid2(int center_id) {
 	  return sqlSession.getMapper(CourceDAO.class).CKcenterid2(center_id);
 	     
 }
+
+@Override
+public List<Employee> getname(int center_id) {
+	  return sqlSession.getMapper(CourceDAO.class).getname(center_id);
+}
+
+
 
 
    

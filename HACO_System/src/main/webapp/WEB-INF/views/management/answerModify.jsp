@@ -12,13 +12,15 @@
 
 <!--external css-->
 <link href="${resourceUrl}/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/css/zabuto_calendar.css">
+<link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/js/gritter/css/jquery.gritter.css" />
 <link rel="stylesheet" type="text/css" href="${resourceUrl}/assets/lineicons/style.css">
 
 <!-- Custom styles for this template -->
 <link href="${resourceUrl}/assets/css/style.css" rel="stylesheet">
 <link href="${resourceUrl}/assets/css/style-responsive.css" rel="stylesheet">
 
-<input id="current-accordion" type="hidden" value="board,notice" />
+<input id="current-accordion" type="hidden" value="board,qna" />
 
 <!-- **********************************************************************************************************************************************************
       MAIN CONTENT
@@ -27,54 +29,45 @@
 <section id="main-content">
 	<section class="wrapper">
 		<h3>
-			<i class="fa fa-angle-right"></i> 공지사항
+			<i class="fa fa-angle-right"></i> 질문과 답변
 		</h3>
 		<div class="row">
 			<div class="col-md-12 mt">
 				<div class="form-panel">
 					<h4>
-						<i class="fa fa-angle-right"></i> Notice Write
+						Answer Modify
 					</h4>
 					<hr>
-					<form id="noticeForm" class="form-horizontal style-form" method="post">
+					<form id="qnaForm" action="${pageContext.request.contextPath}/management/qnaModifyProcess" class="form-horizontal style-form" method="post">
 						<div class="form-group">
 							<label class="col-sm-2 control-label"><i
 								class="fa fa-check fa-lg"></i> 제목</label>
 							<div class="col-sm-10">
+								<input type="hidden" name="qna_id" value="${qna.qna_id}">
+								<input type="hidden" name="state_code" value="${qna.state_code}">
+								<input type="hidden" name="group_no" value="${qna.group_no}">
+								<input type="hidden" name="pageSize" value="${qna.pageSize}">
+								<input type="hidden" name="pageNum" value="${qna.pageNum}">
+								<input type="hidden" name="searchKey" value="${qna.searchKey}">
+								<input type="hidden" name="searchType" value="${qna.searchType}">
 								<input type="text" class="form-control" id="title"
-									name="title">
+									name="title" value="${qna.title}">
 							</div>
 						</div>
+
 						<div class="form-group">
 							<label class="col-sm-2 control-label"><i
 								class="fa fa-check fa-lg"></i> 내용</label>
 							<div class="col-sm-10">
 								<!-- <textarea id="content" name="content"></textarea> -->
-								<textarea rows="10" cols="5" class="form-control" name="content"></textarea>
+								<textarea rows="10" cols="5" class="form-control" name="content">${qna.content}</textarea>
 							</div>
 						</div>
-	
-						<div class="form-group">
-							<label class="col-sm-2 control-label"><i
-								class="fa fa-check fa-lg"></i> 상태 선택</label>
-							<div class="col-sm-10">
-								<div class="btn-group" data-toggle="buttons">
-									<label class="btn btn-default active"> 
-									<input type="radio" name="state_code" id="option1" value="1" checked> 일반공지
-									</label> 
-									<label class="btn btn-default">
-									<input type="radio" name="state_code" id="option2" value="0"> 직원공지
-									</label> 
-									<label class="btn btn-default"> 
-									<input type="radio" name="state_code" id="option3" value="2"> 고정공지
-									</label>
-								</div>
-							</div>
-						</div>
+						
 						<div class="btn-group submitBtn">
 							<button id="WriteBtn"
 								class="btn btn-large btn-block btn-primary joinbtn"
-								type="button">공지사항 올리기</button>
+								type="button">수정하기</button>
 						</div>
 					</form>
 				</div>
@@ -96,10 +89,7 @@
 
 <!-- JavaScript jQuery code from Bootply.com editor  -->
 <script type="text/javascript">
-$(document).ready(function(){
-	
-	$('#title').focus();
-	
+$(document).ready(function(){		
 	var ckeditor;
 	
 	//CKEDITOR를 textarea의 name값: 'content'랑 교체
@@ -109,8 +99,8 @@ $(document).ready(function(){
 		shiftEnterMode:'3',
 		
 		//filebrowserBrowseUrl : "${resourceUrl}",
-		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/notice/command/QuickUpload/type/File',
-        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/notice/command/QuickUpload/type/Images'
+		filebrowserUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/qna/command/QuickUpload/type/File',
+        filebrowserImageUploadUrl : '${pageContext.request.contextPath}/ckUpload/board/qna/command/QuickUpload/type/Images'
 	});
 	ckeditor = CKEDITOR.instances['content'];
 
@@ -133,10 +123,10 @@ $(document).ready(function(){
 
 	
 	$('#WriteBtn').on('click', function() {
-		$('#noticeForm').submit();
+		$('#qnaForm').submit();
 	});
 
-	$('#noticeForm').submit(function() {
+	$('#qnaForm').submit(function() {
 		if ($('#title').val() == "") {
 			alert("제목을 입력하세요");
 			$('#title').focus();
@@ -157,12 +147,6 @@ $(document).ready(function(){
 			return false;
 		}
 		
-		if($('input:radio[name=state_code]:checked').length==0){
-			alert("상태를 선택하세요");
-			$('input:radio[name=state_code]').focus();
-			return false;
-		}
-		
 		
 		$(window).off('beforeunload');
 		$('#WriteBtn').off('click');
@@ -175,3 +159,4 @@ $(document).ready(function(){
 	});
 });
 </script>
+

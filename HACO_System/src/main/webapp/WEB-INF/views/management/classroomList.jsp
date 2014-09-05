@@ -39,18 +39,27 @@
 
 		<div class="row">
 
-			<div class="col-md-12">
+			<div class="col-md-6">
 				<div class="content-panel pull">
-					<div class="col-md-6">
-						<div class="pull-right topToggle">
-							<input type="hidden" id="center" value="${centerid}"> <input
-								type="text" id="newclassroom"  onkeydown="OnlyNum();"> <a
-								class="btn btn-success" id="test"> 강의실 등록</a>
-						</div>
+					<div class="col-md-12">
 
 						<h4>
 							<i class="fa fa-angle-right"></i> 강의실등록
 						</h4>
+						
+						<div class="input-group">
+							<input type="hidden" id="center" value="${centerid}"> 
+							<input type="text" id="newclassroom" class="form-control">
+							<span class="input-group-btn">
+					            <button class="btn btn-success" id="test" type="button">강의실 등록</button>
+					        </span>
+						</div>
+
+						<hr style="display: block; clear: both;border-top: 0px solid #ccc;margin-top: 20px;margin-bottom: 30px;">
+							
+						
+						
+						
 						<div>
 							<table class="table">
 								<thead>
@@ -79,8 +88,6 @@
 							</table>
 						</div>
 					</div>
-
-					<div class="col-md-6">비어놈</div>
 				</div>
 			</div>
 		</div>

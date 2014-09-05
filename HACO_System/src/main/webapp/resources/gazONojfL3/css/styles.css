@@ -605,7 +605,6 @@ margin: 3px 3px 3px 4px;
 	min-width: 80px;
 }
 .topToggle{
-	margin-top: 15px;
 	margin-bottom: 10px;
 }
 
@@ -771,6 +770,7 @@ tbody > tr > td > a > span > .fa-question{
 	}
 }
 
+
 .table.index-notice>tbody>tr>td{
 	border-top:0px;
 	padding-top: 3px;
@@ -856,14 +856,13 @@ span.label-info{
 	margin-bottom: 0;
 }
 
-.pull-right{
-	margin-right: 15px;
+.notice-content{
+	padding-bottom: 15px;
 }
-.bottomToggle{
-	margin-top: 15px;
-}
+
+
 .panel-body{
-	padding: 0px;
+	padding: 15px;
 }
 
 @media (max-width: 550px) {
@@ -875,3 +874,10 @@ span.label-info{
 .form-group > div{
    min-height: 40px;
 }
+.container.body{
+	min-height:400px;
+}
+
+.panel-body > .form-group > div{
+	overflow: auto;
+}	

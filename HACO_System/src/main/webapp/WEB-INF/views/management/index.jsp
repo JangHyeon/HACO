@@ -310,6 +310,7 @@
 	<!-- inclue common script -->
     <%@ include file="commonScript.jsp" %>
 
+	<<c:if test="${!empty param.result}">
 	<script>
 		$(document).ready(function(){
 			 //직원등록 후 
@@ -321,7 +322,7 @@
 			
 		});
 	</script>
-
+	</c:if>
 
     <!--script for this page-->    
 	<script src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>	

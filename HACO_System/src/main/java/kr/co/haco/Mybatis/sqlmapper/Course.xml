@@ -171,4 +171,10 @@
   		 select count(center_classroom_id) from open_course where center_classroom_id = #{center_classroom_id}
      </select>
      
+     
+     
+     <!--강사명 검색-->
+   <select id="getname" parameterType="Integer" resultType="kr.co.haco.VO.Employee">
+   select account_id,name_kor from employee where now_center_id =#{center_id} and job_code=1   
+   </select>
 </mapper>

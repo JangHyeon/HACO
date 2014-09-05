@@ -104,7 +104,7 @@
                   
                   <li class="sub-menu" name="employee">
                       <a href="javascript:;" >
-                          <i class="fa fa-graduation-cap"></i>
+                          <i class="fa fa-user"></i>
                           <span>직원 조회</span>
                       </a>
                       <ul class="sub">

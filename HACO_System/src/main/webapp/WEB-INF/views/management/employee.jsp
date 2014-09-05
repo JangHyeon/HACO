@@ -97,14 +97,10 @@
 							</c:forEach>
 						</tbody>
 					</table>
-				</div>
-				<!-- /content-panel -->
-			</div>
-			<!-- /col-md-12 -->		
-		  
-		</div>
-		<!-- row -->
-		
+                  <c:if test="${empty emplist || empty emplist[0]}">
+					<h3 style="margin: 80px auto; text-align: center;">등록 직원이 없습니다...</h3>
+				  </c:if>
+				  <div class="table-footer">
 		<!-- 페이징 -->
 	      <div class="col-xs-12">         
 	         <ul class="pagination pagination-centered">
@@ -131,10 +127,15 @@
 	            </li>
 	         </ul>
 	      </div>   
-		
-	  
-		
-		
+		</div>
+				  
+				</div>
+				<!-- /content-panel -->
+			</div>
+			<!-- /col-md-12 -->		
+		  
+		</div>
+		<!-- row -->
 	</section>
 </section>
 
