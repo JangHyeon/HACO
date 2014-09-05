@@ -2297,6 +2297,7 @@ label {
 
 
 #loadingIcon{
+	font-size: 5em;
 	position:absolute;
 	margin: 45px;
 	margin-top: 65px;

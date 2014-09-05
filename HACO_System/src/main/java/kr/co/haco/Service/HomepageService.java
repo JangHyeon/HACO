@@ -33,8 +33,4 @@ public interface HomepageService {
 	public int updateQna(Qna qna);
 	public int deleteQna(int qna_id);
 	public int insertAnswer(Qna answer);
-	
-	public Map<String, String> photoUpload(MultipartHttpServletRequest req);
-	
-	public Map<String, Object> getIndexInfo();
 }

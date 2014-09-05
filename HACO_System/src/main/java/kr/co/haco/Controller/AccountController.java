@@ -207,9 +207,4 @@ public class AccountController {
 		contextURL = contextURL.replace(contextURL.lastIndexOf("forgetPassword"), contextURL.length(), "");
 		return accountService.findPassword(id, email, contextURL);
 	}
-	// 출석정보
-	@RequestMapping(value="memberattendance", method=RequestMethod.GET)
-	public String memberattendance(){
-		return "homepage.memberattendance";
-	}
 }

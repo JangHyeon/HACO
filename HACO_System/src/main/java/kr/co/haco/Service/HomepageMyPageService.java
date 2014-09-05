@@ -24,5 +24,5 @@ public interface HomepageMyPageService {
    @Transactional
    public int uploadEval(int account_id, int open_course_id,Map<String,Object> answerAndExam);
    
-   public List<Attenlist> getattenlist(HashMap map);
+   public List<Attenlist> getattenlist(HashMap<String,Integer> map);
 }

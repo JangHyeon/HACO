@@ -1,7 +1,6 @@
 package kr.co.haco.Controller;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.text.ParseException;
 import java.util.HashMap;
 
@@ -28,7 +27,6 @@ import kr.co.haco.VO.getCourseList;
 import org.codehaus.jackson.JsonGenerationException;
 import org.codehaus.jackson.map.JsonMappingException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,7 +36,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping(value = "management/")
-public class ManagementControllerHS {
+public class ManagementSubjectController {
    @Autowired
    AccountService accountService;
    @Autowired

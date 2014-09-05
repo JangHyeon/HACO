@@ -21,11 +21,30 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping(value = "management/")
-public class ManagementControllerJH {
+public class ManagementBoardController {
 
 	@Autowired
 	HomepageService homepageService;
 
+	// ///게시판////////////////////
+	// 공지
+	@RequestMapping(value = "notice", method = RequestMethod.GET)
+	public String notice() {
+		return "management.notice";
+	}
+
+	// 질문과 답변
+	@RequestMapping(value = "qna", method = RequestMethod.GET)
+	public String qna() {
+		return "management.qna";
+	}
+
+	// 모임방
+	@RequestMapping(value = "community", method = RequestMethod.GET)
+	public String community() {
+		return "management.community";
+	}
+	
 	// 공지사항 작성 페이지
 	@RequestMapping(value = "noticeWrite", method = RequestMethod.GET)
 	public String noticeWrite(HttpServletRequest request) {

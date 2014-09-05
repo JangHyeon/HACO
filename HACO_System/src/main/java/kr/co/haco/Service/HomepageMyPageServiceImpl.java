@@ -42,7 +42,7 @@ public class HomepageMyPageServiceImpl implements HomepageMyPageService {
       evaluation.put("examList", examList);      
       return evaluation;
    }
-   public List<Attenlist> getattenlist(HashMap map){
+   public List<Attenlist> getattenlist(HashMap<String,Integer> map){
       return sqlsession.getMapper(MypageDAO.class).getattenlist(map);
    }
    //강의평가 하기   
