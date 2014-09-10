@@ -321,9 +321,6 @@ public class ManagementController {
 		System.out.println("Controller : evaluationResult");
 		List<EvalQuestionAnswer> essayResult = evaluationRegisterService.getEvalEssayResult(open_course_id);
 
-		// a.question_id, q.question ,a.answer , q.open_course_id
-		// ArrayList<ArrayList<String>> questionList = new
-		// ArrayList<ArrayList<String>>();
 		ArrayList<String> question = new ArrayList<String>();
 
 		ArrayList<ArrayList<String>> answerList = new ArrayList<ArrayList<String>>();
@@ -343,11 +340,28 @@ public class ManagementController {
 					question.add(essayResult.get(i).getQuestion());
 					answer.add(essayResult.get(i).getAnswer());
 				}
-				if (i == essayResult.size() - 1) {
+				/*if (i == essayResult.size() - 1) {
 					answerList.add(answer);
-				}
+				}*/
+			}
+			if (i == essayResult.size() - 1) {
+				answerList.add(answer);
 			}
 		}
+		/*//출력
+		for(int i=0;i<question.size();i++){
+			System.out.println("question 출력");
+			System.out.println(question.get(i));
+		}
+		for(int i=0;i<answerList.size();i++){
+			System.out.println("answerList 출력");
+			ArrayList<String> a = answerList.get(i);
+			System.out.println("answerList 안의 내용 출력");
+			for(int j=0; j<a.size();j++){
+				System.out.println(a.get(j));
+			}
+		}*/
+		
 		model.addAttribute("question", question);
 		model.addAttribute("answerList", answerList);
 		return "management.evaluationResult";
@@ -387,9 +401,12 @@ public class ManagementController {
 					evalResultList = new ArrayList<HashMap<String, Object>>();
 					evalResultList.add(map);
 				}
-				if (i == examResult.size() - 1) {
+				/*if (i == examResult.size() - 1) {
 					sendEvalResultListofList.add(evalResultList);
-				}
+				}*/
+			}
+			if (i == examResult.size() - 1) {
+				sendEvalResultListofList.add(evalResultList);
 			}
 		}
 		System.out.println("sendEvalResultofList.size:" + sendEvalResultListofList.size());

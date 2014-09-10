@@ -51,7 +51,8 @@
           	<div class="bs-example">
 			    <div class="panel-group" id="accordion">
 			    	<%int idx_answerList=0;
-			    	  ArrayList<ArrayList<String>> answerList = (ArrayList<ArrayList<String>>)request.getAttribute("answerList"); %>
+			    	  ArrayList<ArrayList<String>> answerList = (ArrayList<ArrayList<String>>)request.getAttribute("answerList");			   
+			    	  %>
 			    	<c:forEach var="quest" items="${question}" varStatus="seq">			    	
 			        <div class="panel panel-default">
 			            <div class="panel-heading">

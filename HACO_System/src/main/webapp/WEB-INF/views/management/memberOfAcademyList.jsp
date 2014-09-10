@@ -55,7 +55,9 @@
 	        				</button>
 	         					<ul class="dropdown-menu" role="menu" id="courseList">
 	         						<c:forEach var="course" items="${courseList}">
-	         							<li><a href="${pageContext.request.contextPath}/management/memberOfAcademyList?c_id=${course.center_id}&open_course_id=${course.open_course_id}">${course.course_name}</a></li>
+	         							<li>
+	         							 <a href="${pageContext.request.contextPath}/management/memberOfAcademyList?c_id=${course.center_id}&open_course_id=${course.open_course_id}">${course.course_name}</a>
+	         							</li>
 	         						</c:forEach>                                                 
 	         					</ul>	         					
 	           			</c:when>
@@ -91,8 +93,7 @@
                    </c:forEach>                   
                  </ul>
                </div>                      
-               <input type="hidden" name="center_name">
-               <input type="hidden" name="course_name">
+            
             
                <h4>
                   <i class="fa fa-angle-right"></i> 원생       
