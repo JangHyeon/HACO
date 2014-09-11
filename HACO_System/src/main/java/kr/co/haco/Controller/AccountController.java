@@ -117,8 +117,14 @@ public class AccountController {
 		}
 		 */
 		HashMap<String, Object> data = new HashMap<String, Object>();
-		data.put("result", accountService.accountActivation(activation_key));
-		data.put("member", accountService.getMemberToActivationKey(activation_key));
+		
+		String result = accountService.accountActivation(activation_key);
+		Member member = accountService.getMemberToActivationKey(activation_key);
+		
+		data.put("result", result);
+		data.put("member", member);
+		
+		if(result.equals("success")) System.out.println(accountService.UpdateAccountAuthority(String.valueOf(member.getAccount_id())));
 		
 		redirectAttributes.addFlashAttribute("data", data);
 		return "redirect:/accountActivationResult";

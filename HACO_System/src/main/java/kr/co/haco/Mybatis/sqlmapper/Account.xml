@@ -68,6 +68,10 @@
 		update account SET state_code=1 where activation_key=#{activation_key}
 	</update>
 	
+	<update id="UpdateAccountAuthority">
+		UPDATE authority set role_name='STUDENT' where account_id=#{account_id}
+	</update>
+	
 	<!-- 회원 정보 -->
 	<select id="getMember" parameterType="kr.co.haco.VO.Member" resultType="kr.co.haco.VO.Member">
 		select account_id,name,zipcode,address,address_detail,email,phone,company,position,job_duty,create_date from member 

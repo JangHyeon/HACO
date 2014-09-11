@@ -21,6 +21,7 @@ public interface AccountDAO {
 	
 	public Account getAccount(Account account);
 	public int accountActivation(String activation_key);
+	public int UpdateAccountAuthority(String account_id);
 
 	public Member getMember(Member member);
 	

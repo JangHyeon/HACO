@@ -39,6 +39,7 @@ public interface AccountService{
 	public void joinMember(Account account, Member member, StringBuffer contextURL) throws DataIntegrityViolationException;
 	
 	public String accountActivation(String activation_key);
+	public int UpdateAccountAuthority(String account_id);
 	
 	public Member getMemberToActivationKey(String activation_key);
 	public Member getMemberToAccount_id(String account_id);

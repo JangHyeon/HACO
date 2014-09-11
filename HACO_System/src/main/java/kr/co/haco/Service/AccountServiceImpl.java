@@ -100,6 +100,12 @@ public class AccountServiceImpl implements AccountService {
 			return "noChange";
 		}
 	}
+	
+	@Override
+	public int UpdateAccountAuthority(String account_id){
+		return sqlSession.getMapper(AccountDAO.class).UpdateAccountAuthority(account_id);
+		
+	};
 
 	@Override
 	public Member getMemberToActivationKey(String activation_key) {

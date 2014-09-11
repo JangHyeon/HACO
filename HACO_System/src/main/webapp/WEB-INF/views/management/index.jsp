@@ -251,7 +251,7 @@
 		                      				<c:otherwise>${regTime}일 전</c:otherwise>
 		                      				</c:choose>
 		                      			</muted><br/>
-		                      		   <a href="#">${employeeNotice.name_kor}</a> <a class="NOTIFICATIONS-title" href="${pageContext.request.contextPath}/management/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${employeeNotice.notice_id}">${employeeNotice.title}</a><br/>
+		                      		   <a>${employeeNotice.name_kor}</a> <a class="NOTIFICATIONS-title" href="${pageContext.request.contextPath}/management/noticeView/pageSize/${pageSize}/pageNum/${pageNum}/searchType/${searchType}/searchKey/${searchKey}/noticeId/${employeeNotice.notice_id}">${employeeNotice.title}</a><br/>
 		                      		</p>
 		                      	</div>
 		                      </div>
