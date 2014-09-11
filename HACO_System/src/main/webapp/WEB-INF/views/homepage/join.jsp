@@ -12,12 +12,9 @@
 
 <link rel="stylesheet" href="${resourceUrl}/Remodal/jquery.remodal.css">
 
-
-
 <!-- Begin Body -->
 <div class="container">
 	<div class="no-gutter row">
-		
 		<!-- content column-->
 		<div class="col-xs-12 col-sm-12 col-md-10 col-md-offset-1 panel" id="joinform">
 			<div class="page-header">

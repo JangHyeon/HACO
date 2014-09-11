@@ -49,7 +49,6 @@
 	
 	  <div id="login-page">
 	  	<div class="container">
-	  	
 		      <form class="form-login" action="${pageContext.request.contextPath}/LoginProcessing" method="post">
 		        <h2 class="form-login-heading">Login now</h2>
 		        <div class="login-wrap">
