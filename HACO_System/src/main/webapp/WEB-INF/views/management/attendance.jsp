@@ -140,6 +140,9 @@ td[name=sun] {
 td[name=sun]:hover {
 	color: #FFF;
 }
+.dropdown-menu > li{
+	cursor: pointer;
+}
 </style>
 
 <input id="current-accordion" type="hidden" value="attendance" />
@@ -337,13 +340,13 @@ td[name=sun]:hover {
 	$(document).ready(function() {
 
 		$('#years>li').on('click',function(){
-			$('#years>span:first-child').text($('a',this).text());
+			$('#selectYear').text($('a',this).text());
 			$('#cmbYear').val($(this).attr('value'));
 			cmbYear_onchange();
 		});
 
 		$('#months>li').on('click',function(){
-			$('#months>span:first-child').text($('a',this).text());
+			$('#selectMonth').text($('a',this).text());
 			$('#cmbMonth').val($(this).attr('value'));
 			cmbYear_onchange();
 		});
