@@ -327,9 +327,7 @@
     <!--script for this page-->    
 	<script src="${resourceUrl}/assets/js/zabuto_calendar.js"></script>	
 	<script src="${resourceUrl}/assets/js/chart-master/Chart.min.js"></script>
-	
-	<script src="${resourceUrl}/js/managemnetIndex.js"></script>
-	
+		
 	<script src="${resourceUrl}/svg.clock.js-master/lib/svg.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${resourceUrl}/svg.clock.js-master/lib/svg.easing.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${resourceUrl}/svg.clock.js-master/svg.clock.min.js" type="text/javascript" charset="utf-8"></script>
@@ -338,5 +336,8 @@
 	</script>
 	<script src="${resourceUrl}/simpleWeather/jquery.simpleWeather.min.js" type="text/javascript" charset="utf-8"></script>
 	<script src="${resourceUrl}/simpleWeather/simpleWeather.js" type="text/javascript" charset="utf-8"></script>
+	
+	<script src="${resourceUrl}/js/managemnetIndex.js"></script>
+
 	
 	

@@ -159,6 +159,9 @@
                              	</c:forEach>
                               </tbody>
                           </table>
+                          <c:if test="${empty getstudentlist || empty getstudentlist[0]}">
+								<h3 style="margin: 80px auto; text-align: center;">수강생이 없습니다...</h3>
+						  </c:if>
                           <s:authorize ifAnyGranted="MASTER,CENTER,MANAGER">
                           <div class="btn-group submitBtn">
 							<button id="submitBtn" class="btn btn-large btn-block btn-success joinbtn" type="button">출석 갱신하기</button>

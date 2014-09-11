@@ -40,15 +40,15 @@ insert into account(state_code,id,password) values(1,'hd','1004');
 
 
 insert into employee(account_id,name_kor,name_eng,gender,join_date,join_center_id,resident_registration_num1,resident_registration_num2,now_center_id,phone_cell)
-values(1,'운영자','Admin','M',now(),1,121212,212121,1'010-111-1111');
+values(1,'운영자','Admin','M',now(),1,121212,212121,1,'010-111-1111');
 insert into employee(account_id,name_kor,name_eng,gender,join_date,join_center_id,resident_registration_num1,resident_registration_num2,now_center_id,phone_cell)
-values(2,'박효상','Admin','M',now(),1,121212,212121,1'010-111-1111');
+values(2,'박효상','Admin','M',now(),1,121212,212121,1,'010-111-1111');
 insert into employee(account_id,name_kor,name_eng,gender,join_date,join_center_id,resident_registration_num1,resident_registration_num2,now_center_id,phone_cell)
-values(3,'김장현','Admin','M',now(),1,121212,212121,1'010-111-1111');
+values(3,'김장현','Admin','M',now(),1,121212,212121,1,'010-111-1111');
 insert into employee(account_id,name_kor,name_eng,gender,join_date,join_center_id,resident_registration_num1,resident_registration_num2,now_center_id,phone_cell)
-values(4,'정은누나','Admin','M',now(),1,121212,212121,1'010-111-1111');
+values(4,'정은누나','Admin','M',now(),1,121212,212121,1,'010-111-1111');
 insert into employee(account_id,name_kor,name_eng,gender,join_date,join_center_id,resident_registration_num1,resident_registration_num2,now_center_id,phone_cell)
-values(5,'호동','Admin','M',now(),1,121212,212121,1'010-111-1111');
+values(5,'호동','Admin','M',now(),1,121212,212121,1,'010-111-1111');
 
 insert into authority values('1','MASTER');
 insert into authority values('2','MASTER');

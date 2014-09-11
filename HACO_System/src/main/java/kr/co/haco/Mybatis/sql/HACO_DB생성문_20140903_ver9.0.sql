@@ -308,3 +308,6 @@ CREATE TABLE `eval_question_answer` (
   CONSTRAINT `FK_eval_question_answer_question_id` FOREIGN KEY (`question_id`) REFERENCES `eval_question` (`question_id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='주관식평가문합답변';
 
+
+
+alter table center_classroom add `state` int(11) DEFAULT '1' COMMENT '1 공개글 0 삭제글';
