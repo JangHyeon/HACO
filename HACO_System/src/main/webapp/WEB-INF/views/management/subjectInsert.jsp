@@ -64,6 +64,7 @@
 									<input type="text" class="form-control" name="location"
 									id="location" value="${getAccountId.location}" disabled="disabled">
 								</c:forEach>
+								
 							</div>
 						</div>
 					

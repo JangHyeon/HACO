@@ -52,7 +52,9 @@
                       <ul class="sub">
                           <li name="subjectRegister"><a  href="${pageContext.request.contextPath}/management/subjectRegister">과목등록</a></li>
                           <li name="courseRegister"><a  href="${pageContext.request.contextPath}/management/courseRegister">과정등록</a></li>
+                          <s:authorize ifAnyGranted="MASTER,CENTER">
                           <li name="centerRegister"><a  href="${pageContext.request.contextPath}/management/centerRegister">교육센터</a></li>
+                          </s:authorize>`
                       </ul>
                   </li>
 				
@@ -108,7 +110,9 @@
                           <span>직원 조회</span>
                       </a>
                       <ul class="sub">
-                          <li name="center"><a  href="${pageContext.request.contextPath}/management/center">센터장</a></li>                          
+                      	  <s:authorize ifAnyGranted="MASTER,CENTER">
+                          <li name="center"><a  href="${pageContext.request.contextPath}/management/center">센터장</a></li>
+                          </s:authorize>                          
                           <li name="teacher"><a  href="${pageContext.request.contextPath}/management/teacher">강사</a></li>
                           <li name="manager"><a  href="${pageContext.request.contextPath}/management/manager">관리직원</a></li>
                       </ul>

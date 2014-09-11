@@ -140,7 +140,7 @@
 			        },
 			        series: [{
 			            type: 'pie',
-			            name: 'Browser share',
+			            name: 'Selection share',
 			            data: resultData
 			        }]
 			    });
