@@ -114,6 +114,7 @@ public class ManagementServiceImpl implements ManagementService {
 		//최신 직원 공지사항5개
 		Notice notice = new Notice();
 		notice.setState_code(77);
+		notice.setCenter_id(1);
 		notice.setPageSize(5);
 		notice.setPageNum(1);
 		map.put("newEmployeeNoticeList", sqlSession.getMapper(HomepageDAO.class).getEmployeeNoticeList(notice));
