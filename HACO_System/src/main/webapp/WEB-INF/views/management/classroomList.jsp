@@ -86,6 +86,11 @@
 									</c:forEach>
 								</tbody>
 							</table>
+							
+					<c:if test="${empty Classroom || empty Classroom[0]}">
+						<h3 style="margin: 80px auto; text-align: center;">강의실이 없습니다...</h3>
+					</c:if>
+							
 						</div>
 					</div>
 				</div>

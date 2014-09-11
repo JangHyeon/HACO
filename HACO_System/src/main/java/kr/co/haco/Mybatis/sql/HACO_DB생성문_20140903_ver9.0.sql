@@ -311,3 +311,4 @@ CREATE TABLE `eval_question_answer` (
 
 
 alter table center_classroom add `state` int(11) DEFAULT '1' COMMENT '1 공개글 0 삭제글';
+alter table subject modify `subject_name` varchar(100) not null COMMENT '과목명';

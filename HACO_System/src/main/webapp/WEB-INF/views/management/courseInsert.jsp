@@ -298,8 +298,8 @@
 						alert("과정명을 입력하세요.");
 						$('#course_name').focus();
 						return false;
-					} else if ($('#course_name').val().length >= 20) {
-						alert("50자이내로 입력하세요.");
+					} else if ($('#course_name').val().length >= 50) {
+						alert("과정명은 50자이내로 입력하세요.");
 						$('#course_name').focus();
 						return false;
 					}$(window).off('beforeunload');

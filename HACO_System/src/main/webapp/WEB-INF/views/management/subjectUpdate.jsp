@@ -273,8 +273,8 @@ $(document).ready(function(){
 			$('#subject_name').focus();
 			return false;
 		}
-		else if($('#subject_name').val().length>20){
-			alert("과목명은 20자 이하로 입력하세요.");
+		else if($('#subject_name').val().length>100){
+			alert("과목명은 100자 이하로 입력하세요.");
 			$('#subject_name').focus();
 			return false;
 		}

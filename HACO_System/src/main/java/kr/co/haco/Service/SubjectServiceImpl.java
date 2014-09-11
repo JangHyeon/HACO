@@ -34,9 +34,7 @@ public class SubjectServiceImpl implements SubjectService {
 	@Override
 		public int insertSubject(Subject subject, String start, String end) {
 		
-		
-
-		subject.setCapacity(Integer.parseInt(subject.getLecture_totalday_String().replace(",", "")));
+		subject.setCapacity(Integer.parseInt(subject.getCapacity_String().replace(",", "")));
 		subject.setLecture_totalday(Integer.parseInt(subject.getLecture_totalday_String().replace(",", "")));
 		subject.setTuition_fee(Integer.parseInt(subject.getTuition_fee_String().replace(",", "")));
 		 
@@ -51,8 +49,7 @@ public class SubjectServiceImpl implements SubjectService {
                subject.getInstructional_objectives(),
                subject.getSubject_point(), subject.getLecture_target(),
                subject.getLecture_totalday(), subject.getTuition_fee(),
-               subject.getLecture_content(), subject.getCenter_id(), start1,
-               end1, time3 / 3600);
+               subject.getLecture_content(), subject.getCenter_id(), start1, end1, time3 / 3600);
 		return sqlSession.getMapper(SubjectDAO.class).insertSubject(subject2);
 	}
 	

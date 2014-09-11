@@ -78,8 +78,8 @@
 							<label class="col-md-2 col-sm-2 control-label">정원</label>
 							<div class="col-md-4 col-sm-4">
 								<div class="input-group">
-									<input type="text" class="form-control" name="capacity_String" placeholder="최대 100"
-										id="capacity_String" style="ime-mode: disabled">
+									<input type="text" class="form-control" name="capacity_String" 
+										id="capacity_String" style="text-align:right">
 										<span class="input-group-addon">명</span>
 								</div>
 							</div>
@@ -91,7 +91,7 @@
 								
 								<div class="input-group">
 									<input type="text" class="form-control" name="lecture_totalday_String"
-										id="lecture_totalday_String" style="ime-mode: disabled">
+										id="lecture_totalday_String" style="text-align:right">
 									<span class="input-group-addon">일</span>
 								</div>
 							</div>
@@ -280,8 +280,8 @@ $(document).ready(function() {
 			alert("과목명을 입력하세요.");
 			$('#subject_name').focus();
 			return false;
-		} else if ($('#subject_name').val().length > 20) {
-			alert("과목명은 20자 이하로 입력하세요.");
+		} else if ($('#subject_name').val().length > 100) {
+			alert("과목명은 100자 이하로 입력하세요.");
 			$('#subject_name').focus();
 			return false;
 		}
@@ -320,16 +320,6 @@ $(document).ready(function() {
 		if ($('#tuition_fee_String').val() == "") {
 			alert("수강료를 입력하세요.");
 			$('#tuition_fee_String').focus();
-			return false;
-		}
-		/*과목명 예외처리 */
-		if ($('#subject_name').val() == "") {
-			alert("과목명을 입력하세요.");
-			$('#subject_name').focus();
-			return false;
-		} else if ($('#subject_name').val().length > 20) {
-			alert("과목명은 20자 이하로 입력하세요.");
-			$('#subject_name').focus();
 			return false;
 		}
 

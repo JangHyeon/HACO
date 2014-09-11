@@ -52,7 +52,7 @@ public class EmailSender {
 		message.setSubject(subject);
 		message.setText(mailText, "utf-8", "html");
 		mailSender.send(message);
-
+		System.out.println("/////////////////////////////////mail sss");
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -60,7 +60,7 @@ public class EmailSender {
 
 	}
 	
-	@Async
+	//@Async
 	public void SendEmail(String from, String to, String subject, Map<String, Object> model, String formUrl)
 			throws FileNotFoundException, URISyntaxException {
 
@@ -75,14 +75,14 @@ public class EmailSender {
 		mailText = VelocityEngineUtils.mergeTemplateIntoString(
 					velocityConfig.getVelocityEngine(), formUrl, "utf-8", model);
 		
-
+		
 		try {
 		message.setFrom(new InternetAddress(from));
 		message.addRecipient(RecipientType.TO, new InternetAddress(to)); //받는 사람 타입 TO, CC, BCC
 		message.setSubject(subject);
 		message.setText(mailText, "utf-8", "html");
-		mailSender.send(message);
 
+		mailSender.send(message);
 		} catch (MessagingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

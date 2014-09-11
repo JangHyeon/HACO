@@ -98,6 +98,10 @@
 
 					</table>
 
+					<c:if test="${empty CourseList || empty CourseList[0]}">
+						<h3 style="margin: 80px auto; text-align: center;">결과가 없습니다...</h3>
+					</c:if>
+
 					<div class="table-footer">
 
 						<div class="col-xs-12">

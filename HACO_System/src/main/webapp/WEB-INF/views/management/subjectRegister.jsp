@@ -103,7 +103,10 @@
 						</tbody>
 
 					</table>
-					<%--test:${pageContext.request.contextPath}  --%>
+					
+					<c:if test="${empty SubjectList || empty SubjectList[0]}">
+						<h3 style="margin: 80px auto; text-align: center;">등록된 데이터가 없습니다...</h3>
+					</c:if>
 
 
 					<div class="table-footer">
