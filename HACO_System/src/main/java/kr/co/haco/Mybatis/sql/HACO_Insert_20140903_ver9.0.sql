@@ -100,3 +100,11 @@ INSERT INTO code_job VALUES(1,'강사');
 INSERT INTO code_job VALUES(2,'관리직원');
 INSERT INTO code_job VALUES(3,'센터장');
 INSERT INTO code_job VALUES(4,'본점장');
+
+
+-- 기본 설정값
+insert into upload_file(file_type,board_name,orign_file,save_file,filesize) values('images','/employeePhoto','sampleImages.jpg','sampleImage.jpg',300000000);
+insert into upload_file(file_type,board_name,orign_file,save_file,filesize) values('File','/board/notice','sampleFile.zip','sampleFile.zip',600000000);
+
+
+
