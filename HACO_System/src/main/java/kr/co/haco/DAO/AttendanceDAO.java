@@ -3,7 +3,6 @@ package kr.co.haco.DAO;
 import java.util.HashMap;
 import java.util.List;
 
-import kr.co.haco.VO.Attendance;
 import kr.co.haco.VO.AttendanceMember;
 import kr.co.haco.VO.AttendanceOpenCourse;
 

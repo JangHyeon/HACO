@@ -4,11 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 
 import kr.co.haco.VO.LectureRegisterList;
-import kr.co.haco.VO.OpenCourse;
 import kr.co.haco.VO.OpenCourseList;
-import kr.co.haco.VO.Student;
 import kr.co.haco.VO.Subject;
-import kr.co.haco.VO.Teacher;
 
 public interface LectureRegisterService {
 	public List<OpenCourseList> getopencourselist(HashMap<String, Object> map);

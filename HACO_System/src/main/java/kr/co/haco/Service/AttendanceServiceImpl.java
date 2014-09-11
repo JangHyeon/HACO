@@ -1,11 +1,9 @@
 package kr.co.haco.Service;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
 import kr.co.haco.DAO.AttendanceDAO;
-import kr.co.haco.VO.Attendance;
 import kr.co.haco.VO.AttendanceMember;
 import kr.co.haco.VO.AttendanceOpenCourse;
 

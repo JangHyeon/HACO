@@ -16,6 +16,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
 	
 	private static final Logger logger = LoggerFactory.getLogger(LoginFailureHandler.class);
 	
+	@SuppressWarnings("deprecation")
 	public void onAuthenticationFailure(HttpServletRequest request,
 			HttpServletResponse response, AuthenticationException auth)
 			throws IOException, ServletException {

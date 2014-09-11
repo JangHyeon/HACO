@@ -1,8 +1,5 @@
 package kr.co.haco.VO;
 
-import java.util.List;
-
-
 public class Attendance {
 	private int lecture_register_id;
 	private int attendance_code;

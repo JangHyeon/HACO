@@ -2,7 +2,6 @@ package kr.co.haco.Service;
 
 import java.util.List;
 
-import kr.co.haco.VO.MemberOfAcademy;
 import kr.co.haco.VO.OpenCourse;
 
 import org.springframework.ui.Model;

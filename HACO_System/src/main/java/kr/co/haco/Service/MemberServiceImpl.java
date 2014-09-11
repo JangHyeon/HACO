@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Map;
 
 import kr.co.haco.DAO.MemberDAO;
-import kr.co.haco.VO.EvaluationRegisterForm;
 import kr.co.haco.VO.Member;
 import kr.co.haco.VO.MemberOfAcademy;
 import kr.co.haco.VO.OpenCourse;

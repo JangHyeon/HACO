@@ -23,9 +23,7 @@ $(document).ready(function () {
                 {type: "block", label: "Regular event", }
             ]
         });
-    });
 
-$(function(){
 	var today = new Date();
 	
 	$('[data-name="now"]').text(today.toDateString());

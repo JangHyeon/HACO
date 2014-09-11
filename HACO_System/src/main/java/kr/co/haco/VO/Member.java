@@ -1,6 +1,5 @@
 package kr.co.haco.VO;
 
-import java.sql.Date;
 import java.sql.Timestamp;
 
 public class Member {
