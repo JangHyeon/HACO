@@ -253,6 +253,13 @@ public class HomepageServiceImpl implements HomepageService {
 			//회원
 			Member member =(Member)session.getAttribute("member");
 			
+
+			if(notice.getState_code()==0){
+				notice.setError("학생이 직원페이지에 교묘하게 접근");
+				return notice;
+			}
+			
+			
 			//학생인경우 교육센터 정보 조회
 			List<Integer> resultCenterId = sqlSession.getMapper(HomepageDAO.class).getLectureRegisterByMember(member.getAccount_id());
 
@@ -273,6 +280,7 @@ public class HomepageServiceImpl implements HomepageService {
 				notice.setError("다른센터 학생이 교묘하게 접근");
 				return notice;
 			}
+
 			
 		}else if(session.getAttribute("employee")!=null){
 			//직원(비밀공지)

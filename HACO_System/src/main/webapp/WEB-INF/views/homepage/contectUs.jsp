@@ -252,7 +252,6 @@
 	   			var newmarker = new google.maps.Marker({ 
 	   			   position: latlng, 
 	   			   map: map,
-	   			   icon: image,
 	   			   title: 'HACO Academy 유스페이스 B2 8F'
 	   			});
 	   			
